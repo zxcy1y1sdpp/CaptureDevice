@@ -1,0 +1,147 @@
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <!--</style>-->
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/wechatTitleBar</item>
+        <item name="colorPrimaryDark">@color/wechatTitleBar</item>
+        <item name="colorAccent">@color/wechatTitleBar</item>
+    </style>
+
+    <style name="AppTheme.Main" parent="AppTheme" />
+
+    <style name="SplashTheme" parent="NotitleTheme">
+        <item name="android:windowBackground">@drawable/logo_splash</item>
+    </style>
+    <style name="NotitleTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="wechatTextSameSize">
+        <item name="android:textSize">@dimen/wechatNormalTextSize</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="wechat_my_wallet_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginRight">@dimen/wechatLineNarrow</item>
+        <item name="android:layout_marginTop">@dimen/wechatLineNarrow</item>
+    </style>
+    <style name="dialog_blue_button" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:background">@drawable/blue_button_background</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/float_transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="ChangeRoleDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimEnabled">true</item><!--activity不变暗-->
+        <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <!--左侧的标题-->
+    <style name="wechatLeftTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/wechatNormalTextSize</item>
+        <item name="android:textColor">@color/wechat_deep_text_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <!--右侧带箭头的文字-->
+    <style name="wechatRightWithArrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/wechatNormalTextSize</item>
+        <item name="android:textColor">@color/wechat_deep2_text_color</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:drawableRight">@mipmap/right_arrow</item>
+        <item name="android:drawablePadding">@dimen/normalPadding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="wechatTwoBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">60dp</item>
+    </style>
+
+    <!--生成微信之前的条目属性-->
+    <style name="wechatItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/normalPadding</item>
+        <item name="android:background">@color/white</item>
+        <item name="layout_heightPercent">17%w</item>
+        <item name="android:layout_marginTop">@dimen/wechatLineNarrow</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <!--生成微信 右侧的单个箭头-->
+    <style name="wechatRightArrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/normalPadding</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@mipmap/right_arrow</item>
+        <item name="android:padding">@dimen/normalPadding</item>
+    </style>
+    <!--生成微信之前的输入框-->
+    <style name="wechatEdit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/wechat_deep3_text_color</item>
+        <item name="android:textColor">@color/wechat_deep_text_color</item>
+        <item name="android:background">@color/white</item>
+        <item name="layout_heightPercent">17%w</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">@dimen/wechatLineNarrow</item>
+        <item name="android:textSize">@dimen/wechatNormalTextSize</item>
+    </style>
+
+    <!--app中我的页面的条目属性-->
+    <style name="overallMyItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/wechatLineNarrow</item>
+        <item name="android:padding">@dimen/normalPadding</item>
+        <item name="layout_heightPercent">11.7%w</item>
+    </style>
+
+    <style name="overallLeftTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawablePadding">@dimen/normalPadding</item>
+        <item name="android:textColor">@color/overallTextColor</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include
+        layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            android:text="选择类型"
+            style="@style/wechatLeftTitle"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/mReciveMoneyTv"
+            android:text="收钱"
+            android:background="@drawable/blue_round_cornor"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/mSendMoneyTv"
+            style="@style/wechatTwoBtn" />
+        <TextView
+            android:id="@+id/mSendMoneyTv"
+            android:text="转出"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/mMoneyEt"
+        android:hint="转账金额（元）"
+        style="@style/wechatEdit"
+        android:padding="@dimen/normalPadding"
+        android:inputType="number"/>
+
+    <RelativeLayout
+        android:id="@+id/mNickNameLayout"
+        style="@style/wechatItem"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/mNickNameEt"
+            android:hint="对方昵称"
+            style="@style/wechatEdit"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/mRefreshIv" />
+        <ImageView
+            android:id="@+id/mRefreshIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/wechat_refresh"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/normalPadding"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mStatusLayout"
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="转账状态"/>
+
+        <TextView
+            android:id="@+id/mStatusTv"
+            style="@style/wechatRightWithArrow"
+            android:text="已收钱" />
+    </RelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mTransferOutTimeLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="转账时间"
+            style="@style/wechatLeftTitle" />
+
+        <TextView
+            android:id="@+id/mTransferOutTimeTv"
+            style="@style/wechatRightWithArrow" />
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mReceiveTimeLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="收钱时间"
+            style="@style/wechatLeftTitle" />
+
+        <TextView
+            android:id="@+id/mReceiveTimeTv"
+            style="@style/wechatRightWithArrow" />
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_wechat_preview_btn"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

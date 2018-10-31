@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/normalPadding">
+<ImageView
+    android:id="@+id/lessonPicIv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    percent:layout_heightPercent="16.2%w"
+    percent:layout_widthPercent="27.2%w"
+    android:layout_marginRight="@dimen/normalPadding"
+    android:src="@mipmap/icon1"
+    android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/lessonTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="【第一课】系统的威力"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/lessonPicIv"
+        android:textColor="@color/overallTextColor"
+        android:textSize="@dimen/overallNormal1"/>
+    <TextView
+        android:id="@+id/lessonContentTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您知道什么是“互联网营销吗？”爱上了对方可结案啥来的快放假萨拉开的房间辣速度快解放啦深刻的积分"
+        android:lines="2"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/lessonPicIv"
+        android:layout_alignBottom="@+id/lessonPicIv"
+        android:textColor="@color/overallTextColor"
+        android:textSize="@dimen/overallNormal2"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

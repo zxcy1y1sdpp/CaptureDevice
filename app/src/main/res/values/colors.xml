@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wechatTitleBar">#303030</color>
+    <color name="wechat_deep_text_color">#282828</color>
+    <color name="wechat_deep2_text_color">#585858</color>
+    <color name="wechat_deep3_text_color">#A3A7AE</color>
+    <color name="wechatBg">#F2F2F2</color>
+    <color name="wechatGray">#656565</color>
+    <color name="wechatVoiceGray">#B0B0B0</color>
+    <color name="wechat_talk_time_bg">#CBCBCB</color>
+    <!--微信红包未被领取的颜色-->
+    <color name="wechat_redpacket_bg">#F89C46</color>
+    <!--微信红包已经被领取的颜色-->
+    <color name="wechat_redpacket_receive_bg">#FECF9F</color>
+    <color name="gray2">#878787</color>
+    <!--微信生成预览的按钮颜色-->
+    <color name="wechatGreen">#16AD1B</color>
+    <!--不可点击的颜色-->
+    <color name="wechatGreenNot">#80D57D</color>
+    <!--微信生成预览的按钮颜色-->
+    <color name="wechatBlue">#3182FF</color>
+    <color name="wechatBlueShalow">#2D416A</color>
+    <!--微信红包预览中标题上的字体颜色-->
+    <color name="wechatPreviewTitle">#F2F8B7</color>
+    <color name="wechatPreviewTitleLayout">#DA5A41</color>
+    <color name="wechatListGreen">#1AB20A</color>
+    <color name="wechatMyWallet">#686f79</color>
+
+    <!--普通的颜色-->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="translucent">#00000000</color>
+    <color name="tab_text_normal">#212121</color>
+    <color name="float_transparent">#00000000</color>
+    <color name="trans_success_stroke_color">#33A5DC86</color>
+    <color name="error_stroke_color">#F27474</color>
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+    <color name="blue_btn_bg_color">#AEDEF4</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+    <color name="gray_btn_bg_color">#D0D0D0</color>
+    <color name="success_stroke_color">#A5DC86</color>
+    <color name="warning_stroke_color">#F8BB86</color>
+    <color name="red_btn_bg_color">#DD6B55</color>
+    <color name="red_btn_bg_pressed_color">#CD5B55</color>
+    <color name="app_black">#333333</color>
+
+    <!--overall 全局的颜色 -->
+    <color name="overallTextColor">#333333</color>
+    <color name="overallBlue">#2F80EC</color>
+    <color name="overallGreen">#3CCA3F</color>
+    <color name="overallGray">#969496</color>
+    <color name="overallBg">#F7F7F7</color>
+    <color name="inviteRed">#D53632</color>
+
+</resources>

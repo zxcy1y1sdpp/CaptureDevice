@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <Button
+        android:id="@+id/wechatAddItemBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/overall_blue_circular"
+        percent:layout_widthPercent="44.6%w"
+        percent:layout_heightPercent="10.9%w"
+        percent:layout_marginTopPercent="2.9%w"
+        percent:layout_marginBottomPercent="2.9%w"
+        percent:layout_marginRightPercent="2.6%w"
+        percent:layout_marginLeftPercent="4.3%w"
+        android:text="添加记录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/overallNormal2"/>
+    <Button
+        android:id="@+id/wechatPreviewBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/overall_green_circular"
+        percent:layout_widthPercent="44.6%w"
+        percent:layout_heightPercent="10.9%w"
+        android:text="生成预览"
+        android:textColor="@color/white"
+        android:textSize="@dimen/overallNormal2"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/wechatBg">
+
+    <TextView
+        android:id="@+id/getMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已收钱"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/wechat_deep_text_color"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:tag="已收钱"/>
+    <TextView
+        android:id="@+id/notGetMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="待收款"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/wechatLineNarrow"
+        android:textColor="@color/wechat_deep_text_color"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:tag="待收款"/>
+    <TextView
+        android:id="@+id/giveMoneyBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="已退款"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/wechatLineNarrow"
+        android:textColor="@color/wechat_deep_text_color"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:tag="已退款"/>
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="取消"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:textColor="@color/wechat_deep_text_color"
+        android:textSize="@dimen/wechatNormalTextSize"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/avatarIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon0"
+        app:layout_heightPercent="14%w"
+        app:layout_widthPercent="14%w"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_margin="@dimen/normalPadding"/>
+
+    <TextView
+        android:id="@+id/nickNameTv"
+        android:text="阿畅asdfasdfkjasldlkasdjfl离开静安寺的法拉开始的减肥了"
+        app:layout_heightPercent="7%w"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/avatarIv"
+        style="@style/wechatTextSameSize"
+        android:layout_toLeftOf="@+id/timeTv"
+        android:ellipsize="end"
+        android:lines="1"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:textColor="@color/wechat_deep_text_color"/>
+    <TextView
+        android:id="@+id/lastMsgTv"
+        android:text="技对方拉斯科技对方拉斯科技对方拉斯科技对方拉斯科技对方拉斯科技对方"
+        app:layout_heightPercent="7%w"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/avatarIv"
+        style="@style/wechatTextSameSize"
+        android:ellipsize="end"
+        android:lines="1"
+        android:layout_alignBottom="@+id/avatarIv"
+        android:layout_below="@+id/nickNameTv"
+        android:textSize="@dimen/wechatLittleTextSize"/>
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="2018/1/1"
+        app:layout_heightPercent="7%w"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:textSize="@dimen/wechatLittle2TextSize"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/wechatBg"
+        android:layout_below="@+id/avatarIv"/>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

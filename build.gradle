@@ -1,0 +1,56 @@
+buildscript {
+    ext.kotlin_version = '1.1.2-4'
+    repositories {
+        jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        /**上线*/
+//        classpath 'com.dongnao.optimizer:optimizer-picture:2.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        google()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+def supportVersion = "27.1.0"
+ext {
+    /**
+     * Version相关
+     */
+    /******************************** 上线前需要修改的地方 Begin *****************************************/
+    versionCode = 1
+    versionName = "1.0.0"
+    /**
+     * Sdk and tools
+     */
+    minSdkVersion = 21
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    buildToolsVersion = "27.1.0"
+
+    /**
+     * App Dependencies
+     */
+    supportLibraryVersion = '27.1.0'
+
+    /**
+     * supportLibrarys
+     */
+    supportAppcompat = "com.android.support:appcompat-v7:${supportVersion}"
+    supportDesign = "com.android.support:design:${supportVersion}"
+    supportCardView = "com.android.support:cardview-v7:${supportVersion}"
+    supportRecyclerView = "com.android.support:recyclerview-v7:${supportVersion}"
+}

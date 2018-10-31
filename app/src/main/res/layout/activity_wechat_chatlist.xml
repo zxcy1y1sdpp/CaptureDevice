@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/wechatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="14%w"
+        android:background="@color/wechatTitleBar">
+        <TextView
+            android:id="@+id/wechatTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/mAddObjectIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"
+            android:adjustViewBounds="true"/>
+        <ImageView
+            android:id="@+id/wechatsearchIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"
+            android:layout_toLeftOf="@+id/wechatTitleRightTv"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <FrameLayout
+        android:id="@+id/mWechatFragments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mMainTabBar"
+        android:layout_below="@+id/wechatLayout"/>
+    <dasheng.com.capturedevice.widget.MainNavigateTabBar
+        android:id="@+id/mMainTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="14%w"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        app:containerId="@+id/mWechatFragments"
+        app:navigateTabSelectedTextColor="@color/wechatListGreen"
+        app:navigateTabTextColor="@color/wechat_deep2_text_color"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

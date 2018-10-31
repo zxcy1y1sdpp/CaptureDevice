@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/wechatBg">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/wechatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        percent:layout_heightPercent="13.2%w"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/wechatTitleLeftIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_back_black"
+            percent:layout_marginLeftPercent="4.1%w"/>
+        <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+            android:id="@+id/wechatTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            percent:layout_marginLeftPercent="4.3%w"
+            android:text="零钱"
+            android:textColor="@color/wechat_deep_text_color"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/wechatTitleLeftIv"
+            android:layout_alignTop="@+id/wechatTitleLeftIv"
+            android:layout_alignBottom="@+id/wechatTitleLeftIv"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/wechatChangeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="零钱明细"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/wechatTitleLeftIv"
+            android:layout_alignBottom="@+id/wechatTitleLeftIv"
+            android:gravity="center"
+            android:textColor="@color/wechat_deep_text_color"
+            percent:layout_marginRightPercent="4.5%w"
+            android:textSize="@dimen/wechatLittleTextSize"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_change"
+            percent:layout_marginTopPercent="20.7%w"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的零钱"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_marginTopPercent="3.5%w"
+            android:textColor="@color/wechat_deep_text_color"/>
+
+        <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+            android:id="@+id/mMoneyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥2.78"
+            percent:layout_marginTopPercent="4.6%w"
+            android:textSize="@dimen/wechatMoneyTextSize"
+            android:textColor="@color/wechat_deep_text_color"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/test1"
+            percent:layout_marginTopPercent="9.6%w"
+            percent:layout_heightPercent="12.9%w"
+            percent:layout_widthPercent="92.2%w"
+            android:scaleType="fitXY"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_change_bg2"
+            percent:layout_marginTopPercent="4%w"
+            percent:layout_heightPercent="12.9%w"
+            percent:layout_widthPercent="92.2%w"
+            percent:layout_marginBottomPercent="9.5%w"
+            android:scaleType="fitXY"/>
+        <!--<Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            percent:layout_heightPercent="12.9%w"
+            percent:layout_marginTopPercent="9.6%w"
+            android:text="充值"
+            android:textColor="@color/white"
+            android:background="@drawable/green_round_cornor"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_widthPercent="92.2%w"/>-->
+        <!--<Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            percent:layout_heightPercent="12.9%w"
+            percent:layout_marginTopPercent="4%w"
+            android:text="提现"
+            android:textColor="@color/wechat_deep_text_color"
+            android:background="@drawable/gray_round_cornor"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_widthPercent="92.2%w"
+            percent:layout_marginBottomPercent="9.5%w" />-->
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/wechatBg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="常见问题"
+            android:textColor="@color/wechatBlueShalow"
+            percent:layout_marginBottomPercent="8%w"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本服务由财付通提供"
+            android:textColor="#ACACAC"
+            percent:layout_marginBottomPercent="2.6%w"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+
+</com.zhy.android.percent.support.PercentLinearLayout>

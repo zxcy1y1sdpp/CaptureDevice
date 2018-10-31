@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/wechatPreviewBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        percent:layout_heightPercent="14%w"
+        android:text="@string/wechatPacketPreview"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/normalPadding"
+        android:background="@drawable/green_round_cornor_no"
+        style="@style/wechatTextSameSize"
+        android:padding="@dimen/normalPadding"
+        android:clickable="false"
+        android:enabled="false"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

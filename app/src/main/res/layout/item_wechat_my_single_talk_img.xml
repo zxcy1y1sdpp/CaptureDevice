@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/normalPadding">
+
+    <ImageView
+        android:id="@+id/wechatMyAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="10%w"
+        app:layout_widthPercent="10%w"
+        android:layout_margin="@dimen/normalPadding"
+        android:layout_alignParentRight="true"/>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/wechatMyIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:riv_corner_radius="5dip"
+        android:src="@mipmap/icon2"
+        android:scaleType="fitStart"
+        android:adjustViewBounds="true"
+        android:layout_toLeftOf="@+id/wechatMyAvatar"
+        android:layout_alignTop="@+id/wechatMyAvatar"/>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

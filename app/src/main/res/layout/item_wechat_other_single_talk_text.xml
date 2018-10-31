@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wechatBg">
+
+    <ImageView
+        android:id="@+id/wechatOtherAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="10%w"
+        app:layout_widthPercent="10%w"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_marginRight="5dp"/>
+
+    <dasheng.com.capturedevice.widget.bubble.BubbleTextView
+        android:id="@+id/wechatOtherTextMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding"
+        android:textColor="@color/wechat_deep_text_color"
+        android:layout_toRightOf="@+id/wechatOtherAvatar"
+        app:arrowWidth="5dp"
+        app:angleTopLeft="8dp"
+        app:angleTopRight="8dp"
+        app:angleBottomRight="8dp"
+        app:angleBottomLeft="8dp"
+        app:arrowHeight="8dp"
+        app:arrowPosition="14dp"
+        app:arrowLocation="left"
+        app:bubbleColor="@color/white"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/wechatOtherAvatar"/>
+
+   <!-- <TextView
+        android:id="@+id/wechatOtherTextMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/wechat_other"
+        android:layout_toRightOf="@+id/wechatOtherAvatar"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:layout_margin="@dimen/normalPadding"
+        android:layout_centerVertical="true"/>-->
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

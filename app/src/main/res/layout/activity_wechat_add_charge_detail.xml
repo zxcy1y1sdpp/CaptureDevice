@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            android:text="收支类型"
+            style="@style/wechatLeftTitle"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/mEarningTv"
+            android:text="收入"
+            android:background="@drawable/blue_round_cornor"
+            android:textColor="@color/white"
+            style="@style/wechatTwoBtn"
+            android:layout_alignBaseline="@+id/mExpenditureTv"
+            android:layout_alignBottom="@+id/mExpenditureTv"
+            android:layout_toStartOf="@+id/mExpenditureTv" />
+        <TextView
+            android:id="@+id/mExpenditureTv"
+            android:text="支出"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mTradingTimeLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="交易时间"
+            style="@style/wechatLeftTitle"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/mTradingTimeTv"
+            android:text="2018-10-28 18:33:12"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_below="@+id/mSelectAvatarLayout"
+        style="@style/wechatItem">
+
+        <EditText
+            android:id="@+id/mTypeTv"
+            android:text="面对面收钱"
+            style="@style/wechatEdit"
+            android:textColorHint="@color/wechat_deep_text_color"
+            android:layout_toLeftOf="@+id/mRefreshIv"/>
+
+        <ImageView
+            android:id="@+id/mRefreshIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_refresh"
+            android:padding="@dimen/normalPadding"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            percent:layout_heightPercent="14%w"
+            percent:layout_widthPercent="14%w"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <EditText
+        android:id="@+id/mDetailMoneyEt"
+        style="@style/wechatEdit"
+        android:hint="金额（元）"
+        android:paddingLeft="@dimen/normalPadding"
+        android:inputType="number"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_title"/>
+    <RelativeLayout
+        android:id="@+id/mClearCacheLayout"
+        style="@style/overallMyItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            style="@style/overallLeftTitle"
+            android:text="清除缓存"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21.00MB"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mWechatNumLayout"
+        style="@style/overallMyItem">
+        <TextView
+            style="@style/overallLeftTitle"
+            android:text="微信公众号"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21.00MB"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mAboutUsLayout"
+        style="@style/overallMyItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            style="@style/overallLeftTitle"
+            android:text="关于我们"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mGiveUsSupportLayout"
+        style="@style/overallMyItem">
+        <TextView
+            style="@style/overallLeftTitle"
+            android:text="写个好评"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="wechatNormalTextSize">18sp</dimen>
+    <dimen name="wechatNormalTextSize2">15sp</dimen>
+    <dimen name="wechatTransferTextSize">20sp</dimen>
+    <dimen name="wechatMoneyTextSize">50sp</dimen>
+    <dimen name="wechatLittleTextSize">13sp</dimen>
+    <dimen name="wechatLittle2TextSize">10sp</dimen>
+    <dimen name="normalPadding">10dp</dimen>
+    <dimen name="normalPadding2">20dp</dimen>
+    <!--页面中小模块之间的间隔-->
+    <dimen name="littleModuleSpace">10dp</dimen>
+    <!--微信模块之间的线条宽度-->
+    <dimen name="wechatLineHeight">1dp</dimen>
+    <!--微信模块之间的线条宽度-->
+    <dimen name="wechatLineNarrow">0.5dp</dimen>
+
+
+    <dimen name="media_grid_size">48dp</dimen>
+    <dimen name="media_grid_spacing">4dp</dimen>
+
+    <dimen name="album_item_height">72dp</dimen>
+    <dimen name="grid_expected_size">120dp</dimen>
+    <dimen name="item_margin_horizontal">24dp</dimen>
+    <dimen name="item_margin_vertical">8dp</dimen>
+
+    <!--sweet-alert-dialog 相关-->
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="normal_text_size">15sp</dimen>
+
+
+
+    <!--App中正常的1号字体-->
+    <dimen name="overallNormal1">20sp</dimen><!--32-->
+    <!--App中正常的2号字体-->
+    <dimen name="overallNormal2">14sp</dimen><!--26-->
+    <!--App中正常的3号字体-->
+    <dimen name="overallNormal3">13sp</dimen><!--24-->
+    <!--App中正常的4号字体-->
+    <dimen name="overallNormal4">10sp</dimen><!--22-->
+</resources>

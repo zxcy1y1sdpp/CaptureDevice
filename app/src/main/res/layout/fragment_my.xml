@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                layout="@layout/include_base_overall_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="20%w"
+                android:background="@color/white">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/mAvatariv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon0"
+                    app:layout_heightPercent="17%w"
+                    app:layout_widthPercent="17%w"
+                    app:riv_border_color="@color/wechatPreviewTitle"
+                    app:riv_oval="true"
+                    app:riv_corner_radius="75dp"
+                    android:scaleType="centerCrop"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/normalPadding"/>
+
+                <TextView
+                    android:id="@+id/mNickNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵称你爹啊"
+                    android:layout_toRightOf="@+id/mAvatariv"
+                    android:textSize="@dimen/overallNormal2"
+                    android:layout_alignTop="@+id/mAvatariv"
+                    app:layout_heightPercent="8%w"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/mIdTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户ID："
+                    android:layout_toRightOf="@+id/mAvatariv"
+                    android:textSize="@dimen/overallNormal4"
+                    android:layout_alignBottom="@+id/mAvatariv"
+                    app:layout_heightPercent="8%w"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="签到送会员"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/blue_solid2"
+                    android:textColor="@color/overallBlue"
+                    android:textSize="@dimen/overallNormal4"
+                    android:layout_margin="@dimen/normalPadding" />
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mOpenVipLayout"
+                style="@style/overallMyItem"
+                android:layout_marginTop="@dimen/normalPadding">
+                <TextView
+                    android:text="开通VIP"
+                    android:drawableLeft="@mipmap/kaitongvip"
+                    style="@style/overallLeftTitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="解锁专属功能"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:gravity="center_vertical"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mOpenShopLayout"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="开通店主"
+                    android:drawableLeft="@mipmap/ktdianzhu"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mInviteLayout"
+                android:layout_marginTop="@dimen/littleModuleSpace"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="邀请有奖"
+                    android:drawableLeft="@mipmap/yqyj"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mCreditLayout"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="微商信用认证"
+                    android:drawableLeft="@mipmap/wsxyrz"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mQQGroupLayout"
+                android:layout_marginTop="@dimen/littleModuleSpace"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="VIP会员QQ群"
+                    android:drawableLeft="@mipmap/qqq"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:text="123456789"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mContactServerLayout"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="联系客服"
+                    android:drawableLeft="@mipmap/lxkf"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mProblemReportLayout"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="问题反馈"
+                    android:drawableLeft="@mipmap/wtfk"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mSettingLayout"
+                style="@style/overallMyItem">
+                <TextView
+                    android:text="设置"
+                    android:drawableLeft="@mipmap/sz"
+                    style="@style/overallLeftTitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@mipmap/right_arrow"
+                    android:drawablePadding="@dimen/normalPadding"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/mExitLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="退出"
+                android:background="@color/white"
+                app:layout_heightPercent="13%w"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </ScrollView>
+</com.zhy.android.percent.support.PercentLinearLayout>

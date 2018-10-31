@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+/**上线*/
+//apply plugin: 'com.dongnao.optimizer'
+/**
+ * kotlin使用
+ */
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+def permissionVersion = "3.3.1"
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "dasheng.com.capturedevice"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            testCoverageEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    /**
+     *  Kotlin 相关
+     */
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    /*kotlin专门封装的一个协程的库*/
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18'
+    /**
+     *  沉浸式状态栏
+     */
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    /**
+     *  Glide相关
+     */
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.android.support:support-annotations:27.1.0'
+    implementation 'com.zhy:percent-support-extends:1.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    implementation 'com.google.code.gson:gson:2.5'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
+    implementation('com.github.hotchemi:permissionsdispatcher:3.3.1') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.3.1'
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+    //图片裁剪库
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    /**
+     *  控件相关
+     */
+    implementation rootProject.ext.supportRecyclerView
+    implementation rootProject.ext.supportAppcompat
+    implementation rootProject.ext.supportDesign
+    implementation rootProject.ext.supportCardView
+    implementation 'com.youth.banner:banner:1.4.10'
+    /*--------------------------------------------Mob相关开始---------------------------------------------*/
+    implementation files('libs/MobCommons-2018.1011.1129.jar')
+    implementation files('libs/MobTools-2018.1009.1056.jar')
+    implementation files('libs/ShareSDK-Core-3.3.0.jar')
+    implementation files('libs/ShareSDK-QQ-3.3.0.jar')
+    implementation files('libs/ShareSDK-QZone-3.3.0.jar')
+    implementation files('libs/ShareSDK-SinaWeibo-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-Core-3.3.0.jar')
+    implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
+    /*--------------------------------------------Mob相关结束---------------------------------------------*/
+    /*侧滑RecyclerView*/
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+}
+//kapt {
+//    generateStubs = true
+//}
+/**
+ * Glide相关
+ */
+repositories {
+    mavenCentral()
+//    google()
+}
