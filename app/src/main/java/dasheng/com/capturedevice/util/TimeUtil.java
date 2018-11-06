@@ -25,13 +25,18 @@ public class TimeUtil {
     public static long getCurrentTimeEndSec(){
         return System.currentTimeMillis() / 1000;
     }
-
     /**
      * 获取当前时间
      * @return
      */
     public static String getNowTime(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date curDate = new Date(System.currentTimeMillis());
+        String time = formatter.format(curDate);
+        return time;
+    }
+    public static String getNowTimeWithYMD(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date curDate = new Date(System.currentTimeMillis());
         String time = formatter.format(curDate);
         return time;

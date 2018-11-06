@@ -57,10 +57,10 @@ class WechatAddChargeDetailActivity : BaseWechatActivity() {
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
-        mEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatChargeDetailEntity
-        if (null == mEntity){
+        if (null == intent.extras){
             sureTv.text = "确定"
         }else{
+            mEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatChargeDetailEntity
             sureTv.text = "修改"
             mTypeTv.setText(mEntity.name)
             mType = mEntity.type.toInt()
@@ -72,6 +72,7 @@ class WechatAddChargeDetailActivity : BaseWechatActivity() {
             mTradingTimeTv.text = mEntity.time
             mDetailMoneyEt.setText(mEntity.money)
         }
+
     }
 
     override fun onClick(v: View) {

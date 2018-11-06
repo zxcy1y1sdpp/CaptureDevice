@@ -53,12 +53,13 @@ class SplashActivity : BaseActivity() {
             if (!isFinishing) {
                 if (checkInstallPermission()) {
                     LaunchUtil.launch(this, HomeActivity::class.java)
+                    finish()
                 }
             }
         } else {
             LaunchUtil.launch(this, HomeActivity::class.java)
+            finish()
         }
-//        finish()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

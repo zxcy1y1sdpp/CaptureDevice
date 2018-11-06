@@ -81,7 +81,7 @@ class WechatSingleChatActivity : BaseWechatActivity() {
 
     override fun onClick(v: View) {
         super.onClick(v)
-        if (v.id == R.id.wechatTitleTv){
+        if (v.id == R.id.mBaseCreateTitleTv){
             if (mComMsg){
                 mAdapter.switchRoles(true)
                 Toast.makeText(this, "切换为自己说话", Toast.LENGTH_SHORT).show()

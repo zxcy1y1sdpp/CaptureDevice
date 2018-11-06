@@ -15,4 +15,7 @@ public class IntentKey {
     public final static String ENTITY = "entity";
     public final static String ENTITY_SENDER = "sender";
     public final static String ENTITY_RECEIVER = "receiver";
+    public final static String TITLE = "title";
+    public final static String CONTENT = "content";
+    public final static String POSITION = "position";
 }

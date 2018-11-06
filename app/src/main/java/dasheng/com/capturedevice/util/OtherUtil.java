@@ -6,6 +6,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import dasheng.com.capturedevice.R;
 
 /**
@@ -67,5 +71,34 @@ public class OtherUtil {
         unSelectedTv.setBackgroundResource(R.drawable.gray_solid1);
         selectedTv.setTextColor(ContextCompat.getColor(context, R.color.wechatBlue));
         unSelectedTv.setTextColor(ContextCompat.getColor(context, R.color.overallGray));
+    }
+
+    /**
+     * 格式化成支付宝的数字显示方式
+     * @param price
+     * @return
+     */
+    public static String formatPrice(Object price) {
+        DecimalFormat formater = new DecimalFormat("#,###.00");
+        // keep 2 decimal places
+        formater.setMaximumFractionDigits(2);
+        formater.setGroupingSize(3);
+        formater.setRoundingMode(RoundingMode.FLOOR);
+        return formater.format(Double.parseDouble(String.valueOf(price)));
+    }
+
+    /**
+     * 获取手续费
+     * 0.1%
+     * @param money
+     * @return
+     */
+    public static String getServiceCharge(String money){
+        if (Float.parseFloat(money) < 104){
+            return "0.10";
+        }else{
+            String charge = new BigDecimal(Float.parseFloat(money) * 0.001).setScale(2, RoundingMode.UP).toString();
+            return charge;
+        }
     }
 }

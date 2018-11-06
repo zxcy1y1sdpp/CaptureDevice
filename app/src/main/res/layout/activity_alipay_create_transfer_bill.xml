@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+    <include
+        layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        percent:srlEnablePureScrollMode="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mAlipayCreateTransferBillSenderLayout"
+                    android:layout_marginTop="@dimen/normalPadding"
+                    style="@style/wechatItem">
+
+                    <TextView
+                        android:id="@+id/senderTv"
+                        style="@style/wechatLeftTitle"
+                        android:text="交易对象" />
+
+                    <TextView
+                        android:id="@+id/mAlipayCreateTransferBillNickNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="丫丫"
+                        android:textColor="@color/wechat_deep2_text_color"
+                        style="@style/wechatTextSameSize"
+                        android:layout_toLeftOf="@+id/mAlipayCreateTransferBillAvatarIv"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageView
+                        android:id="@+id/mAlipayCreateTransferBillAvatarIv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"
+                        percent:layout_heightPercent="85%h"
+                        percent:layout_widthPercent="85%h"
+                        android:scaleType="centerCrop"
+                        android:layout_toStartOf="@+id/rightTgIv"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageView
+                        android:id="@+id/rightTgIv"
+                        style="@style/wechatRightArrow"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    percent:layout_marginTopPercent="2.46%w">
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillReceiveOrOutLayout"
+                        style="@style/wechatItem">
+                        <TextView
+                            android:text="选择类型"
+                            style="@style/wechatLeftTitle"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillReceiveTv"
+                            android:text="转入"
+                            android:background="@drawable/blue_round_cornor"
+                            android:textColor="@color/white"
+                            android:layout_toLeftOf="@+id/mAlipayCreateTransferBillOutTv"
+                            style="@style/wechatTwoBtn" />
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillOutTv"
+                            android:text="转出"
+                            android:background="@drawable/blue_solid"
+                            android:textColor="@color/wechatBlue"
+                            android:layout_alignParentRight="true"
+                            style="@style/wechatTwoBtn"
+                            android:layout_marginLeft="@dimen/normalPadding"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_below="@+id/mSelectAvatarLayout"
+                        style="@style/wechatItem">
+
+                        <EditText
+                            android:id="@+id/mAlipayCreateTransferBillAccountEt"
+                            android:layout_width="wrap_content"
+                            android:hint="对方账号（邮箱/手机）"
+                            style="@style/wechatEdit"
+                            android:layout_alignBottom="@+id/mAlipayCreateTransferBillRefreshIv"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageView
+                            android:id="@+id/mAlipayCreateTransferBillRefreshIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/wechat_refresh"
+                            android:padding="@dimen/normalPadding"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            percent:layout_heightPercent="14%w"
+                            percent:layout_widthPercent="14%w"/>
+                    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/mAlipayCreateTransferBillMoneyEt"
+                        android:hint="金额（元）"
+                        style="@style/wechatEdit"
+                        android:padding="@dimen/normalPadding"
+                        android:inputType="number|numberDecimal"
+                        android:maxLength="8"/>
+                    <EditText
+                        android:id="@+id/mAlipayCreateTransferBillMsgEt"
+                        android:hint="转账备注"
+                        style="@style/wechatEdit"
+                        android:padding="@dimen/normalPadding"/>
+                    <RelativeLayout
+                        android:layout_below="@+id/mSelectAvatarLayout"
+                        style="@style/wechatItem">
+
+                        <EditText
+                            android:id="@+id/mAlipayCreateTransferBillNumEt"
+                            android:layout_width="wrap_content"
+                            android:hint="订单号"
+                            style="@style/wechatEdit"
+                            android:layout_alignBottom="@+id/mAlipayCreateTransferBillNumRefreshIv"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageView
+                            android:id="@+id/mAlipayCreateTransferBillNumRefreshIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/wechat_refresh"
+                            android:padding="@dimen/normalPadding"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            percent:layout_heightPercent="14%w"
+                            percent:layout_widthPercent="14%w"/>
+                    </RelativeLayout>
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    percent:layout_marginTopPercent="2.46%w">
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillPaymentMethodsLayout"
+                        style="@style/wechatItem">
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillPaymentMethodsTitleTv"
+                            android:text="收款方式"
+                            style="@style/wechatLeftTitle"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillPaymentMethodsTv"
+                            android:text="余额"
+                            style="@style/wechatRightWithArrow"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillCreateTimeLayout"
+                        style="@style/wechatItem">
+                        <TextView
+                            android:text="创建时间"
+                            style="@style/wechatLeftTitle"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillCreateTimeTv"
+                            android:text="2018-10-28 18:33:12"
+                            style="@style/wechatRightWithArrow"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillClassifyLayout"
+                        style="@style/wechatItem">
+                        <TextView
+                            android:text="账单分类"
+                            style="@style/wechatLeftTitle"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillClassifyTv"
+                            android:text="其他"
+                            style="@style/wechatRightWithArrow"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillTransferTypeLayout"
+                        style="@style/wechatItem">
+                        <TextView
+                            android:text="交易状态"
+                            style="@style/wechatLeftTitle"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/mAlipayCreateTransferBillTransferTypeTv"
+                            android:text="交易成功"
+                            style="@style/wechatRightWithArrow"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/mAlipayCreateTransferBillContactRecordLayout"
+                        style="@style/wechatItem"
+                        android:visibility="gone">
+                        <TextView
+                            style="@style/wechatLeftTitle"
+                            android:text="显示往来记录"/>
+
+                        <ImageView
+                            android:id="@+id/mAlipayCreateTransferBillContactRecordIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/off"
+                            android:layout_alignParentRight="true"/>
+
+                    </RelativeLayout>
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+                <include
+                    layout="@layout/include_wechat_preview_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

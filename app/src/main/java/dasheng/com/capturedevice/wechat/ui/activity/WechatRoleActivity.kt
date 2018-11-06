@@ -1,21 +1,21 @@
 package dasheng.com.capturedevice.wechat.ui.activity
 
 import android.content.Intent
-import android.provider.ContactsContract
+import android.os.Bundle
 import android.view.View
 import dasheng.com.capturedevice.R
 import dasheng.com.capturedevice.base.BaseWechatActivity
+import dasheng.com.capturedevice.callback.EditDialogChoiceListener
 import dasheng.com.capturedevice.constant.IntentKey
 import dasheng.com.capturedevice.constant.RequestCode
-import dasheng.com.capturedevice.database.table.WechatSingleTalkEntity
 import dasheng.com.capturedevice.database.table.WechatUserTable
+import dasheng.com.capturedevice.entity.EditDialogEntity
 import dasheng.com.capturedevice.util.*
-import dasheng.com.capturedevice.widget.dialog.ChangeRoleDialog
+import dasheng.com.capturedevice.widget.dialog.EditDialog
 import kotlinx.android.synthetic.main.activity_wechat_role.*
-import kotlinx.android.synthetic.main.activity_wechat_singlechat.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.io.File
 
 /**
  * 作者： liuyuanbo on 2018/10/18 14:24.
@@ -24,7 +24,12 @@ import java.io.File
  * 用途： 微信 -- 修改角色
  */
 
-class WechatRoleActivity : BaseWechatActivity() {
+class WechatRoleActivity : BaseWechatActivity(), EditDialogChoiceListener {
+    override fun onChoice(entity: EditDialogEntity?) {
+        mSenderNameTv.text = entity?.content
+        mEntity.wechatUserNickName = entity?.content
+    }
+
     private var mEntity: WechatUserTable = WechatUserTable()
     override fun setLayoutResourceId() = R.layout.activity_wechat_role
 
@@ -34,7 +39,6 @@ class WechatRoleActivity : BaseWechatActivity() {
 
     override fun initAllViews() {
         setWechatViewTitle("修改角色", 1)
-        EventBusUtil.register(this)
     }
 
     override fun initViewsListener() {
@@ -49,7 +53,9 @@ class WechatRoleActivity : BaseWechatActivity() {
                 callAlbum(1, true)
             }
             R.id.mNickNameLayout ->{
-                ChangeRoleDialog().show(supportFragmentManager, "changeRole")
+                val dialog = EditDialog()
+                dialog.setData(this, EditDialogEntity(-1, "微商截图神器", "角色昵称"))
+                dialog.show(supportFragmentManager, "changeRole")
             }
             R.id.sureTv ->{
                 var intent: Intent = Intent()
@@ -70,16 +76,5 @@ class WechatRoleActivity : BaseWechatActivity() {
                 }
             }
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(nickname: String) {
-        mSenderNameTv.text = nickname
-        mEntity.wechatUserNickName = nickname
-    }
-
-    override fun onDestroy() {
-        EventBusUtil.unRegister(this)
-        super.onDestroy()
     }
 }

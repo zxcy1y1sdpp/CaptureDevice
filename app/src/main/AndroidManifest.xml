@@ -105,6 +105,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+        <!-- 预览 - 微信  零钱明细页面 -->
+        <activity
+            android:name=".wechat.ui.activity.WechatPreviewChargeDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <!--生成微信零钱明细-->
         <activity
             android:name=".wechat.ui.activity.WechatAddChargeDetailActivity"
@@ -119,7 +125,7 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 微信模拟器整体页面 -->
         <activity
-            android:name=".wechat.ui.activity.WechatSimulatorActivity"
+            android:name=".ui.activity.WechatSimulatorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -164,6 +170,80 @@
         <!--问题反馈页面-->
         <activity
             android:name=".ui.activity.ProblemReportActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--选择客服页面-->
+        <activity
+            android:name=".ui.activity.OverAllChoiceServiceActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--开通VIP页面-->
+        <activity
+            android:name=".ui.activity.OverallPurchaseVipActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--*******************************************************支付宝相关*******************************************************************-->
+
+        <!--预览支付宝红包页面-->
+        <activity
+            android:name=".alipay.preview.AlipayPreviewRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--预览支付宝余额页面-->
+        <activity
+            android:name=".alipay.preview.AlipayPreviewBalanceActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--预览支付宝转账账单页面-->
+        <activity
+            android:name=".alipay.preview.AlipayPreviewTransferBillActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--预览支付宝提现账单页面-->
+        <activity
+            android:name=".alipay.preview.AlipayPreviewWithdrawDepositBillActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--预览支付宝我的页面-->
+        <activity
+            android:name=".alipay.preview.AlipayPreviewMyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--生成支付宝红包页面-->
+        <activity
+            android:name=".alipay.create.AlipayCreateRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--生成支付宝余额页面-->
+        <activity
+            android:name=".alipay.create.AlipayCreateBalanceActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--生成支付宝转账账单页面-->
+        <activity
+            android:name=".alipay.create.AlipayCreateTransferBillActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--生成支付宝提现页面-->
+        <activity
+            android:name=".alipay.create.AlipayCreateWithdrawDepositBillActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--生成支付宝我的页面-->
+        <activity
+            android:name=".alipay.create.AlipayCreateMyActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

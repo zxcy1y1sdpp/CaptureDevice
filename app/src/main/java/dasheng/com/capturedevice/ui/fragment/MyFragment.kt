@@ -3,6 +3,8 @@ package dasheng.com.capturedevice.ui.fragment
 import android.view.View
 import dasheng.com.capturedevice.R
 import dasheng.com.capturedevice.base.BaseFragment
+import dasheng.com.capturedevice.ui.activity.OverAllChoiceServiceActivity
+import dasheng.com.capturedevice.ui.activity.OverallPurchaseVipActivity
 import dasheng.com.capturedevice.ui.activity.ProblemReportActivity
 import dasheng.com.capturedevice.ui.activity.SettingActivity
 import dasheng.com.capturedevice.util.LaunchUtil
@@ -38,14 +40,18 @@ class MyFragment : BaseFragment() {
     override fun onClick(v: View) {
         super.onClick(v)
         when(v?.id){
-            R.id.mOpenVipLayout ->{ }
+            R.id.mOpenVipLayout ->{
+                LaunchUtil.launch(activity, OverallPurchaseVipActivity::class.java)
+            }
             R.id.mOpenShopLayout ->{ }
             R.id.mInviteLayout ->{
                 InviteDialog().show(activity?.supportFragmentManager, "invite")
             }
             R.id.mCreditLayout ->{ }
             R.id.mQQGroupLayout ->{ }
-            R.id.mContactServerLayout ->{ }
+            R.id.mContactServerLayout ->{
+                LaunchUtil.launch(activity, OverAllChoiceServiceActivity::class.java)
+            }
             R.id.mProblemReportLayout ->{
                 LaunchUtil.launch(activity, ProblemReportActivity::class.java)
             }

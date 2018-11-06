@@ -39,7 +39,9 @@ class WechatRedPacketPreviewActivity : BaseWechatActivity() {
 
 
     override fun initViewsListener() {
-
+        mWechatPreviewRedPacketFinishIv.setOnClickListener({
+            finish()
+        })
     }
 
     override fun getAttribute(intent: Intent) {

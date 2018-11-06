@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include
+        layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <dasheng.com.capturedevice.widget.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/mAlipayCreateWithdrawDepositBillSelectBankLayout"
+                style="@style/wechatItem"
+                android:layout_marginTop="@dimen/normalPadding">
+                <TextView
+                    android:text="选择银行卡"
+                    style="@style/wechatLeftTitle"/>
+
+                <TextView
+                    android:id="@+id/mAlipayCreateWithdrawDepositBillBankNameTv"
+                    android:text="中国银行"
+                    style="@style/wechatRightWithArrow"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/mAlipayCreateWithdrawDepositBillBankNumEt"
+                style="@style/wechatEdit"
+                android:hint="银行卡尾号（后四位）"
+                android:padding="@dimen/normalPadding"
+                android:inputType="number"/>
+            <EditText
+                android:id="@+id/mAlipayCreateWithdrawDepositBillNameEt"
+                style="@style/wechatEdit"
+                android:hint="持卡人姓名"
+                android:padding="@dimen/normalPadding"/>
+            <EditText
+                android:id="@+id/mAlipayCreateWithdrawDepositBillMoneyEt"
+                style="@style/wechatEdit"
+                android:hint="提现金额（元）"
+                android:padding="@dimen/normalPadding"
+                android:inputType="number|numberDecimal"
+                android:maxLength="8"/>
+
+            <RelativeLayout
+                style="@style/wechatItem">
+                <TextView
+                    style="@style/wechatLeftTitle"
+                    android:text="提现手续费"/>
+
+                <ImageView
+                    android:id="@+id/mAlipayCreateWithdrawDepositBillOnOrOffIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/on"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mAlipayCreateWithdrawDepositBillClassifyLayout"
+                style="@style/wechatItem"
+                android:layout_marginTop="@dimen/normalPadding">
+                <TextView
+                    android:text="账单分类"
+                    style="@style/wechatLeftTitle"/>
+
+                <TextView
+                    android:id="@+id/mAlipayCreateWithdrawDepositBillClassifyTv"
+                    android:text="其他"
+                    style="@style/wechatRightWithArrow"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mAlipayCreateWithdrawDepositBillTimeLayout"
+                style="@style/wechatItem">
+                <TextView
+                    android:text="提现时间"
+                    style="@style/wechatLeftTitle"/>
+
+                <TextView
+                    android:id="@+id/mAlipayCreateWithdrawDepositBillTimeTv"
+                    style="@style/wechatRightWithArrow"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mAlipayCreateWithdrawDepositBillArriveTimeLayout"
+                style="@style/wechatItem">
+                <TextView
+                    android:text="到账时间"
+                    style="@style/wechatLeftTitle"/>
+
+                <TextView
+                    android:id="@+id/mAlipayCreateWithdrawDepositBillArriveTimeTv"
+                    style="@style/wechatRightWithArrow"/>
+            </RelativeLayout>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/include_wechat_preview_btn"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </dasheng.com.capturedevice.widget.OverScrollView>
+</com.zhy.android.percent.support.PercentLinearLayout>

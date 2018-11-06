@@ -76,7 +76,7 @@ class WechatSendRedPacketActivity : BaseWechatActivity() {
                 mSendUser = false
                 LaunchUtil.launch(this, WechatRoleActivity::class.java, RequestCode.CHANGE_ROLE)
             }
-            R.id.wechatPreviewBtn ->{
+            R.id.previewBtn ->{
                 mSendEntity.msg = mLeaveMsgEt.text.toString()
                 if (mReceivePacketLayout.visibility == View.VISIBLE){//发红包
                     LaunchUtil.startWechatRedPacketPreviewActivity(this, mSendEntity, mReceiveEntity, mInputPacketEt.text.toString())

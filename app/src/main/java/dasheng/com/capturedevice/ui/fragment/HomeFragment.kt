@@ -23,16 +23,5 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initViewsListener() {
-        /*mWechatBtn.setOnClickListener {
-            LaunchUtil.launch(activity, WechatSimulatorActivity::class.java)
-        }
-        mAlipayBtn.setOnClickListener {
-            var intent: Intent = Intent(activity, WechatSendRedPacketActivity::class.java)
-            startActivity(intent)
-        }
-        mQQBtn.setOnClickListener {
-            var intent: Intent = Intent(activity, WechatSendRedPacketActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 }

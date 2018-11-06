@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">微商截图神器</string>
+    <!--微信客服-->
+    <string name="wechatService">77908900</string>
+    <!--QQ客服-->
+    <string name="qqService">972383753</string>
+
     <!--微信模拟器相关-->
     <string name="wechatPacketPreview">生成预览</string>
     <string name="dialog_cancel">Cancel</string>
@@ -14,5 +19,12 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
+
+    <!--overall-->
+    <!--客服选择-->
+    <string name="choiceServiceCustomerServiceOnlineTime">在线时间：周一至周六9：00-18：00</string>
+    <string name="choiceServicePayProblem">支付问题：APP功能问题都可以咨询客服，非工作时间若客服不在线请留言</string>
+    <string name="choiceServiceWechatService">VX联系：77908900</string>
+    <string name="choiceServiceQQService">QQ联系：77908900</string>
 
 </resources>

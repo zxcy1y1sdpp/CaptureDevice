@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg"
+    android:gravity="center_horizontal">
+
+    <include
+        layout="@layout/include_base_overall_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choiceServiceCustomerServiceOnlineTime"
+        percent:layout_marginTopPercent="3.73%w"
+        android:textSize="@dimen/overall26px"
+        android:textColor="@color/overallGray2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choiceServicePayProblem"
+        android:layout_marginTop="9.3dp"
+        android:textSize="@dimen/overall24px"
+        android:gravity="center"
+        percent:layout_marginLeftPercent="8%w"
+        percent:layout_marginRightPercent="8%w"
+        android:textColor="@color/overallGray3"/>
+
+    <Button
+        android:id="@+id/mOverallChoiceServiceWechatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_solid3"
+        android:text="@string/choiceServiceWechatService"
+        percent:layout_marginTopPercent="8%w"/>
+    <Button
+        android:id="@+id/mOverallChoiceServiceQQBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_solid3"
+        android:text="@string/choiceServiceQQService"
+        percent:layout_marginTopPercent="8%w"/>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

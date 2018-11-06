@@ -50,7 +50,21 @@
     <color name="overallBlue">#2F80EC</color>
     <color name="overallGreen">#3CCA3F</color>
     <color name="overallGray">#969496</color>
+    <color name="overallGray2">#888888</color>
+    <color name="overallGray3">#BFBFBF</color>
     <color name="overallBg">#F7F7F7</color>
     <color name="inviteRed">#D53632</color>
 
+
+    <!--支付宝相关颜色-->
+    <color name="alipayRedPacketBg">#F5F5F5</color>
+    <color name="alipayDeepTextColor">#101010</color>
+    <color name="alipayGrayTextColor">#959595</color>
+    <color name="alipayRedTextColor">#D83829</color>
+    <color name="alipayBlueTextColor">#00B2FF</color>
+    <color name="alipayBlueColor">#1984D1</color>
+    <color name="alipayBg">#F0F0F0</color>
+    <color name="alipayLine">#DDDDDE</color>
+    <color name="alipayOrange">#E08E48</color>
+    <color name="alipayMyThousandSecurity">#1A9B8F</color>
 </resources>

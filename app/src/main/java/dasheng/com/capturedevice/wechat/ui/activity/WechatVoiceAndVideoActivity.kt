@@ -57,7 +57,7 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
         mOtherBgLayout.setOnClickListener(this)
         mMyBgLayout.setOnClickListener(this)
 //        mSelectVideoBgLayout.setOnClickListener(this)
-        wechatPreviewBtn.setOnClickListener(this)
+        previewBtn.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
@@ -78,7 +78,7 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
             R.id.mWaitingForAnswerTv ->{
                 mEntity = WechatVoiceAndVideoEntity()
                 mEntity.chatType = mType
-                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                 mEntity.type = 0
                 OtherUtil.changeWechatTwoBtnBg(this, mWaitingForAnswerTv, mBusyNowTv)
                 mTimeLayout.visibility = View.GONE
@@ -96,7 +96,7 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
             R.id.mBusyNowTv ->{
                 mEntity = WechatVoiceAndVideoEntity()
                 mEntity.chatType = mType
-                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                 mEntity.type = 1
                 OtherUtil.changeWechatTwoBtnBg(this, mBusyNowTv, mWaitingForAnswerTv)
                 mTimeLayout.visibility = View.VISIBLE
@@ -130,7 +130,7 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
                 mChatBgType = 3
                 callAlbum(1, true)
             }
-            R.id.wechatPreviewBtn ->{
+            R.id.previewBtn ->{
                 mEntity.time = mTimeTv.text.toString()
                 LaunchUtil.startWechatVoiceAndVideoPreviewActivity(this, mEntity)
             }
@@ -151,16 +151,16 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
                     if (mType == 1){//视频聊天
                         if (mEntity.type == 0){//待接听
                             if (null != mEntity.wechatBg && !TextUtils.isEmpty(mEntity.wechatUserNickName) && null != mEntity.avatar){
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, true)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
                             }else{
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                             }
                         }
                     }else{
                         if (!TextUtils.isEmpty(mEntity.wechatUserNickName) && null != mEntity.avatar){
-                            OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, true)
+                            OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                         }
                     }
                 }
@@ -178,15 +178,15 @@ class WechatVoiceAndVideoActivity : BaseWechatActivity() {
                     if (mType == 1){//视频聊天
                         if (mEntity.type == 0){//待接听
                             if (null != mEntity.wechatBg && !TextUtils.isEmpty(mEntity.wechatUserNickName) && null != mEntity.avatar){
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, true)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
                             }else{
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                             }
                         }else{//通话中
                             if (null != mEntity.otherFileBg && mEntity.myFileBg != null){
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, true)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
                             }else{
-                                OtherUtil.changeWechatPreviewBtnBg(this, wechatPreviewBtn, false)
+                                OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, false)
                             }
                         }
 

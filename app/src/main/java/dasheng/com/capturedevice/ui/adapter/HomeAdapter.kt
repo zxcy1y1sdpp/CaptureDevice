@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.youth.banner.Banner
-import dasheng.com.capturedevice.GlideApp.init
 import dasheng.com.capturedevice.R
 import dasheng.com.capturedevice.util.LaunchUtil
-import dasheng.com.capturedevice.wechat.ui.activity.WechatSimulatorActivity
+import dasheng.com.capturedevice.ui.activity.WechatSimulatorActivity
 
 /**
  * 作者： liuyuanbo on 2018/10/24 15:46.
@@ -49,13 +48,21 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         override fun onClick(v: View?) {
-            LaunchUtil.launch(itemView.context, WechatSimulatorActivity::class.java)
+            when(v?.id){
+                R.id.wechatFunLayout ->{
+                    LaunchUtil.launch(itemView.context, WechatSimulatorActivity::class.java)
+                }
+                R.id.alipayFunLayout ->{
+                    LaunchUtil.launch(itemView.context, WechatSimulatorActivity::class.java)
+                }
+            }
+
         }
 
         private var banner: Banner = itemView.findViewById(R.id.mBanner)
         private var tabLayout: TabLayout = itemView.findViewById(R.id.mTabLayout)
         init {
-            itemView.findViewById<LinearLayout>(R.id.mWechatFunLayout).setOnClickListener(this)
+            itemView.findViewById<LinearLayout>(R.id.wechatFunLayout).setOnClickListener(this)
             tabLayout.addTab(tabLayout.newTab().setText("最新"))
             tabLayout.addTab(tabLayout.newTab().setText("最热"))
             tabLayout.addTab(tabLayout.newTab().setText("已购买"))

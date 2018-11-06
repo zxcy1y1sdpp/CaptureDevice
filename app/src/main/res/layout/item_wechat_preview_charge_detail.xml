@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/typeNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="面对面收钱"
+        android:textColor="@color/wechat_deep_text_color"
+        android:textSize="@dimen/wechatNormalTextSize"
+        percent:layout_marginTopPercent="4.3%w"
+        percent:layout_marginLeftPercent="4.3%w"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-01-12 12:23:33"
+        android:layout_below="@+id/typeNameTv"
+        android:textSize="@dimen/overall26px"
+        android:textColor="@color/wechat_deep2_text_color"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginBottom="@dimen/normalPadding"
+        percent:layout_marginLeftPercent="4.3%w"
+        percent:layout_marginTopPercent="2.9%w"
+        percent:layout_marginBottomPercent="4.3%w"/>
+
+    <TextView
+        android:id="@+id/moneyTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ 12.00"
+        android:textColor="@color/overallGreen"
+        android:textSize="@dimen/wechatNormalTextSize"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        percent:layout_marginRightPercent="4.3%w" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/wechatBg"
+        android:layout_below="@+id/timeTv"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

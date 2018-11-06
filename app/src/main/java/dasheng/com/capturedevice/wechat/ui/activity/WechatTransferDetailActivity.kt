@@ -49,6 +49,7 @@ class WechatTransferDetailActivity : BaseWechatActivity() {
                 mTransferNickNameTv.text = "待确认收款"
                 mGrayTv.visibility = View.VISIBLE
                 mBlueTv.visibility = View.VISIBLE
+                mReceiveTimeTv.visibility = View.GONE
                 mReceiveMoneyTv.visibility = View.VISIBLE
                 mGrayTv.text = "一天内未确认，将退还给对方。"
                 mBlueTv.text = "立即退还"
@@ -69,6 +70,7 @@ class WechatTransferDetailActivity : BaseWechatActivity() {
               mTransferIv.setImageResource(R.drawable.wechat_transfer_receiving)
               mTransferNickNameTv.text = StringUtils.insertFrontAndBack(entity.wechatUserNickName, "待", "确认收款")
               mBlueTv.visibility = View.VISIBLE
+              mReceiveTimeTv.visibility = View.GONE
               mGrayTv.text = "一天内朋友未确认，将退还给你。"
               mBlueTv.text = "重发转账消息"
               mTransferTimeTv.text = StringUtils.insertFront(entity.outTime, "转账时间：")

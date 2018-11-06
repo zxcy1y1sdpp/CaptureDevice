@@ -23,22 +23,24 @@
             <com.zhy.android.percent.support.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_heightPercent="20%w"
-                android:background="@color/white">
+                app:layout_heightPercent="23.2%w"
+                android:background="@color/white"
+                app:layout_marginTopPercent="4%w">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/mAvatariv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon0"
-                    app:layout_heightPercent="17%w"
-                    app:layout_widthPercent="17%w"
+                    app:layout_heightPercent="17.21%w"
+                    app:layout_widthPercent="17.21%w"
                     app:riv_border_color="@color/wechatPreviewTitle"
                     app:riv_oval="true"
                     app:riv_corner_radius="75dp"
                     android:scaleType="centerCrop"
                     android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/normalPadding"/>
+                    app:layout_marginLeftPercent="4.26%w"
+                    app:layout_marginRightPercent="3.27%w"/>
 
                 <TextView
                     android:id="@+id/mNickNameTv"
@@ -46,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="昵称你爹啊"
                     android:layout_toRightOf="@+id/mAvatariv"
-                    android:textSize="@dimen/overallNormal2"
+                    android:textSize="@dimen/overall26px"
                     android:layout_alignTop="@+id/mAvatariv"
                     app:layout_heightPercent="8%w"
                     android:gravity="center"/>
@@ -61,7 +63,15 @@
                     app:layout_heightPercent="8%w"
                     android:gravity="center"/>
 
-                <TextView
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/right_arrow"
+                    android:layout_margin="@dimen/normalPadding"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    app:layout_marginRightPercent="4.64%w"/>
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="签到送会员"
@@ -70,62 +80,44 @@
                     android:background="@drawable/blue_solid2"
                     android:textColor="@color/overallBlue"
                     android:textSize="@dimen/overallNormal4"
-                    android:layout_margin="@dimen/normalPadding" />
+                    android:layout_margin="@dimen/normalPadding" />-->
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
-            <RelativeLayout
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mOpenVipLayout"
                 style="@style/overallMyItem"
-                android:layout_marginTop="@dimen/normalPadding">
+                app:layout_marginTopPercent="5.33%w">
                 <TextView
                     android:text="开通VIP"
                     android:drawableLeft="@mipmap/kaitongvip"
-                    style="@style/overallLeftTitle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="解锁专属功能"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:gravity="center_vertical"/>
-            </RelativeLayout>
-            <RelativeLayout
+                    style="@style/overallLeftTitle"
+                    android:textColor="#FC615A"/>
+                <TextView style="@style/overallMyItemRight"
+                    android:text="解锁专属功能"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mOpenShopLayout"
                 style="@style/overallMyItem">
                 <TextView
                     android:text="开通店主"
                     android:drawableLeft="@mipmap/ktdianzhu"
-                    style="@style/overallLeftTitle"/>
+                    style="@style/overallLeftTitle" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
 
-            <RelativeLayout
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mInviteLayout"
-                android:layout_marginTop="@dimen/littleModuleSpace"
+                app:layout_marginTopPercent="5.33%w"
                 style="@style/overallMyItem">
                 <TextView
                     android:text="邀请有奖"
                     android:drawableLeft="@mipmap/yqyj"
                     style="@style/overallLeftTitle"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mCreditLayout"
                 style="@style/overallMyItem">
                 <TextView
@@ -133,49 +125,29 @@
                     android:drawableLeft="@mipmap/wsxyrz"
                     style="@style/overallLeftTitle"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mQQGroupLayout"
-                android:layout_marginTop="@dimen/littleModuleSpace"
+                app:layout_marginTopPercent="5.33%w"
                 style="@style/overallMyItem">
                 <TextView
-                    android:text="VIP会员QQ群"
+                    android:text="会员QQ群"
                     android:drawableLeft="@mipmap/qqq"
                     style="@style/overallLeftTitle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:text="123456789"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
+                <TextView style="@style/overallMyItemRight"
+                    android:text="123456789"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mContactServerLayout"
                 style="@style/overallMyItem">
                 <TextView
                     android:text="联系客服"
                     android:drawableLeft="@mipmap/lxkf"
                     style="@style/overallLeftTitle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mProblemReportLayout"
                 style="@style/overallMyItem">
                 <TextView
@@ -183,15 +155,9 @@
                     android:drawableLeft="@mipmap/wtfk"
                     style="@style/overallLeftTitle"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/mSettingLayout"
                 style="@style/overallMyItem">
                 <TextView
@@ -199,14 +165,8 @@
                     android:drawableLeft="@mipmap/sz"
                     style="@style/overallLeftTitle"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/right_arrow"
-                    android:drawablePadding="@dimen/normalPadding"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+                <TextView style="@style/overallMyItemRight"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
 
             <TextView
                 android:id="@+id/mExitLayout"
@@ -216,7 +176,7 @@
                 android:background="@color/white"
                 app:layout_heightPercent="13%w"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
+                app:layout_marginTopPercent="8%w"
                 android:layout_marginBottom="40dp"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
     </ScrollView>

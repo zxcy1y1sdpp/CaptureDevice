@@ -25,6 +25,10 @@ public class EventBusTimeEntity {
      */
     public String timeOnlyMS;
     /**
+     * 只有月日时分
+     */
+    public String timeMDHM;
+    /**
      * 防止一个页面有好多需要时间的地方无法区分
      */
     public String tag;
@@ -34,5 +38,6 @@ public class EventBusTimeEntity {
         this.timeOnlyMS = timeOnlyMS;
         this.time = time;
         this.tag = tag;
+        this.timeMDHM = timeWithoutS.substring(0, 5);
     }
 }

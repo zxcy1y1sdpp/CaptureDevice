@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <Button
-        android:id="@+id/wechatPreviewBtn"
+        android:id="@+id/previewBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         percent:layout_heightPercent="14%w"

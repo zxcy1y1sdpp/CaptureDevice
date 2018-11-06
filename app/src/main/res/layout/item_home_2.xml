@@ -36,5 +36,5 @@
         android:layout_toRightOf="@+id/lessonPicIv"
         android:layout_alignBottom="@+id/lessonPicIv"
         android:textColor="@color/overallTextColor"
-        android:textSize="@dimen/overallNormal2"/>
+        android:textSize="@dimen/overall26px"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

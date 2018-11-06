@@ -36,7 +36,7 @@ class WechatPreviewChangeWithdrawDepositActivity : BaseWechatActivity() {
         mWechatMoneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
         mBankTv.text = StringUtils.insertFrontAndBack(" ", entity.bank, entity.bankNum4)
         if(entity.serviceCharge){
-            if (entity.money.toFloat() < 100){
+            if (entity.money.toFloat() < 104){
                 mServiceChargeTv.text = StringUtils.insertFront("0.10", "¥")
             }else{
                 val money = BigDecimal(entity.money.toDouble() * 0.001).setScale(2, RoundingMode.UP).toDouble()

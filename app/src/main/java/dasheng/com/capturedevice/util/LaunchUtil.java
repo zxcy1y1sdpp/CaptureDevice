@@ -4,6 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import dasheng.com.capturedevice.alipay.create.AlipayCreateTransferBillActivity;
+import dasheng.com.capturedevice.alipay.entity.AlipayCreateMyEntity;
+import dasheng.com.capturedevice.alipay.entity.AlipayCreateRedPacketEntity;
+import dasheng.com.capturedevice.alipay.entity.AlipayCreateTransferBillEntity;
+import dasheng.com.capturedevice.alipay.entity.AlipayCreateWithdrawDepositBillEntity;
+import dasheng.com.capturedevice.alipay.entity.AlipayPreviewBalanceEntity;
+import dasheng.com.capturedevice.alipay.preview.AlipayPreviewBalanceActivity;
+import dasheng.com.capturedevice.alipay.preview.AlipayPreviewMyActivity;
+import dasheng.com.capturedevice.alipay.preview.AlipayPreviewRedPacketActivity;
+import dasheng.com.capturedevice.alipay.preview.AlipayPreviewTransferBillActivity;
+import dasheng.com.capturedevice.alipay.preview.AlipayPreviewWithdrawDepositBillActivity;
 import dasheng.com.capturedevice.constant.IntentKey;
 import dasheng.com.capturedevice.database.table.WechatUserTable;
 import dasheng.com.capturedevice.entity.WechatTransferEntity;
@@ -155,6 +166,66 @@ public class LaunchUtil {
         if (null != entity){
             intent.putExtra(IntentKey.ENTITY, entity);
         }
+        context.startActivity(intent);
+    }
+
+    /**
+     * 支付宝 -- 预览 -- 红包页面
+     * @param entity
+     */
+    public static void startAlipayPreviewRedPacketActivity(Context context, AlipayCreateRedPacketEntity entity){
+        Intent intent = new Intent(context, AlipayPreviewRedPacketActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 支付宝 -- 预览 -- 余额页面
+     * @param entity
+     */
+    public static void startAlipayPreviewBalanceActivity(Context context, AlipayPreviewBalanceEntity entity){
+        Intent intent = new Intent(context, AlipayPreviewBalanceActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 支付宝 -- 预览 -- 转账账单页面
+     * @param entity
+     * @param type
+     *        0 -- 转账账单
+     *        1 -- 收款账单
+     */
+    public static void startAlipayPreviewTransferBillActivity(Context context, AlipayCreateTransferBillEntity entity, int type){
+        Intent intent = new Intent(context, AlipayPreviewTransferBillActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 支付宝 -- 预览 -- 提现账单页面
+     * @param entity
+     */
+    public static void startAlipayPreviewWithdrawDepositBillActivity(Context context, AlipayCreateWithdrawDepositBillEntity entity){
+        Intent intent = new Intent(context, AlipayPreviewWithdrawDepositBillActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 支付宝 -- 预览 -- 转账账单页面/收款账单页面
+     * @param type
+     *        0 -- 转账账单页面
+     *        1 -- 收款账单页面
+     */
+    public static void startAlipayCreateTransferBillActivity(Context context, int type){
+        Intent intent = new Intent(context, AlipayCreateTransferBillActivity.class);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 支付宝 -- 预览 -- 我的 页面/收款账单页面
+     */
+    public static void startAlipayPreviewMyActivity(Context context, AlipayCreateMyEntity entity){
+        Intent intent = new Intent(context, AlipayPreviewMyActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
         context.startActivity(intent);
     }
 }

@@ -12,9 +12,7 @@ import kotlinx.android.synthetic.main.activity_wechat_change_withdraw_deposit.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.text.NumberFormat
 
 /**
@@ -58,7 +56,7 @@ class WechatChangeWithdrawDepositActivity : BaseWechatActivity(), ChoiceBankDial
         mExpectedToAccountLayout.setOnClickListener(this)
         mSelectBankNumLayout.setOnClickListener(this)
         mOnOrOffIv.setOnClickListener(this)
-        wechatPreviewBtn.setOnClickListener(this)
+        previewBtn.setOnClickListener(this)
         onlyTowEditTextNeedTextWatcher(mBankNumEt, mDepositMoneyEt, this)
     }
 
@@ -73,12 +71,12 @@ class WechatChangeWithdrawDepositActivity : BaseWechatActivity(), ChoiceBankDial
                 dialog.setOnItemSelectListener(this)
                 dialog.show(supportFragmentManager, "Dialog")
             }
-            R.id.mOnOrOffIv ->{//选择银行
+            R.id.mOnOrOffIv ->{//提现手续费
                 mNeedServiceCharge = !mNeedServiceCharge
                 OtherUtil.onOrOff(mNeedServiceCharge, mOnOrOffIv)
                 mEntity?.serviceCharge = mNeedServiceCharge
             }
-            R.id.wechatPreviewBtn ->{//选择银行
+            R.id.previewBtn ->{//选择银行
                 mEntity?.money = mDepositMoneyEt.text.toString()
                 mEntity?.bankNum4 = StringUtils.insertFront(mBankNumEt.text.toString(), "尾号")
                 mEntity?.bank = mBankTv.text.toString()

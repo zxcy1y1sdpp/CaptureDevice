@@ -18,8 +18,8 @@
         android:padding="@dimen/normalPadding"
         android:background="@color/white"
         android:textColor="@color/overallTextColor"
-        android:textSize="@dimen/overallNormal3"
-        android:layout_marginTop="@dimen/normalPadding"/>
+        android:textSize="@dimen/overall24px"
+        app:layout_marginTopPercent="4%w"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 android:text="功能反馈"
                 android:background="@drawable/blue_solid1"
                 android:textColor="@color/wechatBlue"
-                android:textSize="@dimen/overallNormal2"/>
+                android:textSize="@dimen/overall26px"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -53,7 +53,7 @@
                 android:text="意见反馈"
                 android:background="@drawable/gray_solid1"
                 android:textColor="@color/overallGray"
-                android:textSize="@dimen/overallNormal2"/>
+                android:textSize="@dimen/overall26px"/>
         </LinearLayout>
     </LinearLayout>
     <TextView
@@ -63,7 +63,7 @@
         android:padding="@dimen/normalPadding"
         android:background="@color/white"
         android:textColor="@color/overallTextColor"
-        android:textSize="@dimen/overallNormal3"
+        android:textSize="@dimen/overall24px"
         android:layout_marginTop="@dimen/normalPadding"/>
 
     <com.zhy.android.percent.support.PercentLinearLayout
@@ -79,7 +79,7 @@
             android:textColorHint="@color/overallGray"
             android:textColor="@color/overallGray"
             android:gravity="top"
-            android:textSize="@dimen/overallNormal2"/>
+            android:textSize="@dimen/overall26px"/>
     </com.zhy.android.percent.support.PercentLinearLayout>
 
     <com.zhy.android.percent.support.PercentLinearLayout
@@ -125,7 +125,7 @@
 
         android:padding="@dimen/normalPadding"
         android:clipToPadding="true"-->
-    <LinearLayout
+    <com.zhy.android.percent.support.PercentLinearLayout
         style="@style/overallMyItem"
         android:layout_marginBottom="50dp">
         <TextView
@@ -137,9 +137,9 @@
             android:layout_height="match_parent"
             android:hint="手机/微信/QQ，方便客服和您联系"
             android:background="@null"
-            android:textSize="@dimen/overallNormal2"
+            android:textSize="@dimen/overall26px"
             android:paddingLeft="@dimen/normalPadding"/>
-    </LinearLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
 
     <Button
         android:layout_width="match_parent"

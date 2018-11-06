@@ -1,9 +1,14 @@
-package dasheng.com.capturedevice.wechat.ui.activity
+package dasheng.com.capturedevice.ui.activity
 
 import android.view.View
 import dasheng.com.capturedevice.R
+import dasheng.com.capturedevice.alipay.create.AlipayCreateBalanceActivity
+import dasheng.com.capturedevice.alipay.create.AlipayCreateMyActivity
+import dasheng.com.capturedevice.alipay.create.AlipayCreateRedPacketActivity
+import dasheng.com.capturedevice.alipay.create.AlipayCreateWithdrawDepositBillActivity
 import dasheng.com.capturedevice.base.BaseWechatActivity
 import dasheng.com.capturedevice.util.LaunchUtil
+import dasheng.com.capturedevice.wechat.ui.activity.*
 import kotlinx.android.synthetic.main.activity_wechatsimulator.*
 
 /**
@@ -34,6 +39,14 @@ class WechatSimulatorActivity : BaseWechatActivity() {
         mWechatWithdrawDepositBtn.setOnClickListener(this)
         mChangeBtn.setOnClickListener(this)
         mWechatChargeDetailBtn.setOnClickListener(this)
+
+
+        mAlipayRedPacketBtn.setOnClickListener(this)
+        mAlipayBalanceBtn.setOnClickListener(this)
+        mAlipayTransferBillBtn.setOnClickListener(this)
+        mAlipayReceivingBtn.setOnClickListener(this)
+        mAlipayWithdrawDepositBillBtn.setOnClickListener(this)
+        mAlipayMyBtn.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -65,6 +78,24 @@ class WechatSimulatorActivity : BaseWechatActivity() {
             }
             R.id.mWechatChargeDetailBtn ->{
                 LaunchUtil.launch(this, WechatChargeDetailActivity::class.java)
+            }
+            R.id.mAlipayRedPacketBtn ->{
+                LaunchUtil.launch(this, AlipayCreateRedPacketActivity::class.java)
+            }
+            R.id.mAlipayBalanceBtn ->{
+                LaunchUtil.launch(this, AlipayCreateBalanceActivity::class.java)
+            }
+            R.id.mAlipayTransferBillBtn ->{
+                LaunchUtil.startAlipayCreateTransferBillActivity(this, 0)
+            }
+            R.id.mAlipayReceivingBtn ->{
+                LaunchUtil.startAlipayCreateTransferBillActivity(this, 1)
+            }
+            R.id.mAlipayWithdrawDepositBillBtn ->{
+                LaunchUtil.launch(this, AlipayCreateWithdrawDepositBillActivity::class.java)
+            }
+            R.id.mAlipayMyBtn ->{
+                LaunchUtil.launch(this, AlipayCreateMyActivity::class.java)
             }
         }
     }

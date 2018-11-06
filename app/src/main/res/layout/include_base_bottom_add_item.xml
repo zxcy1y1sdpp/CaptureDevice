@@ -21,9 +21,9 @@
         percent:layout_marginLeftPercent="4.3%w"
         android:text="添加记录"
         android:textColor="@color/white"
-        android:textSize="@dimen/overallNormal2"/>
+        android:textSize="@dimen/overall26px"/>
     <Button
-        android:id="@+id/wechatPreviewBtn"
+        android:id="@+id/previewBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/overall_green_circular"
@@ -31,5 +31,5 @@
         percent:layout_heightPercent="10.9%w"
         android:text="生成预览"
         android:textColor="@color/white"
-        android:textSize="@dimen/overallNormal2"/>
+        android:textSize="@dimen/overall26px"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mAlipayCreateRedPacketChangeRoleLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        style="@style/wechatItem">
+        <TextView
+            android:id="@+id/senderTv"
+            android:text="发送人"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mAlipayCreateRedPacketNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="丫丫"
+            android:textColor="@color/wechat_deep2_text_color"
+            style="@style/wechatTextSameSize"
+            android:layout_toLeftOf="@+id/mAlipayCreateRedPacketAvatarIv"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/mAlipayCreateRedPacketAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            percent:layout_heightPercent="85%h"
+            percent:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <EditText
+        android:id="@+id/mAlipayCreateRedPacketInputMoneyEt"
+        android:hint="输入红包金额"
+        style="@style/wechatEdit"
+        android:inputType="number"
+        android:padding="@dimen/normalPadding"/>
+    <EditText
+        android:id="@+id/mAlipayCreateRedPacketLeaveMsgEt"
+        android:hint="恭喜发财，大吉大利"
+        style="@style/wechatEdit"
+        android:padding="@dimen/normalPadding"/>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_wechat_preview_btn"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

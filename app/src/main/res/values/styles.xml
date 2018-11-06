@@ -117,7 +117,7 @@
     <!--生成微信之前的输入框-->
     <style name="wechatEdit">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:textColorHint">@color/wechat_deep3_text_color</item>
         <item name="android:textColor">@color/wechat_deep_text_color</item>
         <item name="android:background">@color/white</item>
@@ -133,15 +133,40 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/white</item>
         <item name="android:layout_marginTop">@dimen/wechatLineNarrow</item>
-        <item name="android:padding">@dimen/normalPadding</item>
-        <item name="layout_heightPercent">11.7%w</item>
+        <item name="layout_heightPercent">11.47%w</item>
+    </style>
+    <!--支付吧我的页面的条目属性-->
+    <style name="alipayMyItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="layout_heightPercent">12.92%w</item>
     </style>
 
+    <style name="alipayPreviewMyItemTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawablePadding">@dimen/normalPadding</item>
+        <item name="android:textColor">@color/overallTextColor</item>
+        <item name="android:gravity">center</item>
+        <item name="layout_marginLeftPercent">17.31%w</item>
+    </style>
     <style name="overallLeftTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:drawablePadding">@dimen/normalPadding</item>
         <item name="android:textColor">@color/overallTextColor</item>
         <item name="android:gravity">center</item>
+        <item name="layout_marginLeftPercent">4.26%w</item>
+    </style>
+
+    <style name="overallMyItemRight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:drawablePadding">@dimen/normalPadding</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:drawableRight">@mipmap/right_arrow</item>
+        <item name="layout_marginRightPercent">4.64%w</item>
     </style>
 </resources>

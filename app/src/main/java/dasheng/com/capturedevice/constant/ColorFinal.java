@@ -11,10 +11,16 @@ package dasheng.com.capturedevice.constant;
  */
 
 public final class ColorFinal {
-    public static final int coral = 0xFFff7f50;
-
     public static final int wechatPreviewTitleLayout = 0xFFDA5A41;
     public static final int wechatTitleBar = 0xFF303030;
     public static final int wechatMyWallet = 0xFF686f79;
     public static final int WHITE = 0xFFFFFFFF;
+    /** 支付宝红包的状态栏颜色*/
+    public static final int alipayRedPacketRed = 0xffa63237;
+    /** 支付宝余额的状态栏颜色*/
+    public static final int alipayBalanceRed = 0xff1c6ca9;
+    /** 支付宝余额的状态栏颜色*/
+    public static final int alipayMy = 0xff1B629B;
+
+
 }

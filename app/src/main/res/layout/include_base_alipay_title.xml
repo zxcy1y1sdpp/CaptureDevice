@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mAlipayPreviewBgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        percent:layout_heightPercent="13.6%w"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/mAlipayPreviewFinishIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/alipay_title_finish_blue"
+            percent:layout_marginLeftPercent="3.4%w"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/mAlipayPreviewTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余额"
+            android:textColor="@color/black"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"
+            percent:layout_marginLeftPercent="4.8%w"
+            android:layout_toRightOf="@+id/mAlipayPreviewFinishIv"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/mAlipayPreviewRightTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="明细"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_marginRightPercent="4.8%w"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <TextView
+        android:id="@+id/mAlipayPreviewBottomLineTv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/alipayLine"/>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

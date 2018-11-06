@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/alipayBg">
+
+    <TextView
+        android:id="@+id/point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="小圆点"
+        android:padding="@dimen/normalPadding"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/wechatLineNarrow"/>
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="数字"
+        android:padding="@dimen/normalPadding"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/wechatLineNarrow"/>
+
+    <TextView
+        android:id="@+id/nothing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:text="无"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/wechatLineNarrow" />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:text="取消"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/wechatLineNarrow"/>
+
+</LinearLayout>

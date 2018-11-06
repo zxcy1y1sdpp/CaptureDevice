@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dasheng.com.capturedevice.R;
-import dasheng.com.capturedevice.widget.badge.Badge;
-import dasheng.com.capturedevice.widget.badge.QBadgeView;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * @作者：liuyuanbo

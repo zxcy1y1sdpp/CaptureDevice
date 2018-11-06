@@ -118,4 +118,17 @@ public class WechatChargeHelper extends MyOpenHelper {
 //        db.close();
         return  result;
     }
+
+    /**
+     * 删除指定id的数据
+     * @param entity
+     * @return
+     */
+    public int delete(WechatChargeDetailEntity entity){
+        int result = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String[] where = new String[] {String.valueOf(entity.id)};
+        result = db.delete("wechatCharge","id=?", where);
+        return result;
+    }
 }

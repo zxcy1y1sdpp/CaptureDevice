@@ -38,16 +38,6 @@ class ProblemReportActivity : BaseActivity(), DeleteListener {
 
     override fun initAllViews() {
         setTitle("问题反馈")
-//        var dialog = BottomDialog()
-//        dialog.setItemSelectionListener(this)
-//        dialog.show(supportFragmentManager, "Dialog")
-        /*val entity = ProblemReportEntity()
-        entity.res = R.mipmap.add_video
-        entity.type = 0
-        entity.position = 0
-        mPicList.add(entity)
-        mPicList.add(entity)
-        mPicList.add(entity)*/
         mAdapter = ProblemReportAdapter(mPicList, this)
         mRecyclerView.adapter = mAdapter
     }

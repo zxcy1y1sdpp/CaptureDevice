@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/include_base_overall_title"/>
-    <RelativeLayout
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mClearCacheLayout"
         style="@style/overallMyItem"
-        android:layout_marginTop="@dimen/normalPadding">
+        percent:layout_marginTopPercent="4%w">
         <TextView
             style="@style/overallLeftTitle"
             android:text="清除缓存"/>
@@ -23,8 +24,8 @@
             android:layout_height="wrap_content"
             android:text="21.00MB"
             style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
-    <RelativeLayout
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mWechatNumLayout"
         style="@style/overallMyItem">
         <TextView
@@ -36,8 +37,8 @@
             android:layout_height="wrap_content"
             android:text="21.00MB"
             style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
-    <RelativeLayout
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mAboutUsLayout"
         style="@style/overallMyItem"
         android:layout_marginTop="@dimen/normalPadding">
@@ -49,8 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
-    <RelativeLayout
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mGiveUsSupportLayout"
         style="@style/overallMyItem">
         <TextView
@@ -61,5 +62,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="2018-01-12 12:23:33"
         android:layout_below="@+id/typeNameTv"
-        android:textSize="@dimen/overallNormal2"
+        android:textSize="@dimen/overall26px"
         android:textColor="@color/wechat_deep2_text_color"
         android:layout_marginLeft="@dimen/normalPadding"
         android:layout_marginBottom="@dimen/normalPadding"/>

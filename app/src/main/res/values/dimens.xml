@@ -3,7 +3,7 @@
     <dimen name="wechatNormalTextSize">18sp</dimen>
     <dimen name="wechatNormalTextSize2">15sp</dimen>
     <dimen name="wechatTransferTextSize">20sp</dimen>
-    <dimen name="wechatMoneyTextSize">50sp</dimen>
+    <dimen name="wechatMoneyTextSize">60sp</dimen>
     <dimen name="wechatLittleTextSize">13sp</dimen>
     <dimen name="wechatLittle2TextSize">10sp</dimen>
     <dimen name="normalPadding">10dp</dimen>
@@ -36,9 +36,18 @@
     <!--App中正常的1号字体-->
     <dimen name="overallNormal1">20sp</dimen><!--32-->
     <!--App中正常的2号字体-->
-    <dimen name="overallNormal2">14sp</dimen><!--26-->
+    <dimen name="overall26px">14sp</dimen><!--26-->
     <!--App中正常的3号字体-->
-    <dimen name="overallNormal3">13sp</dimen><!--24-->
+    <dimen name="overall24px">13sp</dimen><!--24-->
     <!--App中正常的4号字体-->
-    <dimen name="overallNormal4">10sp</dimen><!--22-->
+    <dimen name="overallNormal4">12sp</dimen><!--22-->
+
+    <!--支付宝相关字号-->
+    <dimen name="alipayNormalTextSize">18sp</dimen>
+    <dimen name="alipayNormalTextSize2">15sp</dimen>
+    <dimen name="alipayNormalTextSize3">13sp</dimen>
+    <dimen name="alipayNormalTextSize4">10sp</dimen>
+    <dimen name="alipayNormalTextSize5">7sp</dimen>
+    <dimen name="alipayMoneyTextSize">60sp</dimen>
+    <dimen name="alipayMoneyTextSize2">35sp</dimen>
 </resources>

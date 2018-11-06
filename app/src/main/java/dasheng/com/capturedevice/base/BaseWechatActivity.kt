@@ -1,36 +1,20 @@
 package dasheng.com.capturedevice.base
 
-import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.graphics.Color
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
-import com.yalantis.ucrop.UCrop
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MimeType
 import com.zhy.android.percent.support.PercentRelativeLayout
 import dasheng.com.capturedevice.R
 import dasheng.com.capturedevice.constant.ColorFinal
-import dasheng.com.capturedevice.constant.RequestCode
-import dasheng.com.capturedevice.database.table.WechatSingleTalkEntity
 import dasheng.com.capturedevice.entity.eventbusentity.EventBusTimeEntity
 import dasheng.com.capturedevice.util.*
-import dasheng.com.capturedevice.util.WechatTimeUtil.getTime
 import dasheng.com.capturedevice.util.statusbar.StatusBarUtil
-import dasheng.com.capturedevice.widget.MyGlideEngine
-import kotlinx.android.synthetic.main.activity_wechat_add_talk_object.*
-import kotlinx.android.synthetic.main.activity_wechat_singlechat.*
-import java.io.File
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -82,8 +66,8 @@ abstract class BaseWechatActivity : BaseActivity(){
      */
     protected fun setWechatViewTitle(title: String, type: Int = 0) {
 
-        val titleTv = findViewById<TextView>(R.id.wechatTitleTv)
-        val iv = findViewById<ImageView>(R.id.wechatTitleLeftIv)
+        val titleTv = findViewById<TextView>(R.id.mBaseCreateTitleTv)
+        val iv = findViewById<ImageView>(R.id.mBaseCreateFinishIv)
         when(type){
             1 ->{
                 var sureTv = findViewById<TextView>(R.id.sureTv)
@@ -108,11 +92,11 @@ abstract class BaseWechatActivity : BaseActivity(){
      * @param title
      */
     protected fun setWechatViewTitle(title: String, showRight: Boolean) {
-        val sLeftIv = findViewById<ImageView>(R.id.wechatTitleLeftIv)
-        val titleTv = findViewById<TextView>(R.id.wechatTitleTv)
+        val sLeftIv = findViewById<ImageView>(R.id.mBaseCreateFinishIv)
+        val titleTv = findViewById<TextView>(R.id.mBaseCreateTitleTv)
         sLeftIv.setOnClickListener(this)
         titleTv.text = title
-        sLeftIv.setImageResource(R.mipmap.wechat_preview_back)
+        sLeftIv.setImageResource(R.drawable.wechat_preview_back)
         val sLayout = findViewById<PercentRelativeLayout>(R.id.wechatLayout)
         sLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.wechatPreviewTitleLayout))
         titleTv.setTextColor(ContextCompat.getColor(this, R.color.wechatPreviewTitle))
@@ -124,7 +108,7 @@ abstract class BaseWechatActivity : BaseActivity(){
     }
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.wechatTitleLeftIv -> {
+            R.id.mBaseCreateFinishIv -> {
                 onBackPressed()
                 finish()
             }
@@ -195,7 +179,7 @@ abstract class BaseWechatActivity : BaseActivity(){
         needPreviewBtn(listener)
     }
     protected fun needPreviewBtn(listener: View.OnClickListener) {
-        mPreviewBtn = findViewById(R.id.wechatPreviewBtn)
+        mPreviewBtn = findViewById(R.id.previewBtn)
         mPreviewBtn?.setOnClickListener(listener)
     }
     inner class PreviewBtnStyle1 : TextWatcher {

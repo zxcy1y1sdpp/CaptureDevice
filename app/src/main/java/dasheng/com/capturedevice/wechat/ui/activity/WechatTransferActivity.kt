@@ -85,7 +85,7 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
             R.id.mRefreshIv ->{
                 mNickNameEt.setText(RandomUtil.getRandomNickName())
             }
-            R.id.wechatPreviewBtn ->{
+            R.id.previewBtn ->{
                 mEntity.wechatUserNickName = mNickNameEt.text.toString()
                 mEntity.money = mMoneyEt.text.toString()
                 LaunchUtil.startWechatTransferDetailActivity(this, mEntity)

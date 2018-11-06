@@ -10,69 +10,77 @@
     android:background="@color/wechatBg">
 
     <!--<include-->
-        <!--android:id="@+id/titleLayout"-->
-        <!--layout="@layout/base_wechat_title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
-    <com.zhy.android.percent.support.PercentRelativeLayout
+    <!--android:id="@+id/titleLayout"-->
+    <!--layout="@layout/base_wechat_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.17%w"
+        android:gravity="center_vertical"
+        android:background="#DA5A41">
+        <ImageView
+            android:id="@+id/mWechatPreviewRedPacketFinishIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_preview_back"
+            app:layout_marginLeftPercent="3.4%w"/>
+
+        <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包详情"
+            android:textColor="#F2F8B7"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/wechatTitleLeftIv"
+            app:layout_marginLeftPercent="4.8%w"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="红包详情"
+            android:textColor="#F2F8B7"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:gravity="right"
+            android:layout_toRightOf="@+id/wechatTitleLeftIv"
+            app:layout_marginRightPercent="4.8%w" />
+    </com.zhy.android.percent.support.PercentLinearLayout>
+    <ImageView
         android:id="@+id/mPreviewPacketTopLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/wechat_red_packet_top"
-        app:layout_heightPercent="21%h">
-        <com.zhy.android.percent.support.PercentLinearLayout
-            android:id="@+id/titleLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_heightPercent="14%w"
-            android:gravity="center_vertical"
-            android:padding="@dimen/normalPadding">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/wechat_preview_back" />
+        android:src="@mipmap/wechat_red_packet_top"
+        app:layout_heightPercent="20%w"
+        android:layout_below="@+id/titleLayout"
+        android:scaleType="fitXY"/>
 
-            <TextView
-                android:id="@+id/wechatTitleTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="微信红包"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/wechatNormalTextSize"
-                android:padding="10dp"
-                android:gravity="center"
-                android:layout_toRightOf="@+id/wechatTitleLeftIv"
-                android:layout_alignTop="@+id/wechatTitleLeftIv"
-                android:layout_alignBottom="@+id/wechatTitleLeftIv"/>
-        </com.zhy.android.percent.support.PercentLinearLayout>
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/mPreviewHeadIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            app:layout_heightPercent="18%w"
-            app:layout_widthPercent="18%w"
-            android:translationY="30dp"
-            android:orientation="vertical"
-            app:riv_border_color="@color/wechatPreviewTitle"
-            app:riv_oval="false"
-            app:riv_corner_radius="5dp"
-            app:riv_border_width="2dp"
-            android:scaleType="centerCrop"/>
-
-    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/mPreviewHeadIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon3"
+        android:layout_centerHorizontal="true"
+        app:layout_heightPercent="16.82%w"
+        app:layout_widthPercent="16.82%w"
+        app:layout_marginTopPercent="24.87%w"
+        android:orientation="vertical"
+        app:riv_border_color="#FFCA8F"
+        app:riv_oval="false"
+        app:riv_corner_radius="5dp"
+        app:riv_border_width="2dp"
+        android:scaleType="centerCrop"/>
     <TextView
         android:id="@+id/mPreviewPacketNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="丫丫"
-        android:layout_below="@+id/mPreviewPacketTopLayout"
+        android:layout_below="@+id/mPreviewHeadIv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        app:layout_marginTopPercent="1.95%w"
         style="@style/wechatTextSameSize"
-        android:textColor="@color/wechat_deep_text_color"/>
+        android:textColor="@color/wechat_deep_text_color" />
 
     <TextView
         android:id="@+id/mPreviewDescriptionTv"
@@ -81,15 +89,16 @@
         android:text="恭喜发财，大吉大利"
         android:layout_below="@+id/mPreviewPacketNameTv"
         android:layout_centerHorizontal="true"
-        style="@style/wechatTextSameSize"
-        android:textColor="@color/wechatGray"/>
+        android:textSize="14sp"
+        android:textColor="#999999"
+        app:layout_marginTopPercent="0.09%w" />
     <LinearLayout
         android:id="@+id/mMoneyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/mPreviewDescriptionTv"
-        android:layout_marginTop="20dp"
+        app:layout_marginTopPercent="6.09%w"
         android:gravity="center">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -117,14 +126,14 @@
             android:layout_height="wrap_content"
             android:text="已存入零钱，可直接提现"
             android:textSize="@dimen/wechatLittleTextSize"
-            android:textColor="@color/wechatBlueShalow"/>
+            android:textColor="#5169B9"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@mipmap/wechat_red_packet_line"
-        android:layout_marginTop="50dp"
+        app:layout_marginTopPercent="8.53%w"
         android:layout_below="@+id/mMoneyLayout"
         android:scaleType="fitXY" />
     <TextView
