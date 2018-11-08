@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/overallCommunicateAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon1"
+            percent:layout_widthPercent="11.7%w"
+            percent:layout_heightPercent="11.7%w"
+            percent:layout_marginTopPercent="3.41%w"
+            percent:layout_marginRightPercent="2.19%w"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            percent:layout_marginLeftPercent="3.17%w"/>
+
+        <TextView
+            android:id="@+id/overallCommunicateNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小月月"
+            android:layout_toRightOf="@+id/overallCommunicateAvatarIv"
+            android:layout_alignTop="@+id/overallCommunicateAvatarIv"
+            percent:layout_heightPercent="5.85%w"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="#616981"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_marginRightPercent="3.17%w"/>
+
+        <TextView
+            android:id="@+id/overallCommunicateContentTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/overallCommunicateNickNameTv"
+            android:layout_below="@+id/overallCommunicateNickNameTv"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:text="狂萨德考虑好阿萨德可令肌肤"
+            android:textSize="@dimen/wechatNormalTextSize"
+            percent:layout_marginRightPercent="3.17%w"/>
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            percent:layout_marginRightPercent="3.17%w"
+            percent:layout_marginTopPercent="2.68%w"
+            android:layout_below="@+id/overallCommunicateContentTv"
+            android:layout_alignLeft="@+id/overallCommunicateNickNameTv">
+            <dasheng.com.capturedevice.widget.ninegrid.NineGridView
+                android:id="@+id/overallCommunicateNineGridView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                percent:ngv_maxSize="9"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

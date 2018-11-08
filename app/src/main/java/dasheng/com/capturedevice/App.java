@@ -3,6 +3,7 @@ package dasheng.com.capturedevice;
 import android.app.Application;
 
 import dasheng.com.capturedevice.database.DatabaseUtils;
+import dasheng.com.capturedevice.widget.ninegrid.NineGridView;
 
 /**
  * 作者： liuyuanbo on 2018/10/9 10:43.
@@ -17,6 +18,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         DatabaseUtils.initHelper(this);
+        NineGridView.setImageLoader(new GlideImageLoader());
 
     }
     // 单例模式中获取唯一的MyApplication实例

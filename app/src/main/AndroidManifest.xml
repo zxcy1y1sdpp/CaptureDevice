@@ -46,6 +46,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 微信发红包的功能 -->
+        <!--首页-->
+        <activity
+            android:name=".ui.activity.OverallCommunicateActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 微信发红包的功能 -->
         <activity
             android:name=".wechat.ui.activity.WechatSendRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -248,9 +255,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
+        <!--第三方activity-->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
+        <!--预览大图-->
+        <activity
+            android:name=".widget.ninegrid.preview.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="dasheng.com.capturedevice.nougat"

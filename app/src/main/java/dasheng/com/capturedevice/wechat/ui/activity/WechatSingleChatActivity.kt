@@ -23,6 +23,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import dasheng.com.capturedevice.entity.eventbusentity.EventBusTimeEntity
 import dasheng.com.capturedevice.util.*
+import java.io.InputStream
 
 
 /**
@@ -44,6 +45,7 @@ class WechatSingleChatActivity : BaseWechatActivity() {
     private var imgList: ArrayList<Int> = arrayListOf()
     private lateinit var mEntity: WechatUserTable
     override fun setLayoutResourceId() = R.layout.activity_wechat_singlechat
+    var bol = false
 
     override fun needLoadingView() = false
 
@@ -109,7 +111,13 @@ class WechatSingleChatActivity : BaseWechatActivity() {
 
                 }
                 R.id.mSendImgIv ->{
-                    var entity = WechatSingleTalkEntity(mEntity.wechatUserId, 1, mComMsg, R.mipmap.timg2, 0)
+                    var entity = WechatSingleTalkEntity()
+                    if (bol){
+                        entity = WechatSingleTalkEntity(mEntity.wechatUserId, 1, mComMsg, R.mipmap.t1, 0)
+                    }else{
+                        entity = WechatSingleTalkEntity(mEntity.wechatUserId, 1, mComMsg, R.mipmap.t2, 0)
+                    }
+                    bol = !bol
                     id = mHelper.saveWechatSingleMsg(entity)
                     entity.id = id
                     mList.add(entity)

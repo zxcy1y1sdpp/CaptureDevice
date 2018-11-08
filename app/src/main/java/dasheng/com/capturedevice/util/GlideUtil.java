@@ -37,6 +37,15 @@ public class GlideUtil{
 				.fallback(R.mipmap.loading)
 				.into(imageView);
 	}
+	public static void display(Context context, String id, ImageView imageView){
+		GlideApp.with(context)
+				.load(id)
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.thumbnail(0.1f)
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
+				.into(imageView);
+	}
 	public static void display2(Context context, int id, ImageView imageView){
 		int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 7 * 3;
 		GlideApp.with(context)

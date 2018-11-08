@@ -7,8 +7,6 @@ import dasheng.com.capturedevice.ui.fragment.MyFragment
 import dasheng.com.capturedevice.util.PreferencesUtils
 import dasheng.com.capturedevice.wechat.ui.fragment.WechatDiscoverFragment
 import dasheng.com.capturedevice.wechat.ui.fragment.WechatFriendsFragment
-import dasheng.com.capturedevice.wechat.ui.fragment.WechatListFragment
-import dasheng.com.capturedevice.wechat.ui.fragment.WechatMyFragment
 import dasheng.com.capturedevice.widget.MainNavigateTabBar
 import kotlinx.android.synthetic.main.activity_wechat_chatlist.*
 
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_wechat_chatlist.*
  * 用途： App首页
  */
 
-class HomeActivity : BaseActivity() {
+open class HomeActivity : BaseActivity() {
     override fun setLayoutResourceId() = R.layout.activity_home
 
     override fun needLoadingView(): Boolean {
@@ -27,6 +25,7 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun initAllViews() {
+//        test()
         PreferencesUtils.putMyInfo(this)
 
         mMainTabBar.addTab(this, HomeFragment::class.java, MainNavigateTabBar.TabParam(R.mipmap.ic_launcher, R.mipmap.ic_launcher_round, "首页"))
@@ -36,6 +35,32 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun initViewsListener() {
-
     }
+
+//    fun test() {
+//        //订阅者（网络请求回调）
+//        val observer = object : BaseObserver<AdvertisementBean>() {
+//            @Throws(Exception::class)
+//            override fun onSuccees(t: APIResponse<AdvertisementBean>) {
+//                Log.e("retrofit", "success")
+//            }
+//
+//            @Throws(Exception::class)
+//            override fun onFailure(e: Throwable, isNetWorkError: Boolean) {
+//                Log.e("retrofit", "error")
+//            }
+//        }
+//        val map = ArrayMap<String, String>()
+//        RetrofitClient.getInstence().API().PostAPI("advertisement/get", aesOperatorParams(map))
+//                .subscribeOn(Schedulers.io())//指定网络请求在io后台线程中进行
+//                .observeOn(AndroidSchedulers.mainThread())//指定observer回调在UI主线程中进行
+//                .subscribe(observer as Observer<in APIResponse<Any>>)
+//    }
+//
+//    override fun onDestroy() {
+//        Log.e("retrofit", "finish")
+//        super.onDestroy()
+//    }
+
+
 }

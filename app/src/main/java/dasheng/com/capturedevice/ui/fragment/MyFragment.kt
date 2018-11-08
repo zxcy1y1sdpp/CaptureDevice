@@ -3,10 +3,7 @@ package dasheng.com.capturedevice.ui.fragment
 import android.view.View
 import dasheng.com.capturedevice.R
 import dasheng.com.capturedevice.base.BaseFragment
-import dasheng.com.capturedevice.ui.activity.OverAllChoiceServiceActivity
-import dasheng.com.capturedevice.ui.activity.OverallPurchaseVipActivity
-import dasheng.com.capturedevice.ui.activity.ProblemReportActivity
-import dasheng.com.capturedevice.ui.activity.SettingActivity
+import dasheng.com.capturedevice.ui.activity.*
 import dasheng.com.capturedevice.util.LaunchUtil
 import dasheng.com.capturedevice.widget.dialog.InviteDialog
 import kotlinx.android.synthetic.main.fragment_my.*
@@ -47,7 +44,8 @@ class MyFragment : BaseFragment() {
             R.id.mInviteLayout ->{
                 InviteDialog().show(activity?.supportFragmentManager, "invite")
             }
-            R.id.mCreditLayout ->{ }
+            R.id.mCreditLayout ->{ LaunchUtil.launch(activity, OverallCommunicateActivity::class.java) }
+
             R.id.mQQGroupLayout ->{ }
             R.id.mContactServerLayout ->{
                 LaunchUtil.launch(activity, OverAllChoiceServiceActivity::class.java)

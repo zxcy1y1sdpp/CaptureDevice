@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mOverallCommunicateRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical">
+        <!--
+        app:layout_marginLeftPercent="3.17%w"
+        app:layout_marginRightPercent="3.17%w"-->
+
+    </android.support.v7.widget.RecyclerView>
+</com.zhy.android.percent.support.PercentLinearLayout>
