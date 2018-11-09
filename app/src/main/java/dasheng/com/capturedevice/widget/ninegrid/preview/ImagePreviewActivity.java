@@ -62,10 +62,10 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
             @Override
             public void onPageSelected(int position) {
                 currentItem = position;
-                tv_pager.setText(String.format(getString(R.string.select), currentItem + 1, imageInfo.size()));
+                tv_pager.setText(String.format("%1$s/%2$s", currentItem + 1, imageInfo.size()));
             }
         });
-        tv_pager.setText(String.format(getString(R.string.select), currentItem + 1, imageInfo.size()));
+        tv_pager.setText(String.format("%1$s/%2$s", currentItem + 1, imageInfo.size()));
     }
 
     @Override
@@ -141,8 +141,10 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
 
         // 获取真实大小
         Drawable drawable = imageView.getDrawable();
-        int intrinsicHeight = drawable.getIntrinsicHeight();
-        int intrinsicWidth = drawable.getIntrinsicWidth();
+//        int intrinsicHeight = drawable.getIntrinsicHeight();
+//        int intrinsicWidth = drawable.getIntrinsicWidth();
+        int intrinsicHeight = imageView.getHeight();
+        int intrinsicWidth = imageView.getWidth();
         // 计算出与屏幕的比例，用于比较以宽的比例为准还是高的比例为准，因为很多时候不是高度没充满，就是宽度没充满
         float h = screenHeight * 1.0f / intrinsicHeight;
         float w = screenWidth * 1.0f / intrinsicWidth;

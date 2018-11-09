@@ -78,7 +78,6 @@ public class NineGridView extends ViewGroup {
         int screenWidth = ScreenUtil.INSTANCE.getScreenWidth(getContext());
         float singleSpec = screenWidth * mWechatWHPercent;//单张图片时候的宽高
         int height = 0;
-        int totalWidth = width - getPaddingLeft() - getPaddingRight();
         if (mImageInfo != null && mImageInfo.size() > 0) {
             if (mImageInfo.size() == 1) {
                 if (mFirstPicWhPercent < 1){//长图
@@ -261,5 +260,11 @@ public class NineGridView extends ViewGroup {
          * @return 当前框架的本地缓存图片
          */
         Bitmap getCacheImage(String url);
+    }
+    public void clear(){
+        imageViews.clear();
+        imageViews = null;
+        mImageInfo.clear();
+        mImageInfo = null;
     }
 }

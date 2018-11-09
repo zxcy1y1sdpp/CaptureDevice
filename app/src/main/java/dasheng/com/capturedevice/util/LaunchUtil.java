@@ -19,6 +19,8 @@ import dasheng.com.capturedevice.constant.IntentKey;
 import dasheng.com.capturedevice.database.table.WechatUserTable;
 import dasheng.com.capturedevice.entity.WechatTransferEntity;
 import dasheng.com.capturedevice.entity.WechatVoiceAndVideoEntity;
+import dasheng.com.capturedevice.ui.activity.OverallCommunicateDetailsActivity;
+import dasheng.com.capturedevice.ui.entity.OverallCommunicateEntity;
 import dasheng.com.capturedevice.wechat.entity.WechatChargeDetailEntity;
 import dasheng.com.capturedevice.wechat.entity.WechatWithdrawDepositEntity;
 import dasheng.com.capturedevice.wechat.ui.activity.WechatAddChargeDetailActivity;
@@ -225,6 +227,14 @@ public class LaunchUtil {
      */
     public static void startAlipayPreviewMyActivity(Context context, AlipayCreateMyEntity entity){
         Intent intent = new Intent(context, AlipayPreviewMyActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 评论详情页面
+     */
+    public static void startOverallCommunicateDetailsActivity(Context context, OverallCommunicateEntity entity){
+        Intent intent = new Intent(context, OverallCommunicateDetailsActivity.class);
         intent.putExtra(IntentKey.ENTITY, entity);
         context.startActivity(intent);
     }

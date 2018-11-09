@@ -24,6 +24,7 @@ import static dasheng.com.capturedevice.network.AESOperatorUtils.aesOperatorPara
 
 public class test extends Activity{
     char[] str = {'0','1','2','3','4','5','6','7','8','9'};
+    private static final int asldkfj = 1;
     public test() {
     }
 
@@ -56,6 +57,7 @@ public class test extends Activity{
                 .subscribeOn(Schedulers.io())//指定网络请求在io后台线程中进行
                 .observeOn(AndroidSchedulers.mainThread())//指定observer回调在UI主线程中进行
                 .subscribe ((Consumer<? super APIResponse<Object>>) observer);
+
     }
 
 }

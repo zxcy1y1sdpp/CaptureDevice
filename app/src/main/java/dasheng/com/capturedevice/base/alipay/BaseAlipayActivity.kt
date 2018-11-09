@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import dasheng.com.capturedevice.R
-
 import dasheng.com.capturedevice.base.BaseActivity
 import dasheng.com.capturedevice.constant.ColorFinal
 import dasheng.com.capturedevice.util.statusbar.StatusBarUtil

@@ -6,18 +6,12 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.support.annotation.RequiresApi
-
 import dasheng.com.capturedevice.base.BaseActivity
 import dasheng.com.capturedevice.constant.RequestCode
 import dasheng.com.capturedevice.ui.HomeActivity
 import dasheng.com.capturedevice.util.LaunchUtil
 import dasheng.com.capturedevice.widget.sweetalert.SweetAlertDialog
-import permissions.dispatcher.NeedsPermission
-import permissions.dispatcher.OnNeverAskAgain
-import permissions.dispatcher.OnPermissionDenied
-import permissions.dispatcher.OnShowRationale
-import permissions.dispatcher.PermissionRequest
-import permissions.dispatcher.RuntimePermissions
+import permissions.dispatcher.*
 
 /**
  * 作者： liuyuanbo on 2018/10/15 10:43.
@@ -39,14 +33,14 @@ class SplashActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initAllViews() {
-        SplashActivityPermissionsDispatcher.requestPrivateAuthorityWithPermissionCheck(this)
+        requestPrivatePermission()
+//        SplashActivityPermissionsDispatcher.requestPrivateAuthorityWithPermissionCheck(this)
     }
 
     override fun initViewsListener() {
-
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    /*@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun requestPrivateAuthority() {
         //7.0或者往上
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -60,27 +54,27 @@ class SplashActivity : BaseActivity() {
             LaunchUtil.launch(this, HomeActivity::class.java)
             finish()
         }
-    }
+    }*/
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        SplashActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
-    }
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        SplashActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+//    }
 
-    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun requestPrivateAuthorityRationale(request: PermissionRequest) {
-        goSetPermission()
-    }
+//    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//    fun requestPrivateAuthorityRationale(request: PermissionRequest) {
+//        goSetPermission()
+//    }
 
-    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun requestPrivateAuthorityDenied() {
-        goSetPermission()
-    }
+//    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//    fun requestPrivateAuthorityDenied() {
+//        goSetPermission()
+//    }
 
-    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun requestPrivateAuthorityNeverAskAgain() {
-        goSetPermission()
-    }
+//    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//    fun requestPrivateAuthorityNeverAskAgain() {
+//        goSetPermission()
+//    }
 
     private fun checkInstallPermission(): Boolean {
         // 核心是下面几句代码
@@ -153,7 +147,43 @@ class SplashActivity : BaseActivity() {
                     finish()
                 }
             }
-            RequestCode.PERMISSION_NEED -> SplashActivityPermissionsDispatcher.requestPrivateAuthorityWithPermissionCheck(this)
+            RequestCode.PERMISSION_NEED -> requestPrivatePermission()
         }
+    }
+
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun requestPrivatePermission() {
+        //7.0或者往上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!isFinishing) {
+                if (checkInstallPermission()) {
+                    LaunchUtil.launch(this, HomeActivity::class.java)
+                    finish()
+                }
+            }
+        } else {
+            LaunchUtil.launch(this, HomeActivity::class.java)
+            finish()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun requestPrivatePermissionOnShowRationale(request: PermissionRequest) {
+        goSetPermission()
+    }
+
+    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun requestPrivatePermissionOnPermissionDenied() {
+        goSetPermission()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun requestPrivatePermissionOnNeverAskAgain() {
+        goSetPermission()
     }
 }

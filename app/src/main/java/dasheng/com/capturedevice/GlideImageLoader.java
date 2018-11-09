@@ -18,22 +18,13 @@ import dasheng.com.capturedevice.widget.ninegrid.NineGridView;
 public class GlideImageLoader implements NineGridView.ImageLoader {
     @Override
     public void onDisplayImage(Context context, ImageView imageView, String url) {
-        GlideApp.with(context)
+        GlideApp.with(context).asDrawable()
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(0.1f)
                 .error(R.mipmap.loading)
                 .fallback(R.mipmap.loading)
                 .into(imageView);
-//        int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 7 * 3;
-//        GlideApp.with(context)
-//                .load(url)
-//                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-//                .thumbnail(0.1f)
-//                .error(R.mipmap.loading)
-//                .fallback(R.mipmap.loading)
-//                .override(width)
-//                .into(imageView);
     }
 
     @Override

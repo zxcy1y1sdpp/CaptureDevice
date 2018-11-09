@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/overallCommunicateDetails2AvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon1"
+            app:layout_heightPercent="11.7%w"
+            app:layout_marginLeftPercent="3.17%w"
+            app:layout_marginRightPercent="2.19%w"
+            app:layout_marginTopPercent="3.41%w"
+            app:layout_widthPercent="11.7%w" />
+
+        <TextView
+            android:id="@+id/overallCommunicateDetails2NickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/overallCommunicateDetails2AvatarIv"
+            android:layout_toRightOf="@+id/overallCommunicateDetails2AvatarIv"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:text="小月月"
+            android:textColor="#616981"
+            android:textSize="@dimen/wechatNormalTextSize"
+            app:layout_heightPercent="5.85%w"
+            app:layout_marginRightPercent="3.17%w" />
+
+        <TextView
+            android:id="@+id/overallCommunicateDetails2CreateTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overallCommunicateDetails2NickNameTv"
+            android:layout_alignLeft="@+id/overallCommunicateDetails2NickNameTv"
+            android:gravity="bottom"
+            android:text="10分钟前·回复"
+            android:textColor="@color/black"
+            app:layout_heightPercent="5.85%w" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/overallCommunicateDetails2AvatarIv"
+            android:layout_alignBottom="@+id/overallCommunicateDetails2AvatarIv"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            app:layout_marginRightPercent="3.17%w">
+
+            <com.sackcentury.shinebuttonlib.ShineButton
+                android:id="@+id/overallCommunicateDetails2LikeBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:layout_toLeftOf="@+id/overallCommunicateDetails2LikeCountTv"
+                android:src="@android:color/darker_gray"
+                app:allow_random_color="false"
+                app:big_shine_color="#FF6666"
+                app:btn_color="@android:color/darker_gray"
+                app:btn_fill_color="#FF6666"
+                app:click_animation_duration="200"
+                app:enable_flashing="false"
+                app:shine_animation_duration="1500"
+                app:shine_count="8"
+                app:shine_distance_multiple="1.5"
+                app:shine_turn_angle="10"
+                app:siShape="@raw/heart"
+                app:small_shine_color="#CC9999"
+                app:small_shine_offset_angle="20" />
+
+            <TextView
+                android:id="@+id/overallCommunicateDetails2LikeCountTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_toLeftOf="@+id/overallCommunicateDetails2PingLunTv"
+                android:gravity="center"
+                android:text="67"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/overallCommunicateDetails2ContentTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overallCommunicateDetails2AvatarIv"
+            android:layout_alignLeft="@+id/overallCommunicateDetails2NickNameTv"
+            android:text="狂萨德考虑好阿萨德可令肌肤"
+            android:textColor="@color/black"
+            android:textSize="@dimen/wechatNormalTextSize"
+            app:layout_marginRightPercent="3.17%w" />
+
+        <TextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wechatLineNarrow"
+            android:layout_below="@+id/overallCommunicateDetails2ContentTv"
+            android:background="@color/overallBg"
+            app:layout_marginTopPercent="5.85%w" />
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>
