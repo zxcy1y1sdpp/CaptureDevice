@@ -13,7 +13,7 @@
         android:padding="@dimen/normalPadding"
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_marginLeft="@dimen/normalPadding"
-        android:textSize="@dimen/overallNormal1"/>
+        android:textSize="@dimen/overall32px"/>
 
     <EditText
         android:id="@+id/contentEt"
@@ -21,12 +21,13 @@
         android:layout_height="wrap_content"
         android:text="丫丫"
         android:padding="@dimen/normalPadding"
-        android:layout_margin="@dimen/normalPadding"/>
+        android:layout_margin="@dimen/normalPadding"
+        android:theme="@style/MyEditText"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/wechatLineHeight"
-        android:background="@color/wechatBg"/>
+        android:background="@color/overallBg"/>
 
 
     <android.support.v7.widget.ButtonBarLayout
@@ -44,7 +45,7 @@
         <TextView
             android:layout_width="@dimen/wechatLineHeight"
             android:layout_height="match_parent"
-            android:background="@color/wechatBg"/>
+            android:background="@color/overallBg"/>
         <Button
             android:id="@+id/okTv"
             android:layout_width="wrap_content"
@@ -55,31 +56,4 @@
             android:padding="@dimen/normalPadding"
             android:background="@color/white"/>
     </android.support.v7.widget.ButtonBarLayout>
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/cancelTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/normalPadding"
-            android:background="@color/white"/>
-        <TextView
-            android:layout_width="@dimen/wechatLineHeight"
-            android:layout_height="match_parent"
-            android:background="@color/wechatBg"/>
-        <Button
-            android:id="@+id/okTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确定"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="@dimen/normalPadding"
-            android:background="@color/white"/>
-    </LinearLayout>-->
 </com.zhy.android.percent.support.PercentLinearLayout>

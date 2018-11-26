@@ -10,7 +10,7 @@
         android:toAlpha="1"
         android:duration="400"/>
 
-    <sweet:dasheng.com.capturedevice.widget.sweetalert.Rotate3dAnimation
+    <sweet:app.jietuqi.cn.widget.sweetalert.Rotate3dAnimation
         sweet:rollType="x"
         sweet:fromDeg="100"
         sweet:toDeg="0"

@@ -47,7 +47,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/mMainTabBar"
         android:layout_below="@+id/wechatLayout"/>
-    <dasheng.com.capturedevice.widget.MainNavigateTabBar
+    <app.jietuqi.cn.widget.MainNavigateTabBar
         android:id="@+id/mMainTabBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

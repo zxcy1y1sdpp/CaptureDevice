@@ -28,7 +28,7 @@
             android:src="@drawable/wechat_preview_back"
             app:layout_marginLeftPercent="3.4%w"/>
 
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="红包详情"
@@ -66,10 +66,10 @@
         app:layout_widthPercent="16.82%w"
         app:layout_marginTopPercent="24.87%w"
         android:orientation="vertical"
-        app:riv_border_color="#FFCA8F"
         app:riv_oval="false"
         app:riv_corner_radius="5dp"
         app:riv_border_width="2dp"
+        app:riv_border_color="#FFCA8F"
         android:scaleType="centerCrop"/>
     <TextView
         android:id="@+id/mPreviewPacketNameTv"
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+            <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
                 android:id="@+id/mMoneyTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                 android:id="@+id/mReceiveNameIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/default_head"
+                android:src="@drawable/head_default"
                 app:layout_heightPercent="12%w"
                 app:layout_widthPercent="12%w"
                 app:riv_corner_radius="5dip"

@@ -2,40 +2,16 @@
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mOverallPurchaseVipOffsetLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/overallBg">
-    <com.zhy.android.percent.support.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_heightPercent="12.8%w"
-        android:background="@drawable/overall_purchase_bg">
-        <ImageView
-            android:id="@+id/overAllBackIv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/wechat_preview_back"
-            android:padding="@dimen/normalPadding"/>
-        <TextView
-            android:id="@+id/overAllTitleTv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="开通VIP"
-            android:textSize="@dimen/overallNormal1"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"/>
-
-    </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mOverallPurchaseVipRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableOverScrollDrag="true"
-        app:srlEnablePreviewInEditMode="false">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        app:srlEnableLoadMore="false">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -47,90 +23,126 @@
                 android:orientation="vertical"
                 android:background="@color/overallBg">
 
-                <com.zhy.android.percent.support.PercentRelativeLayout
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/mOverallPurchaseVipStatusLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_heightPercent="21%w"
-                    android:background="@drawable/overall_purchase_bg">
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/mOverallPurchaseVipAvatarIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon0"
-                        app:layout_heightPercent="14.5%w"
-                        app:layout_widthPercent="14.5%w"
-                        app:riv_border_color="@color/wechatPreviewTitle"
-                        app:riv_oval="true"
-                        app:riv_corner_radius="75dp"
-                        android:scaleType="centerCrop"
-                        app:layout_marginLeftPercent="4.26%w"
-                        app:layout_marginRightPercent="3.27%w"
-                        app:layout_marginTopPercent="1.86%w"/>
+                    android:orientation="vertical"
+                    android:background="@drawable/purchase_vip_top">
 
-                    <TextView
-                        android:id="@+id/mOverallPurchaseVipNickNameTv"
-                        android:layout_width="wrap_content"
+                    <com.zhy.android.percent.support.PercentRelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="昵称你as来得及"
-                        android:layout_toRightOf="@+id/mOverallPurchaseVipAvatarIv"
-                        android:layout_alignTop="@+id/mOverallPurchaseVipAvatarIv"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_marginTopPercent="2.25%w"/>
-                    <TextView
-                        android:id="@+id/mOverallPurchaseVipValidityTimeTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="昵称你as来得及"
-                        android:layout_toRightOf="@+id/mOverallPurchaseVipAvatarIv"
-                        android:layout_alignBottom="@+id/mOverallPurchaseVipAvatarIv"
-                        android:textColor="@color/white"
-                        app:layout_marginBottomPercent="2.25%w"
-                        android:textSize="@dimen/overall26px"/>
+                        app:layout_heightPercent="12.8%w">
+                        <ImageView
+                            android:id="@+id/mOverallPurchaseVipBackIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/wechat_preview_back"
+                            android:padding="@dimen/normalPadding"/>
+                        <ImageView
+                            android:id="@+id/mOverallPurchaseVipTitleIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/overall_purchase_vip"
+                            android:layout_centerHorizontal="true"/>
 
-                    <ImageView
-                        android:id="@+id/mOverallPurchaseVipMarkIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/overall_purchase_vip_jdhy_mark"
-                        android:layout_alignParentRight="true"
-                        app:layout_marginRightPercent="7%w"/>
+                    </com.zhy.android.percent.support.PercentRelativeLayout>
 
-                </com.zhy.android.percent.support.PercentRelativeLayout>
+                    <com.zhy.android.percent.support.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/mOverallPurchaseVipAvatarIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon0"
+                            app:layout_heightPercent="14.5%w"
+                            app:layout_widthPercent="14.5%w"
+                            app:riv_border_color="@color/wechatPreviewTitle"
+                            app:riv_oval="true"
+                            app:riv_corner_radius="75dp"
+                            android:scaleType="centerCrop"
+                            app:layout_marginLeftPercent="4.26%w"
+                            app:layout_marginRightPercent="3.27%w"
+                            app:layout_marginTopPercent="1.86%w"/>
 
+                        <TextView
+                            android:id="@+id/mOverallPurchaseVipNickNameTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="昵称你as来得及"
+                            android:layout_toRightOf="@+id/mOverallPurchaseVipAvatarIv"
+                            android:layout_alignTop="@+id/mOverallPurchaseVipAvatarIv"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/mOverallPurchaseVipValidityTimeTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="昵称你as来得及"
+                            android:layout_toRightOf="@+id/mOverallPurchaseVipAvatarIv"
+                            android:layout_alignBottom="@+id/mOverallPurchaseVipAvatarIv"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/overall26px"/>
+
+                        <ImageView
+                            android:id="@+id/mOverallPurchaseVipMarkIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/overall_purchase_vip_jdhy_mark"
+                            android:layout_alignParentRight="true"
+                            app:layout_marginRightPercent="7%w"/>
+
+                    </com.zhy.android.percent.support.PercentRelativeLayout>
+                </com.zhy.android.percent.support.PercentLinearLayout>
 
                 <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/need"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    app:layout_heightPercent="42%w"
                     app:layout_marginTopPercent="2.4%w">
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/mOverallPurchaseVipJDIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical"
+                        app:riv_oval="false"
+                        app:riv_corner_radius="5dp"
+                        app:riv_border_color="#FFCA8F"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/overall_purchase_vip_jdhy"
                         app:layout_marginLeftPercent="2.13%w"
                         app:layout_marginRightPercent="2.13%w"
                         app:layout_widthPercent="30.48%w"
                         app:layout_heightPercent="41.23%w"
                         android:adjustViewBounds="true"/>
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/mOverallPurchaseVipNDIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:riv_corner_radius="5dp"
+                        app:riv_border_color="#FFCA8F"
                         android:src="@drawable/overall_purchase_vip_ndhy"
                         app:layout_marginRightPercent="2.13%w"
                         app:layout_widthPercent="30.48%w"
+                        app:layout_heightPercent="41.23%w"
                         android:adjustViewBounds="true"/>
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/mOverallPurchaseVipYJIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/overall_purchase_vip_yjhy"
                         app:layout_marginRightPercent="2.13%w"
                         app:layout_widthPercent="30.48%w"
-                        android:adjustViewBounds="true"/>
+                        android:adjustViewBounds="true"
+                        app:riv_corner_radius="5dp"
+                        app:riv_border_color="#FFCA8F"/>
                 </com.zhy.android.percent.support.PercentLinearLayout>
 
                 <com.zhy.android.percent.support.PercentLinearLayout
@@ -143,18 +155,25 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VIP专属特权"
-                        app:layout_marginTopPercent="4.53%w"
-                        android:textSize="@dimen/overallNormal1"
+                        android:text="VIP特权"
+                        app:layout_marginTopPercent="4%w"
+                        android:textSize="@dimen/overall32px"
                         android:textColor="@color/black"
                         android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/normalPadding"
+                        app:layout_marginTopPercent="2.13%w"/>
                     <com.zhy.android.percent.support.PercentLinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_heightPercent="18.5%w"
                         app:layout_marginTopPercent="5.5%w"
-                        app:layout_marginLeftPercent="8.75%w"
-                        app:layout_marginRightPercent="8.75%w">
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_marginRightPercent="5%w">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -162,14 +181,15 @@
                             android:drawableTop="@drawable/overall_purchase_uip_qsy"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:drawablePadding="@dimen/normalPadding"/>
                         <!--
                             app:layout_marginRightPercent="9.86%w"-->
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="无广告"
-                            android:drawableTop="@drawable/overall_purchase_uip_qsy"
+                            android:drawableTop="@drawable/overall_purchase_uip_wgg"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
                             android:layout_weight="1"/>
@@ -198,25 +218,25 @@
                     <com.zhy.android.percent.support.PercentLinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_heightPercent="18.5%w"
                         app:layout_marginTopPercent="5.5%w"
-                        app:layout_marginLeftPercent="8.75%w"
-                        app:layout_marginRightPercent="8.75%w">
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_marginRightPercent="5%w">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="爆粉特权"
-                            android:drawableTop="@drawable/overall_purchase_uip_qsy"
+                            android:drawableTop="@drawable/overall_purchase_uip_bftq"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:drawablePadding="@dimen/normalPadding"/>
                         <!--
                             app:layout_marginRightPercent="9.86%w"-->
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="专属会员群"
-                            android:drawableTop="@drawable/overall_purchase_uip_qsy"
+                            android:drawableTop="@drawable/overall_purchase_vip_zshyq"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
                             android:layout_weight="1"/>
@@ -226,7 +246,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="免费升级"
-                            android:drawableTop="@drawable/overall_purchase_uip_qsy"
+                            android:drawableTop="@drawable/overall_purchase_vip_mfsj"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
                             android:layout_weight="1"/>
@@ -236,7 +256,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="苹果/安卓通用"
-                            android:drawableTop="@drawable/overall_purchase_uip_qsy"
+                            android:drawableTop="@drawable/overall_purchase_vip_ty"
                             android:gravity="bottom|center_horizontal"
                             android:textSize="@dimen/overallNormal4"
                             android:layout_gravity="right"
@@ -263,20 +283,9 @@
                         app:mvDirection="bottom_to_top"
                         app:mvInterval="3000"
                         app:mvTextColor="@color/black"
-                        android:background="@drawable/gray_solid2"
                         app:layout_marginTopPercent="5.33%w"
                         app:layout_marginBottomPercent="8%w"
                         android:layout_gravity="center_horizontal"/>
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="刚刚139****0206用户办理了三个月VIP"-->
-                        <!--android:textSize="@dimen/overallNormal4"-->
-                        <!--android:layout_gravity="center_horizontal"-->
-                        <!--app:layout_marginTopPercent="5.33%w"-->
-                        <!--app:layout_marginBottomPercent="8%w"-->
-                        <!--android:background="@drawable/gray_solid2"-->
-                        <!--android:textColor="@color/black"/>-->
                 </com.zhy.android.percent.support.PercentLinearLayout>
             </com.zhy.android.percent.support.PercentLinearLayout>
         </ScrollView>

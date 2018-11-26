@@ -34,7 +34,11 @@
 
 
     <!--App中正常的1号字体-->
-    <dimen name="overallNormal1">20sp</dimen><!--32-->
+    <dimen name="overall32px">20sp</dimen><!--32-->
+    <!--App中正常的2号字体-->
+    <dimen name="overall28px">18sp</dimen><!--26-->
+    <!--App中正常的2号字体-->
+    <dimen name="overall16sp">16sp</dimen><!--26-->
     <!--App中正常的2号字体-->
     <dimen name="overall26px">14sp</dimen><!--26-->
     <!--App中正常的3号字体-->

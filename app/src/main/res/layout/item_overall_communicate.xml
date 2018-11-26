@@ -63,7 +63,7 @@
                 android:visibility="gone"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
 
-        <dasheng.com.capturedevice.widget.ninegrid.NineGridView
+        <app.jietuqi.cn.widget.ninegrid.NineGridView
             android:id="@+id/overallCommunicateNineGridView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

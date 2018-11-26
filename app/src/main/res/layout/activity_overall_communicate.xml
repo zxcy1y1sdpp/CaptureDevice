@@ -10,10 +10,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical">
-        <!--
-        app:layout_marginLeftPercent="3.17%w"
-        app:layout_marginRightPercent="3.17%w"-->
-
-    </android.support.v7.widget.RecyclerView>
+        android:orientation="vertical"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

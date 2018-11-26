@@ -11,7 +11,7 @@
         layout="@layout/base_wechat_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <dasheng.com.capturedevice.widget.OverScrollView
+    <app.jietuqi.cn.widget.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.zhy.android.percent.support.PercentLinearLayout
@@ -105,5 +105,5 @@
                 android:layout_height="wrap_content"
                 layout="@layout/include_wechat_preview_btn"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
-    </dasheng.com.capturedevice.widget.OverScrollView>
+    </app.jietuqi.cn.widget.OverScrollView>
 </com.zhy.android.percent.support.PercentLinearLayout>

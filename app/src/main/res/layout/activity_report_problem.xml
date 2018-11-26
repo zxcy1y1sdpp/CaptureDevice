@@ -8,7 +8,7 @@
     android:background="@color/overallBg">
 
     <include
-        layout="@layout/include_base_overall_title"
+        layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="@dimen/normalPadding"
-        android:layout_marginTop="@dimen/wechatLineNarrow">
+        android:layout_marginTop="@dimen/wechatLineNarrow"
+        android:baselineAligned="false">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -94,13 +95,7 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:orientation="horizontal"
             android:background="@color/white"
-            app:layout_marginLeftPercent="7%w"/>
-
-        <!--<RelativeLayout
-            android:id="@+id/mSelectPicsLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clipChildren="false">-->
+            android:layout_marginLeft="@dimen/normalPadding"/>
 
             <ImageView
                 android:id="@+id/mSelectPicsIv"
@@ -112,13 +107,6 @@
                 android:background="#000000"
                 android:layout_marginTop="7dp"
                 android:layout_marginLeft="7dp"/>
-
-           <!-- <ImageView
-                android:id="@+id/deleteIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/shanchu"/>-->
-        <!--</RelativeLayout>-->
     </com.zhy.android.percent.support.PercentLinearLayout>
 
 <!--
@@ -145,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="提交"
-        android:textSize="@dimen/overallNormal1"
+        android:textSize="@dimen/overall32px"
         android:textColor="@color/white"
         android:background="@drawable/blue_round_cornor"
         android:padding="10dp"

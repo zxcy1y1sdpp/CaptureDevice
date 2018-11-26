@@ -30,7 +30,7 @@
   **[] $VALUES;
   public *;
 }
--keepnames class dasheng.com.capturedevice.base.GlobalGlideGonfig
+-keepnames class app.jietuqi.cn.base.GlobalGlideGonfig
 # or more generally:
 #-keep public class * implements com.bumptech.glide.module.GlideModule
 
@@ -43,3 +43,8 @@
 -dontwarn com.yalantis.ucrop**
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
+
+#Mob相关
+#PaySDK已经做了混淆处理，再次混淆会导致不可预期的错误，请在您的混淆脚本中添加如下的配置，跳过对PaySDK的混淆操作：
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**

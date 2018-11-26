@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/overallMyItem"
+        app:layout_heightPercent="13.3%w"
+        app:layout_marginTopPercent="6.4%w">
+        <TextView
+            android:id="@+id/view1"
+            android:text="手机号段"
+            style="@style/overallLeftTitle"/>
+        <EditText
+            android:id="@+id/mOverallNumberAddFansEt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="请输入手机号前七位,例如18025843"
+            android:paddingLeft="@dimen/normalPadding"
+            android:background="@null"
+            android:layout_toRightOf="@+id/view1"
+            android:layout_toLeftOf="@+id/view2"
+            android:textSize="@dimen/overall24px"
+            android:inputType="number"
+            android:maxLength="7"/>
+        <TextView
+            android:id="@+id/view2"
+            style="@style/overallMyItemRight"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/overallMyItem"
+        app:layout_heightPercent="13.3%w">
+        <TextView
+            android:text="加粉数量"
+            style="@style/overallLeftTitle"/>
+        <TextView
+            style="@style/overallMyItemRight"
+            android:text="10个"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <Button
+        android:id="@+id/mOverallPreciseAddFansImportTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="导入通讯录"
+        android:textSize="@dimen/overall32px"
+        android:textColor="@color/white"
+        android:background="@drawable/blue_round_cornor"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_margin="@dimen/normalPadding"
+        android:layout_below="@+id/mOverallPreciseAddFansCountLayout"
+        app:layout_marginTopPercent="10.5%w"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

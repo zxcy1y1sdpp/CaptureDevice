@@ -10,7 +10,7 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/include_base_overall_title"/>
+        layout="@layout/include_base_overall_top"/>
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mClearCacheLayout"
         style="@style/overallMyItem"
@@ -20,8 +20,9 @@
             android:text="清除缓存"/>
 
         <TextView
+            android:id="@+id/mOverallSettingCacheSizeTv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="21.00MB"
             style="@style/wechatRightWithArrow"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
@@ -34,8 +35,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="21.00MB"
+            android:layout_height="match_parent"
             style="@style/wechatRightWithArrow"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout

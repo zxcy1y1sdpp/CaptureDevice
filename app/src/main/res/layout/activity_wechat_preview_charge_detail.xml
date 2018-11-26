@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             app:layout_marginLeftPercent="3.4%w"
             app:layout_marginRightPercent="3.4%w"/>
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
             android:id="@+id/wechatTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

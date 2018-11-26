@@ -18,7 +18,7 @@
         android:layout_marginLeft="@dimen/normalPadding"
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_marginRight="5dp"/>
-    <dasheng.com.capturedevice.widget.bubble.BubbleLinearLayout
+    <app.jietuqi.cn.widget.bubble.BubbleLinearLayout
         android:id="@+id/wechatBubbleLayout"
         android:orientation="horizontal"
         app:arrowWidth="5dp"
@@ -90,7 +90,7 @@
                 android:textSize="@dimen/wechatLittle2TextSize"
                 android:textColor="@color/wechatGray"/>
         </RelativeLayout>
-    </dasheng.com.capturedevice.widget.bubble.BubbleLinearLayout>
+    </app.jietuqi.cn.widget.bubble.BubbleLinearLayout>
 
     <LinearLayout
         android:id="@+id/receiveRedPacketLayout"

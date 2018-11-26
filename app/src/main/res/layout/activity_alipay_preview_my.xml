@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <dasheng.com.capturedevice.widget.OverScrollView
+    <app.jietuqi.cn.widget.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/titleLayout"
@@ -533,7 +533,7 @@
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
         </com.zhy.android.percent.support.PercentLinearLayout>
-    </dasheng.com.capturedevice.widget.OverScrollView>
+    </app.jietuqi.cn.widget.OverScrollView>
 
     <LinearLayout
         android:id="@+id/mBottomLayout"

@@ -54,6 +54,8 @@
     <color name="overallGray3">#BFBFBF</color>
     <color name="overallBg">#F7F7F7</color>
     <color name="inviteRed">#D53632</color>
+    <color name="vipChoiceColor">#FFCA8F</color>
+
 
 
     <!--支付宝相关颜色-->

@@ -33,14 +33,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_marginTopPercent="3.2%w">
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="¥"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:visibility="gone"/>
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
             android:id="@+id/mTransferMoneyTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

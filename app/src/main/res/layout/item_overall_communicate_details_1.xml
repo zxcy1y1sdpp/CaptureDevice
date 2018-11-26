@@ -65,7 +65,7 @@
                 android:visibility="gone"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
 
-        <dasheng.com.capturedevice.widget.ninegrid.NineGridView
+        <app.jietuqi.cn.widget.ninegrid.NineGridView
             android:id="@+id/overallCommunicateDetails1NineGridView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                 android:layout_marginTop="@dimen/normalPadding"
                 android:layout_marginBottom="@dimen/normalPadding"/>
             <TextView
-
+                android:id="@+id/overallCommunicateDetails1PingLunAllCountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全部点评（11）"

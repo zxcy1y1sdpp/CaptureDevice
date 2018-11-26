@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/mOverallPreciseAddFansAreaLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem"
+        percent:layout_marginTopPercent="6.13%w"
+        android:layout_below="@+id/titleLayout">
+        <TextView
+            android:text="选择地区"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallPreciseAddFansAreaTv"
+            android:text="全部地区"
+            style="@style/wechatRightWithArrow"
+            android:textColor="@color/overallGray3"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallPreciseAddFansBusinessLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem"
+        android:layout_below="@+id/mOverallPreciseAddFansAreaLayout">
+        <TextView
+            android:text="行业类别"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallPreciseAddFansBusinessTv"
+            android:text="全部行业"
+            style="@style/wechatRightWithArrow"
+            android:textColor="@color/overallGray3"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallPreciseAddFansSexualityLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem"
+        android:layout_below="@+id/mOverallPreciseAddFansBusinessLayout">
+        <TextView
+            android:text="选择性别"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallPreciseAddFansSexualityTv"
+            android:text="不限"
+            style="@style/wechatRightWithArrow"
+            android:textColor="@color/overallGray3"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallPreciseAddFansCountLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem"
+        android:layout_below="@+id/mOverallPreciseAddFansSexualityLayout">
+        <TextView
+            android:text="加粉数量"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallPreciseAddFansCountTv"
+            android:text="选择数量"
+            style="@style/wechatRightWithArrow"
+            android:textColor="@color/overallGray3"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/mOverallPreciseAddFansImportTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="导入通讯录"
+        android:textSize="@dimen/overall32px"
+        android:textColor="@color/white"
+        android:background="@drawable/blue_round_cornor"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_margin="@dimen/normalPadding"
+        android:layout_below="@+id/mOverallPreciseAddFansCountLayout"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

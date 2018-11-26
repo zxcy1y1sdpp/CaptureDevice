@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         percent:layout_widthPercent="100%h"
-        percent:layout_marginRightPercent="35.8%h">
+        percent:layout_marginRightPercent="20%h">
 
         <ImageView
             android:id="@+id/picThumb2"

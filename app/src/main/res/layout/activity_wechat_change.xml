@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:background="@color/wechatBg">
+    android:background="@color/wechatBg"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
 
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/wechatLayout"
@@ -21,7 +23,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_back_black"
             percent:layout_marginLeftPercent="4.1%w"/>
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
             android:id="@+id/wechatTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +71,7 @@
             percent:layout_marginTopPercent="3.5%w"
             android:textColor="@color/wechat_deep_text_color"/>
 
-        <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
             android:id="@+id/mMoneyTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,15 +80,31 @@
             android:textSize="@dimen/wechatMoneyTextSize"
             android:textColor="@color/wechat_deep_text_color"/>
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/test1"
             percent:layout_marginTopPercent="9.6%w"
             percent:layout_heightPercent="12.9%w"
             percent:layout_widthPercent="92.2%w"
-            android:scaleType="fitXY"/>
-        <ImageView
+            android:text="充值"
+            android:background="@drawable/green_solid7"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            percent:layout_heightPercent="12.9%w"
+            percent:layout_widthPercent="92.2%w"
+            percent:layout_marginTopPercent="4%w"
+            percent:layout_marginBottomPercent="9.5%w"
+            android:background="@drawable/gray_solid7"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:textColor="@color/black"
+            android:text="提现"
+            android:gravity="center"/>
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_change_bg2"
@@ -94,7 +112,7 @@
             percent:layout_heightPercent="12.9%w"
             percent:layout_widthPercent="92.2%w"
             percent:layout_marginBottomPercent="9.5%w"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"/>-->
         <!--<Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

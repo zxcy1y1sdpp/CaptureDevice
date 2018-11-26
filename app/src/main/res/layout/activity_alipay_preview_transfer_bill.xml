@@ -12,14 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        percent:srlEnablePureScrollMode="true">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <ScrollView
+        <app.jietuqi.cn.widget.OverScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.zhy.android.percent.support.PercentLinearLayout
@@ -444,6 +437,6 @@
                         android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
             </com.zhy.android.percent.support.PercentLinearLayout>
-        </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </app.jietuqi.cn.widget.OverScrollView>
+    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -9,9 +9,8 @@
         android:id="@+id/mWechatFragments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/mMainTabBar"
-        android:layout_below="@+id/wechatLayout"/>
-    <dasheng.com.capturedevice.widget.MainNavigateTabBar
+        android:layout_above="@+id/mMainTabBar"/>
+    <app.jietuqi.cn.widget.MainNavigateTabBar
         android:id="@+id/mMainTabBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +18,6 @@
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         app:containerId="@+id/mWechatFragments"
-        app:navigateTabSelectedTextColor="@color/wechatListGreen"
+        app:navigateTabSelectedTextColor="#2F82EC"
         app:navigateTabTextColor="@color/wechat_deep2_text_color"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

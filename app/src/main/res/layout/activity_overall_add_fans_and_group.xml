@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/mOverallAddFansAndGroupAddFansBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加粉"
+            percent:layout_heightPercent="29.3%w"
+            percent:layout_widthPercent="42.6%w"
+            percent:layout_marginTopPercent="3.73%w"
+            percent:layout_marginLeftPercent="4.8%w"
+            percent:layout_marginRightPercent="4.8%w"/>
+        <Button
+            android:id="@+id/mOverallAddFansAndGroupAddGroupsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加群"
+            percent:layout_heightPercent="29.3%w"
+            percent:layout_widthPercent="42.6%w"
+            percent:layout_marginTopPercent="3.73%w"
+            android:layout_alignParentRight="true"
+            percent:layout_marginRightPercent="4.8%w"
+            percent:layout_marginBottomPercent="4%w"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupPreciseAddFansLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="13.3%w">
+        <TextView
+            android:text="精准加粉"
+            android:drawableLeft="@mipmap/jingzhunjiafen"
+            style="@style/overallLeftTitle"/>
+        <TextView style="@style/overallMyItemRight"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupNumberAddFansLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="13.3%w">
+        <TextView
+            android:text="号段加粉"
+            android:drawableLeft="@mipmap/haoduanjiafen"
+            style="@style/overallLeftTitle"/>
+        <TextView style="@style/overallMyItemRight"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupVipBoomLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="16%w"
+        percent:layout_marginTopPercent="5.3%w">
+        <TextView
+            android:text="VIP高级爆粉"
+            android:drawableLeft="@mipmap/baofen"
+            style="@style/overallLeftTitle"
+            android:textColor="#FC615A"/>
+        <TextView
+            android:id="@+id/view1"
+            style="@style/overallMyItemRight"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会员专享"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/view1"
+            android:background="@drawable/red_round_cornor"
+            android:textColor="@color/white"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupClearAddressListLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="13.3%w"
+        percent:layout_marginTopPercent="5.3%w">
+        <TextView
+            android:text="清理通讯录"
+            android:drawableLeft="@mipmap/qinglitongxunlu"
+            style="@style/overallLeftTitle"/>
+        <TextView style="@style/overallMyItemRight"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupUseHelpLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="13.3%w">
+        <TextView
+            android:text="使用教程"
+            android:drawableLeft="@mipmap/jiaocheng"
+            style="@style/overallLeftTitle"/>
+        <TextView style="@style/overallMyItemRight"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

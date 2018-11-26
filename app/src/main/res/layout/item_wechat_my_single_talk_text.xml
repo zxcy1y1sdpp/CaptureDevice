@@ -16,7 +16,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_marginRight="@dimen/normalPadding"/>
-    <dasheng.com.capturedevice.widget.bubble.BubbleTextView
+    <app.jietuqi.cn.widget.bubble.BubbleTextView
         android:id="@+id/wechatMyTextMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,0 +1,49 @@
+apply plugin: 'com.mob.sdk'
+MobSDK {
+    appKey "28b5f0f968ce0"
+    appSecret "8e2f5703b0b7f2a7c6d67b69f46c9852"
+    SMSSDK {
+        //平台配置信息
+        devInfo {
+            /*Wechat {
+                appId "wx48d97a1bcbc411f3"
+                appSecret "89161f75cf0bff1aa94b85586254fd53"
+            }
+            QQ {
+                appId "101517949"
+                appKey "b5cf378bdbec10a694333e3c3d89e68c"
+            }*/
+
+            /*SinaWeibo {
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient true
+            }*/
+            Wechat {
+                appId "wx48d97a1bcbc411f3"
+                appSecret "89161f75cf0bff1aa94b85586254fd53"
+                userName "gh_afb25ac019c9"
+                path "pages/index/index.html?id=1"
+                withShareTicket true
+                miniprogramType 2
+                bypassApproval true
+            }
+            QQ {
+                appId "101517949"
+                appKey "b5cf378bdbec10a694333e3c3d89e68c"
+                shareByAppClient true
+                bypassApproval false
+            }
+        }
+    }
+
+
+    /*PaySDK {
+        info {
+            AliPay {}
+            Wechat {}
+            UnionPay {}
+        }
+    }*/
+}

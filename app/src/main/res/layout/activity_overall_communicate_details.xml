@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout
+<com.zhy.android.percent.support.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/overallBg">
+    android:background="@color/white">
 
     <include
-        layout="@layout/include_base_overall_title"
+        android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mOverallCommunicateDetailsRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout"
+        android:layout_above="@+id/layout1">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mOverallCommunicateDetailsRecyclerView"
             android:layout_width="match_parent"
@@ -27,100 +27,50 @@
             android:orientation="vertical"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <!--<com.zhy.android.percent.support.PercentRelativeLayout
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
-        <ImageView
-            android:id="@+id/mOverallCommunicateDetailsAvatarIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon1"
-            app:layout_widthPercent="11.7%w"
-            app:layout_heightPercent="11.7%w"
-            app:layout_marginTopPercent="3.41%w"
-            app:layout_marginRightPercent="2.19%w"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            app:layout_marginLeftPercent="3.17%w"/>
-
+        android:layout_alignParentBottom="true"
+        app:layout_heightPercent="12.4%w">
         <TextView
-            android:id="@+id/mOverallCommunicateDetailsNickNameTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="小月月"
-            android:layout_toRightOf="@+id/mOverallCommunicateDetailsAvatarIv"
-            android:layout_alignTop="@+id/mOverallCommunicateDetailsAvatarIv"
-            app:layout_heightPercent="5.85%w"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:ellipsize="end"
-            android:textColor="#616981"
-            android:textSize="@dimen/wechatNormalTextSize"
-            app:layout_marginRightPercent="3.17%w"/>
-
-        <com.zhy.android.percent.support.PercentLinearLayout
-            android:id="@+id/mOverallCommunicateDetailsContentLayout"
+            android:id="@+id/line"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_marginRightPercent="3.17%w"
-            android:layout_alignLeft="@+id/mOverallCommunicateDetailsNickNameTv"
-            android:layout_below="@+id/mOverallCommunicateDetailsNickNameTv"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/mOverallCommunicateDetailsContentTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="狂萨德考虑好阿萨德可令肌肤"
-                android:textSize="@dimen/wechatNormalTextSize"/>
-            <TextView
-                android:id="@+id/mOverallCommunicateDetailsShowAllContentTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="全文"
-                android:textColor="#616981"
-                android:textSize="@dimen/wechatNormalTextSize"
-                app:layout_marginTopPercent="3.17%w"
-                android:visibility="gone"/>
-        </com.zhy.android.percent.support.PercentLinearLayout>
-
-        <dasheng.com.capturedevice.widget.ninegrid.NineGridView
-            android:id="@+id/mOverallCommunicateDetailsNineGridView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:ngv_maxSize="9"
-            app:layout_marginRightPercent="3.17%w"
-            app:layout_marginTopPercent="2.68%w"
-            android:layout_below="@+id/mOverallCommunicateDetailsContentLayout"
-            android:layout_alignLeft="@+id/mOverallCommunicateDetailsNickNameTv"/>
-
+            android:layout_height="@dimen/wechatLineNarrow"
+            android:background="@color/overallBg"
+            android:layout_alignParentTop="true"/>
         <com.zhy.android.percent.support.PercentRelativeLayout
-            android:id="@+id/layout1"
+            android:id="@+id/mOverallCommunicateDetailsPinglunLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/mOverallCommunicateDetailsPingLunTv"
-            android:layout_alignBottom="@+id/mOverallCommunicateDetailsPingLunTv"
-            android:layout_toLeftOf="@+id/mOverallCommunicateDetailsPingLunTv"
-            android:layout_below="@+id/mOverallCommunicateDetailsNineGridView"
-            android:orientation="horizontal"
-            android:layout_alignRight="@+id/mOverallCommunicateDetailsContentLayout"
-            app:layout_marginTopPercent="4.87%w"
-            android:layout_alignLeft="@+id/mOverallCommunicateDetailsNickNameTv">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_below="@+id/line">
 
             <TextView
-                android:id="@+id/mOverallCommunicateDetailsTimeTv"
+                android:id="@+id/mOverallCommunicateDetailsCallPinglunTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-08-12"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:background="@drawable/edittext_bg"
+                android:textColor="@color/black"
+                android:drawableLeft="@drawable/xiepinglun"
+                android:drawablePadding="@dimen/normalPadding2"
+                android:gravity="center_vertical"
+                android:text="写评论..."
+                app:layout_heightPercent="9.0%w"
+                app:layout_widthPercent="37.07%w"
+                app:layout_marginLeftPercent="4.14%w"
+                android:textSize="@dimen/overall24px"/>
+
             <com.sackcentury.shinebuttonlib.ShineButton
                 android:id="@+id/mOverallCommunicateDetailsLikeBtn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="60%h"
+                app:layout_widthPercent="60%h"
+                android:layout_alignParentRight="true"
+                app:layout_marginRightPercent="4.14%w"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="3dp"
-                android:layout_toLeftOf="@+id/mOverallCommunicateDetailsLikeCountTv"
                 android:src="@android:color/darker_gray"
                 app:allow_random_color="false"
                 app:big_shine_color="#FF6666"
@@ -135,31 +85,47 @@
                 app:siShape="@raw/heart"
                 app:small_shine_color="#CC9999"
                 app:small_shine_offset_angle="20" />
-
-            <TextView
-                android:id="@+id/mOverallCommunicateDetailsLikeCountTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/normalPadding"
-                android:layout_toLeftOf="@+id/mOverallCommunicateDetailsPingLunTv"
-                android:text="67" />
-
-            <TextView
-                android:id="@+id/mOverallCommunicateDetailsPingLunTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="598"
-                android:drawableLeft="@drawable/pinglun"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"/>
         </com.zhy.android.percent.support.PercentRelativeLayout>
-        <TextView
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mOverallCommunicateDetailsSendPinglunLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/wechatLineNarrow"
-            android:background="@color/overallGray3"
-            android:layout_below="@+id/layout1"
-            app:layout_marginTopPercent="5.85%w"/>
-    </com.zhy.android.percent.support.PercentRelativeLayout>-->
-</com.zhy.android.percent.support.PercentLinearLayout>
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_below="@+id/line">
+
+            <EditText
+                android:id="@+id/mOverallCommunicateDetailsPingLunEt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/edittext_bg"
+                android:textColor="@color/black"
+                android:drawablePadding="@dimen/normalPadding2"
+                android:gravity="center_vertical"
+                android:hint="优质评论将会被有限展示"
+                android:textColorHint="@color/wechat_talk_time_bg"
+                app:layout_heightPercent="9.0%w"
+                app:layout_widthPercent="79.51%w"
+                app:layout_marginLeftPercent="4.14%w"
+                android:textSize="@dimen/overall24px"
+                android:textCursorDrawable="@color/overallBlue"/>
+
+            <TextView
+                android:id="@+id/mOverallCommunicateDetailsSendPingLunTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"
+                android:layout_alignParentRight="true"
+                app:layout_marginLeftPercent="3.9%w"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/overall32px"
+                android:textColor="@color/wechatBlue"
+                android:layout_toRightOf="@+id/mOverallCommunicateDetailsPingLunEt"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

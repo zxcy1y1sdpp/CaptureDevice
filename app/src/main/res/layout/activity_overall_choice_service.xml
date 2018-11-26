@@ -9,7 +9,7 @@
     android:gravity="center_horizontal">
 
     <include
-        layout="@layout/include_base_overall_title"
+        layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

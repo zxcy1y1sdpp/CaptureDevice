@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout
+<com.zhy.android.percent.support.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,31 +7,31 @@
     android:orientation="vertical">
 
     <include
+        android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/include_base_overall_title"/>
+        layout="@layout/include_base_overall_top"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mOverallHomeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
-    <!--<include layout="@layout/base_wechat_title"/>
-    <Button
-        android:id="@+id/mWechatBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="微信相关"/>
-    <Button
-        android:id="@+id/mAlipayBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="支付宝相关"/>
-    <Button
-        android:id="@+id/mQQBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QQ相关"/>-->
+        android:layout_below="@+id/titleLayout">
 
-</com.zhy.android.percent.support.PercentLinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <ImageView
+        android:id="@+id/mOverallPublisBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_release"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/normalPadding"
+        android:layout_alignParentBottom="true"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

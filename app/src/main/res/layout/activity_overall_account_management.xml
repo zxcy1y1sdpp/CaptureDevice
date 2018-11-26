@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/overallBg">
+    <include layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAccountManagementAvatarLayout"
+        percent:layout_marginTopPercent="4%w"
+        style="@style/wechatItem">
+        <TextView
+            android:text="头像"
+            style="@style/wechatLeftTitle"/>
+
+        <ImageView
+            android:id="@+id/mOverallAccountManagementAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            percent:layout_heightPercent="85%h"
+            percent:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallAccountManagementNickNameLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="昵称"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallAccountManagementNickNameTv"
+            android:text="请输入昵称"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallAccountManagementBindingPhoneLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem"
+        percent:layout_marginTopPercent="4%w">
+        <TextView
+            android:text="绑定手机"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallAccountManagementBindingPhoneTv"
+            android:text="未绑定"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallAccountManagementBindingWXLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="绑定微信"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallAccountManagementBindingWXTv"
+            android:text="未绑定"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mOverallAccountManagementBindingQQLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="绑定QQ"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOverallAccountManagementBindingQQTv"
+            android:text="未绑定"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="邀请好友"
         android:textColor="@color/overallTextColor"
-        android:textSize="@dimen/overallNormal1"
+        android:textSize="@dimen/overall32px"
         android:gravity="center"
         android:padding="@dimen/normalPadding"/>
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="每邀请10人赠送3个月VIP"
-        android:textSize="@dimen/overallNormal1"
+        android:textSize="@dimen/overall32px"
         android:textColor="@color/inviteRed"
         android:gravity="center"
         android:padding="@dimen/normalPadding"/>
@@ -28,6 +28,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mShareWechatMomentsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="朋友圈"
+            android:drawableTop="@mipmap/invite_pyq"
+            android:textSize="@dimen/overall26px"
+            android:textColor="@color/overallTextColor"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawablePadding="@dimen/normalPadding"
+            android:layout_margin="@dimen/normalPadding"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,11 +52,28 @@
             android:gravity="center"
             android:drawablePadding="@dimen/normalPadding"
             android:layout_margin="@dimen/normalPadding"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="朋友圈"
-            android:drawableTop="@mipmap/invite_pyq"
+            android:text="QQ好友"
+            android:drawableTop="@mipmap/invite_qq"
+            android:textSize="@dimen/overall26px"
+            android:textColor="@color/overallTextColor"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawablePadding="@dimen/normalPadding"
+            android:layout_margin="@dimen/normalPadding"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QQ空间"
+            android:drawableTop="@mipmap/invite_qqzone"
             android:textSize="@dimen/overall26px"
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
@@ -61,36 +91,10 @@
             android:gravity="center"
             android:drawablePadding="@dimen/normalPadding"
             android:layout_margin="@dimen/normalPadding"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="微信好友"
-            android:drawableTop="@mipmap/invite_qq"
-            android:textSize="@dimen/overall26px"
-            android:textColor="@color/overallTextColor"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="朋友圈"
-            android:drawableTop="@mipmap/invite_qqzone"
-            android:textSize="@dimen/overall26px"
-            android:textColor="@color/overallTextColor"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="复制链接"
+            android:text="扫码"
             android:drawableTop="@mipmap/invite_sm"
             android:textSize="@dimen/overall26px"
             android:textColor="@color/overallTextColor"
@@ -108,9 +112,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="已邀请0人"
-        android:textSize="@dimen/overallNormal1"
-        android:textColor="@color/white"
-        android:background="@drawable/blue_round_cornor"
+        android:textSize="@dimen/overall32px"
+        android:textColor="@color/overallGreen"
+        android:background="@drawable/green_solid"
         android:padding="10dp"
         android:gravity="center"
         android:layout_margin="@dimen/normalPadding"/>

@@ -2,11 +2,12 @@
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:percent="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    <dasheng.com.capturedevice.wechat.wechatfont.WechatChar2TextView
+    <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
         android:id="@+id/wechatTitleTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,14 +41,13 @@
                 percent:layout_widthPercent="4%w"
                 percent:layout_heightPercent="4%w"
                 android:layout_centerHorizontal="true"/>
-            <ImageView
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wechat_vertical_green_line"
                 android:layout_below="@+id/view1"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/view3"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/green_line"/>
             <ImageView
                 android:id="@+id/view3"
                 android:layout_width="wrap_content"
@@ -56,7 +56,14 @@
                 percent:layout_widthPercent="11%w"
                 percent:layout_heightPercent="11%w"
                 android:layout_centerInParent="true"/>
-            <ImageView
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_line"
+                android:layout_below="@+id/view3"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/view5"/>
+            <!--<ImageView
                 android:id="@+id/view4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +71,7 @@
                 android:layout_below="@+id/view3"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/view5"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"/>-->
             <TextView
                 android:id="@+id/view5"
                 android:layout_width="wrap_content"
@@ -139,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:text="提现金额"
                 android:textSize="@dimen/wechatNormalTextSize2"/>
-            <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+            <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
                 android:id="@+id/mWechatMoneyTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:text="手续费"
                 android:textSize="@dimen/wechatNormalTextSize2"/>
-            <dasheng.com.capturedevice.wechat.wechatfont.WechatNumTextView
+            <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
                 android:id="@+id/mServiceChargeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,16 +194,26 @@
                 android:textSize="@dimen/wechatNormalTextSize2"/>
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/mFinishIv"
+        <TextView
+            android:id="@+id/mFinishTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="完成"
+            android:textColor="@color/overallGreen"
+            android:background="@drawable/green_solid"
+            percent:layout_marginTopPercent="18.7%w"
+            percent:layout_widthPercent="50.2%w"
+            percent:layout_heightPercent="10%w"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_deposit_finish"
-            percent:layout_marginTopPercent="18.7%w"
             android:layout_gravity="center_horizontal"
             percent:layout_widthPercent="50.2%w"
             percent:layout_heightPercent="10%w"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"/>-->
     </com.zhy.android.percent.support.PercentLinearLayout>
 
 </com.zhy.android.percent.support.PercentLinearLayout>
