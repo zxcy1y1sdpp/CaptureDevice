@@ -22,7 +22,7 @@
             android:id="@+id/mOverallAccountManagementAvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/head_default"
             percent:layout_heightPercent="85%h"
             percent:layout_widthPercent="85%h"
             android:scaleType="centerCrop"
@@ -63,7 +63,8 @@
     <RelativeLayout
         android:id="@+id/mOverallAccountManagementBindingWXLayout"
         android:gravity="center_vertical"
-        style="@style/wechatItem">
+        style="@style/wechatItem"
+        android:visibility="gone">
         <TextView
             android:text="绑定微信"
             style="@style/wechatLeftTitle"/>
@@ -76,7 +77,8 @@
     <RelativeLayout
         android:id="@+id/mOverallAccountManagementBindingQQLayout"
         android:gravity="center_vertical"
-        style="@style/wechatItem">
+        style="@style/wechatItem"
+        android:visibility="gone">
         <TextView
             android:text="绑定QQ"
             style="@style/wechatLeftTitle"/>

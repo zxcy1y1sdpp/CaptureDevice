@@ -11,15 +11,17 @@ import app.jietuqi.cn.util.TimeUtil;
  */
 
 public class RandomUtil {
-    public static final String[] randomNick = {"小猪", "大宝", "简爱", "疯狂！", "是我", "琴儿",
+    public static final String[] randomNick = {"13141135309", "→", "剪刀", "JAB", "间隔",
+            "大宝", "简爱", "疯狂！", "慌乱", "花开ヽ似水￠",
             "花儿和少年", "Lucky", "So Cute", "勿忘心安", "博哥哥",
             "约定", "一定是", "特别的缘分", "才可以", "一路走来",
-            "变成了一家人", "他多爱你积分", "就多伤我积分"};
+            "变成了一家人", "他多爱你积分", "就多伤我积分", "A护肤品代购", "小猪"};
 
-    public static final int[] randomAvatar = {R.mipmap.icon0, R.mipmap.icon1, R.mipmap.icon2,
-            R.mipmap.icon3, R.mipmap.icon4, R.mipmap.role_002, R.mipmap.role_003, R.mipmap.role_004,
-            R.mipmap.role_005, R.mipmap.role_006, R.mipmap.role_007, R.mipmap.role_008, R.mipmap.role_009,
-            R.mipmap.role_020, R.mipmap.role_011, R.mipmap.role_012, R.mipmap.role_013, R.mipmap.role_014 };
+    public static final int[] randomAvatar = {R.mipmap.icon0, R.mipmap.icon1, R.mipmap.icon2, R.mipmap.icon3, R.mipmap.icon4,
+            R.mipmap.role_002, R.mipmap.role_003, R.mipmap.role_004, R.mipmap.role_005, R.mipmap.role_006,
+            R.mipmap.role_007, R.mipmap.role_008, R.mipmap.role_009, R.mipmap.role_020, R.mipmap.role_011,
+            R.mipmap.role_012, R.mipmap.role_013, R.mipmap.role_014, R.mipmap.role_015, R.mipmap.role_016,
+            R.mipmap.role_017, R.mipmap.role_018, R.mipmap.role_020, R.mipmap.role_019, R.mipmap.role_021};
 
     /**
      * 微信零钱明细 -- 收入
@@ -120,15 +122,6 @@ public class RandomUtil {
             ,"自私”、“棱角太多”的人，如果我们只用合来处理问题，也许又会成为“和稀泥”、“没主见”的人，所以，在保证自身特点的前提下，分分合合的处理问题，才能生活的滋润、惬意、自在。"
     };
     /**
-     * 获取随机的名称
-     * @return
-     */
-    public static String getRandomNickName(){
-        int index = (int) (Math.random() * randomNick.length);
-        String random = RandomUtil.randomNick[index];
-        return random;
-    }
-    /**
      * 获取随机的网络图片
      * @return
      */
@@ -154,6 +147,29 @@ public class RandomUtil {
         int index = (int) (Math.random() * randomAvatar.length);
         int random = RandomUtil.randomAvatar[index];
         return random;
+    }
+    /**
+     * 获取随机的昵称
+     * @return
+     */
+    public static String getRandomNickName(){
+        int index = (int) (Math.random() * randomNick.length);
+        String random = RandomUtil.randomNick[index];
+        return random;
+    }
+    /**
+     * 按顺序获取昵称
+     * @return
+     */
+    public static String getOrderNickName(int index){
+        return RandomUtil.randomNick[index];
+    }
+    /**
+     * 按顺序获取头像
+     * @return
+     */
+    public static int getOrderAvatar(int index){
+        return RandomUtil.randomAvatar[index];
     }
     /**
      * 获取随机的收入名称

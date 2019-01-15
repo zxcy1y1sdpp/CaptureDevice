@@ -14,6 +14,7 @@ import app.jietuqi.cn.callback.LoadMoreListener
 import app.jietuqi.cn.callback.RefreshListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zhouyou.http.widget.ProgressUtils
+import kotlinx.android.synthetic.main.include_base_overall_top.*
 
 /**
  * 作者： liuyuanbo on 2018/10/9 17:43.
@@ -60,7 +61,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
             return null
         }
 
-        return mRootView!!.findViewById<View>(id) as T
+        return mRootView?.findViewById<View>(id) as T
     }
 
     /**
@@ -142,6 +143,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         }
         when(type){
             1 ->{
+                overAllBackTv.visibility = View.GONE
                 iv?.visibility = View.GONE
             }
         }
@@ -180,7 +182,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
             mPageSize += 1
             loadFromServer()
             if (null != loadMoreListener){
-                loadMoreListener?.loadMore()
+                loadMoreListener.loadMore()
             }
         }
     }

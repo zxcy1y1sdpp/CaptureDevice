@@ -79,5 +79,5 @@
         style="@style/wechatEdit"
         android:hint="金额（元）"
         android:paddingLeft="@dimen/normalPadding"
-        android:inputType="number"/>
+        android:inputType="numberDecimal"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -5,13 +5,11 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.entity.OverallUserInfoEntity
 import app.jietuqi.cn.http.HttpConfig
-import app.jietuqi.cn.pay.OrderRecord
-import app.jietuqi.cn.pay.util.OrderUtil
+import app.jietuqi.cn.pay.alipay.AlipayUtil
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallRecentlyVipEntity
 import app.jietuqi.cn.ui.entity.OverallVipCardEntity
@@ -22,14 +20,14 @@ import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.widget.dialog.ChoicePayTypeDialog
 import com.jaeger.library.StatusBarUtil
-import com.mob.paysdk.*
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.request.PostRequest
-import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.activity_overall_purchase_vip.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -47,6 +45,11 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
      */
     private var mSelectCardEntity: OverallVipCardEntity = OverallVipCardEntity()
     private var mUserEntity: OverallUserInfoEntity? = null
+    /**
+     * 默认购买的是季度会员
+     */
+    private var mChoiceVipType = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mOverallPurchaseVipStatusLayout.setPadding(0, OtherUtil.getStatusBarHeight(this), 0, 0)
@@ -58,8 +61,10 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     }
 
     override fun initAllViews() {
+        registerEventBus()
         refreshUserInfo()
         setFlickerAnimation()
+        mScrollView.setImageView(mOverallPurchaseVipStatusLayout)
     }
 
     override fun initViewsListener() {
@@ -79,6 +84,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
                 finish()
             }
             R.id.mOverallPurchaseVipJDIv ->{
+                mChoiceVipType = 2
                 mOverallPurchaseVipJDIv.borderWidth = 8f
                 mOverallPurchaseVipNDIv.borderWidth = 0f
                 mOverallPurchaseVipYJIv.borderWidth = 0f
@@ -87,6 +93,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
 //                pay()
             }
             R.id.mOverallPurchaseVipNDIv ->{
+                mChoiceVipType = 3
                 mOverallPurchaseVipJDIv.borderWidth = 0f
                 mOverallPurchaseVipNDIv.borderWidth = 8f
                 mOverallPurchaseVipYJIv.borderWidth = 0f
@@ -94,7 +101,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
                 mSelectCardEntity = mVipCardList[1]
             }
             R.id.mOverallPurchaseVipYJIv ->{
-
+                mChoiceVipType = 4
                 mOverallPurchaseVipJDIv.borderWidth = 0f
                 mOverallPurchaseVipNDIv.borderWidth = 0f
                 mOverallPurchaseVipYJIv.borderWidth = 8f
@@ -125,29 +132,35 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
             }
         }) {})
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSelectTimeEvent(result: String) {
+        if (result == "购买会员卡成功"){
+            refreshUserInfo()
+        }
+    }
     /**
      * 创建订单的接口
      */
     private fun createOrder(payChannel: String = "微信"){
         var request: PostRequest = EasyHttp.post(HttpConfig.ORDER)
                 .params("way", "add")
-                .params("pay", "mobpay")
+                .params("way", "add")
+                .params("pay", "appalipay")
                 .params("money", mSelectCardEntity.id)
                 .params("uid", mUserEntity?.id?.toString())
                 .params("pay_channel", payChannel)
                 .params("classify", "vip")
+                .params("os", "android")
 
         request.execute(object : CallBackProxy<OverallApiEntity<OverallVipCardOrderEntity>, OverallVipCardOrderEntity>(object : SimpleCallBack<OverallVipCardOrderEntity>() {
             override fun onSuccess(t: OverallVipCardOrderEntity?) {
                 mSelectCardEntity.orderNum = t?.sn
                 mSelectCardEntity.payChannel = t?.pay_channel
-                pay()
+                t?.info?.let { AlipayUtil().init(this@OverallPurchaseVipActivity, it) }
             }
-
             override fun onStart() {
                 super.onStart()
-                ProgressUtils.showProgressDialog("订单创建中，请稍后...", this@OverallPurchaseVipActivity)
+                showLoadingDialog("订单创建中，请稍后...")
             }
             override fun onError(e: ApiException) {
                 dismissLoadingDialog()
@@ -155,53 +168,6 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
             }
         }) {})
     }
-    /**
-     * 发起Mob支付功能
-     */
-    private fun pay() {
-        val order = PayOrder()
-        order.orderNo = mSelectCardEntity.orderNum
-        order.amount = (mSelectCardEntity.price.toFloat() * 100).toInt()
-        order.subject = StringUtils.insertFrontAndBack(mSelectCardEntity.title, getString(R.string.app_name) + " - ", "订单")
-        order.body = getString(R.string.main_order_body)
-        val payApi: MobPayAPI? = when (mSelectCardEntity.payChannel) {
-            "支付宝" -> PaySDK.createMobPayAPI(AliPayAPI::class.java)
-            "微信" -> PaySDK.createMobPayAPI(WXPayAPI::class.java)
-            else -> null
-        }
-        payApi?.pay(order, object : OnPayListener<PayOrder> {
-            override fun onWillPay(ticketId: String, order: PayOrder, api: MobPayAPI): Boolean {
-                // 保存ticketId
-                return false
-            }
-
-            override fun onPayEnd(payResult: PayResult, order: PayOrder, api: MobPayAPI) {
-                this@OverallPurchaseVipActivity.onPayEnd(order, payResult)
-            }
-        })
-    }
-    private fun onPayEnd(order: Order, result: PayResult) {
-        when(result.payCode) {
-            PayResult.PAYCODE_OK -> {
-                Toast.makeText(this@OverallPurchaseVipActivity, R.string.main_pay_success, Toast.LENGTH_SHORT).show()
-//                mUserEntity?.status = mSelectCardEntity.status.toInt()
-                GlideUtil.display(this, R.drawable.overall_purchase_renewal_vip, mOverallPurchaseVipTitleIv)
-                refreshUserInfo()
-            }
-            PayResult.PAYCODE_CANCEL -> {
-                Toast.makeText(this@OverallPurchaseVipActivity, R.string.main_pay_cancel, Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-                Toast.makeText(this@OverallPurchaseVipActivity, R.string.main_pay_fail, Toast.LENGTH_SHORT).show()
-            }
-        }
-        val or = OrderRecord()
-        or.order = order as PayOrder
-        or.result = result
-        or.payAt = System.currentTimeMillis()
-        OrderUtil.addOrder(this, or)
-    }
-
     override fun loadFromServer(){
         getMoney()
         getRecentlyVip()
@@ -215,13 +181,13 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
         }
         GlideUtil.display(this, mUserEntity?.headimgurl, mOverallPurchaseVipAvatarIv)
         mOverallPurchaseVipNickNameTv.text = mUserEntity?.nickname
-        mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
-        /*when {
-            user.status == 1 -> mOverallPurchaseVipValidityTimeTv.text = "您还不是会员"
-            user.status == 2 -> mOverallPurchaseVipValidityTimeTv.text = "季度会员"
-            user.status == 3 -> mOverallPurchaseVipValidityTimeTv.text = "年费会员"
+//        mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
+        when {
+            user.status == 1 -> mOverallPurchaseVipValidityTimeTv.text = "您还不是VIP会员"
+            user.status == 2 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
+            user.status == 3 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
             user.status == 4 -> mOverallPurchaseVipValidityTimeTv.text = "永久会员"
-        }*/
+        }
     }
 
     private fun getRecentlyVip(){
@@ -231,7 +197,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
             override fun onSuccess(t: ArrayList<OverallRecentlyVipEntity>) {
                 val info = arrayListOf<String>()
                 for (entity in t) {
-                    info.add(entity.toString())
+                    info.add(entity.content)
                 }
                 mOverallPurchaseVipMarqueeTv.startWithList(info)
             }

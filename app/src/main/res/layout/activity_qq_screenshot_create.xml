@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mQQScreenShotCreateChangeRoleLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:id="@+id/senderTv"
+            android:text="设置资料"
+            style="@style/wechatLeftTitle"/>
+        <ImageView
+            android:id="@+id/mQQScreenShotMySideAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mQQScreenShotOtherSideAvatarIv"/>
+
+        <ImageView
+            android:id="@+id/mQQScreenShotOtherSideAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/mQQScreenShotCreateMenuRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mQQScreenShotCreateChangeRoleLayout"
+        android:layout_above="@+id/include"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:clipToPadding="false"/>
+    <include
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_bottom_add_item"
+        android:layout_alignParentBottom="true" />
+
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

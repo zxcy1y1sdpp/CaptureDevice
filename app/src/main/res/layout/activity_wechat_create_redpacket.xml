@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <include
+        layout="@layout/include_choice_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        style="@style/wechatItem">
+        <TextView
+            android:text="选择类型"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mWechatCreatesRedPacketSendTv"
+            android:text="发红包"
+            android:background="@drawable/blue_round_cornor"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/mWechatCreatesRedPacketReceiveTv"
+            style="@style/wechatTwoBtn" />
+        <TextView
+            android:id="@+id/mWechatCreatesRedPacketReceiveTv"
+            android:text="收红包"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
+            android:layout_marginLeft="@dimen/normalPadding"
+            android:layout_marginRight="@dimen/normalPadding"/>
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/mWechatCreatesRedPacketMoneyEt"
+        android:hint="输入红包金额"
+        style="@style/wechatEdit"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/normalPadding"/>
+    <EditText
+        android:id="@+id/mWechatCreatesRedPacketMsgEt"
+        android:hint="恭喜发财，大吉大利"
+        style="@style/wechatEdit"
+        android:padding="@dimen/normalPadding"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

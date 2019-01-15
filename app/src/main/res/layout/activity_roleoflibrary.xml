@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include android:id="@+id/titleLayout"
+        layout="@layout/base_wechat_title"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRoleOfLibraryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_below="@+id/titleLayout"/>
+    <app.jietuqi.cn.widget.MyLetterSortView
+        android:id="@+id/mRoleLetter"
+        android:layout_width="25dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/titleLayout"/>
+    <TextView
+        android:id="@+id/mRoleLetterTv"
+        android:layout_width="80.0dip"
+        android:layout_height="80.0dip"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/letter_mid_view_background"
+        android:gravity="center"
+        android:padding="5dip"
+        android:textColor="@color/white"
+        android:textSize="35.0dip"
+        android:visibility="invisible" />
+</RelativeLayout>

@@ -13,7 +13,7 @@
     percent:layout_heightPercent="16.2%w"
     percent:layout_widthPercent="27.2%w"
     android:layout_marginRight="@dimen/normalPadding"
-    android:src="@mipmap/icon1"
+    android:src="@drawable/head_default"
     android:scaleType="centerCrop"/>
 
     <TextView

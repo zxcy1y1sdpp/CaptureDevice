@@ -1,16 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/wechatBg">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.5%w"
+        android:background="#EDEDED">
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
+            android:id="@+id/mWechatSimulatorPreviewNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信(185)"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mWechatSimulatorPreviewBackTv"
+            android:layout_alignTop="@+id/mWechatSimulatorPreviewBackTv"
+            android:layout_alignBottom="@+id/mWechatSimulatorPreviewBackTv"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="3.85%w"/>
 
+        <ImageView
+            android:id="@+id/mWechatSimulatorPreviewAddIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_add"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:layout_marginRightPercent="4.93%w"/>
+        <ImageView
+            android:id="@+id/mWechatSimulatorPreviewSearchIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_search"
+            android:layout_centerVertical="true"
+            app:layout_marginRightPercent="10.49%w"
+            android:layout_toLeftOf="@+id/mWechatSimulatorPreviewAddIv"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:orientation="vertical"/>
-</LinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

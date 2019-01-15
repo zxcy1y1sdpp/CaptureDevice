@@ -22,12 +22,14 @@
         app:layout_marginTopPercent="4%w"/>
 
     <LinearLayout
+        android:id="@+id/mOverallReportProblemTypeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:padding="@dimen/normalPadding"
         android:layout_marginTop="@dimen/wechatLineNarrow"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:tag="gongneng">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/mOverallReportProblemEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_heightPercent="24%w"
@@ -109,10 +112,6 @@
                 android:layout_marginLeft="7dp"/>
     </com.zhy.android.percent.support.PercentLinearLayout>
 
-<!--
-
-        android:padding="@dimen/normalPadding"
-        android:clipToPadding="true"-->
     <com.zhy.android.percent.support.PercentLinearLayout
         style="@style/overallMyItem"
         android:layout_marginBottom="50dp">
@@ -121,6 +120,7 @@
             style="@style/overallLeftTitle"/>
 
         <EditText
+            android:id="@+id/mOverallReportProblemContactEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="手机/微信/QQ，方便客服和您联系"
@@ -130,6 +130,7 @@
     </com.zhy.android.percent.support.PercentLinearLayout>
 
     <Button
+        android:id="@+id/mOverallReportProblemSubmitBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="提交"

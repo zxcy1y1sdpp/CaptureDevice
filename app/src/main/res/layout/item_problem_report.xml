@@ -18,13 +18,18 @@
             android:id="@+id/picThumb2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/add_video"
             android:layout_marginTop="7dp"
             android:layout_marginLeft="7dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:background="#000000"/>
-
+        <app.jietuqi.cn.widget.VerticalProgressBar
+            android:id="@+id/sUploadProgress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp"
+            android:visibility="gone"/>
         <ImageView
             android:id="@+id/deleteIv"
             android:layout_width="wrap_content"

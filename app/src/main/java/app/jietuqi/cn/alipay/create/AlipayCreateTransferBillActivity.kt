@@ -10,14 +10,14 @@ import app.jietuqi.cn.callback.EditDialogChoiceListener
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.constant.RandomUtil
 import app.jietuqi.cn.constant.RequestCode
-import app.jietuqi.cn.database.table.WechatUserTable
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
+import app.jietuqi.cn.ui.entity.WechatUserEntity
+import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
-import app.jietuqi.cn.wechat.ui.activity.WechatRoleActivity
 import app.jietuqi.cn.widget.dialog.EditDialog
 import kotlinx.android.synthetic.main.activity_alipay_create_transfer_bill.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
@@ -36,7 +36,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
      * 0 -- 转账账单
      * 1 -- 收款账单
      */
-    internal var mType = 0
+    private var mType = 0
     private var mEntity: AlipayCreateTransferBillEntity = AlipayCreateTransferBillEntity()
     override fun setLayoutResourceId() = R.layout.activity_alipay_create_transfer_bill
 
@@ -45,7 +45,12 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
     }
 
     override fun initAllViews() {
-
+        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        mEntity.avatarFile = userEntity.avatarFile
+        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.wechatUserNickName = userEntity.wechatUserNickName
+        mAlipayCreateTransferBillNickNameTv.text = userEntity.wechatUserNickName
+        GlideUtil.displayHead(this, userEntity.getAvatarFile(), mAlipayCreateTransferBillAvatarIv)
         registerEventBus()
         onlyTowEditTextNeedTextWatcher(mAlipayCreateTransferBillAccountEt, mAlipayCreateTransferBillMoneyEt)
         mAlipayCreateTransferBillNumEt.setText(RandomUtil.getRandomNum(20))
@@ -88,7 +93,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
         super.onClick(v)
         when(v.id){
             R.id.mAlipayCreateTransferBillSenderLayout ->{
-                LaunchUtil.launch(this, WechatRoleActivity::class.java, RequestCode.CHANGE_ROLE)
+                operateRole(mEntity)
             }
             R.id.mAlipayCreateTransferBillReceiveTv ->{
                 mAlipayCreateTransferBillPaymentMethodsTitleTv.text = "收款方式"
@@ -158,20 +163,21 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK){
-            when(requestCode){
-                RequestCode.CHANGE_ROLE ->{
-                    val entity: WechatUserTable = data?.getSerializableExtra(IntentKey.ENTITY) as WechatUserTable
-                    mEntity.avatar = entity.avatar
-                    mEntity.wechatUserNickName = entity.wechatUserNickName
+        when(requestCode){
+            RequestCode.MY_SIDE ->{
+                if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
+                    val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
+                    mEntity.avatarFile = userEntity.avatarFile
+                    mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mAlipayCreateTransferBillNickNameTv.text = mEntity.wechatUserNickName
-                    GlideUtil.display(this, mEntity.avatar, mAlipayCreateTransferBillAvatarIv)
+                    GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateTransferBillAvatarIv)
                 }
             }
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSelecTimeEvent(timeEntity: EventBusTimeEntity) {
+    fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
         mAlipayCreateTransferBillCreateTimeTv.text = timeEntity.time
         mEntity.createTime = timeEntity.time
     }

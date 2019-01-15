@@ -3,14 +3,12 @@ package app.jietuqi.cn.ui.activity
 import android.content.Intent
 import android.os.CountDownTimer
 import android.support.v4.content.ContextCompat
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
-import app.jietuqi.cn.callback.MobSmsCodeListener
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.entity.OverallUserInfoEntity
@@ -21,9 +19,7 @@ import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
-import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.activity_overall_register.*
-
 
 /**
  * 作者： liuyuanbo on 2018/11/12 17:45.
@@ -31,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_overall_register.*
  * 邮箱： 972383753@qq.com
  * 用途： 注册页面
  */
-class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListener {
+class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListener*/ {
 
     /**
      * 定时器
@@ -48,6 +44,7 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
     /**
      * 0 -- 注册
      * 1 -- 绑定手机
+     * 2 -- 修改密码
      */
     private var mType = 0
     override fun setLayoutResourceId() = R.layout.activity_overall_register
@@ -74,12 +71,17 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
-        if (mType == 0){
-            setTitle("注册账号")
-        }else{
-            setTitle("绑定手机")
-            mOverallRegisterConfirmBtn.text = "绑定"
-            mOverallRegisterUserAgreementTv.visibility = View.GONE
+        when (mType) {
+            0 -> setTopTitle("注册账号")
+            1 -> {
+                setTopTitle("绑定手机")
+                mOverallRegisterConfirmBtn.text = "绑定"
+                mOverallRegisterUserAgreementTv.visibility = View.GONE
+            }
+            else -> {
+                setTopTitle("修改密码")
+                mOverallRegisterConfirmBtn.text = "修改密码"
+            }
         }
     }
     override fun onClick(v: View) {
@@ -87,35 +89,46 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
         when(v.id){
             R.id.mOverallRegisterGetVerificationCodeView ->{
                 showLoadingDialog("获取中")
-                ThirdPartUtil.getInstance().sendSmsCode(mOverallRegisterPhoneNumberEt.text.toString(), this)
+                sendSmsCode()
             }
             R.id.mOverallRegisterConfirmBtn ->{
-                if (6 != OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
+                if (0 >= OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
                     Toast.makeText(this, "验证码输入有误", Toast.LENGTH_SHORT).show()
                     return
                 }
                 showLoadingDialog("请稍后...")
-                ThirdPartUtil.getInstance().verifySmsCode(mOverallRegisterPhoneNumberEt.text.toString(), mOverallRegisterVerificationCodeView.text.toString(), this)
+                if (canRegister()){
+                    if (mType == 0){
+                        registerAndReset()
+                    }else if (mType == 2){
+                        registerAndReset()
+                    }
+                    if (mType == 1){
+                        binding()
+                    }
+                }else{
+                    dismissLoadingDialog()
+                }
             }
             R.id.mOverallRegisterUserAgreementTv ->{
                 LaunchUtil.launch(this, OverallProtocolActivity::class.java)
             }
         }
     }
-    private fun canRigister(): Boolean{
-        if(TextUtils.isEmpty(OtherUtil.getContent(mOverallRegisterPhoneNumberEt))){
+    private fun canRegister(): Boolean{
+        /*if(TextUtils.isEmpty(OtherUtil.getContent(mOverallRegisterPhoneNumberEt))){
             Toast.makeText(this, "请填写账号", Toast.LENGTH_SHORT).show()
             return false
-        }
-        if (!AccountValidatorUtil.isMobile(OtherUtil.getContent(mOverallRegisterPhoneNumberEt))){
-            Toast.makeText(this, "请正确填写手机号", Toast.LENGTH_SHORT).show()
+        }*/
+        if(OtherUtil.getContentLength(mOverallRegisterPhoneNumberEt) != 11){
+            Toast.makeText(this, "手机号长度不正确", Toast.LENGTH_SHORT).show()
             return false
         }
         if (6 > OtherUtil.getContentLength(mOverallRegisterPasswordViewEt)){
             Toast.makeText(this, "密码长度必须大于6位", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (6 != OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
+        if (0 >= OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
             Toast.makeText(this, "验证码输入有误", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -128,13 +141,13 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
     private fun downTime() {
         mTimer = object : CountDownTimer((60 * 1000).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                mOverallRegisterGetVerificationCodeView.setBgColor(ContextCompat.getColor(this@OverallRegisterActivity, R.color.overallGray3))
+                mOverallRegisterGetVerificationCodeView.setTextColor(ContextCompat.getColor(this@OverallRegisterActivity, R.color.overallGray3))
                 //每隔countDownInterval秒会回调一次onTick()方法
                 mOverallRegisterGetVerificationCodeView.text = "重发(" + millisUntilFinished / 1000 + "s)"
                 mOverallRegisterGetVerificationCodeView.isClickable = false
             }
             override fun onFinish() {
-                mOverallRegisterGetVerificationCodeView.setBgColor(ContextCompat.getColor(this@OverallRegisterActivity, R.color.overallBlue))
+                mOverallRegisterGetVerificationCodeView.setTextColor(ContextCompat.getColor(this@OverallRegisterActivity, R.color.black))
                 mOverallRegisterGetVerificationCodeView.text = "重新发送"
                 mOverallRegisterGetVerificationCodeView.isEnabled = true
                 mOverallRegisterGetVerificationCodeView.isClickable = true
@@ -151,17 +164,19 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
             mTimer = null
         }
     }
-    private fun register(){
+    private fun registerAndReset(){
         EasyHttp.post(HttpConfig.REGISTER_AND_LOGIN)
                 .params("mobile", OtherUtil.getContent(mOverallRegisterPhoneNumberEt))
                 .params("password", OtherUtil.getContent(mOverallRegisterPasswordViewEt))
                 .params("way", "mobile")
+                .params("os", "android")
                 .params("ip", IP)
                 .params("iip", IIP)
+                .params("code", OtherUtil.getContent(mOverallRegisterVerificationCodeView))
                 .execute(object : CallBackProxy<OverallApiEntity<OverallUserInfoEntity>, OverallUserInfoEntity>(object : SimpleCallBack<OverallUserInfoEntity>() {
                     override fun onStart() {
                         super.onStart()
-                        ProgressUtils.showProgressDialog("正在注册账号...", this@OverallRegisterActivity)
+                        showLoadingDialog()
                     }
                     override fun onError(e: ApiException) {
                         dismissLoadingDialog()
@@ -169,11 +184,15 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
                     }
 
                     override fun onSuccess(t: OverallUserInfoEntity?) {
-                        SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, true)
-                        Toast.makeText(this@OverallRegisterActivity, "注册成功", Toast.LENGTH_SHORT).show()
                         dismissLoadingDialog()
-                        SharedPreferencesUtils.putData(SharedPreferenceKey.USER_INFO, t)
-                        AppManager.getInstance().killActivity(OverallLoginActivity::class.java)
+                        SharedPreferencesUtils.saveBean2Sp(t, SharedPreferenceKey.USER_INFO)
+                        SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, true)
+                        if(mType == 2){
+                            showToast("密码重置成功")
+                        }else{
+                            showToast("注册成功")
+                            AppManager.getInstance().killActivity(OverallLoginActivity::class.java)
+                        }
                         finish()
                     }
 
@@ -186,8 +205,11 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
                 .params("id", UserOperateUtil.getUserId())
                 .params("mobile", mobile)
                 .params("password", mOverallRegisterPasswordViewEt.text.toString())
+                .params("code", OtherUtil.getContent(mOverallRegisterVerificationCodeView))
                 .execute(object : SimpleCallBack<String>() {
-                    override fun onError(e: ApiException) {}
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
                     override fun onSuccess(t: String) {
                         showToast("手机绑定成功")
                         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_PHONE_NUMBER, mobile)
@@ -198,32 +220,25 @@ class OverallRegisterActivity : BaseOverallInternetActivity(), MobSmsCodeListene
                     }
                 })
     }
-    override fun sendCodeSuccess() {
-        dismissLoadingDialog()
-        downTime()
-        // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
-        Toast.makeText(this@OverallRegisterActivity, "验证码已发送到您的手机，请注意查收", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun sendCodeFail() {
-        dismissLoadingDialog()
-        Toast.makeText(this@OverallRegisterActivity, "验证码发送失败，请稍后再试： ", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun verifyCodeSuccess() {
-        dismissLoadingDialog()
-        if (canRigister()){
-            if (mType == 0){
-                register()
-
-            }else{
-                binding()
-            }
+    private fun sendSmsCode(){
+        val postRequest = EasyHttp.post(HttpConfig.USERS).params("mobile", OtherUtil.getContent(mOverallRegisterPhoneNumberEt)).params("way", "sms")
+        when (mType) {
+            0 -> //注册
+                postRequest.params("classify", "register")
+            1 -> //绑定
+                postRequest.params("classify", "bind")
+            else -> //忘记密码
+                postRequest.params("classify", "reset")
         }
-    }
-
-    override fun verifyCodeFail() {
-        dismissLoadingDialog()
-        Toast.makeText(this@OverallRegisterActivity, "验证失败： 请联系客服" , Toast.LENGTH_SHORT).show()
+        postRequest.execute(object : SimpleCallBack<String>() {
+            override fun onError(e: ApiException) {
+                dismissLoadingDialog()
+                e.message?.let { showToast(it) }
+            }
+            override fun onSuccess(t: String) {
+                downTime()
+                showToast("验证码已发送到您的手机，请注意查收！")
+            }
+        })
     }
 }

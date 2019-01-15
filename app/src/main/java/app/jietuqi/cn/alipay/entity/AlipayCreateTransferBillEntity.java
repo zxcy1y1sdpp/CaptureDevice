@@ -1,6 +1,6 @@
 package app.jietuqi.cn.alipay.entity;
 
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/11/2 09:45.
@@ -9,7 +9,7 @@ import app.jietuqi.cn.database.table.WechatUserTable;
  * 用途： 创建微信转账账单的实体
  */
 
-public class AlipayCreateTransferBillEntity extends WechatUserTable{
+public class AlipayCreateTransferBillEntity extends WechatUserEntity {
     /**
      * 对方账号
      */

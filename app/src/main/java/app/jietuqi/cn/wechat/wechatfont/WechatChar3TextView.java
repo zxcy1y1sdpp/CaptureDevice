@@ -28,6 +28,8 @@ public class WechatChar3TextView extends AppCompatTextView {
         applyCustomFont(context);
     }
     private void applyCustomFont(Context context) {
+
+        getPaint().setFakeBoldText(true);
         Typeface customFont = FontCache.getTypeface("WeChatSansStd-Medium.ttf", context);
         setTypeface(customFont);
     }

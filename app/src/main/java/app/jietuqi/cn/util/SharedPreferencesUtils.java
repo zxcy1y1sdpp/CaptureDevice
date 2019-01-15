@@ -287,7 +287,9 @@ public class SharedPreferencesUtils {
                 }
             }
         }
-        updateUserInfo();
+        if (t instanceof OverallUserInfoEntity){
+            updateUserInfo();
+        }
     }
     public static void updateUserInfo(){
         OverallUserInfoEntity entity = UserOperateUtil.getUserInfo();
@@ -298,6 +300,12 @@ public class SharedPreferencesUtils {
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_PHONE_NUMBER, entity.mobile);//保存手机号
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_WECHAT_OPENID, entity.wx_openid);//保存wx_openid
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_QQ_OPENID, entity.qq_openid);//保存qq_open_d
+        SharedPreferencesUtils.putData(SharedPreferenceKey.USER_SHARE_NUMBER, entity.share_number);//保存qq_open_d
+        boolean isVip = false;
+        if (entity.status == 2 || entity.status == 3 || entity.status == 4){
+            isVip = true;
+        }
+        SharedPreferencesUtils.putData(SharedPreferenceKey.USER_IS_VIP, isVip);//保存qq_open_d
     }
     public static <T extends Object> T getBeanFromSp(String keyNme) {
         byte[] bytes = Base64.decode(sp.getString(keyNme, ""), Base64.DEFAULT);

@@ -1,4 +1,4 @@
-//package app.jietuqi.cn.pay.util;
+package app.jietuqi.cn.pay.util;//package app.jietuqi.cn.pay.util;
 //import android.app.Dialog;
 //import android.content.Context;
 //import android.graphics.drawable.Drawable;

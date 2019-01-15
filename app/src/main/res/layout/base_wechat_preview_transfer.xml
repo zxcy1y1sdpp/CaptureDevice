@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <ImageView
+        android:id="@+id/mTransferIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="15%w"
+        app:layout_widthPercent="15%w"
+        android:src="@drawable/wechat_transfer_receiving"
+        android:layout_gravity="center_horizontal"
+        app:layout_marginTopPercent="11.85%w"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/mTransferNickNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="李欣已收钱"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:includeFontPadding="false"
+        app:layout_marginTopPercent="10.13%w"
+        android:layout_centerHorizontal="true"/>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="1.1%w"
+        android:layout_centerHorizontal="true">
+        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="¥"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:visibility="gone"/>
+        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
+            android:id="@+id/mTransferMoneyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥4566.00"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:includeFontPadding="false"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+    <TextView
+        android:id="@+id/mCheckChargeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/wechatLightGray"
+        android:textSize="14sp"
+        app:layout_marginTopPercent="4.52%w"
+        app:layout_marginBottomPercent="13.12%w"
+        android:text="查看零钱"
+        android:visibility="invisible"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

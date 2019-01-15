@@ -1,23 +1,28 @@
 package app.jietuqi.cn.widget.dialog
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import app.jietuqi.cn.R
+import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.widget.QRCodeDialog
+import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import cn.sharesdk.framework.ShareSDK
 import cn.sharesdk.tencent.qq.QQ
+import cn.sharesdk.tencent.qzone.QZone
 import cn.sharesdk.wechat.friends.Wechat
 import cn.sharesdk.wechat.moments.WechatMoments
+import com.bm.zlzq.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_invite.*
 import java.util.*
 
@@ -30,86 +35,127 @@ import java.util.*
 
 class InviteDialog : DialogFragment(), View.OnClickListener, PlatformActionListener {
     override fun onComplete(platform: Platform, i: Int, hashMap: HashMap<String, Any>) {
-//        async(CommonPool){
-//            runOnUiThread {
-                when(platform.name){
-//                    SinaWeibo.NAME -> Toast.makeText(this@BaseActivityWithShare, "微博分享成功", Toast.LENGTH_LONG).show()
-                    Wechat.NAME -> Toast.makeText(activity, "微信分享成功", Toast.LENGTH_LONG).show()
-                    WechatMoments.NAME -> Toast.makeText(activity, "朋友圈分享成功", Toast.LENGTH_LONG).show()
-                    QQ.NAME -> Toast.makeText(activity, "QQ分享成功", Toast.LENGTH_LONG).show()
-                    else -> {}
-                }
-            }
-//        }
-//    }
+        when(platform.name){
+            Wechat.NAME -> Toast.makeText(activity, "微信分享成功", Toast.LENGTH_LONG).show()
+            WechatMoments.NAME -> Toast.makeText(activity, "朋友圈分享成功", Toast.LENGTH_LONG).show()
+            QQ.NAME -> Toast.makeText(activity, "QQ分享成功", Toast.LENGTH_LONG).show()
+            QZone.NAME -> Toast.makeText(activity, "QQ空间分享成功", Toast.LENGTH_LONG).show()
+            else -> {}
+        }
+    }
 
     override fun onError(platform: Platform, i: Int, throwable: Throwable) {
-        Toast.makeText(activity, "分享失败", Toast.LENGTH_LONG).show()
-//        async(CommonPool){
-//            runOnUiThread {
-//                Toast.makeText(activity, "分享失败", Toast.LENGTH_LONG).show()
-//            }
-//        }
+        when(platform.name){
+            Wechat.NAME -> Toast.makeText(activity, "微信分享失败", Toast.LENGTH_LONG).show()
+            WechatMoments.NAME -> Toast.makeText(activity, "朋友圈分享失败", Toast.LENGTH_LONG).show()
+            QQ.NAME -> Toast.makeText(activity, "QQ分享失败", Toast.LENGTH_LONG).show()
+            QZone.NAME -> Toast.makeText(activity, "QQ空间分享失败", Toast.LENGTH_LONG).show()
+            else -> {}
+        }
     }
 
     override fun onCancel(platform: Platform, i: Int) {
-        Toast.makeText(activity, "分享取消", Toast.LENGTH_LONG).show()
-//        async(CommonPool){
-//            runOnUiThread {
-//                Toast.makeText(this@BaseActivityWithShare, "分享取消", Toast.LENGTH_LONG).show()
-//            }
-//        }
+        when(platform.name){
+            Wechat.NAME -> Toast.makeText(activity, "微信分享取消", Toast.LENGTH_LONG).show()
+            WechatMoments.NAME -> Toast.makeText(activity, "朋友圈分享取消", Toast.LENGTH_LONG).show()
+            QQ.NAME -> Toast.makeText(activity, "QQ分享取消", Toast.LENGTH_LONG).show()
+            QZone.NAME -> Toast.makeText(activity, "QQ空间分享取消", Toast.LENGTH_LONG).show()
+            else -> {}
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window.attributes.windowAnimations = R.style.ChangeRoleDialog
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))//注意此处
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.attributes?.windowAnimations = R.style.ChangeRoleDialog
         return inflater.inflate(R.layout.dialog_invite, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var screenWidth = activity?.let { ScreenUtil.getScreenWidth(it) }
+        val width = screenWidth?.div(4)?.times(3)
+        var window = dialog.window
+        var params = window?.attributes
+        params?.gravity = Gravity.CENTER_HORIZONTAL
+        width?.let { params?.width = it }
+        window?.attributes = params
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mShareWechatMomentsTv.setOnClickListener(this)
+        mShareWechatFriendsTv.setOnClickListener(this)
+        mShareQQFriendsTv.setOnClickListener(this)
+        mShareQZoneFriendsTv.setOnClickListener(this)
+        mCopyPathTv.setOnClickListener(this)
+        mScanTv.setOnClickListener(this)
+        mShareNumberBtn.text = StringUtils.insertFrontAndBack(UserOperateUtil.getShareNumber(), "已邀请", "人")
     }
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.mShareWechatMomentsTv ->{
+//        dialog.dismiss()
+        when(v?.id) {
+            R.id.mShareWechatMomentsTv -> {
+                val logo = BitmapFactory.decodeResource(resources, R.mipmap.app_icon)
+                // 分享到朋友圈
                 val params = Platform.ShareParams()
-                val logo = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
+                params.title = resources.getString(R.string.invite_title)
+                params.url = "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId()
+                params.imageData = logo
+                params.shareType = Platform.SHARE_WEBPAGE //非常重要:一定要设置分享属性
+                //3、非常重要:获取平台对象
+                val wechat = ShareSDK.getPlatform(WechatMoments.NAME)
+                wechat.platformActionListener = this // 设置分享事件回调
+                // 执行分享
+                wechat.share(params)
+            }
+            R.id.mShareWechatFriendsTv -> {
+                val params = Platform.ShareParams()
+                val logo = BitmapFactory.decodeResource(resources, R.mipmap.app_icon)
                 params.shareType = Platform.SHARE_WEBPAGE
                 params.imageData = logo
-                params.text = "微商都在用的营销神器！拥有微商截图、加粉加群、一键转发、微商货源等多种功能."
+                params.text = resources.getString(R.string.invite_title)
                 params.title = "微商必备的营销神器"
-                params.url = "http://www.mob.com/"
+                params.url = "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId()
                 val wechat = ShareSDK.getPlatform(Wechat.NAME)
-                wechat.platformActionListener = object : PlatformActionListener {
-                    override fun onComplete(platform: Platform, i: Int, hashMap: HashMap<String, Any>) {
-                        Log.e("shareSDK", "onComplete")
-                    }
-
-                    override fun onError(platform: Platform, i: Int, throwable: Throwable) {
-                        Log.e("shareSDK", "onError")
-
-                    }
-
-                    override fun onCancel(platform: Platform, i: Int) {
-                        Log.e("shareSDK", "onCancel")
-
-                    }
-                }
+                wechat.platformActionListener = this
                 wechat.share(params)
-//                // 分享到朋友圈
-//                val paramsPYQ = Platform.ShareParams()
-//                paramsPYQ.text = null
-//                paramsPYQ.title = null
-//                paramsPYQ.titleUrl = null
-//                paramsPYQ.imagePath = "http://tupian.qqjay.com/u/2017/1118/1_162252_2.jpg"
-//                paramsPYQ.shareType = Platform.SHARE_IMAGE //非常重要:一定要设置分享属性
-//                //3、非常重要:获取平台对象
-//                val wechatMoments = ShareSDK.getPlatform(WechatMoments.NAME)
-//                wechatMoments.platformActionListener = this // 设置分享事件回调
-//                // 执行分享
-//                wechatMoments.share(paramsPYQ)
+            }
+            R.id.mShareQQFriendsTv -> {
+                val params = Platform.ShareParams()
+                params.title = "微商必备的营销神器"
+                params.shareType = Platform.SHARE_WEBPAGE
+                params.text = resources.getString(R.string.invite_title)
+                params.titleUrl = "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId()
+                val wechat = ShareSDK.getPlatform(QQ.NAME)
+                wechat.platformActionListener = this
+                wechat.share(params)
+            }
+            R.id.mShareQZoneFriendsTv -> {
+                val params = Platform.ShareParams()
+                params.shareType = Platform.SHARE_WEBPAGE
+                params.text = resources.getString(R.string.invite_title)
+                params.title = "微商必备的营销神器"
+                params.titleUrl = "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId()
+                val wechat = ShareSDK.getPlatform(QZone.NAME)
+                wechat.platformActionListener = this
+                wechat.share(params)
+            }
+            R.id.mCopyPathTv -> {
+                val cm = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                // 创建普通字符型ClipData
+                val mClipData = ClipData.newPlainText("Label", "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId())
+                // 将ClipData内容放到系统剪贴板里。
+                cm.primaryClip = mClipData
+                Toast.makeText(activity, "链接已复制", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+            R.id.mScanTv -> {
+                val width = context?.let { ScreenUtil.getScreenWidth(it) }?.div(3)
+                val qr = width?.let { QRCodeEncoder.syncEncodeQRCode("http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId(), it) }
+                var dialog = QRCodeDialog()
+                dialog.show(activity?.supportFragmentManager, "invite")
+                qr?.let { dialog.setData(it) }
+                dismiss()
             }
         }
     }

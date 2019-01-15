@@ -97,7 +97,7 @@ class AlipayCreateWithdrawDepositBillActivity : BaseCreateActivity(), ChoiceBank
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSelecTimeEvent(timeEntity: EventBusTimeEntity) {
+    fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
         if (timeEntity.tag == "提现时间"){
             mAlipayCreateWithdrawDepositBillTimeTv.text = timeEntity.timeWithoutS
 

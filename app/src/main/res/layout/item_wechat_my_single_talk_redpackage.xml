@@ -21,8 +21,8 @@
     <app.jietuqi.cn.widget.bubble.BubbleLinearLayout
         android:id="@+id/wechatBubbleLayout"
         android:orientation="horizontal"
-        app:arrowWidth="5dp"
-        app:arrowPosition="10dp"
+        app:arrowWidth="6dp"
+        app:arrowPosition="20dp"
         app:arrowLocation="right"
         app:bubbleColor="@color/wechat_redpacket_bg"
         app:layout_heightPercent="24%w"

@@ -23,8 +23,12 @@
     <!--微信红包预览中标题上的字体颜色-->
     <color name="wechatPreviewTitle">#F2F8B7</color>
     <color name="wechatPreviewTitleLayout">#DA5A41</color>
-    <color name="wechatListGreen">#1AB20A</color>
-    <color name="wechatMyWallet">#686f79</color>
+    <color name="wechatListGreen">#20BE64</color>
+    <color name="wechatMyWallet">#07C160</color>
+
+    <color name="wechatDeepGreen">#1AAD19</color>
+    <color name="wechatDeepGray">#555555</color>
+    <color name="wechatLightGray">#999999</color>
 
     <!--普通的颜色-->
     <color name="white">#FFFFFF</color>
@@ -44,6 +48,7 @@
     <color name="red_btn_bg_color">#DD6B55</color>
     <color name="red_btn_bg_pressed_color">#CD5B55</color>
     <color name="app_black">#333333</color>
+    <color name="explore">#E6594b</color>
 
     <!--overall 全局的颜色 -->
     <color name="overallTextColor">#333333</color>
@@ -55,6 +60,13 @@
     <color name="overallBg">#F7F7F7</color>
     <color name="inviteRed">#D53632</color>
     <color name="vipChoiceColor">#FFCA8F</color>
+    <color name="pressColor">#e6dedc</color>
+
+    <color name="jiaoyou">#BAA0E9</color>
+    <color name="baoma">#FCA0BF</color>
+    <color name="chuangye">#93CCF9</color>
+    <color name="hufen">#FD6E86</color>
+    <color name="jianzhi">#91D08A</color>
 
 
 
@@ -63,10 +75,19 @@
     <color name="alipayDeepTextColor">#101010</color>
     <color name="alipayGrayTextColor">#959595</color>
     <color name="alipayRedTextColor">#D83829</color>
-    <color name="alipayBlueTextColor">#00B2FF</color>
+    <color name="alipayBlueTextColor">#00A0EA</color>
     <color name="alipayBlueColor">#1984D1</color>
     <color name="alipayBg">#F0F0F0</color>
     <color name="alipayLine">#DDDDDE</color>
     <color name="alipayOrange">#E08E48</color>
     <color name="alipayMyThousandSecurity">#1A9B8F</color>
+
+
+    <!--QQ相关颜色-->
+    <color name="qqCanSend">#25B6F3</color>
+    <color name="qqCanNotSend">#DDDEE2</color>
+
+    <color name="waterGray">#e6dedc</color><!---->
+    <color name="wechatLine">#DFDFDF</color><!--微信分割线颜色-->
+
 </resources>

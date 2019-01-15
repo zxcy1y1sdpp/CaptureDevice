@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQMyTransferAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11.32%w"
+            app:layout_widthPercent="11.32%w"
+            app:layout_marginLeftPercent="1%w"
+            app:layout_marginRightPercent="2.83%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            app:layout_marginTopPercent="3.7%w"
+            app:riv_oval="true"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/sQQMyTransferLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qq_duihua_transfer_a"
+            android:layout_toLeftOf="@+id/sQQMyTransferAvatarIv"
+            android:layout_alignTop="@+id/sQQMyTransferAvatarIv"
+            app:layout_heightPercent="33.05%w"
+            app:layout_widthPercent="63.93%w" >
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginLeftPercent="9.15%w"
+                app:layout_heightPercent="32.54%w"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <app.jietuqi.cn.ui.qqscreenshot.widget.QQCharTextView4
+                    android:id="@+id/sQQMyTransferMoneyTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.01元"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"/>
+                <app.jietuqi.cn.ui.qqscreenshot.widget.QQCharTextView4
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="已转入好友的余额"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="14sp"/>
+                <!--
+                    app:layout_heightPercent="33.3%h"
+                    app:layout_heightPercent="66.7%h"-->
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+            <TextView
+                android:id="@+id/sQQMyTransferMessageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="留言：爱上对方合计阿萨德客"
+                android:textColor="@color/wechatLightGray"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                app:layout_marginLeftPercent="9.15%w"
+                app:layout_heightPercent="18.98%w"
+                android:layout_alignBottom="@+id/tagIv"
+                android:layout_toRightOf="@+id/tagIv"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical" />
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

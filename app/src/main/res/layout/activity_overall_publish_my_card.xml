@@ -87,11 +87,12 @@
                     android:id="@+id/mOverallPublishCardQrCodeIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon1"
+                    android:src="@drawable/head_default"
                     android:layout_alignParentRight="true"
                     android:scaleType="centerCrop"
                     app:layout_widthPercent="13.87%w"
-                    app:layout_heightPercent="13.87%w"/>
+                    app:layout_heightPercent="13.87%w"
+                    android:layout_centerVertical="true"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
             <RelativeLayout
                 android:id="@+id/mOverallPublishCardIntroductionLayout"

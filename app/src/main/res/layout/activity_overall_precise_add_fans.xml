@@ -18,7 +18,8 @@
         android:gravity="center_vertical"
         style="@style/wechatItem"
         percent:layout_marginTopPercent="6.13%w"
-        android:layout_below="@+id/titleLayout">
+        android:layout_below="@+id/titleLayout"
+        android:tag="">
         <TextView
             android:text="选择地区"
             style="@style/wechatLeftTitle"/>
@@ -27,7 +28,8 @@
             android:id="@+id/mOverallPreciseAddFansAreaTv"
             android:text="全部地区"
             style="@style/wechatRightWithArrow"
-            android:textColor="@color/overallGray3"/>
+            android:textColor="@color/overallGray3"
+            android:tag=""/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/mOverallPreciseAddFansBusinessLayout"
@@ -42,7 +44,8 @@
             android:id="@+id/mOverallPreciseAddFansBusinessTv"
             android:text="全部行业"
             style="@style/wechatRightWithArrow"
-            android:textColor="@color/overallGray3"/>
+            android:textColor="@color/overallGray3"
+            android:tag=""/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/mOverallPreciseAddFansSexualityLayout"
@@ -57,7 +60,8 @@
             android:id="@+id/mOverallPreciseAddFansSexualityTv"
             android:text="不限"
             style="@style/wechatRightWithArrow"
-            android:textColor="@color/overallGray3"/>
+            android:textColor="@color/overallGray3"
+            android:tag=""/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/mOverallPreciseAddFansCountLayout"
@@ -70,7 +74,7 @@
 
         <TextView
             android:id="@+id/mOverallPreciseAddFansCountTv"
-            android:text="选择数量"
+            android:text="10"
             style="@style/wechatRightWithArrow"
             android:textColor="@color/overallGray3"/>
     </RelativeLayout>

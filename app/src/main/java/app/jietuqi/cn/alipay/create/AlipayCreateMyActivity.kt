@@ -7,12 +7,12 @@ import app.jietuqi.cn.alipay.entity.AlipayCreateMyEntity
 import app.jietuqi.cn.alipay.entity.AlipayVipLevelEntity
 import app.jietuqi.cn.base.BaseCreateActivity
 import app.jietuqi.cn.constant.IntentKey
+import app.jietuqi.cn.constant.RandomUtil
 import app.jietuqi.cn.constant.RequestCode
-import app.jietuqi.cn.database.table.WechatUserTable
+import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
-import app.jietuqi.cn.wechat.ui.activity.WechatRoleActivity
 import app.jietuqi.cn.widget.dialog.ChoiceAlipayLevelDialog
 import kotlinx.android.synthetic.main.activity_alipay_create_my.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
@@ -25,10 +25,6 @@ import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
  */
 
 class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnItemSelectListener {
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        StatusBarUtil.setColor(this, ColorFinal.wechatTitleBar, 0)
-    }*/
     override fun select(entity: AlipayVipLevelEntity) {
         mEntity.levelEntity = entity
     }
@@ -38,9 +34,18 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
     override fun needLoadingView() = false
 
     override fun initAllViews() {
+        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        mEntity.avatarFile = userEntity.avatarFile
+        mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
+        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.wechatUserNickName = userEntity.wechatUserNickName
+        GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)
+        mAlipayCreateMyNickNameTv.text = mEntity.wechatUserNickName
+
         setCreateTitle("支付宝我的")
         mEntity.levelEntity = AlipayVipLevelEntity("大众会员", R.drawable.alipay_vip_level1)
         onlyThreeEditTextNeedTextWatcher(mAlipayCreateMyAccountTv, mAlipayCreateMyAntTv, mAlipayCreateMyBalanceTv)
+        mAlipayCreateMyAccountTv.setText(RandomUtil.getRandomAccounts())
     }
 
     override fun initViewsListener() {
@@ -52,6 +57,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
         mAlipayCreateMyChangeRoleLayout.setOnClickListener(this)
         mAlipayCreateMyOtherLevelLayout.setOnClickListener(this)
         previewBtn.setOnClickListener(this)
+        mAlipayCreateMyRefreshIv.setOnClickListener(this)
     }
     override fun onClick(v: View) {
         super.onClick(v)
@@ -64,7 +70,10 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
                 LaunchUtil.startAlipayPreviewMyActivity(this, mEntity)
             }
             R.id.mAlipayCreateMyChangeRoleLayout ->{
-                LaunchUtil.launch(this, WechatRoleActivity::class.java, RequestCode.CHANGE_ROLE)
+                operateRole(mEntity)
+            }
+            R.id.mAlipayCreateMyRefreshIv ->{
+                mAlipayCreateMyAccountTv.setText(RandomUtil.getRandomAccounts())
             }
             R.id.mAlipayCreateMyOtherLevelLayout ->{
                 var dialog = ChoiceAlipayLevelDialog()
@@ -81,7 +90,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
             }
             R.id.mAlipayCreateMyRedPointOnOrOffIv ->{
                 mEntity.showRedPoint = !mEntity.showRedPoint
-                OtherUtil.onOrOff(mEntity.showThousandSecurity, mAlipayCreateMyRedPointOnOrOffIv)
+                OtherUtil.onOrOff(mEntity.showRedPoint, mAlipayCreateMyRedPointOnOrOffIv)
             }
             R.id.mAlipayCreateMyMerchantOnOrOffIv ->{
                 mEntity.showMerchant = !mEntity.showMerchant
@@ -91,14 +100,15 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK){
-            when(requestCode){
-                RequestCode.CHANGE_ROLE ->{
-                    val entity: WechatUserTable = data?.getSerializableExtra(IntentKey.ENTITY) as WechatUserTable
-                    mEntity.avatar = entity.avatar
-                    mEntity.wechatUserNickName = mEntity.wechatUserNickName
+        when(requestCode){
+            RequestCode.MY_SIDE ->{
+                if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
+                    mEntity.avatarFile = mMySideEntity.avatarFile
+                    mEntity.wechatUserAvatar = mMySideEntity.wechatUserAvatar
+                    mEntity.resAvatar = mMySideEntity.resAvatar
+                    mEntity.wechatUserNickName = mMySideEntity.wechatUserNickName
+                    GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)
                     mAlipayCreateMyNickNameTv.text = mEntity.wechatUserNickName
-                    GlideUtil.display(this, mEntity.avatar, mAlipayCreateMyAvatarIv)
                 }
             }
         }

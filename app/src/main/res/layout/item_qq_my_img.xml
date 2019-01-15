@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQMyAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11.32%w"
+            app:layout_widthPercent="11.32%w"
+            app:layout_marginLeftPercent="4.32%w"
+            app:layout_marginRightPercent="2.83%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            app:layout_marginTopPercent="3.7%w"
+            app:riv_oval="true"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQMyImgIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_corner_radius="10dip"
+            android:src="@mipmap/icon2"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:layout_toLeftOf="@+id/sQQMyAvatarIv"
+            android:layout_alignTop="@+id/sQQMyAvatarIv"
+            app:layout_marginBottomPercent="2.81%w"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

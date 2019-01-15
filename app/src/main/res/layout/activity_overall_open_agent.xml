@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg"
+    android:gravity="center_horizontal">
+
+    <include
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="如您想成为代理，请添加下面的联系方式"
+        percent:layout_marginTopPercent="3.73%w"
+        android:textSize="@dimen/overall26px"
+        android:textColor="@color/overallGray2"
+        android:gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击按钮复制账号"
+        android:layout_marginTop="9.3dp"
+        android:textSize="@dimen/overall24px"
+        android:gravity="center"
+        percent:layout_marginLeftPercent="8%w"
+        percent:layout_marginRightPercent="8%w"
+        android:textColor="@color/overallGray3"/>
+    <Button
+        android:id="@+id/mOverallOpenAgentQQBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_solid3_2"
+        android:text="@string/choiceServiceQQService"
+        percent:layout_marginTopPercent="8%w"
+        android:textColor="@color/overallBlue"/>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

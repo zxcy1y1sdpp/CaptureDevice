@@ -5,104 +5,64 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
-
+    android:background="@color/white">
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        layout="@layout/base_wechat_title"/>
-
-    <ImageView
-        android:id="@+id/mTransferIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/wechat_transfer_receiving"
-        android:layout_gravity="center_horizontal"
-        app:layout_marginTopPercent="12%w"/>
-
-    <TextView
-        android:id="@+id/mTransferNickNameTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="李欣已收钱"
-        android:textSize="@dimen/wechatTransferTextSize"
-        android:textColor="@color/black"
-        app:layout_marginTopPercent="6%w"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_marginTopPercent="3.2%w">
-        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="¥"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:visibility="gone"/>
-        <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
-            android:id="@+id/mTransferMoneyTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¥4566.00"
-            android:textColor="@color/black"
-            android:textSize="@dimen/wechatMoneyTextSize"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/mReceiveMoneyTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确认收款"
-        android:background="@drawable/green_round_cornor"
-        android:textColor="@color/white"
-        app:layout_marginTopPercent="8.6%w"
-        app:layout_marginBottomPercent="4.8%w"
-        app:layout_heightPercent="13%w"
-        app:layout_widthPercent="93%w"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/wechatNormalTextSize"
-        android:gravity="center"
-        android:visibility="gone"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_marginTopPercent="4.4%w">
-        <TextView
-            android:id="@+id/mGrayTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已存入对方零钱中"
-            android:textSize="@dimen/wechatLittleTextSize"/>
-
-        <TextView
-            android:id="@+id/mBlueTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查看零钱"
-            android:textColor="@color/wechatBlueShalow"
-            android:textSize="@dimen/wechatLittleTextSize"
-            android:visibility="gone"/>
-    </LinearLayout>
-
-    <com.zhy.android.percent.support.PercentLinearLayout
+        layout="@layout/base_wechat_preview_title"/>
+    <app.jietuqi.cn.widget.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom|center_horizontal"
-        app:layout_marginBottomPercent="4%w">
-        <TextView
-            android:id="@+id/mTransferTimeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="转账时间：2018-10-26 17:02"
-            android:textSize="@dimen/wechatLittleTextSize"/>
-        <TextView
-            android:id="@+id/mReceiveTimeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_marginTopPercent="4%w"
-            android:text="收钱时间："
-            android:textSize="@dimen/wechatLittleTextSize"/>
-    </com.zhy.android.percent.support.PercentLinearLayout>
+        android:fillViewport="true">
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <include
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/base_wechat_preview_transfer"/>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/mWechatPreviewTransferLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/layout1"
+                app:layout_marginBottomPercent="20.21%w"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/mReceiveMoneyTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="确认收款"
+                    android:background="@drawable/green_round_cornor"
+                    android:textColor="@color/white"
+                    app:layout_marginLeftPercent="24.4%w"
+                    app:layout_marginRightPercent="24.4%w"
+                    app:layout_heightPercent="13.4%w"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/wechatNormalTextSize"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/mGrayTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="已存入对方零钱中。立即退还"
+                    android:gravity="center"
+                    app:layout_marginTopPercent="4.51%w"
+                    android:textSize="14sp"
+                    android:textColor="@color/wechatLightGray"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <include
+                layout="@layout/base_wechat_preview_transfer_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </app.jietuqi.cn.widget.OverScrollView>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,5 +1,6 @@
 package app.jietuqi.cn.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
@@ -30,6 +31,7 @@ import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.request.PostRequest
 import kotlinx.android.synthetic.main.activity_overall_account_management.*
+import permissions.dispatcher.*
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -41,6 +43,7 @@ import java.util.*
  * 邮箱： 972383753@qq.com
  * 用途： 账号管理
  */
+@RuntimePermissions
 class OverallAccountManagementActivity : BaseOverallInternetActivity(), PlatformActionListener, EditDialogChoiceListener {
     override fun onChoice(entity: EditDialogEntity?) {
         entity?.content?.let { mOpenId = it }
@@ -62,7 +65,7 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setTitle("账号管理")
+        setTopTitle("账号管理")
     }
     override fun initViewsListener() {
         mOverallAccountManagementAvatarLayout.setOnClickListener(this)
@@ -90,7 +93,7 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
         super.onClick(v)
         when(v.id){
             R.id.mOverallAccountManagementAvatarLayout ->{
-                callAlbum(needCrop = true)
+                openAlbumWithPermissionCheck()
             }
             R.id.mOverallAccountManagementNickNameLayout ->{
                 mType = 3
@@ -99,8 +102,11 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
                 dialog.show(supportFragmentManager, "classify")
             }
             R.id.mOverallAccountManagementBindingPhoneLayout ->{
-                mType = 0
-                LaunchUtil.startOverallRegisterActivity(this, 1)
+                if (mOverallAccountManagementBindingPhoneTv.text.toString() == "未绑定"){
+                    mType = 0
+                    LaunchUtil.startOverallRegisterActivity(this, 1)
+                }
+
             }
             R.id.mOverallAccountManagementBindingWXLayout ->{
                 if (TextUtils.isEmpty(mUserEntity?.wx_openid) && mOverallAccountManagementBindingWXTv.text.toString() == "未绑定"){
@@ -282,5 +288,24 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
     fun showUserInfo(){
         GlideUtil.display(this, mUserEntity?.headimgurl, mOverallAccountManagementAvatarIv)
         mOverallAccountManagementNickNameTv.text = mUserEntity?.nickname
+    }
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun openAlbum() {
+        callAlbum(needCrop = true)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onShowRationale(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain() {
+        showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
 }

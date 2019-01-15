@@ -10,15 +10,16 @@
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="13.6%w"
+        percent:layout_heightPercent="13.1%w"
         android:gravity="center_vertical"
         android:background="@color/alipayBlueColor">
-        <ImageView
+        <ImageButton
             android:id="@+id/mAlipayBalanceFinishIv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/alipay_title_finish_white"
-            percent:layout_marginLeftPercent="3.4%w"/>
+            android:layout_height="match_parent"
+            percent:layout_widthPercent="11.98%w"
+            android:src="@drawable/back_white"
+            android:background="@null"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,8 +27,7 @@
             android:text="余额"
             android:textColor="@color/white"
             android:textSize="@dimen/wechatNormalTextSize"
-            android:gravity="center"
-            percent:layout_marginLeftPercent="4.8%w"/>
+            android:gravity="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,9 @@
             android:text="余额账户(元)"
             percent:layout_marginLeftPercent="4.6%w"
             percent:layout_marginTopPercent="7.3%w"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/overall16sp"
+            android:alpha="0.6"/>
 
         <TextView
             android:id="@+id/mAlipayBalanceMoneyTv"
@@ -162,14 +164,15 @@
         android:layout_gravity="center_horizontal"
         percent:layout_marginBottomPercent="4.3%w"
         android:gravity="bottom">
-        <TextView
+        <app.jietuqi.cn.widget.NoPaddingTextView
             android:id="@+id/view1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="信用借款"
             percent:layout_marginRightPercent="3.1%w"
             android:textColor="#596F92"
-            android:textSize="@dimen/alipayNormalTextSize2"/>
+            android:textSize="13sp"
+            android:includeFontPadding="false"/>
         <TextView
             android:id="@+id/view2"
             android:layout_width="1dp"
@@ -178,14 +181,17 @@
             android:layout_toRightOf="@+id/view1"
             android:layout_alignTop="@+id/view1"
             android:layout_alignBottom="@+id/view1"
-            percent:layout_marginRightPercent="3.1%w"/>
-        <TextView
+            percent:layout_marginRightPercent="3.1%w"
+            android:paddingBottom="3dp"/>
+
+        <app.jietuqi.cn.widget.NoPaddingTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="常见问题"
             android:layout_toRightOf="@+id/view2"
             android:textColor="#596F92"
-            android:textSize="@dimen/alipayNormalTextSize2"/>
+            android:textSize="13sp"
+            android:includeFontPadding="false"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
 </com.zhy.android.percent.support.PercentLinearLayout>

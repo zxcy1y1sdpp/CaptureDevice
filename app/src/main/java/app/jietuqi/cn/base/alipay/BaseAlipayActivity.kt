@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseActivity
-import app.jietuqi.cn.constant.ColorFinal
-import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.include_base_alipay_title.*
 
 /**
@@ -22,13 +20,6 @@ abstract class BaseAlipayActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusBarColor()
-    }
-
-    /**
-     * 设置状态栏的颜色
-     */
-    fun setStatusBarColor(color: Int = ColorFinal.wechatTitleBar){
-        StatusBarUtil.setColor(this, color, 0)
     }
 
     /**
@@ -52,7 +43,7 @@ abstract class BaseAlipayActivity : BaseActivity(){
         if (!showBottomLine){
             mAlipayPreviewBottomLineTv.visibility = View.GONE
         }
-        mAlipayPreviewFinishIv.setImageDrawable(ContextCompat.getDrawable(this, finishDrawable))
+        mAlipayPreviewFinishIv.setImageResource(finishDrawable)
         mAlipayPreviewTitleTv.setTextColor(ContextCompat.getColor(this, titleColor))
         mAlipayPreviewTitleTv.text = titleContext
 

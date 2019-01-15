@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <include
+        layout="@layout/include_choice_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        style="@style/wechatItem">
+        <TextView
+            android:id="@+id/view1"
+            android:text="语音时长"
+            style="@style/wechatLeftTitle"/>
+        <TextView
+            android:id="@+id/mQQCreateVoiceSecondsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01秒"
+            android:layout_toRightOf="@+id/view1"
+            android:layout_marginLeft="@dimen/normalPadding2"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:textColor="@color/wechat_deep_text_color"/>
+
+        <com.xw.repo.BubbleSeekBar
+            android:id="@+id/mQQCreateVoiceSecondsSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:bsb_max="120"
+            app:bsb_min="1"
+            app:bsb_progress="1"
+            app:bsb_second_track_color="@color/wechatBlue"
+            app:bsb_section_text_color="@color/gray2"
+            app:bsb_bubble_color="@color/overallGreen"
+            app:bsb_track_color="@color/wechatGray"
+            android:layout_toRightOf="@+id/mQQCreateVoiceSecondsTv"
+            app:bsb_track_size="4dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        style="@style/wechatItem">
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="是否已读"/>
+
+        <ImageView
+            android:id="@+id/mQQCreateVoiceSecondsAlreadyReadIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/on"
+            android:layout_alignParentRight="true"
+            android:tag="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        style="@style/wechatItem">
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="开启语音转换"/>
+
+        <ImageView
+            android:id="@+id/mQQCreateVoiceSecondsTransferIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/off"
+            android:layout_alignParentRight="true"
+            android:tag="false"/>
+
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/mQQCreateVoiceSecondsTransferTextEv"
+        android:hint="语音转换内容"
+        style="@style/wechatEdit"
+        android:padding="@dimen/normalPadding"
+        android:visibility="gone"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

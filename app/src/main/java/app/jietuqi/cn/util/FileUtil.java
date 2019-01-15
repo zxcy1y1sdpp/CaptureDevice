@@ -308,4 +308,30 @@ public class FileUtil {
         }
         return fileSizeLong;
     }
+
+    /**
+     * 递归删除文件和文件夹
+     * @param path    要删除的根目录
+     */
+    public static void RecursionDeleteFile(String path){
+        File file = new File(path);
+        if (!file.exists()){
+            return;
+        }
+        if(file.isFile()){
+            file.delete();
+            return;
+        }
+        if(file.isDirectory()){
+            File[] childFile = file.listFiles();
+            if(childFile == null || childFile.length == 0){
+                file.delete();
+                return;
+            }
+            for(File f : childFile){
+                RecursionDeleteFile(f.getAbsolutePath());
+            }
+            file.delete();
+        }
+    }
 }

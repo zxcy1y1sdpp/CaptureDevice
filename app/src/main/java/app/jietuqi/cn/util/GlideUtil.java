@@ -14,7 +14,7 @@ import java.io.InputStream;
 import app.jietuqi.cn.App;
 import app.jietuqi.cn.GlideApp;
 import app.jietuqi.cn.R;
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * Created by yuanboliu on 17/7/25.
@@ -38,6 +38,16 @@ public class GlideUtil{
 				.fallback(R.mipmap.loading)
 				.into(imageView);
 	}
+	public static void displayAll(Context context, Object id, ImageView imageView){
+		GlideApp.with(context)
+				.load(id)
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.thumbnail(0.1f)
+				.error(R.drawable.head_default)
+				.fallback(R.drawable.head_default)
+				.placeholder(R.mipmap.loading)
+				.into(imageView);
+	}
 	public static void display(Context context, String id, ImageView imageView){
 		GlideApp.with(context)
 				.load(id)
@@ -45,6 +55,7 @@ public class GlideUtil{
 				.thumbnail(0.1f)
 				.error(R.mipmap.loading)
 				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
 				.into(imageView);
 	}
 
@@ -54,13 +65,14 @@ public class GlideUtil{
 	 * @param id
 	 * @param imageView
 	 */
-	public static void displayHead(Context context, String id, ImageView imageView){
+	public static void displayHead(Context context, Object id, ImageView imageView){
 		GlideApp.with(context)
 				.load(id)
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.thumbnail(0.1f)
 				.error(R.drawable.head_default)
 				.fallback(R.drawable.head_default)
+				.placeholder(R.mipmap.loading)
 				.into(imageView);
 	}
 	public static void display2(Context context, int id, ImageView imageView){
@@ -71,6 +83,7 @@ public class GlideUtil{
 				.thumbnail(0.1f)
 				.error(R.mipmap.loading)
 				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
 				.override(width)
 				.into(imageView);
 	}
@@ -88,6 +101,49 @@ public class GlideUtil{
 				.thumbnail(0.1f)
 				.error(R.mipmap.loading)
 				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
+				.override(width)
+				.into(imageView);
+	}
+	/**
+	 * 加载sdcard中的图片文件
+	 * @param context
+	 * @param file
+	 * @param imageView
+	 */
+	public static void displayQQ(Context context, File file, ImageView imageView){
+		int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 8 * 3;
+		GlideApp.with(context)
+				.load(file)
+				.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+				.thumbnail(0.1f)
+				.placeholder(R.mipmap.loading)
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
+				.override(width)
+				.into(imageView);
+	}
+	public static void displayAlipay(Context context, File file, ImageView imageView){
+		int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 9 * 3;
+		GlideApp.with(context)
+				.load(file)
+				.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+				.thumbnail(0.1f)
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
+				.override(width)
+				.into(imageView);
+	}
+	public static void displayAlipay2(Context context, File file, ImageView imageView){
+		int width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) / 8.8 * 3);
+		GlideApp.with(context)
+				.load(file)
+				.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+				.thumbnail(0.1f)
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
 				.override(width)
 				.into(imageView);
 	}
@@ -98,6 +154,7 @@ public class GlideUtil{
 				.thumbnail(0.1f)
 				.error(R.mipmap.loading)
 				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
 				.into(imageView);
 	}
 
@@ -139,9 +196,9 @@ public class GlideUtil{
 	 * @param entity
 	 * @param imageView
 	 */
-	public static void display(Context context, WechatUserTable entity, ImageView imageView){
+	public static void display(Context context, WechatUserEntity entity, ImageView imageView){
 		if (entity.resAvatar <= 0){
-			display(context, entity.avatar, imageView);
+			display(context, entity.avatarFile, imageView);
 		}else {
 			display(context, entity.resAvatar, imageView);
 		}
@@ -160,7 +217,7 @@ public class GlideUtil{
 	/**－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ 删除磁盘缓存 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
 	public static void clearDiskCache(){
 		try {
-			GlideApp.get(App.getInstance()).clearDiskCache();
+			GlideApp.get(App.Companion.getInstance()).clearDiskCache();
 		}catch (IllegalArgumentException e){
 			e.printStackTrace();
 		}

@@ -22,7 +22,7 @@ public class TokenManager {
     private Long timestamp = System.currentTimeMillis();
 
     public TokenManager() {
-        aCache = ACache.get(App.getInstance(), key);
+        aCache = ACache.get(App.Companion.getInstance(), key);
         this.authModel = new AuthModel();
         this.authModel.setAccessToken("");
     }

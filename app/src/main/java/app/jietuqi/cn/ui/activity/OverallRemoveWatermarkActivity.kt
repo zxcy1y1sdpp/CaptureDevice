@@ -11,13 +11,11 @@ import android.view.View
 import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
+import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.http.RemoveWaterMarkEntity
 import app.jietuqi.cn.http.RemoveWaterMarkParentEntity
 import app.jietuqi.cn.http.util.MD5
-import app.jietuqi.cn.util.FileUtil
-import app.jietuqi.cn.util.GlideUtil
-import app.jietuqi.cn.util.OtherUtil
-import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.util.*
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import cn.jzvd.Jzvd
 import com.zhouyou.http.EasyHttp
@@ -25,7 +23,7 @@ import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
-import kotlinx.android.synthetic.main.fragment_remove_watermark.*
+import kotlinx.android.synthetic.main.activity_overall_remove_watermark.*
 import java.io.File
 
 /**
@@ -40,21 +38,19 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
     /** iiiLab分配的客户密钥  */
     private val clientSecretKey = "fb24e8bf6411850558f843209ebe0fb8"
     private var mSaveToCameraDialog: SweetAlertDialog? = null
-    private lateinit var mClipboardManager: ClipboardManager
+    private var mClipboardManager: ClipboardManager? = null
     private var mOnPrimaryClipChangedListener: ClipboardManager.OnPrimaryClipChangedListener? = null
+    private var mWaitDialog: SweetAlertDialog? = null
     override fun setLayoutResourceId() = R.layout.activity_overall_remove_watermark
-
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setTitle("视频下载")
+        setTopTitle("视频去水印")
     }
-
     override fun initViewsListener() {
         mRemoveWaterMarkBtn.setOnClickListener(this)
         mRemoveWaterMarkCopyVideoPathBtn.setOnClickListener(this)
         mRemoveWaterMarkDownLoadVideoPathBtn.setOnClickListener(this)
-        registerClipEvents()
     }
     /**
      * 注册剪切板复制、剪切事件监听
@@ -62,38 +58,42 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
     private fun registerClipEvents() {
         mClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         mOnPrimaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
-            if (mClipboardManager.hasPrimaryClip() && mClipboardManager.primaryClip.itemCount > 0) {
+            if (mClipboardManager?.hasPrimaryClip() == true && mClipboardManager?.primaryClip?.itemCount?.let { it > 0 } == true) {
                 // 获取复制、剪切的文本内容
                 val content = mClipboardManager?.primaryClip?.getItemAt(0)?.text.toString()
-                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                if (TextUtils.isEmpty(content)){
+                    return@OnPrimaryClipChangedListener
+                }
+                mWaitDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("确定提取视频吗")
                         .setContentText(content)
                         .setConfirmText("确定")
                         .setCancelText("取消")
                         .setConfirmClickListener {
                             mRemoveWaterMarkUrlEt.setText(content)
-                            removeWaterMark()
+                            canAnalysis()
                             it.dismissWithAnimation()
                         }.setCancelClickListener {
                             it.dismissWithAnimation()
-                        }.show()
+                        }
+                mWaitDialog?.show()
                 Log.d("TAG", "复制、剪切的内容为：$content")
             }
         }
-        mClipboardManager.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener)
+        mClipboardManager?.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener)
     }
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
             R.id.mRemoveWaterMarkBtn ->{
-                removeWaterMark()
+                canAnalysis()
             }
             R.id.mRemoveWaterMarkCopyVideoPathBtn ->{
                 if (TextUtils.isEmpty(mRemoveWaterMarkUrlEt.text.toString())){
                     showToast("链接为空")
                     return
                 }
-                OtherUtil.copy(this, mRemoveWaterMarkUrlEt.text.toString())
+                OtherUtil.copy(this, mRemoveWaterMarkCopyVideoPathBtn.tag.toString())
             }
             R.id.mRemoveWaterMarkDownLoadVideoPathBtn ->{
                 if (UserOperateUtil.isCurrentLogin(this)){
@@ -132,18 +132,15 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                 .params("sign", sign)
                 .params("client", client)
                 .execute(object : CallBackProxy<RemoveWaterMarkParentEntity<RemoveWaterMarkEntity>, RemoveWaterMarkEntity>(object : SimpleCallBack<RemoveWaterMarkEntity>() {
-
-                    override fun onStart() {
-                        super.onStart()
-                        showLoadingDialog("提取中...")
-                    }
                     override fun onError(e: ApiException) {
                         Toast.makeText(this@OverallRemoveWatermarkActivity, "解析失败", Toast.LENGTH_SHORT).show()
-                        dismissLoadingDialog()
                     }
-
+                    override fun onStart() {
+                        super.onStart()
+                        showQQWaitDialog("提取中")
+                    }
                     override fun onSuccess(removeWaterMarkEntity: RemoveWaterMarkEntity) {
-                        dismissLoadingDialog()
+                        dismissQQDialog()
                         mRemoveWaterMarkVideoPlayerLayout.visibility = View.VISIBLE
                         mRemoveWaterMarkVideoPlayer.setUp(removeWaterMarkEntity.video, "", Jzvd.SCREEN_WINDOW_NORMAL)
                         mRemoveWaterMarkCopyVideoPathBtn.tag = removeWaterMarkEntity.video
@@ -190,26 +187,47 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                     }
                 })
     }
+
+    private fun canAnalysis(){
+        EasyHttp.post(HttpConfig.INDEX)
+                .params("way", "watermark")
+                .params("uid", UserOperateUtil.getUserId())
+                .execute(object : SimpleCallBack<String>() {
+                    override fun onError(e: ApiException) {
+                        SweetAlertDialog(this@OverallRemoveWatermarkActivity, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("友情提示")
+                                .setContentText(StringUtils.insertBack(e.message, "是否去开通会员？"))
+                                .setConfirmText("马上开通")
+                                .setCancelText("取消")
+                                .setConfirmClickListener { sweetAlertDialog ->
+                                    LaunchUtil.launch(this@OverallRemoveWatermarkActivity, OverallPurchaseVipActivity::class.java)
+                                    sweetAlertDialog.dismissWithAnimation()
+                                }.setCancelClickListener {
+                                    it.dismissWithAnimation()
+                                }.show()
+                    }
+                    override fun onSuccess(t: String) {
+                        removeWaterMark()
+                    }
+                })
+    }
     /**
      * 注销监听，避免内存泄漏。
      */
     override fun onDestroy() {
         super.onDestroy()
-        if (mClipboardManager != null && mOnPrimaryClipChangedListener != null) {
-            mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener)
-        }
+        mOnPrimaryClipChangedListener?.let { mClipboardManager?.removePrimaryClipChangedListener(it) }
     }
 
     override fun onResume() {
         super.onResume()
-        registerClipEvents()
+        mOnPrimaryClipChangedListener?.let { mClipboardManager?.removePrimaryClipChangedListener(it) }
     }
 
     override fun onPause() {
         super.onPause()
+        mWaitDialog?.dismissWithAnimation()
+        registerClipEvents()
         Jzvd.releaseAllVideos()
-        if (mClipboardManager != null && mOnPrimaryClipChangedListener != null) {
-            mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener)
-        }
     }
 }

@@ -2,7 +2,7 @@ package app.jietuqi.cn.entity;
 
 import java.io.File;
 
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/22 15:31.
@@ -11,7 +11,7 @@ import app.jietuqi.cn.database.table.WechatUserTable;
  * 用途： 语音或者视频聊天的实体
  */
 
-public class WechatVoiceAndVideoEntity extends WechatUserTable {
+public class WechatVoiceAndVideoEntity extends WechatUserEntity {
     /**
      * 视频通话的背景
      */

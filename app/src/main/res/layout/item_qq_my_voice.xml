@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQVoiceMyAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11.32%w"
+            app:layout_widthPercent="11.32%w"
+            app:layout_marginLeftPercent="1%w"
+            app:layout_marginRightPercent="2.83%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            app:layout_marginTopPercent="3.7%w"
+            app:riv_oval="true"/>
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/sQQVoiceMyAvatarIv"
+            app:layout_marginTopPercent="2.34%w"
+            app:layout_marginLeftPercent="18.04%w">
+            <ImageView
+                android:id="@+id/sQQVoiceMyAlreadyIv"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red_point"
+                android:layout_marginRight="@dimen/normalPaddingHalf"/>
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:id="@+id/sQQVoiceMyLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/qq_duihua_text_c"
+                android:orientation="vertical">
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right"
+                    android:layout_alignParentRight="true">
+                    <TextView
+                        android:id="@+id/sQQVoiceMyLengthTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7‘'"
+                        android:textColor="@color/white"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/qq_duihua_voice_a"
+                        android:layout_marginLeft="@dimen/normalPaddingHalf" />
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sQQVoiceOtherToTextLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout1"
+                    android:layout_marginTop="@dimen/normalPaddingHalf"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_alignLeft="@+id/sQQVoiceMyLayout"
+                    android:layout_alignRight="@+id/sQQVoiceMyLayout"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#0090c8"/>
+                    <TextView
+                        android:id="@+id/sQQVoiceOtherToTextTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="asdfasd"
+                        android:layout_marginTop="@dimen/normalPadding"
+                        android:drawableBottom="@drawable/qq_voice_transfer_blue"
+                        android:drawablePadding="@dimen/normalPaddingHalf"
+                        android:textColor="@color/white"
+                        android:layout_gravity="left"
+                        android:textSize="@dimen/overall16sp"/>
+                </LinearLayout>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

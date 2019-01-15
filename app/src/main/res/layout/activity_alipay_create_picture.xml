@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <include
+        layout="@layout/include_choice_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mAlipayCreatePictureLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="选择图片"
+            style="@style/wechatLeftTitle"/>
+
+        <ImageView
+            android:id="@+id/mAlipayCreatePictureIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_bg"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv2"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

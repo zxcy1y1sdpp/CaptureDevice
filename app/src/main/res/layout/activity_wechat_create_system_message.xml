@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <EditText
+        android:id="@+id/mCreateSystemMessageEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:background="@color/white"
+        android:layout_margin="@dimen/normalPadding"/>
+
+    <TextView
+        android:id="@+id/mCreateSystemMessageRecallTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="撤回消息提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:tag="你撤回了一条消息 重新编辑"/>
+    <TextView
+        android:id="@+id/mCreateSystemMessageNewFriendTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加好友提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"/>
+    <TextView
+        android:id="@+id/mCreateSystemMessageHiTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打招呼提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:tag="以上是打招呼的内容"/>
+    <TextView
+        android:id="@+id/mCreateSystemMessageStrangerTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="陌生人提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:tag="如果陌生人主动添加你为朋友，请谨慎核实对方身份"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

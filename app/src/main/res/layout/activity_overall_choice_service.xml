@@ -31,19 +31,54 @@
         percent:layout_marginRightPercent="8%w"
         android:textColor="@color/overallGray3"/>
 
-    <Button
+    <!--<Button
         android:id="@+id/mOverallChoiceServiceWechatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gray_solid3"
         android:text="@string/choiceServiceWechatService"
-        percent:layout_marginTopPercent="8%w"/>
-    <Button
+        percent:layout_marginTopPercent="8%w"/>-->
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/mOverallChoiceServiceWechatBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choiceServiceWechatService"
+        percent:layout_marginTopPercent="8%w"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/view1"
+        android:textColor="@color/black"
+        android:paddingLeft="@dimen/normalPadding2"
+        android:paddingRight="@dimen/normalPadding2"
+        android:paddingTop="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"
+        percent:stv_corner="5dp"
+        percent:stv_solid="@color/white"
+        percent:stv_stroke_color="@color/overallGray"
+        percent:stv_stroke_width="0.5dp"/>
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/mOverallChoiceServiceQQBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choiceServiceQQService"
+        percent:layout_marginTopPercent="8%w"
+
+        android:textColor="@color/black"
+        android:paddingLeft="@dimen/normalPadding2"
+        android:paddingRight="@dimen/normalPadding2"
+        android:paddingTop="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"
+        percent:stv_corner="5dp"
+        percent:stv_solid="@color/white"
+        percent:stv_stroke_color="@color/overallGray"
+        percent:stv_stroke_width="0.5dp"/>
+    <!--<Button
         android:id="@+id/mOverallChoiceServiceQQBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gray_solid3"
         android:text="@string/choiceServiceQQService"
-        percent:layout_marginTopPercent="8%w"/>
+        percent:layout_marginTopPercent="8%w"/>-->
 
 </com.zhy.android.percent.support.PercentLinearLayout>

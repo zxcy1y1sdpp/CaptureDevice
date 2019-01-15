@@ -34,6 +34,10 @@ class ChoicePayTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
         mOnPayTypeSelectListener = itemSelection
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+    }
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         val view = View.inflate(context, R.layout.dialog_choice_pay_type, null)
@@ -41,7 +45,7 @@ class ChoicePayTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
         view.findViewById<TextView>(R.id.sAiPayItemView).setOnClickListener(this)
         view.findViewById<TextView>(R.id.sWeChatPayItemView).setOnClickListener(this)
         view.findViewById<TextView>(R.id.sCancelItemView).setOnClickListener(this)
-        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
+//        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
         return dialog
     }
     interface OnPayTypeSelectListener{

@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/overallCommunicateDetails1AvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon1"
+            app:riv_oval="false"
+            app:riv_corner_radius="5dp"
+            android:src="@drawable/head_default"
             app:layout_widthPercent="11.7%w"
             app:layout_heightPercent="11.7%w"
             app:layout_marginTopPercent="3.41%w"
@@ -23,8 +24,35 @@
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             app:layout_marginLeftPercent="3.17%w"/>
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/overallCommunicateDetails1AvatarIv"
+            android:layout_alignTop="@+id/overallCommunicateDetails1AvatarIv">
+            <TextView
+                android:id="@+id/overallCommunicateDetails1NickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小月月"
+                app:layout_heightPercent="5.85%w"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="#616981"
+                android:textSize="@dimen/overall16sp"
+                app:layout_marginRightPercent="3.17%w"
+                android:layout_gravity="center_vertical"/>
+            <ImageView
+                android:id="@+id/overallCommunicateVipTagIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vip_tag"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/normalPaddingHalf"
+                android:visibility="gone"/>
+        </LinearLayout>
+        <!--TextView
             android:id="@+id/overallCommunicateDetails1NickNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,24 +64,23 @@
             android:lines="1"
             android:ellipsize="end"
             android:textColor="#616981"
-            android:textSize="@dimen/wechatNormalTextSize"
-            app:layout_marginRightPercent="3.17%w"/>
+            android:textSize="@dimen/overall16sp"
+            app:layout_marginRightPercent="3.17%w"/>-->
 
         <com.zhy.android.percent.support.PercentLinearLayout
             android:id="@+id/overallCommunicateDetails1ContentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_marginRightPercent="3.17%w"
-            android:layout_alignLeft="@+id/overallCommunicateDetails1NickNameTv"
-            android:layout_below="@+id/overallCommunicateDetails1NickNameTv"
+            android:layout_alignLeft="@+id/layout3"
+            android:layout_below="@+id/layout3"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/overallCommunicateDetails1ContentTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="狂萨德考虑好阿萨德可令肌肤"
-                android:textSize="@dimen/wechatNormalTextSize"/>
+                android:text="狂萨德考虑好阿萨德可令肌肤"/>
             <TextView
                 android:id="@+id/overallCommunicateDetails1ShowAllContentTv"
                 android:layout_width="wrap_content"
@@ -73,7 +100,7 @@
             app:layout_marginRightPercent="3.17%w"
             app:layout_marginTopPercent="2.68%w"
             android:layout_below="@+id/overallCommunicateDetails1ContentLayout"
-            android:layout_alignLeft="@+id/overallCommunicateDetails1NickNameTv"/>
+            android:layout_alignLeft="@+id/layout3"/>
 
         <com.zhy.android.percent.support.PercentRelativeLayout
             android:id="@+id/layout1"
@@ -86,7 +113,7 @@
             android:orientation="horizontal"
             android:layout_alignRight="@+id/overallCommunicateDetails1ContentLayout"
             app:layout_marginTopPercent="4.87%w"
-            android:layout_alignLeft="@+id/overallCommunicateDetails1NickNameTv">
+            android:layout_alignLeft="@+id/layout3">
 
             <TextView
                 android:id="@+id/overallCommunicateDetails1TimeTv"

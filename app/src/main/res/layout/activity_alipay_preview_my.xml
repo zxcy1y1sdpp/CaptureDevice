@@ -6,10 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/alipayBg">
-    <include android:id="@+id/titleLayout"
-        layout="@layout/include_base_alipay_title"
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/titleLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/alipayBlueColor"
+        percent:layout_heightPercent="13.1%w"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/mAlipayPreviewTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mAlipayPreviewFinishIv"
+            android:layout_centerVertical="true"
+            percent:layout_marginLeftPercent="4.39%w"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mAlipayPreviewFinishIv"
+            android:layout_centerVertical="true"
+            percent:layout_marginRightPercent="4.39%w"
+            android:layout_alignParentRight="true"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <app.jietuqi.cn.widget.OverScrollView
         android:layout_width="match_parent"
@@ -27,13 +57,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 percent:layout_heightPercent="18.83%w"
-                android:background="@color/wechatBlue">
+                android:background="@color/alipayBlueColor">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/mAlipayPreviewMyAvatarIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon1"
+                    android:src="@drawable/head_default"
                     percent:layout_heightPercent="14.63%w"
                     percent:layout_widthPercent="14.63%w"
                     percent:layout_marginLeftPercent="4.39%w"
@@ -103,8 +133,7 @@
                         percent:layout_marginLeftPercent="5.36%w"/>
                     <TextView
                         android:text="蚂蚁会员"
-                        style="@style/alipayPreviewMyItemTitle"
-                        android:textSize="@dimen/alipayNormalTextSize2"/>
+                        style="@style/alipayPreviewMyItemTitle"/>
 
                     <ImageView
                         android:id="@+id/view1"
@@ -128,7 +157,8 @@
                             android:text="2个积分待领取"
                             android:drawablePadding="@dimen/normalPadding"
                             android:layout_toLeftOf="@+id/view1"
-                            android:gravity="center_vertical"/>
+                            android:gravity="center_vertical"
+                            android:textColor="@color/alipayGrayTextColor"/>
                         <ImageView
                             android:id="@+id/mAlipayPreviewMyRedPointIv"
                             android:layout_width="wrap_content"
@@ -258,7 +288,8 @@
                     android:drawablePadding="@dimen/normalPadding"
                     android:gravity="center_vertical|right"
                     percent:layout_marginRightPercent="4.63%w"
-                    android:text="0.00元"/>
+                    android:text="0.00元"
+                    android:textColor="@color/alipayGrayTextColor"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wechatLineNarrow"

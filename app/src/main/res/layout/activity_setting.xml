@@ -63,4 +63,14 @@
             android:layout_height="wrap_content"
             style="@style/wechatRightWithArrow"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <TextView
+        android:id="@+id/mExitLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出"
+        android:background="@color/white"
+        percent:layout_heightPercent="13%w"
+        android:gravity="center"
+        percent:layout_marginTopPercent="8%w"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -47,6 +47,9 @@ public class StringUtils {
         if (null == obj){
             return "";
         }
+        if (TextUtils.isEmpty(obj.toString())){
+            return front;
+        }
         StringBuilder builder = new StringBuilder(obj.toString());
         builder.insert(0, front);
         return builder.toString();
@@ -98,6 +101,23 @@ public class StringUtils {
         dd = b.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
         System.out.println(dd);
         return dd;
+    }
+    /**
+     * 保留两位小数
+     * @return
+     */
+    public static String insertZeroFont(Object obj){
+        if (obj == null){
+            return "01";
+        }
+        if (TextUtils.isEmpty(obj.toString())){
+            return "01";
+        }
+        if (Integer.parseInt(obj.toString()) < 10 ){
+            return insertFront(obj, "0");
+        }else {
+            return obj.toString();
+        }
     }
 }
 

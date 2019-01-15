@@ -25,7 +25,7 @@ class OverAllChoiceServiceActivity : BaseOverallActivity() {
     }
 
     override fun initAllViews() {
-
+        setTopTitle("联系客服")
     }
 
     override fun initViewsListener() {

@@ -41,9 +41,14 @@ public class OverallCardEntity implements Serializable {
     public String district;
     public String province;
     public String headimgurl;
-
+    public IndustryEntity industry;
     public String getArea(){
         return StringUtils.insertFrontAndBack(" ", province, district);
     }
 
+    public class IndustryEntity implements Serializable{
+        public int id;
+        public String name;
+        public String background;
+    }
 }

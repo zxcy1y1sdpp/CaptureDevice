@@ -14,9 +14,6 @@ import app.jietuqi.cn.util.WechatTimeUtil
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import app.jietuqi.cn.widget.ninegrid.preview.NineGridViewClickAdapter
 import com.sackcentury.shinebuttonlib.ShineButton
-
-
-
 /**
  * 作者： liuyuanbo on 2018/11/7 17:03.
  * 时间： 2018/11/7 17:03
@@ -119,12 +116,18 @@ class OverallCommunicateAdapter(val mList: ArrayList<OverallCommunicateEntity>) 
         var likeCount: TextView = itemView.findViewById(R.id.overallCommunicateLikeCountTv)//点赞人数
         var pingLunCount: TextView = itemView.findViewById(R.id.overallCommunicatePingLunTv)//评论人数
         var likeBtn: ShineButton = itemView.findViewById(R.id.overallCommunicateLikeBtn)//点赞按钮
+        private var vipTagIv: ImageView = itemView.findViewById(R.id.overallCommunicateVipTagIv)//会员标志
         init {
             likeBtn.setOnClickListener(this)
             showAll.setOnClickListener(this)
             itemView.setOnClickListener(this)
         }
         fun bind(entity: OverallCommunicateEntity) {
+            if (entity.vip >= 2){
+                vipTagIv.visibility = View.VISIBLE
+            }else{
+                vipTagIv.visibility = View.GONE
+            }
             GlideUtil.display(itemView.context, entity.avatar, avatar)
             nickName.text = entity.nickName
             content.text = entity.content

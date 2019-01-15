@@ -19,11 +19,11 @@ class AlipayCreateBalanceActivity : BaseCreateActivity() {
     /**
      * 是否显示余额宝
      */
-    internal var mShowYuEBao = false
+    private var mShowYuEBao = false
    /**
      * 是否开通余额宝
      */
-    internal var mDredgeYuEBao = false
+   private var mDredgeYuEBao = false
     var mEntity: AlipayPreviewBalanceEntity = AlipayPreviewBalanceEntity()
 
     override fun setLayoutResourceId() = R.layout.activity_alipay_create_balance

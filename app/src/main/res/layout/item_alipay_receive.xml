@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/normalPaddingHalf">
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/sAlipayReceiveRedPacketLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_round_cornor"
+        android:orientation="horizontal"
+        app:layout_marginBottomPercent="2.8%w"
+        app:layout_heightPercent="9.25%w">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/alipay_chat_shouhongbao"
+            android:layout_marginRight="@dimen/normalPaddingHalf"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/sAlipayReceiveRedPacketContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="李凌轩领取了你的"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="红包"
+            android:textColor="@color/alipayBlueColor"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:gravity="center_vertical"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

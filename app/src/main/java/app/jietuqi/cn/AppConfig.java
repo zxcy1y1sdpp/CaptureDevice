@@ -19,4 +19,7 @@ public class AppConfig {
     public static final String QQ_APP_KEY = "101517949";
     public static final String QQ_APP_Secret = "b5cf378bdbec10a694333e3c3d89e68c";
 
+    /******** Bugly 相关********/
+    public static final String BUGLY_APP_ID = "75ba2fe28f";
+    public static final String BUGLY_APP_KEY = "6f190f68-4686-400a-9d37-eac451d08f33";
 }

@@ -119,12 +119,8 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
 //        if (tabParam.tabViewResId > 0) {
 //            defaultLayout = tabParam.tabViewResId;
 //        }
-        if ("发布".equals(tabParam.title) || "会员卡".equals(tabParam.title)){
-            tabParam.title = "";
-        }else {
-            if (TextUtils.isEmpty(tabParam.title)) {
-                tabParam.title = getContext().getString(tabParam.titleStringRes);
-            }
+        if (TextUtils.isEmpty(tabParam.title)) {
+            tabParam.title = getContext().getString(tabParam.titleStringRes);
         }
 
 

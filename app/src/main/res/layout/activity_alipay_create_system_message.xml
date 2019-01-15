@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <EditText
+        android:id="@+id/mAlipayCreateSystemMessageEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:background="@color/white"
+        android:layout_margin="@dimen/normalPadding"/>
+
+    <TextView
+        android:id="@+id/mAlipayCreateSystemMessageRecallTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="撤回消息提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"/>
+    <TextView
+        android:id="@+id/mAlipayCreateSystemMessageNewFriendTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加好友提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"/>
+    <TextView
+        android:id="@+id/mAlipayCreateSystemMessageHiTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打招呼提示"
+        android:background="@drawable/blue_round_cornor"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:layout_marginTop="@dimen/normalPadding"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -37,7 +37,8 @@
                 style="@style/wechatEdit"
                 android:hint="银行卡尾号（后四位）"
                 android:padding="@dimen/normalPadding"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:maxLength="4"/>
             <EditText
                 android:id="@+id/mAlipayCreateWithdrawDepositBillNameEt"
                 style="@style/wechatEdit"
@@ -48,7 +49,7 @@
                 style="@style/wechatEdit"
                 android:hint="提现金额（元）"
                 android:padding="@dimen/normalPadding"
-                android:inputType="number|numberDecimal"
+                android:inputType="numberDecimal"
                 android:maxLength="8"/>
 
             <RelativeLayout

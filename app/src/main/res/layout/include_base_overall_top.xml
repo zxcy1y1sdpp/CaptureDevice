@@ -9,13 +9,30 @@
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="14%w">
-        <ImageView
-            android:id="@+id/overAllBackIv"
+        percent:layout_heightPercent="14%w"
+        android:id="@+id/overallTitleBgLayout">
+        <LinearLayout
+            android:id="@+id/overAllBackLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/back"
-            android:padding="@dimen/normalPadding"/>
+            android:background="?android:attr/selectableItemBackground">
+            <ImageView
+                android:id="@+id/overAllBackIv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/back"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:id="@+id/overAllBackTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/overall28px"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/overAllTitleTv"
             android:layout_width="wrap_content"
@@ -25,6 +42,15 @@
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:textColor="@color/overallTextColor"/>
+        <ImageView
+            android:id="@+id/overAllRightIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/normalPadding"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/overAllRightTitleTv"
             android:layout_width="wrap_content"
@@ -38,6 +64,7 @@
             android:visibility="gone"/>
 
         <TextView
+            android:id="@+id/overAllBottomLine"
             android:layout_width="match_parent"
             android:layout_height="@dimen/wechatLineNarrow"
             android:background="@color/overallBg"

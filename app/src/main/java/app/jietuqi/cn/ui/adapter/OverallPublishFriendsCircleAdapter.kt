@@ -31,7 +31,6 @@ class OverallPublishFriendsCircleAdapter(val mList: MutableList<OverallPublishEn
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         private val uploadIv: ImageView = itemView.findViewById(R.id.sUploadTv)
-//        private val progressTv: TextView = itemView.findViewById(R.id.sUploadProgressTv)
         private val progressView: VerticalProgressBar = itemView.findViewById(R.id.sUploadProgress)
         private val deleteIv: ImageView = itemView.findViewById(R.id.sUploadDeleteIv)
         init {
@@ -41,7 +40,6 @@ class OverallPublishFriendsCircleAdapter(val mList: MutableList<OverallPublishEn
         override fun onClick(v: View) {
             when(v.id){
                 R.id.sUploadDeleteIv ->{
-
                     mDeleteListener.delete(adapterPosition)
                 }
                 R.id.sUploadProgress ->{

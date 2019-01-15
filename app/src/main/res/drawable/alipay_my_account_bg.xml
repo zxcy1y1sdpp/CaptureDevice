@@ -14,8 +14,8 @@
     <!-- 设置一下边距,让空间大一点 -->
     <padding
         android:bottom="2.5dp"
-        android:left="5dp"
-        android:right="5dp"
+        android:left="10dp"
+        android:right="10dp"
         android:top="2.5dp" />
 
 </shape>

@@ -37,14 +37,53 @@
             app:layout_marginTopPercent="3.1%w"
             app:layout_marginRightPercent="3.1%w"
             android:scaleType="fitXY" />
+
         <ImageView
+            android:id="@+id/mBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_zoom"
-            app:layout_marginTopPercent="4.9%w"
-            app:layout_marginLeftPercent="3.9%w"
+            app:layout_marginTopPercent="5.4%w"
+            app:layout_marginLeftPercent="4.3%w"
             app:layout_widthPercent="7.4%w"
             app:layout_heightPercent="5.4%w"/>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mVideoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="4.3%w">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/mPreviewHeadIv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                app:riv_oval="false"
+                app:riv_corner_radius="5dp"
+                android:scaleType="centerCrop"
+                app:layout_widthPercent="21.94%w"
+                app:layout_heightPercent="21.94%w"
+                app:layout_marginLeftPercent="4.3%w" />
+
+            <TextView
+                android:id="@+id/mPreviewNickNameTv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="李凌轩"
+                android:layout_toRightOf="@+id/mPreviewHeadIv1"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                app:layout_marginTopPercent="1.72%w"
+                app:layout_marginLeftPercent="3.44%w"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请你进行视频通话..."
+                android:layout_toRightOf="@+id/mPreviewHeadIv1"
+                android:textColor="#ffffff"
+                android:layout_alignBottom="@+id/mPreviewHeadIv1"
+                app:layout_marginBottomPercent="1.72%w"
+                android:layout_alignLeft="@+id/mPreviewNickNameTv1"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
 
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -56,20 +95,21 @@
             app:riv_oval="false"
             app:riv_corner_radius="5dp"
             android:scaleType="centerCrop"
-            app:layout_widthPercent="28.2%w"
-            app:layout_heightPercent="28.2%w"
-            app:layout_marginTopPercent="21.8%w" />
+            app:layout_widthPercent="28.4%w"
+            app:layout_heightPercent="28.4%w"
+            app:layout_marginTopPercent="21.94%w" />
 
         <TextView
             android:id="@+id/mPreviewNickNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            app:layout_marginTopPercent="60%w"
+            app:layout_marginTopPercent="8%w"
             android:gravity="center_horizontal"
             android:text="静音"
             android:textColor="#ffffff"
-            android:textSize="@dimen/wechatTransferTextSize" />
+            android:textSize="@dimen/wechatTransferTextSize"
+            android:layout_below="@+id/mPreviewHeadIv"/>
 
         <TextView
             android:id="@+id/mInviteYouVoiceTv"
@@ -83,13 +123,39 @@
             android:textColor="@color/wechatVoiceGray"
             android:textSize="@dimen/wechatNormalTextSize" />
         <LinearLayout
+            android:id="@+id/mConvertLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_marginBottomPercent="7.74%w"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/mRightLayout"
+            android:layout_alignRight="@+id/mRightLayout">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wechat_voice_video_convert_off"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="12dp"
+                android:text="切到语音接听"
+                android:textColor="#ffffff"
+                android:textSize="12dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/mLeftLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            app:layout_marginBottomPercent="5.9%w"
+            app:layout_marginBottomPercent="6%w"
             android:layout_centerHorizontal="true"
             app:layout_marginLeftPercent="11%w">
 
@@ -97,7 +163,7 @@
                 android:id="@+id/mLeftIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wechat_voice_video_up" />
+                android:src="@drawable/wechat_voice_video_on"/>
 
             <TextView
                 android:id="@+id/mLeftTv"
@@ -105,9 +171,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:paddingTop="12dp"
-                android:text="免提"
+                android:text="静音"
                 android:textColor="#ffffff"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/mWechatVoiceAndVideoCenterLayout"
@@ -117,7 +183,7 @@
             android:orientation="vertical"
             app:layout_marginRightPercent="11%w"
             android:layout_alignParentBottom="true"
-            app:layout_marginBottomPercent="5.9%w"
+            app:layout_marginBottomPercent="6%w"
             android:layout_centerHorizontal="true">
 
             <ImageView
@@ -132,12 +198,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:paddingTop="12dp"
-                android:text="免提"
+                android:text="挂断"
                 android:textColor="#ffffff"
                 android:textSize="12dp" />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/layoutMianTi"
+            android:id="@+id/mRightLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -145,13 +211,13 @@
             android:layout_alignParentRight="true"
             app:layout_marginRightPercent="11%w"
             android:layout_alignParentBottom="true"
-            app:layout_marginBottomPercent="5.9%w">
+            app:layout_marginBottomPercent="6%w">
 
             <ImageView
                 android:id="@+id/mRightIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wechat_voice_video_answer" />
+                android:src="@drawable/wechat_voice_video_speaker_on" />
 
             <TextView
                 android:id="@+id/mRightTv"
@@ -164,8 +230,6 @@
                 android:textSize="12dp" />
         </LinearLayout>
 
-
-
         <TextView
             android:id="@+id/mChatTimeTv"
             android:layout_width="wrap_content"
@@ -174,7 +238,7 @@
             android:text="30:22"
             android:textColor="#ffffff"
             android:textSize="16dp"
-            app:layout_marginBottomPercent="40.6%w"
+            app:layout_marginBottomPercent="40%w"
             android:layout_alignParentBottom="true"/>
 
 

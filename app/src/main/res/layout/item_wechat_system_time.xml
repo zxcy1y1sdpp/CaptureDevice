@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/normalPaddingHalf">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_round_cornor"
+        app:layout_marginTopPercent="3.44%w"
+        app:layout_marginBottomPercent="3.44%w">
+        <TextView
+            android:id="@+id/wechatSystemTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="以上是打招呼的内容"
+            android:textColor="@color/wechatLightGray"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/wechatSystemTv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 重新编辑"
+            android:textColor="#576b95"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -7,7 +7,7 @@ package app.jietuqi.cn.callback
  * 用途：
  */
 interface RefreshListener{
-    open fun refresh()
+    fun refresh()
 }
 interface LoadMoreListener{
     fun loadMore()

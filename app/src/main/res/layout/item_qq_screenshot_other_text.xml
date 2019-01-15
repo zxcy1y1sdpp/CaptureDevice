@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQScreenShotOtherAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11.23%w"
+            app:layout_widthPercent="11.23%w"
+            app:layout_marginLeftPercent="2.83%w"
+            app:layout_marginTopPercent="3.9%w"
+            app:layout_marginRightPercent="1%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"/>
+
+
+        <TextView
+            android:id="@+id/sQQScreenShotOtherContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/overall16sp"
+            android:background="@drawable/qq_duihua_text_d"
+            app:layout_marginRightPercent="18.04%w"
+            app:layout_marginTopPercent="1.73%w"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/sQQScreenShotOtherAvatarIv"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

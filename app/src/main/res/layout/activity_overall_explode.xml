@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6594b">
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <app.jietuqi.cn.widget.RadarView
+        android:id="@+id/mRadarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rb_color="#ffffff"
+        app:rb_duration="3000"
+        app:rb_radius="50dp"
+        app:rb_rippleAmount="8"
+        app:rb_scale="6"/>
+    <app.jietuqi.cn.widget.ShapeCornerBgView
+        android:id="@+id/mOverallExplodeView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:textColor="#E6594b"
+        android:padding="10dp"
+        app:appBgColor="@color/white"
+        android:textSize="@dimen/overall32px"
+        android:text="开始爆粉"
+        app:appRadius="700dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"/>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

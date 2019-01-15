@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include
+        layout="@layout/base_wechat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_marginTop="@dimen/normalPadding"
+        style="@style/wechatItem">
+        <TextView
+            android:text="通话状态"
+            style="@style/wechatLeftTitle"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/mVideoWaitingForAnswerTv"
+            android:text="待接听"
+            android:background="@drawable/blue_round_cornor"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/mVideoBusyNowTv"
+            style="@style/wechatTwoBtn" />
+        <TextView
+            android:id="@+id/mVideoBusyNowTv"
+            android:text="通话中"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            percent:layout_marginLeftPercent="2%w"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+    </RelativeLayout>
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/mVideoBusyNowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:visibility="gone">
+        <RelativeLayout
+            android:id="@+id/mVideoTimeLayout"
+            style="@style/wechatItem">
+
+            <TextView
+                style="@style/wechatLeftTitle"
+                android:text="通话时长" />
+
+            <TextView
+                android:id="@+id/mVideoTimeTv"
+                style="@style/wechatRightWithArrow"
+                android:text="01:00"/>
+        </RelativeLayout>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mVideoBusyNowOtherSideBgLayout"
+            style="@style/wechatItem">
+            <TextView
+                android:text="对方视频画面"
+                style="@style/wechatLeftTitle"/>
+
+            <ImageView
+                android:id="@+id/mVideoBusyNowOtherSideBgIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                percent:layout_heightPercent="85%h"
+                percent:layout_widthPercent="85%h"
+                android:scaleType="centerCrop"
+                android:layout_toStartOf="@+id/rightTgIv1"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/rightTgIv1"
+                style="@style/wechatRightArrow"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mVideoBusyNowMySideBgLayout"
+            style="@style/wechatItem">
+            <TextView
+                android:text="我的视频画面"
+                style="@style/wechatLeftTitle"/>
+
+            <ImageView
+                android:id="@+id/mVideoBusyNowMySideBgIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                percent:layout_heightPercent="85%h"
+                percent:layout_widthPercent="85%h"
+                android:scaleType="centerCrop"
+                android:layout_toStartOf="@+id/rightTgIv2"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/rightTgIv2"
+                style="@style/wechatRightArrow"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/mVideoVideoWaitingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mVideoWaitingTalkRoleLayout"
+            android:layout_marginTop="@dimen/normalPadding"
+            style="@style/wechatItem">
+            <TextView
+                android:text="通话对象"
+                style="@style/wechatLeftTitle"/>
+
+            <TextView
+                android:id="@+id/mVideoWaitingTalkNickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="选择角色"
+                android:textColor="@color/wechat_deep2_text_color"
+                style="@style/wechatTextSameSize"
+                android:layout_toLeftOf="@+id/mVideoWaitingTalkAvatarIv"
+                android:padding="@dimen/normalPadding"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/mVideoWaitingTalkAvatarIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                percent:layout_heightPercent="85%h"
+                percent:layout_widthPercent="85%h"
+                android:scaleType="centerCrop"
+                android:layout_toStartOf="@+id/rightTgIv"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/rightTgIv"
+                style="@style/wechatRightArrow" />
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mVideoWaitingBgLayout"
+            style="@style/wechatItem">
+            <TextView
+                android:text="视频画面"
+                style="@style/wechatLeftTitle"/>
+
+            <ImageView
+                android:id="@+id/mVideoWaitingBgIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                percent:layout_heightPercent="85%h"
+                percent:layout_widthPercent="85%h"
+                android:scaleType="centerCrop"
+                android:layout_toStartOf="@+id/rightTgIv4"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/rightTgIv4"
+                style="@style/wechatRightArrow"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_wechat_preview_btn"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

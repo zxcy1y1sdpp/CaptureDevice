@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginBottomPercent="2.8%w">
+    <ImageView
+        android:id="@+id/sAlipayScreenShotOtherAvatarIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="11%w"
+        app:layout_widthPercent="11%w"
+        android:scaleType="centerCrop"
+        app:layout_marginLeftPercent="2.16%w"
+        app:layout_marginRightPercent="1.67%w"
+        android:src="@drawable/head_default"/>
+
+        <TextView
+            android:id="@+id/sAlipayScreenShotOtherContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/overall16sp"
+            android:background="@drawable/alipay_chat_text_b"
+            app:layout_marginRightPercent="19.19%w"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/sAlipayScreenShotOtherAvatarIv"
+            android:layout_alignTop="@+id/sAlipayScreenShotOtherAvatarIv"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

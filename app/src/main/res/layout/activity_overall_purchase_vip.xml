@@ -7,13 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/overallBg">
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <!--<com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mOverallPurchaseVipRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableLoadMore="false">
+        app:srlEnableLoadMore="false">-->
 
-        <ScrollView
+        <app.jietuqi.cn.widget.MyScrollView
+            android:id="@+id/mScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
@@ -157,17 +158,10 @@
                         android:layout_height="wrap_content"
                         android:text="VIP特权"
                         app:layout_marginTopPercent="4%w"
-                        android:textSize="@dimen/overall32px"
+                        android:textSize="@dimen/overall16sp"
                         android:textColor="@color/black"
                         android:layout_gravity="center_horizontal"/>
 
-                    <TextView
-                        android:layout_width="20dp"
-                        android:layout_height="1dp"
-                        android:background="@color/black"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        app:layout_marginTopPercent="2.13%w"/>
                     <com.zhy.android.percent.support.PercentLinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -288,7 +282,7 @@
                         android:layout_gravity="center_horizontal"/>
                 </com.zhy.android.percent.support.PercentLinearLayout>
             </com.zhy.android.percent.support.PercentLinearLayout>
-        </ScrollView>
+        </app.jietuqi.cn.widget.MyScrollView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -38,7 +38,7 @@ object ScreenUtil {
     val screenWidth: Int
         get() {
             val metric = DisplayMetrics()
-            val wm = App.getInstance().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val wm = App.instance.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             wm.defaultDisplay.getMetrics(metric)
             return metric.widthPixels
         }
@@ -49,7 +49,7 @@ object ScreenUtil {
      */
     val screenWidthWithFloat: Float
         get() {
-            val manager = App.getInstance().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val manager = App.instance.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             val display = manager.defaultDisplay
             return display.width.toFloat()
         }
@@ -70,7 +70,7 @@ object ScreenUtil {
     val screenHeight: Int
         get() {
             val metric = DisplayMetrics()
-            val wm = App.getInstance().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val wm = App.instance.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             wm.defaultDisplay.getRealMetrics(metric)
             return metric.heightPixels
         }

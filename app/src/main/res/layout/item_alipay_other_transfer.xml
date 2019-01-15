@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginBottomPercent="2.8%w">
+        <ImageView
+            android:id="@+id/sAlipayOtherTransferAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11%w"
+            app:layout_widthPercent="11%w"
+            app:layout_marginLeftPercent="2.16%w"
+            app:layout_marginRightPercent="1.67%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"/>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/sAlipayOtherTransferLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alipay_chat_transfer_b"
+            android:layout_toRightOf="@+id/sAlipayOtherTransferAvatarIv"
+            android:layout_alignTop="@+id/sAlipayOtherTransferAvatarIv"
+            app:layout_heightPercent="26.7%w"
+            app:layout_widthPercent="63.87%w" >
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_marginTopPercent="3.44%w"
+                app:layout_marginLeftPercent="4.31%w"
+                app:layout_heightPercent="17.68%w">
+                <ImageView
+                    android:id="@+id/tagIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/alipay_chat_transfer"
+                    android:adjustViewBounds="true"/>
+
+                <TextView
+                    android:id="@+id/sAlipayOtherTransferMoneyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tagIv"
+                    android:layout_toRightOf="@+id/tagIv"
+                    android:text="¥1.00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/wechatNormalTextSize2"
+                    android:layout_alignLeft="@+id/sAlipayOtherTransferLeaveMessageTv"/>
+                <TextView
+                    android:id="@+id/sAlipayOtherTransferLeaveMessageTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tagIv"
+                    android:layout_toRightOf="@+id/tagIv"
+                    android:text="转账给你"
+                    android:textColor="@color/white"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/wechatLittleTextSize"
+                    android:alpha="0.7"
+                    android:layout_marginLeft="@dimen/normalPadding"/>
+
+
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/sAlipayLeaveMessage"
+                app:layout_marginLeftPercent="4.31%w"
+                android:layout_alignBottom="@+id/tagIv"
+                android:layout_toRightOf="@+id/tagIv"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="转账"
+                    android:textColor="#C5C5C5"
+                    android:textSize="@dimen/wechatNormalTextSize2"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/alipay_chat_pay"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/sAlipayReceiveRedPacketLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_round_cornor"
+        android:orientation="horizontal"
+        app:layout_marginTopPercent="2.8%w"
+        app:layout_marginBottomPercent="2.8%w"
+        app:layout_heightPercent="9.25%w"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layout1">
+
+        <TextView
+            android:id="@+id/sAlipayReceiveRedPacketContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="钱已入袋，"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="给对方回个话"
+            android:textColor="@color/alipayBlueColor"
+            android:textSize="@dimen/wechatNormalTextSize2"
+            android:gravity="center_vertical"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

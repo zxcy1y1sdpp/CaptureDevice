@@ -1,7 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.5%w"
+        android:background="#EDEDED">
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar2TextView
+            android:id="@+id/mWechatSimulatorPreviewNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通讯录"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mWechatSimulatorPreviewBackTv"
+            android:layout_alignTop="@+id/mWechatSimulatorPreviewBackTv"
+            android:layout_alignBottom="@+id/mWechatSimulatorPreviewBackTv"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="3.85%w"/>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/mWechatSimulatorPreviewAddIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_add"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:layout_marginRightPercent="4.93%w"/>
+        <ImageView
+            android:id="@+id/mWechatSimulatorPreviewSearchIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_search"
+            android:layout_centerVertical="true"
+            app:layout_marginRightPercent="10.49%w"
+            android:layout_toLeftOf="@+id/mWechatSimulatorPreviewAddIv"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mWechatFriendsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_below="@+id/titleLayout"/>
+    <app.jietuqi.cn.widget.MyLetterSortView
+        android:id="@+id/mWechatFriendsLetter"
+        android:layout_width="25dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/titleLayout"/>
+    <TextView
+        android:id="@+id/mWechatFriendsLetterTv"
+        android:layout_width="80.0dip"
+        android:layout_height="80.0dip"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/letter_mid_view_background"
+        android:gravity="center"
+        android:padding="5dip"
+        android:textColor="@color/white"
+        android:textSize="35.0dip"
+        android:visibility="invisible" />
+</com.zhy.android.percent.support.PercentRelativeLayout>

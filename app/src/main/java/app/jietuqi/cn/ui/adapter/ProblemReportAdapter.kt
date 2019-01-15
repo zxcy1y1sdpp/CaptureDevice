@@ -9,6 +9,7 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.DeleteListener
 import app.jietuqi.cn.entity.ProblemReportEntity
 import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.widget.VerticalProgressBar
 
 /**
  * 作者： liuyuanbo on 2018/10/25 17:10.
@@ -32,11 +33,23 @@ class ProblemReportAdapter(val mList: ArrayList<ProblemReportEntity>, val listen
 
     inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var picThumb: ImageView = itemView.findViewById(R.id.picThumb2)
+        private val progressView: VerticalProgressBar = itemView.findViewById(R.id.sUploadProgress)
         init {
             itemView.findViewById<ImageView>(R.id.deleteIv).setOnClickListener(this)
         }
         fun bind(entity: ProblemReportEntity) {
             GlideUtil.display(itemView.context, entity.pic, picThumb)
+            when(entity.uploadStatus) {
+                1 -> {
+                    progressView.visibility = View.VISIBLE
+                    progressView.setProgress(entity.progress)
+                }
+                3 -> {
+                    progressView.setText("点击重试")
+                }
+                2 -> progressView.visibility = View.GONE
+                0 -> progressView.visibility = View.GONE
+            }
         }
         override fun onClick(v: View?) {
             listener.delete(adapterPosition)

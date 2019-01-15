@@ -41,10 +41,14 @@ abstract class BaseOverallInternetActivity : BaseOverallActivity() {
         refreshLayout.setOnRefreshListener{
             mPage = 1
             loadFromServer()
+            refreshAndLoadMore()
         }
         refreshLayout.setOnLoadMoreListener {
             mPage += 1
             loadFromServer()
+            refreshAndLoadMore()
         }
     }
+
+    open fun refreshAndLoadMore(){}
 }

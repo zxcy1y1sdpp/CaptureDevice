@@ -10,15 +10,16 @@
         android:id="@+id/mAlipayPreviewBgLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="13.6%w"
+        percent:layout_heightPercent="13.1%w"
         android:background="@color/white">
-        <ImageView
+
+        <ImageButton
             android:id="@+id/mAlipayPreviewFinishIv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/alipay_title_finish_blue"
-            percent:layout_marginLeftPercent="3.4%w"
-            android:layout_centerVertical="true"/>
+            percent:layout_widthPercent="11.98%w"
+            android:background="@null"/>
 
         <TextView
             android:id="@+id/mAlipayPreviewTitleTv"
@@ -28,7 +29,6 @@
             android:textColor="@color/black"
             android:textSize="@dimen/wechatNormalTextSize"
             android:gravity="center"
-            percent:layout_marginLeftPercent="4.8%w"
             android:layout_toRightOf="@+id/mAlipayPreviewFinishIv"
             android:layout_centerVertical="true"/>
         <TextView

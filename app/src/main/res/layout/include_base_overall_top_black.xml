@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentRelativeLayout
+<com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:percent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,41 +7,89 @@
     android:background="@color/wechatTitleBar"
     android:gravity="center_vertical">
     <com.zhy.android.percent.support.PercentRelativeLayout
-        android:id="@+id/wechatLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="14%w">
-        <ImageView
-            android:id="@+id/overAllBackIv"
+        percent:layout_heightPercent="14%w"
+        android:id="@+id/overallTitleBgBlackLayout">
+        <LinearLayout
+            android:id="@+id/overAllBackBlackLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/wechat_title_title"
-            percent:layout_marginLeftPercent="4.26%w"
-            android:layout_centerVertical="true"/>
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/overAllBackBlackIv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/wechat_title_title"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:id="@+id/overAllBackBlackTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/overall28px"
+                android:visibility="gone"/>
+        </LinearLayout>
         <TextView
-            android:id="@+id/overAllTitleTv"
+            android:id="@+id/overAllTitleBlackTv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="标题"
             android:textColor="@android:color/white"
             android:textSize="@dimen/overall32px"
             android:gravity="center"
-            android:layout_toRightOf="@+id/overAllBackIv"
-            percent:layout_marginLeftPercent="7.73%w"/>
-
+            android:layout_toRightOf="@+id/overAllBackBlackLayout"
+            percent:layout_marginLeftPercent="3%w"/>
+        <ImageView
+            android:id="@+id/overAllRightBlackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/normalPadding"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
         <TextView
-            android:id="@+id/overAllRightTitleTv"
+            android:id="@+id/overAllRightTitleBlackTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="零钱明细"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/overAllBackIv"
-            android:layout_alignBottom="@+id/overAllBackIv"
+            android:layout_alignTop="@+id/overAllBackBlackLayout"
+            android:layout_alignBottom="@+id/overAllBackBlackLayout"
             android:gravity="center"
             android:textSize="@dimen/overall32px"
             percent:layout_marginRightPercent="4.26%w"
             android:textColor="@color/white"
             android:visibility="gone"/>
+        <TextView
+            android:id="@+id/overallAllRightWithBgTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/normalPadding"
+            android:gravity="center"
+            android:textSize="@dimen/overall26px"
+            percent:layout_marginRightPercent="4.26%w"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/overallAllRightWithOutBgTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/normalPadding"
+            android:gravity="center"
+            android:textSize="@dimen/overall26px"
+            percent:layout_marginRightPercent="4.26%w"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
-</com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

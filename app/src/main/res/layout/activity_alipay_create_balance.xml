@@ -16,7 +16,7 @@
         style="@style/wechatEdit"
         android:layout_marginTop="@dimen/normalPadding"
         android:hint="账户余额（元）余额必须小于一千万"
-        android:inputType="numberDecimal|number"
+        android:inputType="numberDecimal"
         android:padding="@dimen/normalPadding"
         android:singleLine="true"
         android:ellipsize="end"

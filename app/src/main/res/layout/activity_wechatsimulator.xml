@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/overallBg"
     android:layout_weight="4">
 
-    <include layout="@layout/include_base_overall_top"
+    <include
+        layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <app.jietuqi.cn.widget.OverScrollView
@@ -18,214 +19,295 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/mOverallSimulatorScreenShotLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_marginBottomPercent="2.67%w"
+                app:layout_heightPercent="26.91%w"
+                android:background="@color/overallBlue">
 
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mWechatScreenShotLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="微信对话"
+                    android:textColor="@color/white"
+                    android:drawableTop="@mipmap/zfbjt"
+                    app:stv_pressBgColor="#4169E1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPaddingHalf"/>
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mAlipayScreenShotLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="支付宝对话"
+                    android:textColor="@color/white"
+                    android:drawableTop="@mipmap/wxjt"
+                    app:stv_pressBgColor="#4169E1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPaddingHalf"/>
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mQQScreenShotLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="QQ对话"
+                    android:textColor="@color/white"
+                    android:drawableTop="@mipmap/qqjt"
+                    app:stv_pressBgColor="#4169E1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPaddingHalf"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
             <TextView
+                android:id="@+id/mWechatLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="微信截图"
-                android:padding="@dimen/normalPadding"/>
+                android:padding="@dimen/normalPadding"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/wechatLineNarrow"
+                android:layout_marginBottom="@dimen/wechatLineNarrow"/>
 
             <LinearLayout
+                android:id="@+id/mCloseLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                percent:layout_heightPercent="26.91%w">
-                <LinearLayout
+                app:layout_heightPercent="26.91%w">
+
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="微信红包"
+                    android:drawableTop="@drawable/wechat_icon1"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="微信红包"
-                        android:layout_marginTop="@dimen/normalPadding"/>
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="微信转账"
+                    android:drawableTop="@drawable/wechat_icon2"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon2"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="微信转账"
-                        android:layout_marginTop="@dimen/normalPadding"/>
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/white"
+                    android:text="微信零钱"
+                    android:drawableTop="@drawable/wechat_icon3"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="微信零钱" />
-                </LinearLayout>
-                <View
-                    android:layout_width="@dimen/wechatLineNarrow"
-                    android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
-
-                <LinearLayout
-                    android:id="@+id/mWechatFun4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon4" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="微信钱包" />
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                percent:layout_heightPercent="26.91%w"
+                app:layout_heightPercent="26.91%w"
                 android:layout_marginTop="@dimen/wechatLineNarrow">
-                <LinearLayout
-                    android:id="@+id/mWechatFun5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon5"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="零钱提现"
-                        android:layout_marginTop="@dimen/normalPadding"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="@dimen/wechatLineNarrow"
-                    android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun6"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="语音通话"
+                    android:drawableTop="@drawable/wechat_icon6"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon6"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="语音通话" />
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
-                <LinearLayout
-                    android:id="@+id/mWechatFun7"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon8"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="零钱明细" />
-                </LinearLayout>
-                <View
-                    android:layout_width="@dimen/wechatLineNarrow"
-                    android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun8"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="视频通话"
+                    android:drawableTop="@drawable/wechat_icon7"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+                <RelativeLayout
+                    android:id="@+id/mWechatWalletLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@color/white"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="微信钱包"
+                        android:drawableTop="@drawable/wechat_icon4"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
                     <ImageView
+                        android:id="@+id/mVipFun4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon7"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="视频通话" />
-                </LinearLayout>
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+
             </LinearLayout>
-            <com.zhy.android.percent.support.PercentLinearLayout
+            <LinearLayout
+                android:id="@+id/mCloseLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                percent:layout_heightPercent="26.91%w"
-                percent:layout_widthPercent="25%w"
+                app:layout_heightPercent="26.91%w"
+                android:layout_marginTop="@dimen/wechatLineNarrow">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="零钱提现"
+                        android:drawableTop="@drawable/wechat_icon5"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="零钱明细"
+                        android:drawableTop="@drawable/wechat_icon8"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:visibility="invisible">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="账单"
+                        android:drawableTop="@drawable/wechat_icon9"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="26.91%w"
                 android:layout_marginTop="@dimen/wechatLineNarrow"
                 android:visibility="gone">
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
                 <LinearLayout
                     android:id="@+id/mWechatFun9"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
                     android:background="@color/white"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="invisible">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -236,265 +318,145 @@
                         android:layout_marginTop="@dimen/normalPadding"
                         android:text="微信聊天" />
                 </LinearLayout>
-            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+            </LinearLayout>
             <TextView
+                android:id="@+id/mAlipayTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="支付宝截图"
-                android:padding="@dimen/normalPadding"/>
+                android:padding="@dimen/normalPadding"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/normalPadding"
+                android:layout_marginBottom="@dimen/wechatLineNarrow" />
             <LinearLayout
+                android:id="@+id/mCloseLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                percent:layout_heightPercent="26.91%w">
-                <LinearLayout
+                app:layout_heightPercent="26.91%w">
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun10"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="支付宝红包"
+                    android:drawableTop="@drawable/alipay_icon1"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="支付宝红包"
-                        android:layout_marginTop="@dimen/normalPadding"/>
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun11"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:text="支付宝余额"
+                    android:drawableTop="@drawable/alipay_icon2"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/white"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon2"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="支付宝余额"
-                        android:layout_marginTop="@dimen/normalPadding"/>
-                </LinearLayout>
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
-                <LinearLayout
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun12"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/white"
+                    android:text="提现账单"
+                    android:drawableTop="@drawable/alipay_icon3"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="提现账单" />
-                </LinearLayout>
-                <View
-                    android:layout_width="@dimen/wechatLineNarrow"
-                    android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
-
-                <LinearLayout
+            </LinearLayout>
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/mCloseLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="26.91%w"
+                android:layout_marginTop="@dimen/wechatLineNarrow"
+                android:layout_weight="4">
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun13"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon4" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="收款账单" />
-                </LinearLayout>
-            </LinearLayout>
-            <com.zhy.android.percent.support.PercentLinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                percent:layout_heightPercent="26.91%w"
-                android:layout_marginTop="@dimen/wechatLineNarrow">
-                <LinearLayout
-                    android:id="@+id/mWechatFun14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@color/white"
-                    percent:layout_widthPercent="25%w">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon5"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="转账账单" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/mWechatFun15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@color/white"
-                    percent:layout_widthPercent="25%w">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alipay_icon6"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="我的" />
-                </LinearLayout>
-            </com.zhy.android.percent.support.PercentLinearLayout>
-            <!--<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/mWechatRedPacketBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="微信红包"
-                    android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/mWechatTransferBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/mWechatRedPacketBtn"
-                    android:text="微信转账"
-                    android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/mWechatWalletBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/mWechatTransferBtn"
-                    android:text="我的钱包"
-                    android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/mChangeBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/mWechatWalletBtn"
-                    android:text="微信零钱"
-                    android:visibility="invisible" />
-                <Button
-                    android:id="@+id/mWechatVoiceBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="语音通话"
-                    android:layout_below="@+id/mWechatRedPacketBtn"/>
-                <Button
-                    android:id="@+id/mWechatVideoBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="视频通话"
-                    android:layout_toRightOf="@+id/mWechatVoiceBtn"
-                    android:layout_below="@+id/mWechatRedPacketBtn"/>
-                <Button
-                    android:id="@+id/mWechatWithdrawDepositBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="微信提现"
-                    android:layout_toRightOf="@+id/mWechatVideoBtn"
-                    android:layout_below="@+id/mWechatRedPacketBtn"/>
-                <Button
-                    android:id="@+id/mWechatTalkBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="微信"
-                    android:layout_below="@+id/mWechatRedPacketBtn"
-                    android:layout_toRightOf="@+id/mWechatWithdrawDepositBtn"/>
-                <Button
-                    android:id="@+id/mWechatChargeDetailBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="零钱明细"
-                    android:layout_below="@+id/mWechatVoiceBtn"/>
-            </RelativeLayout>-->
-            <!--<RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/mWechatChargeDetailBtn"
-                android:layout_marginTop="40dp">
-                <Button
-                    android:id="@+id/mAlipayRedPacketBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="支付宝红包"/>
-
-                <Button
-                    android:id="@+id/mAlipayBalanceBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="支付宝余额"
-                    android:layout_toRightOf="@+id/mAlipayRedPacketBtn"/>
-                <Button
-                    android:id="@+id/mAlipayTransferBillBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="转账账单"
-                    android:layout_toRightOf="@+id/mAlipayBalanceBtn"/>
-                <Button
-                    android:id="@+id/mAlipayReceivingBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="收款账单"
-                    android:layout_toRightOf="@+id/mAlipayTransferBillBtn"/>
-                <Button
-                    android:id="@+id/mAlipayWithdrawDepositBillBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="支付宝提现"
-                    android:layout_below="@+id/mAlipayRedPacketBtn" />
-                <Button
-                    android:id="@+id/mAlipayMyBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的"
-                    android:layout_below="@+id/mAlipayRedPacketBtn"
-                    android:layout_toRightOf="@+id/mAlipayWithdrawDepositBillBtn"/>
-            </RelativeLayout>-->
+                    android:drawableTop="@drawable/alipay_icon3"
+                    app:stv_pressBgColor="@color/pressColor"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPadding"
+                    android:background="@color/white"/>
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun14"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="转账账单"
+                        android:drawableTop="@drawable/alipay_icon3"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun15"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="我的"
+                        android:drawableTop="@drawable/alipay_icon2"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+            </com.zhy.android.percent.support.PercentLinearLayout>
         </com.zhy.android.percent.support.PercentLinearLayout>
     </app.jietuqi.cn.widget.OverScrollView>
 </com.zhy.android.percent.support.PercentLinearLayout>

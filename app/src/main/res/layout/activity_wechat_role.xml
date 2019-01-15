@@ -21,12 +21,11 @@
             android:text="角色头像"
             style="@style/wechatLeftTitle"/>
 
-
         <ImageView
             android:id="@+id/mAvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/head_default"
             percent:layout_heightPercent="85%h"
             percent:layout_widthPercent="85%h"
             android:scaleType="centerCrop"
@@ -45,7 +44,6 @@
             android:id="@+id/mSenderNameTv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="丫丫"
             android:textColor="@color/wechat_deep2_text_color"
             style="@style/wechatTextSameSize"
             android:layout_toLeftOf="@+id/rightTgIv"

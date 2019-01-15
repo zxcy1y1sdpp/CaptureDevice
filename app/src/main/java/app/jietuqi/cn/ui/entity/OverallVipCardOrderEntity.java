@@ -31,4 +31,5 @@ public class OverallVipCardOrderEntity implements Serializable {
     public String create_time;
     public String update_time;
     public String id;
+    public String info;
 }

@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/titleLayout"
-        layout="@layout/include_base_overall_top_black"
+        layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -142,9 +142,5 @@
             android:text="发布群名片"
             android:textColor="@color/black"
             android:textSize="@dimen/overall16sp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/kaitongvip"/>
     </LinearLayout>
 </com.zhy.android.percent.support.PercentRelativeLayout>

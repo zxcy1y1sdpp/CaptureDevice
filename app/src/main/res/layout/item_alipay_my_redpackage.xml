@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginBottomPercent="2.8%w">
+        <ImageView
+            android:id="@+id/sAlipayMyAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:layout_heightPercent="11%w"
+            app:layout_widthPercent="11%w"
+            app:layout_marginRightPercent="2.16%w"
+            app:layout_marginLeftPercent="1.67%w"
+            android:scaleType="centerCrop"
+            android:src="@drawable/head_default"/>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/sAlipayBubbleLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alipay_chat_hongbao_a"
+            android:layout_toLeftOf="@+id/sAlipayMyAvatar"
+            android:layout_alignTop="@+id/sAlipayMyAvatar"
+            app:layout_heightPercent="26.7%w"
+            app:layout_widthPercent="63.87%w" >
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginTopPercent="3.44%w"
+                app:layout_marginLeftPercent="4.31%w"
+                app:layout_heightPercent="17.68%w">
+                <ImageView
+                    android:id="@+id/tagIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/alipay_chat_hongbao"
+                    android:adjustViewBounds="true"/>
+                <TextView
+                    android:id="@+id/sAlipayLeaveMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tagIv"
+                    android:layout_toRightOf="@+id/tagIv"
+                    android:text="啥来的快放假电饭锅的的的啥来的"
+                    android:textColor="@color/white"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/wechatNormalTextSize2"
+                    android:layout_marginLeft="@dimen/normalPadding"/>
+
+                <TextView
+                    android:id="@+id/sAlipayRedPackageStatusTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tagIv"
+                    android:layout_toRightOf="@+id/tagIv"
+                    android:text="查看红包"
+                    android:textColor="@color/white"
+                    android:alpha="0.7"
+                    android:textSize="@dimen/wechatLittleTextSize"
+                    android:layout_alignLeft="@+id/sAlipayLeaveMessage"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/sAlipayLeaveMessage"
+                app:layout_marginLeftPercent="4.31%w"
+                android:layout_alignBottom="@+id/tagIv"
+                android:layout_toRightOf="@+id/tagIv"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="红包"
+                    android:textColor="#C5C5C5"
+                    android:textSize="@dimen/wechatNormalTextSize2"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/alipay_chat_pay"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

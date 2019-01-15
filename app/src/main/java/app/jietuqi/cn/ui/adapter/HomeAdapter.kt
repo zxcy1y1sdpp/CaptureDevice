@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LikeListener
-import app.jietuqi.cn.ui.activity.OverallRemoveWatermarkActivity
-import app.jietuqi.cn.ui.activity.OverallWebViewActivity
-import app.jietuqi.cn.ui.activity.WechatSimulatorActivity
+import app.jietuqi.cn.entity.BannerEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.util.WechatTimeUtil
+import app.jietuqi.cn.widget.GlideImageLoader
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import app.jietuqi.cn.widget.ninegrid.preview.NineGridViewClickAdapter
 import com.sackcentury.shinebuttonlib.ShineButton
 import com.youth.banner.Banner
+import com.youth.banner.BannerConfig
+import com.youth.banner.Transformer
 
 /**
  * 作者： liuyuanbo on 2018/10/24 15:46.
@@ -30,7 +30,7 @@ import com.youth.banner.Banner
  * 用途：
  */
 
-class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener: LikeListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: ArrayList<BannerEntity>, val mLikeListener: LikeListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE1 = 0
     private val TYPE2 = 1
     private val MAX_LINE_COUNT = 3//最大显示行数
@@ -54,7 +54,8 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener:
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            TYPE1 -> {
+            TYPE1 -> if (holder is Holder1) {
+                holder.bind()
             }
             TYPE2 -> if (holder is Holder2) {
                 var entity = mList[position - 1]
@@ -106,36 +107,36 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener:
         return mList.size + 1
     }
 
-    internal inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(v: View?) {
-            when (v?.id) {
-                R.id.wechatFunLayout -> {
-                    LaunchUtil.launch(itemView.context, WechatSimulatorActivity::class.java)
-                }
-                R.id.removeWaterMarkFunLayout -> {
-                    LaunchUtil.launch(itemView.context, OverallRemoveWatermarkActivity::class.java)
-                }
-                R.id.kuaiDiChaXunFunLayout -> {
-                    LaunchUtil.launch(itemView.context, OverallWebViewActivity::class.java)
-                }
+    internal inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView){
+        private var banner: Banner = itemView.findViewById(R.id.mBanner)
+        private var funRecyclerView: RecyclerView = itemView.findViewById(R.id.sFunRecyclerView)
+        init {
+            funRecyclerView.adapter = HomeFunAdapter()
+            banner.setOnBannerListener {
+                LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
             }
         }
-
-        private var banner: Banner = itemView.findViewById(R.id.mBanner)
-//        private var tabLayout: TabLayout = itemView.findViewById(R.id.mTabLayout)
-
-        init {
-            itemView.findViewById<LinearLayout>(R.id.wechatFunLayout).setOnClickListener(this)
-            itemView.findViewById<LinearLayout>(R.id.removeWaterMarkFunLayout).setOnClickListener(this)
-            itemView.findViewById<LinearLayout>(R.id.kuaiDiChaXunFunLayout).setOnClickListener(this)
-//            tabLayout.addTab(tabLayout.newTab().setText("最新"))
-//            tabLayout.addTab(tabLayout.newTab().setText("最热"))
-//            tabLayout.addTab(tabLayout.newTab().setText("已购买"))
-
-        }
-
         fun bind() {
-
+            //设置banner样式
+            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+            //设置图片加载器
+            banner.setImageLoader(GlideImageLoader())
+            //设置图片集合
+            with(banner) {
+                setImages(mBannerList as List<Any>)
+                //设置banner动画效果
+                setBannerAnimation(Transformer.Default)
+                //设置标题集合（当banner样式有显示title时）
+//                            banner.setBannerTitles(Arrays.asList(titles));
+                //banner，默认为true
+                isAutoPlay(true)
+                //设置轮播时间
+                setDelayTime(5000)
+                //设置指示器位置（当banner模式中有指示器时）
+                setIndicatorGravity(BannerConfig.CENTER)
+                //mBanner
+                start()
+            }
         }
     }
 
@@ -160,6 +161,9 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener:
                         mLikeListener.like(entity)
                     }
                 }
+                R.id.overallCommunicateAvatarIv -> {
+                    LaunchUtil.startOverallMyPublishActivity(itemView.context, entity.uid.toString(), entity.nickname)
+                }
                 else -> {
                     entity.position = adapterPosition - 1
                     LaunchUtil.startOverallCommunicateDetailsActivity(itemView.context, entity)
@@ -171,19 +175,25 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener:
         private var nickName: TextView = itemView.findViewById(R.id.overallCommunicateNickNameTv)
         var content: TextView = itemView.findViewById(R.id.overallCommunicateContentTv)
         var showAll: TextView = itemView.findViewById(R.id.overallCommunicateShowAllContentTv)//展开/全文按钮
-        var pics: NineGridView = itemView.findViewById(R.id.overallCommunicateNineGridView)
+        private var pics: NineGridView = itemView.findViewById(R.id.overallCommunicateNineGridView)
         var createTime: TextView = itemView.findViewById(R.id.overallCommunicateTimeTv)//创建时间
-        var likeCount: TextView = itemView.findViewById(R.id.overallCommunicateLikeCountTv)//点赞人数
-        var pingLunCount: TextView = itemView.findViewById(R.id.overallCommunicatePingLunTv)//评论人数
+        private var likeCount: TextView = itemView.findViewById(R.id.overallCommunicateLikeCountTv)//点赞人数
+        private var pingLunCount: TextView = itemView.findViewById(R.id.overallCommunicatePingLunTv)//评论人数
+        private var vipTagIv: ImageView = itemView.findViewById(R.id.overallCommunicateVipTagIv)//会员标志
         private var likeBtn: ShineButton = itemView.findViewById(R.id.overallCommunicateLikeBtn)//点赞按钮
-
         init {
             likeBtn.setOnClickListener(this)
             showAll.setOnClickListener(this)
+            avatar.setOnClickListener(this)
             itemView.setOnClickListener(this)
         }
 
         fun bind(entity: OverallDynamicEntity) {
+            if (entity.vip >= 2){
+                vipTagIv.visibility = View.VISIBLE
+            }else{
+                vipTagIv.visibility = View.GONE
+            }
             GlideUtil.displayHead(itemView.context, entity.headimgurl, avatar)
             nickName.text = entity.nickname
             content.text = entity.content
@@ -195,7 +205,9 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mLikeListener:
             }
             likeCount.text = entity.favour.toString()
             pingLunCount.text = entity.comment_number.toString()
-            createTime.text = WechatTimeUtil.getStandardDate(entity.create_time * 1000)
+            createTime.text = TimeUtil.stampToDateYMDHM(entity.create_time)
+//            createTime.text = WechatTimeUtil.getStandardDate(entity.create_time * 1000)
+
             if (entity.is_favour == 1) {
                 likeBtn.setChecked(true, false)
             } else {

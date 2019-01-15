@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="请粘贴视频地址"
-                    android:background="@drawable/gray_solid6"
+                    android:background="@drawable/gray_solid6_2"
                     android:layout_marginRight="@dimen/normalPadding"
                     app:layout_widthPercent="85%w"
                     android:maxLines="2"
@@ -45,7 +45,8 @@
                     android:background="@drawable/blue_round_cornor"
                     android:layout_toRightOf="@+id/mRemoveWaterMarkUrlEt"
                     android:layout_centerVertical="true"
-                    app:layout_widthPercent="15%w"/>
+                    app:layout_widthPercent="15%w"
+                    android:gravity="center"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
             <com.zhy.android.percent.support.PercentRelativeLayout
@@ -55,7 +56,7 @@
                 android:layout_marginTop="@dimen/normalPadding"
                 android:visibility="gone">
                 <cn.jzvd.JzvdStd
-                    android:id="@+id/mRemoveWaterMarkVideoPlayer"
+                    android:id="@+id/mRemoveWaterMarkVideoPlayer2"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginBottom="@dimen/normalPadding"/>
@@ -65,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="保存到相册"
-                    android:layout_below="@+id/mRemoveWaterMarkVideoPlayer"
+                    android:layout_below="@+id/mRemoveWaterMarkVideoPlayer2"
                     android:background="@drawable/overall_blue_big_circular"
                     android:textColor="@color/white"
                     app:layout_widthPercent="40%w"/>
@@ -77,7 +78,7 @@
                     android:text="复制视频链接"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/overall_gray_big_circular"
-                    android:layout_below="@+id/mRemoveWaterMarkVideoPlayer"
+                    android:layout_below="@+id/mRemoveWaterMarkVideoPlayer2"
                     android:textColor="@color/white"
                     app:layout_widthPercent="40%w"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:clipToPadding="false"
-                android:background="@drawable/gray_solid5"
+                android:background="@drawable/gray_solid5_2"
                 android:layout_marginTop="@dimen/normalPadding2">
 
                 <TextView

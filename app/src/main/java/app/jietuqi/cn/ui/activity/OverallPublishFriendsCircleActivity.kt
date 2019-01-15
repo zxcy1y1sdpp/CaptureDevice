@@ -1,5 +1,6 @@
 package app.jietuqi.cn.ui.activity
 
+import android.Manifest
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -24,6 +25,7 @@ import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.utils.HttpLog
 import kotlinx.android.synthetic.main.activity_overall_publish_friends_circle.*
+import permissions.dispatcher.*
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -35,6 +37,7 @@ import java.io.File
  * 邮箱： 972383753@qq.com
  * 用途： 发布说说的按钮
  */
+@RuntimePermissions
 class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), DeleteListener {
     override fun delete(position: Int) {
         mList.removeAt(position)
@@ -48,7 +51,7 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setTitle("发布动态", rightTitle = "发布")
+        setTopTitle("发布动态", rightTitle = "发布")
         mLastEntity.position = 0
         mList.add(mLastEntity)
         mOverallPublishFriendsCircleRecyclerView.adapter = mAdapter
@@ -60,7 +63,7 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
             override fun onItemClick(vh: RecyclerView.ViewHolder) {
                 val position = vh.adapterPosition
                 if (position == mList.size - 1){//如果是选择的最后一个发布按钮
-                    callAlbum(10 - mList.size)
+                    openAlbumWithPermissionCheck()
                 }
             }
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {
@@ -171,7 +174,7 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
                     }
 
                     override fun onSuccess(libMyResult5: String) {
-                        showToast("发布成功")
+                        showToast("发布成功，请等待审核")
                         finish()
                     }
 
@@ -195,5 +198,24 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
                     override fun onError(e: Throwable) {
                     }
                 }).launch()
+    }
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun openAlbum() {
+        callAlbum(10 - mList.size)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onShowRationale(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain() {
+        showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
 }

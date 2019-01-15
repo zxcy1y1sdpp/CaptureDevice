@@ -134,7 +134,7 @@
 //            case TYPE_FLYME:
 //                return setFlymeUI(activity, dark);
 //            case TYPE_M:
-//            default:
+//            default_bg:
 //                return setCommonUI(activity,dark);
 //        }
 //    }

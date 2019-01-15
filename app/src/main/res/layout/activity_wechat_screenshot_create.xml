@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatScreenShotCreateChangeRoleLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:id="@+id/senderTv"
+            android:text="设置资料"
+            style="@style/wechatLeftTitle"/>
+        <ImageView
+            android:id="@+id/mWechatScreenShotMySideAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mWechatScreenShotOtherSideAvatarIv"/>
+
+        <ImageView
+            android:id="@+id/mWechatScreenShotOtherSideAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/mWechatScreenShotCreateMenuRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mWechatScreenShotCreateChangeRoleLayout"
+        android:layout_above="@+id/include"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:clipToPadding="false"/>
+
+    <!--<com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_hongbao_a"
+        android:layout_below="@+id/a"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="犬瘟热群翁"
+                android:lines="1"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="微信红包"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>-->
+    <include
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_bottom_add_item"
+        android:layout_alignParentBottom="true" />
+
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

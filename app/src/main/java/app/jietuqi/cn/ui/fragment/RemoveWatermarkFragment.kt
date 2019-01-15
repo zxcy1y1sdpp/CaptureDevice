@@ -64,7 +64,7 @@ class RemoveWatermarkFragment : BaseFragment() {
         mOnPrimaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
             if (mClipboardManager.hasPrimaryClip() && mClipboardManager.primaryClip.itemCount > 0) {
                 // 获取复制、剪切的文本内容
-                val content = mClipboardManager.primaryClip.getItemAt(0).text.toString()
+                val content = mClipboardManager.primaryClip?.getItemAt(0)?.text.toString()
                 SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("确定提取视频吗")
                         .setContentText(content)
@@ -145,9 +145,9 @@ class RemoveWatermarkFragment : BaseFragment() {
                     override fun onSuccess(removeWaterMarkEntity: RemoveWaterMarkEntity) {
                         dismissLoadingDialog()
                         mRemoveWaterMarkVideoPlayerLayout.visibility = View.VISIBLE
-                        mRemoveWaterMarkVideoPlayer.setUp(removeWaterMarkEntity.video, "", Jzvd.SCREEN_WINDOW_NORMAL)
+                        mRemoveWaterMarkVideoPlayer2.setUp(removeWaterMarkEntity.video, "", Jzvd.SCREEN_WINDOW_NORMAL)
                         mRemoveWaterMarkCopyVideoPathBtn.tag = removeWaterMarkEntity.video
-                        GlideUtil.display(activity, removeWaterMarkEntity.cover, mRemoveWaterMarkVideoPlayer.thumbImageView)
+                        GlideUtil.display(activity, removeWaterMarkEntity.cover, mRemoveWaterMarkVideoPlayer2.thumbImageView)
                     }
                 }) {})
     }
@@ -195,7 +195,7 @@ class RemoveWatermarkFragment : BaseFragment() {
      */
     override fun onDestroy() {
         super.onDestroy()
-        if (mClipboardManager != null && mOnPrimaryClipChangedListener != null) {
+        if (mOnPrimaryClipChangedListener != null) {
             mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener)
         }
     }
@@ -208,7 +208,7 @@ class RemoveWatermarkFragment : BaseFragment() {
     override fun invisiableForUser() {
         super.invisiableForUser()
         Jzvd.releaseAllVideos()
-        if (mClipboardManager != null && mOnPrimaryClipChangedListener != null) {
+        if (mOnPrimaryClipChangedListener != null) {
             mClipboardManager.removePrimaryClipChangedListener(mOnPrimaryClipChangedListener)
         }
     }

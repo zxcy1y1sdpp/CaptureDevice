@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/normalPadding"
     android:background="@drawable/dialog_cir_10">
 
     <TextView
@@ -20,10 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="每邀请10人赠送3个月VIP"
-        android:textSize="@dimen/overall32px"
+        android:textSize="@dimen/overall26px"
         android:textColor="@color/inviteRed"
         android:gravity="center"
-        android:padding="@dimen/normalPadding"/>
+        android:paddingBottom="@dimen/normalPadding"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
 
         <TextView
             android:id="@+id/mShareWechatMomentsTv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="朋友圈"
             android:drawableTop="@mipmap/invite_pyq"
@@ -39,10 +38,10 @@
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
             android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:drawablePadding="@dimen/normalPadding"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/mShareWechatFriendsTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="微信好友"
             android:drawableTop="@mipmap/home_wx"
@@ -50,11 +49,11 @@
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
             android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:drawablePadding="@dimen/normalPadding"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/mShareQQFriendsTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="QQ好友"
             android:drawableTop="@mipmap/invite_qq"
@@ -62,26 +61,28 @@
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
             android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:drawablePadding="@dimen/normalPadding"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normalPadding">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/mShareQZoneFriendsTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="QQ空间"
-            android:drawableTop="@mipmap/invite_qqzone"
-            android:textSize="@dimen/overall26px"
-            android:textColor="@color/overallTextColor"
             android:layout_weight="1"
-            android:gravity="center"
+            android:drawableTop="@mipmap/invite_qqzone"
             android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:gravity="center"
+            android:text="QQ空间"
+            android:textColor="@color/overallTextColor"
+            android:textSize="@dimen/overall26px" />
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/mCopyPathTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="复制链接"
             android:drawableTop="@mipmap/invite_lj"
@@ -89,10 +90,10 @@
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
             android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:drawablePadding="@dimen/normalPadding"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/mScanTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="扫码"
             android:drawableTop="@mipmap/invite_sm"
@@ -100,22 +101,24 @@
             android:textColor="@color/overallTextColor"
             android:layout_weight="1"
             android:gravity="center"
-            android:drawablePadding="@dimen/normalPadding"
-            android:layout_margin="@dimen/normalPadding"/>
+            android:drawablePadding="@dimen/normalPadding"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/wechatLineNarrow"
-        android:background="@color/overallBg"/>
+        android:background="@color/overallBg"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_marginBottom="@dimen/normalPadding"/>
     <Button
+        android:id="@+id/mShareNumberBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="已邀请0人"
-        android:textSize="@dimen/overall32px"
+        android:textSize="@dimen/overall26px"
         android:textColor="@color/overallGreen"
         android:background="@drawable/green_solid"
-        android:padding="10dp"
         android:gravity="center"
-        android:layout_margin="@dimen/normalPadding"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="@dimen/normalPadding"/>
 </LinearLayout>

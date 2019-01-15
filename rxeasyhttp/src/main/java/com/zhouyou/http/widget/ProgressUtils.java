@@ -23,25 +23,6 @@ public class ProgressUtils {
      * @param message
      * @param context
      */
-    public static void showProgressDialog(String message, Context context) {
-        view = LayoutInflater.from(context).inflate(R.layout.dialog_wechat_loading, null);
-        TextView title_view = view.findViewById(R.id.title);
-        if (TextUtils.isEmpty(message)){
-            title_view.setVisibility(View.GONE);
-        }else {
-            title_view.setText(message);
-        }
-        if (mProgressDialog == null){
-            mProgressDialog = new Dialog(context, R.style.MyDialog);
-        }
-        mProgressDialog.setContentView(view);
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.show();
-    }
-    /**
-     * @param message
-     * @param context
-     */
     public static void showProgressDialog(String message, Context context, boolean cancel) {
         view = LayoutInflater.from(context).inflate(R.layout.dialog_wechat_loading, null);
         TextView title_view = view.findViewById(R.id.title);

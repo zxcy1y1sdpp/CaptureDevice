@@ -55,6 +55,12 @@ public class OverallDynamicEntity implements Serializable{
      */
     public int collect;
     /**
+     * 2 -- 季度会员
+     * 3 -- 年费会员
+     * 4 -- 永久会员
+     */
+    public int vip;
+    /**
      * 评论个数
      */
     public int comment_number;

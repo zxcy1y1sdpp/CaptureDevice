@@ -2,11 +2,17 @@ package app.jietuqi.cn.ui.activity
 
 import android.view.View
 import app.jietuqi.cn.R
-import app.jietuqi.cn.base.BaseActivity
+import app.jietuqi.cn.base.BaseOverallActivity
+import app.jietuqi.cn.constant.SharedPreferenceKey
+import app.jietuqi.cn.entity.OverallUserInfoEntity
 import app.jietuqi.cn.util.GlideCacheUtil
 import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 作者： liuyuanbo on 2018/10/25 15:10.
@@ -15,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_setting.*
  * 用途：
  */
 
-class SettingActivity : BaseActivity() {
+class SettingActivity : BaseOverallActivity() {
     override fun setLayoutResourceId() = R.layout.activity_setting
 
     override fun needLoadingView(): Boolean {
@@ -23,7 +29,7 @@ class SettingActivity : BaseActivity() {
     }
 
     override fun initAllViews() {
-        setTitle("设置")
+        setTopTitle("设置")
         mOverallSettingCacheSizeTv.text = GlideCacheUtil.getInstance().getCacheSize(this)
     }
 
@@ -32,6 +38,7 @@ class SettingActivity : BaseActivity() {
         mWechatNumLayout.setOnClickListener(this)
         mAboutUsLayout.setOnClickListener(this)
         mGiveUsSupportLayout.setOnClickListener(this)
+        mExitLayout.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -43,6 +50,18 @@ class SettingActivity : BaseActivity() {
             R.id.mWechatNumLayout ->{}
             R.id.mAboutUsLayout ->{
                 LaunchUtil.launch(this, OverallAboutUsActivity::class.java)
+            }
+            R.id.mExitLayout ->{
+
+//                EventBusUtil.post(OverallUserInfoEntity())
+                showLoadingDialog("正在退出...")
+                SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, false)
+                SharedPreferencesUtils.saveBean2Sp(OverallUserInfoEntity(), SharedPreferenceKey.USER_INFO)
+                GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                    delay(1000L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                    dismissLoadingDialog()
+                    finish()
+                }
             }
             R.id.mGiveUsSupportLayout ->{}
         }

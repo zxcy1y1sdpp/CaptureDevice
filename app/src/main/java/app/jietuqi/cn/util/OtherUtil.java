@@ -6,11 +6,16 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bm.zlzq.utils.ScreenUtil;
+import com.github.promeg.pinyinhelper.Pinyin;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,11 +25,13 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import app.jietuqi.cn.R;
 import app.jietuqi.cn.entity.ProvinceEntity;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/19 17:01.
@@ -93,12 +100,18 @@ public class OtherUtil {
      * @return
      */
     public static String formatPrice(Object price) {
-        DecimalFormat formater = new DecimalFormat("#,###.00");
+        DecimalFormat formater = new DecimalFormat("#,##0.00");
         // keep 2 decimal places
         formater.setMaximumFractionDigits(2);
         formater.setGroupingSize(3);
         formater.setRoundingMode(RoundingMode.FLOOR);
         return formater.format(Double.parseDouble(String.valueOf(price)));
+//
+//
+//        float distanceValue = Math.round((Double.parseDouble(String.valueOf(price))/10f))/100f;
+//        DecimalFormat decimalFormat =new DecimalFormat("0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+//        String distanceString = decimalFormat.format(distanceValue) + km;
+//        return distanceString;
     }
 
     /**
@@ -206,6 +219,7 @@ public class OtherUtil {
         ClipData mClipData = ClipData.newPlainText("Label", content);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
+        Toast.makeText(context, "链接已复制，快去分享给好友吧", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -234,5 +248,120 @@ public class OtherUtil {
         // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
+    }
+
+    /**
+     * 昵称转拼音
+     * @param nickName
+     * @return
+     */
+    public static String transformPinYin(String nickName) {
+        StringBuffer buffer = new StringBuffer();
+        String firstChar = "";
+        for (int i = 0; i < nickName.length(); i++) {
+            buffer.append(Pinyin.toPinyin(nickName.charAt(i)));
+            if (i == 0){
+                firstChar = buffer.toString().substring(0, 1);
+                if (!firstChar.toUpperCase().matches("[A-Z]")){
+                    return "#";
+                }
+            }
+        }
+        return buffer.toString();
+    }
+    /**
+     * 获取拼音的第一个字母
+     * @param pinyin
+     * @return
+     */
+    public static String getFirstLetter(String pinyin) {
+        String firstPinYin = pinyin.substring(0, 1);
+        return firstPinYin;
+    }
+
+    public static class PinyinComparator implements Comparator<WechatUserEntity> {
+        @Override
+        public int compare(WechatUserEntity o1, WechatUserEntity o2) {
+            if ("@".equals(o1.pinyinNickName) || "#".equals(o2.pinyinNickName)) {
+                return -1;
+            } else if ("#".equals(o1.pinyinNickName) || "@".equals(o2.pinyinNickName)) {
+                return 1;
+            } else {
+                return o1.pinyinNickName.compareTo(o2.pinyinNickName);
+            }
+        }
+    }
+
+    public static void setWechatVoiceLength(Context context, LinearLayout layout, int length){
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        double miniPercent = 0.1646;
+        if (length <= 2){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+        }else if (length < 10){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (length - 2) * 0.0216));
+        }else if (length >= 10 && length < 20){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (8) * 0.0216));
+        }else if (length >= 20 && length < 30){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (9) * 0.0216));
+        }else if (length >= 30 && length < 40){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (10) * 0.0216));
+        }else if (length >= 40 && length < 50){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (11) * 0.0216));
+        }else if (length >= 50 && length < 60){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (12) * 0.0216));
+        }else if (length >= 60){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (13) * 0.0216));
+        }
+        layout.setLayoutParams(params);
+    }
+    public static void setAlipayVoiceLength(Context context, LinearLayout layout, int length){
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        double miniPercent = 0.22413793;
+        if (length <= 2){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+        }else if (length < 10){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (length - 2) * 0.0216));
+        }else if (length >= 10 && length < 20){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (8) * 0.0216));
+        }else if (length >= 20 && length < 30){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (9) * 0.0216));
+        }else if (length >= 30 && length < 40){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (10) * 0.0216));
+        }else if (length >= 40 && length < 50){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (11) * 0.0216));
+        }else if (length >= 50 && length < 60){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (12) * 0.0216));
+        }else if (length >= 60){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * (miniPercent + (13) * 0.0216));
+        }
+        layout.setLayoutParams(params);
+    }
+    public static void setQQVoiceLength(Context context, ViewGroup layout, int length){
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        double miniPercent = 0.00431965;
+        double shortStPercent = 0.28638498;//最短的百分比
+        double lengthMoreThan10 = ScreenUtil.INSTANCE.getScreenWidth(context) * 0.0237581;//超过10秒的时候每一段录音都要加一个这个长度
+        double shortLength = ScreenUtil.INSTANCE.getScreenWidth(context) * shortStPercent;//一秒的时候的长度
+        if (length < 10){
+            double stepLength = (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+            stepLength = stepLength * length;
+            params.width = (int) (stepLength + shortLength);
+        }else if (length >= 10 && length < 30){
+            double stepLength = (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+            stepLength = stepLength * length;
+            stepLength += lengthMoreThan10;
+            params.width = (int) (stepLength + shortLength);
+        }else if (length >= 30 && length <= 59){
+            double stepLength = (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+            stepLength = stepLength * length;
+            stepLength += lengthMoreThan10;
+            miniPercent = 0.00215983;
+            stepLength = stepLength + (length - 30) * (ScreenUtil.INSTANCE.getScreenWidth(context) * miniPercent);
+            params.width = (int) (stepLength + shortLength);
+        }else if(length >= 60){
+            params.width = (int) (ScreenUtil.INSTANCE.getScreenWidth(context) * 0.59395248);
+        }
+
+        layout.setLayoutParams(params);
     }
 }

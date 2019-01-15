@@ -34,12 +34,13 @@
             android:id="@+id/mSendHeadIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/head_default"
             percent:layout_heightPercent="85%h"
             percent:layout_widthPercent="85%h"
             android:scaleType="centerCrop"
             android:layout_toStartOf="@+id/rightTgIv"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPadding"/>
 
         <ImageView
             android:id="@+id/rightTgIv"
@@ -65,19 +66,21 @@
             android:textColor="@color/wechatBlue"
             android:layout_alignParentRight="true"
             style="@style/wechatTwoBtn"
-            android:layout_marginLeft="@dimen/normalPadding"/>
+            android:layout_marginLeft="@dimen/normalPadding"
+            android:layout_marginRight="@dimen/normalPadding"/>
     </RelativeLayout>
     <EditText
         android:id="@+id/mInputPacketEt"
         android:hint="输入红包金额"
         style="@style/wechatEdit"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:padding="@dimen/normalPadding"/>
     <EditText
         android:id="@+id/mLeaveMsgEt"
         android:hint="恭喜发财，大吉大利"
         style="@style/wechatEdit"
-        android:padding="@dimen/normalPadding"/>
+        android:padding="@dimen/normalPadding"
+        android:maxLength="25"/>
 
     <com.zhy.android.percent.support.PercentLinearLayout
         android:id="@+id/mReceivePacketLayout"
@@ -108,12 +111,13 @@
                 android:id="@+id/mReceiveHeadIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/head_default"
                 percent:layout_heightPercent="85%h"
                 percent:layout_widthPercent="85%h"
                 android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/rightTgIv2"/>
+                android:layout_toLeftOf="@+id/rightTgIv2"
+                android:layout_marginLeft="@dimen/normalPadding"/>
 
             <ImageView
                 android:id="@+id/rightTgIv2"
@@ -124,7 +128,7 @@
             android:gravity="center_vertical"
             style="@style/wechatItem">
             <TextView
-                android:text="选择类型"
+                android:text="领取时间"
                 style="@style/wechatLeftTitle"/>
 
             <TextView

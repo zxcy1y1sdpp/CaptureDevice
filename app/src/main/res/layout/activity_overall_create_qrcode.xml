@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_base_overall_top"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:animateLayoutChanges="true"
+        android:layout_marginTop="@dimen/normalPadding2"
+        android:padding="@dimen/normalPadding">
+        <EditText
+            android:id="@+id/mQRCodePathEd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="http://请输入要生成的链接地址"
+            android:background="@drawable/gray_solid6_2"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:textSize="13sp"
+            android:maxLines="2"
+            android:layout_weight="5"/>
+        <TextView
+            android:id="@+id/mCreateQRCodeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="生成"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/blue_round_cornor"
+            android:layout_toRightOf="@+id/mQRCodePathEd"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding">
+        <TextView
+            android:id="@+id/mQRCodeCreateLogoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="为二维码添加logo"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/blue_round_cornor"
+            android:layout_toRightOf="@+id/mRemoveWaterMarkUrlEt"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/normalPadding"/>
+        <TextView
+            android:id="@+id/mQRCodeChangeColorTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改二维码颜色"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/blue_round_cornor"
+            android:layout_toRightOf="@+id/mRemoveWaterMarkUrlEt"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mQRCodeChoiceBgRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/mQRCodeIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/mSaveQRCode2Gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding"
+        android:layout_margin="@dimen/normalPadding2"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/blue_round_cornor"
+        android:layout_toRightOf="@+id/mRemoveWaterMarkUrlEt"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/normalPadding"/>
+</LinearLayout>

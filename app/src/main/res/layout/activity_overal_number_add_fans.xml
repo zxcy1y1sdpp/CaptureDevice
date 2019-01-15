@@ -35,17 +35,19 @@
             style="@style/overallMyItemRight"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallNumberLayout"
         style="@style/overallMyItem"
         app:layout_heightPercent="13.3%w">
         <TextView
             android:text="加粉数量"
             style="@style/overallLeftTitle"/>
         <TextView
+            android:id="@+id/mOverallNumberTv"
             style="@style/overallMyItemRight"
             android:text="10个"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <Button
-        android:id="@+id/mOverallPreciseAddFansImportTv"
+        android:id="@+id/mOverallNumberLayoutAddBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="导入通讯录"

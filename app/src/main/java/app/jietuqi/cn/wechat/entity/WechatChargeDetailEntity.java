@@ -1,6 +1,6 @@
 package app.jietuqi.cn.wechat.entity;
 
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/30 15:32.
@@ -9,7 +9,7 @@ import app.jietuqi.cn.database.table.WechatUserTable;
  * 用途：
  */
 
-public class WechatChargeDetailEntity extends WechatUserTable {
+public class WechatChargeDetailEntity extends WechatUserEntity {
     public WechatChargeDetailEntity() {}
     public WechatChargeDetailEntity(int id, String type, String name, String money, String time) {
         this.id = id;

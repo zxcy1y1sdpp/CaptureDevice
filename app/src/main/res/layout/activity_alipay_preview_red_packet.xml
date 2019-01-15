@@ -19,24 +19,25 @@
             android:id="@+id/titleLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_heightPercent="13.6%w"
+            app:layout_heightPercent="13.1%w"
             android:gravity="center_vertical">
-            <ImageView
+            <ImageButton
+                android:id="@+id/mAlibabaRedPacketBackBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/wechat_preview_back"
-                app:layout_marginLeftPercent="3.4%w"/>
+                android:layout_height="match_parent"
+                android:src="@drawable/alipay_back_redpacket"
+                app:layout_widthPercent="11.98%w"
+                android:background="@null"/>
 
             <TextView
                 android:id="@+id/wechatTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="红包详情"
+                android:text="支付宝红包"
                 android:textColor="#E5D99A"
                 android:textSize="@dimen/wechatNormalTextSize"
                 android:gravity="center"
-                android:layout_toRightOf="@+id/wechatTitleLeftIv"
-                app:layout_marginLeftPercent="4.8%w"/>
+                android:layout_toRightOf="@+id/wechatTitleLeftIv"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.makeramen.roundedimageview.RoundedImageView

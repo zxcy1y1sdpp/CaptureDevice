@@ -13,7 +13,7 @@ public class OverallIndustryEntity implements IPickerViewData {
     public int status;
     public String title;
     public int pid;
-
+    public String name;
     @Override
     public String getPickerViewText() {
         return title;

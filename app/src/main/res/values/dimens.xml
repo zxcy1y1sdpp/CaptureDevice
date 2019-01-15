@@ -1,11 +1,14 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="wechatNormalTextSize">18sp</dimen>
+    <dimen name="wechat17">17sp</dimen>
+    <dimen name="wechat18">18sp</dimen>
     <dimen name="wechatNormalTextSize2">15sp</dimen>
     <dimen name="wechatTransferTextSize">20sp</dimen>
     <dimen name="wechatMoneyTextSize">60sp</dimen>
     <dimen name="wechatLittleTextSize">13sp</dimen>
     <dimen name="wechatLittle2TextSize">10sp</dimen>
+    <dimen name="normalPaddingHalf">5dp</dimen>
     <dimen name="normalPadding">10dp</dimen>
     <dimen name="normalPadding2">20dp</dimen>
     <!--页面中小模块之间的间隔-->
@@ -42,9 +45,11 @@
     <!--App中正常的2号字体-->
     <dimen name="overall26px">14sp</dimen><!--26-->
     <!--App中正常的3号字体-->
-    <dimen name="overall24px">13sp</dimen><!--24-->
+    <dimen name="overall24px">12sp</dimen><!--24-->
     <!--App中正常的4号字体-->
     <dimen name="overallNormal4">12sp</dimen><!--22-->
+    <dimen name="rippleStrokeWidth">2dp</dimen>
+    <dimen name="rippleRadius">64dp</dimen>
 
     <!--支付宝相关字号-->
     <dimen name="alipayNormalTextSize">18sp</dimen>
@@ -54,4 +59,13 @@
     <dimen name="alipayNormalTextSize5">7sp</dimen>
     <dimen name="alipayMoneyTextSize">60sp</dimen>
     <dimen name="alipayMoneyTextSize2">35sp</dimen>
+    <dimen name="alipay17">17sp</dimen>
+
+
+
+
+    <!--正常文字的大小-->
+    <dimen name="normalTextSize15">15sp</dimen>
+    <dimen name="normalTextSize17">17sp</dimen>
+
 </resources>

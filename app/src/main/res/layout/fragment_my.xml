@@ -57,7 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="昵称："
-                            android:textSize="@dimen/overall26px"
+                            android:textSize="@dimen/normalTextSize17"
                             android:gravity="center"/>
                         <TextView
                             android:id="@+id/mNickNameTv"
@@ -116,15 +116,29 @@
                         android:drawableLeft="@mipmap/kaitongvip"
                         style="@style/overallLeftTitle"
                         android:textColor="#FC615A"/>
-                    <TextView style="@style/overallMyItemRight"
-                        android:text="解锁专属功能"/>
+                    <TextView
+                        android:id="@+id/mOpenIsVipTv"
+                        style="@style/overallMyItemRight"
+                        android:text="未开通"
+                        android:textColor="@color/overallGray"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mOpenAgentLayout"
+                    style="@style/overallMyItem">
+                    <TextView
+                        android:text="开通代理"
+                        android:drawableLeft="@mipmap/ktdl"
+                        style="@style/overallLeftTitle"/>
+                    <TextView
+                        style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mOpenShopLayout"
-                    style="@style/overallMyItem">
+                    style="@style/overallMyItem"
+                    android:visibility="gone">
                     <TextView
-                        android:text="开通店主"
-                        android:drawableLeft="@mipmap/ktdianzhu"
+                        android:text="开通代理"
+                        android:drawableLeft="@mipmap/ktdl"
                         style="@style/overallLeftTitle" />
 
                     <TextView style="@style/overallMyItemRight"/>
@@ -139,13 +153,27 @@
                         android:drawableLeft="@mipmap/yqyj"
                         style="@style/overallLeftTitle"/>
 
+                    <TextView style="@style/overallMyItemRight"
+                        android:text="免费获得VIP"
+                        android:textColor="@color/overallGray"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mMyPublishLayout"
+                    style="@style/overallMyItem"
+                    app:layout_marginBottomPercent="5.33%w">
+                    <TextView
+                        android:text="我的发布"
+                        android:drawableLeft="@mipmap/wodefabu"
+                        style="@style/overallLeftTitle"/>
+
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mCreditLayout"
-                    style="@style/overallMyItem">
+                    style="@style/overallMyItem"
+                    android:visibility="gone">
                     <TextView
-                        android:text="微商信用认证"
+                        android:text="我的说说"
                         android:drawableLeft="@mipmap/wsxyrz"
                         style="@style/overallLeftTitle"/>
 
@@ -153,14 +181,16 @@
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mQQGroupLayout"
-                    app:layout_marginTopPercent="5.33%w"
                     style="@style/overallMyItem">
                     <TextView
                         android:text="会员QQ群"
                         android:drawableLeft="@mipmap/qqq"
                         style="@style/overallLeftTitle"/>
-                    <TextView style="@style/overallMyItemRight"
-                        android:text="123456789"/>
+                    <TextView
+                        android:id="@+id/mQQGroupType"
+                        style="@style/overallMyItemRight"
+                        android:text="824315403"
+                        android:textColor="@color/overallGray"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mContactServerLayout"
@@ -179,7 +209,9 @@
                         android:drawableLeft="@mipmap/wtfk"
                         style="@style/overallLeftTitle"/>
 
-                    <TextView style="@style/overallMyItemRight"/>
+                    <TextView style="@style/overallMyItemRight"
+                        android:text="有什么想法告诉我们吧"
+                        android:textColor="@color/overallGray"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mSettingLayout"
@@ -192,26 +224,6 @@
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
 
-                <TextView
-                    android:id="@+id/mExitLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="退出"
-                    android:background="@color/white"
-                    app:layout_heightPercent="13%w"
-                    android:gravity="center"
-                    app:layout_marginTopPercent="8%w"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/inviteRed"
-                    android:text="温馨提示：如果您支付成功后没有成功开通或续费VIP，请尝试重新登录（一定要登录原账号）"
-                    app:layout_marginLeftPercent="4.26%w"
-                    app:layout_marginRightPercent="4.26%w"
-                    app:layout_marginTopPercent="4%w"
-                    app:layout_marginBottomPercent="8%w"/>
             </com.zhy.android.percent.support.PercentLinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

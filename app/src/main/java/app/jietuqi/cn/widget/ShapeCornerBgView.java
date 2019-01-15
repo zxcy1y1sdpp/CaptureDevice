@@ -12,7 +12,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.view.Gravity;
 
 import app.jietuqi.cn.R;
 
@@ -69,7 +68,6 @@ public class ShapeCornerBgView extends AppCompatTextView {
         mColorBgEnableFalse=mTypedArray.getColor(R.styleable.ShapeCornerBgView_appEnableFalseBgColor, bgColor);
         mColorTextEnableFalse=mTypedArray.getColor(R.styleable.ShapeCornerBgView_appEnableFalseTextColor, mColorTextEnableFalse);
         mTypedArray.recycle();
-        this.setGravity(Gravity.CENTER);// 全部居中显示
         this.setEnabled(isEnabled());
     }
 

@@ -50,6 +50,10 @@ public class OverallUserInfoEntity implements Serializable {
     public int ratio;
     public String wx_qr;
     public int aid;
+    /**
+     * 邀请了多少人
+     */
+    public int share_number;
     ///////////////////////////////////////////////////
     /**
      * 本地头像

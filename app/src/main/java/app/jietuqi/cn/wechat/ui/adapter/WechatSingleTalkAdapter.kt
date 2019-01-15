@@ -11,9 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import app.jietuqi.cn.R
-import app.jietuqi.cn.database.table.WechatSingleTalkEntity
-import app.jietuqi.cn.database.table.WechatUserTable
-import app.jietuqi.cn.entity.UserEntity
+import app.jietuqi.cn.ui.entity.SingleTalkEntity
+import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
@@ -29,7 +28,7 @@ import com.makeramen.roundedimageview.RoundedImageView
  * 用途：
  */
 
-class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, val mOtherEntity: WechatUserTable, val myInfo: UserEntity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WechatSingleTalkAdapter(val mList: MutableList<SingleTalkEntity>, val mOtherEntity: WechatUserEntity, val mMyEntity: WechatUserEntity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * 默认是本人操作
      */
@@ -84,7 +83,7 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
             REDPACKET_TYPE_OTHER -> return OtherRedPacketHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_other_single_talk_redpackage, parent, false))
             REDPACKET_TYPE_MY -> return MyRedPacketHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_my_single_talk_redpackage, parent, false))
         }
-        return return MyTextHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_my_single_talk_text, parent, false))
+        return MyTextHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_my_single_talk_text, parent, false))
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -124,8 +123,8 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         private val otherAvatar: ImageView = itemView.findViewById(R.id.wechatOtherAvatar)
         private val otherText: TextView = itemView.findViewById(R.id.wechatOtherTextMsg)
 
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, mOtherEntity, otherAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             otherText.text = entity.msg
         }
     }
@@ -133,8 +132,8 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         private val myAvatar: ImageView = itemView.findViewById(R.id.wechatMyAvatar)
         private val myText: BubbleTextView = itemView.findViewById(R.id.wechatMyTextMsg)
 
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, myInfo.avatar, myAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             myText.text = entity.msg
         }
     }
@@ -142,8 +141,8 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         private val otherAvatar: ImageView = itemView.findViewById(R.id.wechatOtherAvatar)
         private val imageFile: RoundedImageView = itemView.findViewById(R.id.wechatOtherIv)
 
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, mOtherEntity, otherAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             GlideUtil.display2(itemView.context, entity.img, imageFile)
         }
     }
@@ -151,8 +150,8 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         private val myAvatar: ImageView = itemView.findViewById(R.id.wechatMyAvatar)
         private val imageFile: RoundedImageView = itemView.findViewById(R.id.wechatMyIv)
 
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, myInfo.avatar, myAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             GlideUtil.display2(itemView.context, entity.img, imageFile)
         }
     }
@@ -160,7 +159,7 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         private val time: TextView = itemView.findViewById(R.id.wechatSingleTalkTimeTv)
 
         @RequiresApi(Build.VERSION_CODES.N)
-        fun bind(entity: WechatSingleTalkEntity){
+        fun bind(entity: SingleTalkEntity){
             time.text = WechatTimeUtil.getNewChatTime(entity.time)
         }
     }
@@ -176,7 +175,7 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         init {
             itemView.setOnClickListener{
                 val entity = mList[adapterPosition]
-                entity.position = adapterPosition//确定条目在列表中的位置
+//                entity.position = adapterPosition//确定条目在列表中的位置
                 if (mSwitchRoles){
                     if (!entity.receive){//如果红包没有被领取，就领取
                         entity.receive = true
@@ -189,19 +188,19 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
                 }
             }
         }
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, mOtherEntity, otherAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             msgTv.text = entity.msg
             if (entity.receive){
                 receiveLayout.visibility = View.VISIBLE
                 bubbleLayout.setBubbleColor("#FECF9F")//已领取
-                GlideUtil.display(itemView.context, R.mipmap.wechat_redpacket_received, tagIv)
+                GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_received, tagIv)
                 statusTv.text = "红包已领取"
                 wechatReceiveRedPacket.text = StringUtils.insertFrontAndBack(mOtherEntity.wechatUserNickName, "你领取了", "的")
             }else{
                 receiveLayout.visibility = View.GONE
                 bubbleLayout.setBubbleColor("#F89C46")
-                GlideUtil.display(itemView.context, R.mipmap.wechat_redpacket_send, tagIv)
+                GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_send, tagIv)
                 statusTv.text = "领取红包"
             }
         }
@@ -217,7 +216,7 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
         init {
             itemView.setOnClickListener{
                 val entity = mList[adapterPosition]
-                entity.position = adapterPosition//确定条目在列表中的位置
+//                entity.position = adapterPosition//确定条目在列表中的位置
                 if (mSwitchRoles){
                     Toast.makeText(itemView.context, "我操作我自己的红包", Toast.LENGTH_SHORT).show()
                 }else{
@@ -230,20 +229,20 @@ class WechatSingleTalkAdapter(val mList: MutableList<WechatSingleTalkEntity>, va
                 }
             }
         }
-        fun bind(entity: WechatSingleTalkEntity){
-            GlideUtil.display(itemView.context, myInfo.avatar, myAvatar)
+        fun bind(entity: SingleTalkEntity){
+            GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             msgTv.text = entity.msg
             if (entity.receive){
                 receiveLayout.visibility = View.VISIBLE
                 bubbleLayout.setBubbleColor("#FECF9F")
                 statusTv.text = "红包已被领完"
-                GlideUtil.display(itemView.context, R.mipmap.wechat_redpacket_received, tagIv)
+                GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_received, tagIv)
                 wechatReceiveRedPacket.text = StringUtils.insertBack(mOtherEntity.wechatUserNickName, "领取了你的")
             }else{
                 receiveLayout.visibility = View.GONE
                 bubbleLayout.setBubbleColor("#F89C46")
                 statusTv.text = "查看红包"
-                GlideUtil.display(itemView.context, R.mipmap.wechat_redpacket_send, tagIv)
+                GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_send, tagIv)
             }
         }
     }

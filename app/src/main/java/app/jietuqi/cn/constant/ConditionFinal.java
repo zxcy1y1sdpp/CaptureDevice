@@ -16,8 +16,7 @@ public class ConditionFinal {
         add("性别不限");
         add("男");
         add("女");
-    }
-    };
+    }};
     public final static ArrayList<String> BUSINESSTTYP = new ArrayList<String>(){{
         add("全部类型");
         add("美装");
@@ -36,8 +35,7 @@ public class ConditionFinal {
         add("Ios");
         add("Java");
         add("Php");
-    }
-    };
+    }};
     public final static ArrayList<String> GROUPTYPE = new ArrayList<String>(){{
         add("全部类型");
         add("互粉群");
@@ -49,12 +47,26 @@ public class ConditionFinal {
         add("微商教学群");
         add("兴趣爱好群");
         add("其他");
-    }
-    };
+    }};
     public final static ArrayList<String> GROUPPEOPLE = new ArrayList<String>(){{
         add("人数不限");
         add(">100人");
         add("<100人");
-    }
-    };
+    }};
+    public final static ArrayList<String> ADD_FANS_COUNT = new ArrayList<String>(){{
+        add("人数不限");
+        add("10");
+        add("50");
+        add("100");
+        add("200");
+        add("300");
+    }};
+    public final static ArrayList<String> ADD_FANS_COUNT_2 = new ArrayList<String>(){{
+        add("10");
+        add("50");
+        add("100(VIP)");
+        add("200(VIP)");
+        add("300(VIP)");
+        add("500(年费以上VIP)");
+    }};
 }

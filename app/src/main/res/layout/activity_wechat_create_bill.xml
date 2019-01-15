@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/wechatBg">
+
+    <include layout="@layout/include_base_overall_top_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatCreateBillRefreshIconLayout"
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            android:id="@+id/view1"
+            style="@style/wechatLeftTitle"
+            android:text="图标"/>
+
+        <ImageView
+            android:id="@+id/mWechatCreateBillIconIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            android:layout_toRightOf="@+id/view1"
+            percent:layout_heightPercent="80%h"
+            percent:layout_widthPercent="80%h"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+        <ImageView
+            android:id="@+id/mWechatCreateBillRefreshIconIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_refresh"
+            android:padding="@dimen/normalPadding"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mWechatCreateBillTitleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:id="@+id/view2"
+            style="@style/wechatLeftTitle"
+            android:text="标题"/>
+        <EditText
+            android:id="@+id/mWechatCreateBillTitleEt"
+            android:text="微信红包"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/wechatEdit"
+            android:textColorHint="@color/wechat_deep3_text_color"
+            android:layout_toLeftOf="@+id/mAlipayCreateMyRefreshIv"
+            android:paddingLeft="@dimen/normalPadding"
+            android:gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:layout_toRightOf="@+id/view2"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/mWechatCreateBillRefreshTitleIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_refresh"
+            android:padding="@dimen/normalPadding"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mWechatCreateBillTimeLayout"
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            android:id="@+id/view3"
+            style="@style/wechatLeftTitle"
+            android:text="时间"/>
+        <TextView
+            android:id="@+id/mWechatCreateBillTimeTv"
+            android:text="2018年12月24日 10:10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColorHint="@color/wechat_deep3_text_color"
+            android:layout_toLeftOf="@+id/mAlipayCreateMyRefreshIv"
+            android:paddingLeft="@dimen/normalPadding"
+            android:gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:layout_toRightOf="@+id/view3"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/mWechatCreateBillRefreshTimeIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_refresh_time"
+            android:padding="@dimen/normalPadding"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <LinearLayout
+        style="@style/wechatItem"
+        android:background="@color/white">
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="余额"/>
+        <EditText
+            android:id="@+id/mWechatCreateBillMoneyEt"
+            style="@style/wechatEdit"
+            android:hint="填写金额"
+            android:textColorHint="@color/wechat_deep3_text_color"
+            android:layout_toLeftOf="@+id/mRefreshIv"
+            android:paddingLeft="@dimen/normalPadding"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/wechatItem">
+        <TextView
+            android:text="收支类型"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mWechatCreateBillReceiveTv"
+            android:text="收入"
+            android:background="@drawable/blue_round_cornor"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/mWechatCreateBillSendTv"
+            style="@style/wechatTwoBtn" />
+        <TextView
+            android:id="@+id/mWechatCreateBillSendTv"
+            android:text="支出"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
+            android:layout_marginLeft="@dimen/normalPadding"
+            android:layout_marginRight="@dimen/normalPadding"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mWechatCreateBillSendOnOrOffLayout"
+        style="@style/wechatItem"
+        android:visibility="gone">
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="有退款"/>
+
+        <ImageView
+            android:id="@+id/mWechatCreateBillSendOnOrOffIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/off"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

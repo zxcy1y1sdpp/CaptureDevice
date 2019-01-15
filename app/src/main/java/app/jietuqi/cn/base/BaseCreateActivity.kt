@@ -1,24 +1,22 @@
 package app.jietuqi.cn.base
 
 import android.graphics.Color
-import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.R
-import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.OtherUtil
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
-import com.jaeger.library.StatusBarUtil
 import com.zhy.android.percent.support.PercentRelativeLayout
+import kotlinx.android.synthetic.main.base_create_title.*
+import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,18 +29,6 @@ import java.util.*
  */
 
 abstract class BaseCreateActivity : BaseActivity(){
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStatusBarColor()
-    }
-
-    /**
-     * 设置状态栏的颜色
-     */
-    fun setStatusBarColor(color: Int = ColorFinal.wechatTitleBar){
-        StatusBarUtil.setColor(this, color, 0)
-    }
     /**
      * 设置页面的标题
      * @param title
@@ -54,7 +40,6 @@ abstract class BaseCreateActivity : BaseActivity(){
     protected fun setCreateTitle(title: String, type: Int = 0) {
 
         val titleTv = findViewById<TextView>(R.id.mBaseCreateTitleTv)
-        val iv = findViewById<ImageView>(R.id.mBaseCreateFinishIv)
         when(type){
             1 ->{
                 var sureTv = findViewById<TextView>(R.id.sureTv)
@@ -67,7 +52,7 @@ abstract class BaseCreateActivity : BaseActivity(){
                 thirdPoint.setOnClickListener(this)
             }
         }
-        iv.setOnClickListener(this)
+        mBaseCreateFinishIv.setOnClickListener(this)
         titleTv.setOnClickListener(this)
         titleTv.text = title
     }
@@ -104,28 +89,28 @@ abstract class BaseCreateActivity : BaseActivity(){
 
     /******************************************** 预览按钮相关 ********************************************/
     protected fun onlyOneEditTextNeedTextWatcher(inputEt: EditText){
-        val sPreviewBtn = findView<Button>(R.id.previewBtn)
-        sPreviewBtn.setOnClickListener(this)
+//        val sPreviewBtn = findView<Button>(R.id.previewBtn)
+        previewBtn.setOnClickListener(this)
         inputEt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
                 if (s.isNotEmpty()) {
                     if (inputEt.text.toString().isNotEmpty()){
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                     }else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
 
     }
     protected fun onlyTowEditTextNeedTextWatcher(inputEt1: EditText, inputEt2: EditText){
-        val sPreviewBtn = findView<Button>(R.id.previewBtn)
-        sPreviewBtn.setOnClickListener(this)
+//        val sPreviewBtn = findView<Button>(R.id.previewBtn)
+        previewBtn.setOnClickListener(this)
         inputEt1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
@@ -133,15 +118,15 @@ abstract class BaseCreateActivity : BaseActivity(){
                 if (s.isNotEmpty()) {
                     if (inputEt1.text.toString().isNotEmpty()){
                         if (inputEt2.text.toString().isNotEmpty()){
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                         }
                     } else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
@@ -152,42 +137,42 @@ abstract class BaseCreateActivity : BaseActivity(){
                 if (s.isNotEmpty()) {
                     if (inputEt2.text.toString().isNotEmpty()){
                         if (inputEt1.text.toString().isNotEmpty()){
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                         }
                     } else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
     }
     protected fun onlyThreeEditTextNeedTextWatcher(inputEt1: EditText, inputEt2: EditText, inputEt3: EditText){
-        val sPreviewBtn = findView<Button>(R.id.previewBtn)
-        sPreviewBtn.setOnClickListener(this)
+//        val sPreviewBtn = findView<Button>(R.id.previewBtn)
+        previewBtn.setOnClickListener(this)
         inputEt1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length > 0) {
-                    if (inputEt1.text.toString().length > 0){
-                        if (inputEt2.text.toString().length > 0){
-                            if (inputEt3.text.toString().length > 0){
-                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                if (s.isNotEmpty()) {
+                    if (inputEt1.text.toString().isNotEmpty()){
+                        if (inputEt2.text.toString().isNotEmpty()){
+                            if (inputEt3.text.toString().isNotEmpty()){
+                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                             }
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                         }
                     }else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
@@ -197,20 +182,20 @@ abstract class BaseCreateActivity : BaseActivity(){
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length > 0) {
-                    if (inputEt2.text.toString().length > 0){
-                        if (inputEt3.text.toString().length > 0){
-                            if (inputEt1.text.toString().length > 0){
-                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                if (s.isNotEmpty()) {
+                    if (inputEt2.text.toString().isNotEmpty()){
+                        if (inputEt3.text.toString().isNotEmpty()){
+                            if (inputEt1.text.toString().isNotEmpty()){
+                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                             }
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                         }
                     }else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
@@ -220,20 +205,20 @@ abstract class BaseCreateActivity : BaseActivity(){
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length > 0) {
-                    if (inputEt3.text.toString().length > 0){
-                        if (inputEt2.text.toString().length > 0){
-                            if (inputEt1.text.toString().length > 0){
-                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, true)
+                if (s.isNotEmpty()) {
+                    if (inputEt3.text.toString().isNotEmpty()){
+                        if (inputEt2.text.toString().isNotEmpty()){
+                            if (inputEt1.text.toString().isNotEmpty()){
+                                OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, true)
                             }
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                         }
                     }else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, sPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseCreateActivity, previewBtn, false)
                 }
             }
         })
@@ -245,9 +230,8 @@ abstract class BaseCreateActivity : BaseActivity(){
      * 注意：在调用该方法后，ondestory中要对eventbus进行销毁
      * @param type 0 -- 年月日时分秒， 1 -- 年月日时分，2 -- 分秒
      */
-    fun initTimePickerView(tag: String = "", type: Int = 0){
+    fun initTimePickerView(tag: String = "", type: Int = 0, selectedDate: Calendar = Calendar.getInstance()){
         EventBusUtil.register(this)
-        val selectedDate = Calendar.getInstance()
         val startDate = Calendar.getInstance()
         //startDate.set(2013,1,1);
         val endDate = Calendar.getInstance()
@@ -282,12 +266,10 @@ abstract class BaseCreateActivity : BaseActivity(){
                 .setRangDate(startDate, endDate)//起始终止年月日设定
                 .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-        if (type == 0){
-            timePicker.setType(booleanArrayOf(true, true, true, true, true, true))// 默认全部显示
-        }else if (type == 1){
-            timePicker.setType(booleanArrayOf(true, true, true, true, true, false))// 默认全部显示
-        }else if (type == 2){
-            timePicker.setType(booleanArrayOf(false, false, false, false, true, true))// 默认全部显示
+        when (type) {
+            0 -> timePicker.setType(booleanArrayOf(true, true, true, true, true, true))// 默认全部显示
+            1 -> timePicker.setType(booleanArrayOf(true, true, true, true, true, false))// 默认全部显示
+            2 -> timePicker.setType(booleanArrayOf(false, false, false, false, true, true))// 默认全部显示
         }
 
         var pvTime = timePicker.build()

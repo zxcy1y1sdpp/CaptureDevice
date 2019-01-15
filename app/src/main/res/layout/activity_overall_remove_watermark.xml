@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,12 +8,15 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true">
 
-    <include layout="@layout/include_base_overall_top"/>
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top"/>
 
     <app.jietuqi.cn.widget.OverScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout">
+        <com.zhy.android.percent.support.PercentLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -23,29 +26,30 @@
             <com.zhy.android.percent.support.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_heightPercent="12%w"
                 android:orientation="horizontal"
                 android:animateLayoutChanges="true"
                 android:layout_marginTop="@dimen/normalPadding2">
                 <EditText
                     android:id="@+id/mRemoveWaterMarkUrlEt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="请粘贴视频地址"
-                    android:background="@drawable/gray_solid6"
+                    android:background="@drawable/gray_solid6_2"
                     android:layout_marginRight="@dimen/normalPadding"
-                    app:layout_widthPercent="85%w"
-                    android:maxLines="2"
-                    android:lines="2"/>
+                    app:layout_widthPercent="80%w"
+                    android:maxLines="2"/>
                 <TextView
                     android:id="@+id/mRemoveWaterMarkBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="提取"
                     android:textColor="@color/white"
+                    android:gravity="center"
                     android:background="@drawable/blue_round_cornor"
                     android:layout_toRightOf="@+id/mRemoveWaterMarkUrlEt"
                     android:layout_centerVertical="true"
-                    app:layout_widthPercent="15%w"/>
+                    app:layout_widthPercent="40%w"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
             <com.zhy.android.percent.support.PercentRelativeLayout
@@ -68,7 +72,7 @@
                     android:layout_below="@+id/mRemoveWaterMarkVideoPlayer"
                     android:background="@drawable/overall_blue_big_circular"
                     android:textColor="@color/white"
-                    app:layout_widthPercent="40%w"/>
+                    app:layout_widthPercent="45%w"/>
 
                 <Button
                     android:id="@+id/mRemoveWaterMarkCopyVideoPathBtn"
@@ -79,7 +83,7 @@
                     android:background="@drawable/overall_gray_big_circular"
                     android:layout_below="@+id/mRemoveWaterMarkVideoPlayer"
                     android:textColor="@color/white"
-                    app:layout_widthPercent="40%w"/>
+                    app:layout_widthPercent="45%w"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
             <LinearLayout
@@ -87,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:clipToPadding="false"
-                android:background="@drawable/gray_solid5"
+                android:background="@drawable/gray_solid5_2"
                 android:layout_marginTop="@dimen/normalPadding2">
 
                 <TextView
@@ -256,13 +260,18 @@
                             android:id="@+id/view5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/common_video_platform_xigua"
+                            android:src="@mipmap/common_video_platform_meipai"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/normalPadding"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/extract_nowatermark_tips"
+                            android:layout_alignParentRight="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="西瓜视频"
+                            android:text="美拍"
                             android:layout_below="@+id/view5"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal|bottom"
@@ -279,13 +288,18 @@
                             android:id="@+id/view6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/common_video_platform_miaopai"
+                            android:src="@mipmap/common_video_platform_hk"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/normalPadding"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/extract_nowatermark_tips"
+                            android:layout_alignParentRight="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="秒拍"
+                            android:text="晃咖"
                             android:layout_below="@+id/view6"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal|bottom"
@@ -302,13 +316,18 @@
                             android:id="@+id/view7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/common_video_platform_toutiao"
+                            android:src="@mipmap/common_video_platform_yk"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/normalPadding"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/extract_nowatermark_tips"
+                            android:layout_alignParentRight="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="今日头条"
+                            android:text="映客"
                             android:layout_below="@+id/view7"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal|bottom"
@@ -320,8 +339,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normalPadding"
-                    android:layout_marginBottom="@dimen/normalPadding2">
+                    android:layout_marginTop="@dimen/normalPadding">
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -332,13 +350,18 @@
                             android:id="@+id/view9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/common_video_platform_xiaoying"
+                            android:src="@mipmap/common_video_platform_xkx"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/normalPadding"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/extract_nowatermark_tips"
+                            android:layout_alignParentRight="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="小影"
+                            android:text="小咖秀"
                             android:layout_below="@+id/view9"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal|bottom"
@@ -401,13 +424,13 @@
                             android:id="@+id/view12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/common_video_platform_meipai"
+                            android:src="@mipmap/common_video_platform_xigua"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/normalPadding"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="美拍"
+                            android:text="西瓜"
                             android:layout_below="@+id/view12"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal|bottom"
@@ -416,7 +439,114 @@
                             android:textColor="@color/black"/>
                     </RelativeLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normalPadding"
+                    android:layout_marginBottom="@dimen/normalPadding2">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/view13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/common_video_platform_miaopai"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/normalPadding"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="秒拍"
+                            android:layout_below="@+id/view13"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_horizontal|bottom"
+                            android:textSize="@dimen/overallNormal4"
+                            android:layout_marginTop="@dimen/normalPadding"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/view14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/common_video_platform_toutiao"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/normalPadding"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="今日头条"
+                            android:layout_below="@+id/view14"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_horizontal|bottom"
+                            android:textSize="@dimen/overallNormal4"
+                            android:layout_marginTop="@dimen/normalPadding"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/view15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/common_video_platform_xiaoying"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/normalPadding"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="小影"
+                            android:layout_below="@+id/view15"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_horizontal|bottom"
+                            android:textSize="@dimen/overallNormal4"
+                            android:layout_marginTop="@dimen/normalPadding"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/view16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/common_video_platform_wyysp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/normalPadding"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="网易"
+                            android:layout_below="@+id/view16"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_horizontal|bottom"
+                            android:textSize="@dimen/overallNormal4"
+                            android:layout_marginTop="@dimen/normalPadding"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </com.zhy.android.percent.support.PercentLinearLayout>
     </app.jietuqi.cn.widget.OverScrollView>
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="友情提示：非VIP用户每天只能使用3次"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/normalPadding"
+        android:textColor="@color/red_btn_bg_color"/>
+</RelativeLayout>

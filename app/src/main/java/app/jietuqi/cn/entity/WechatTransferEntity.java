@@ -1,6 +1,6 @@
 package app.jietuqi.cn.entity;
 
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/22 14:36.
@@ -9,7 +9,7 @@ import app.jietuqi.cn.database.table.WechatUserTable;
  * 用途：
  */
 
-public class WechatTransferEntity extends WechatUserTable {
+public class WechatTransferEntity extends WechatUserEntity {
 
     /**
      * 转账金额

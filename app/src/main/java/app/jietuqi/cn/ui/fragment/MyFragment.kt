@@ -21,9 +21,6 @@ import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.request.PostRequest
 import kotlinx.android.synthetic.main.fragment_my.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * 作者： liuyuanbo on 2018/10/23 17:30.
@@ -42,6 +39,7 @@ class MyFragment : BaseFragment(), RefreshListener {
         if (UserOperateUtil.isCurrentLoginNoDialog()){
             loadFromServer()
         }else{
+            mUserEntity = OverallUserInfoEntity()
             mMyRefreshLayout.finishRefresh(true)
         }
     }
@@ -49,6 +47,8 @@ class MyFragment : BaseFragment(), RefreshListener {
     override fun initViewsListener() {
         setRefreshLayout(mMyRefreshLayout, this)
         mUserInfoLayout.setOnClickListener(this)
+        mMyPublishLayout.setOnClickListener(this)
+        mOpenAgentLayout.setOnClickListener(this)
         mOpenVipLayout.setOnClickListener(this)
         mOpenShopLayout.setOnClickListener(this)
         mInviteLayout.setOnClickListener(this)
@@ -57,13 +57,18 @@ class MyFragment : BaseFragment(), RefreshListener {
         mContactServerLayout.setOnClickListener(this)
         mProblemReportLayout.setOnClickListener(this)
         mSettingLayout.setOnClickListener(this)
-        mExitLayout.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         super.onClick(v)
         if (UserOperateUtil.isCurrentLoginDirectlyLogin(activity)){
             when(v.id){
+                R.id.mOpenAgentLayout ->{
+                    LaunchUtil.launch(activity, OverOpenAgentActivity::class.java)
+                }
+                R.id.mMyPublishLayout ->{
+                    LaunchUtil.startOverallMyPublishActivity(activity, UserOperateUtil.getUserId(), UserOperateUtil.getUserNickName())
+                }
                 R.id.mUserInfoLayout ->{
                     LaunchUtil.launch(activity, OverallAccountManagementActivity::class.java)
                 }
@@ -85,21 +90,10 @@ class MyFragment : BaseFragment(), RefreshListener {
                     LaunchUtil.launch(activity, OverAllChoiceServiceActivity::class.java)
                 }
                 R.id.mProblemReportLayout ->{
-                    LaunchUtil.launch(activity, ProblemReportActivity::class.java)
+                    LaunchUtil.launch(activity, OverallProblemReportActivity::class.java)
                 }
                 R.id.mSettingLayout ->{
                     LaunchUtil.launch(activity, SettingActivity::class.java)
-                }
-                R.id.mExitLayout ->{
-                    mUserEntity = OverallUserInfoEntity()
-                    showLoadingDialog("正在退出...")
-                    SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, false)
-                    SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.USER_INFO)
-                    launch(Dispatchers.Default) { // 在一个公共线程池中创建一个协程
-                        delay(1000L) // 非阻塞的延迟一秒（默认单位是毫秒）
-                        dismissLoadingDialog()
-                    }
-                    refreshUserInfo()
                 }
             }
         }
@@ -112,16 +106,20 @@ class MyFragment : BaseFragment(), RefreshListener {
         refreshUserInfo()
     }
     private fun refreshUserInfo(){
-        if (UserOperateUtil.isCurrentLoginNoDialog()){
-            mExitLayout.visibility = View.VISIBLE
-        }else{
-            mExitLayout.visibility = View.GONE
-        }
         GlideUtil.displayHead(activity, mUserEntity?.headimgurl, mAvatarIv)
         mNickNameTv.text = mUserEntity?.nickname
+        mOpenIsVipTv.text = if (UserOperateUtil.isVip()) "已开通" else "未开通"
         mIdTv.text = mUserEntity?.id.toString()
+        if (mUserEntity?.status == 2 || mUserEntity?.status == 3){
+            mQQGroupType.text = "824315403"
+            mQQGroupLayout.visibility = View.VISIBLE
+        }else if (mUserEntity?.status == 4){
+            mQQGroupType.text = "553495520"
+            mQQGroupLayout.visibility = View.VISIBLE
+        }else{
+            mQQGroupLayout.visibility = View.GONE
+        }
     }
-
     override fun loadFromServer() {
         super.loadFromServer()
         if (UserOperateUtil.isCurrentLoginNoDialog()){

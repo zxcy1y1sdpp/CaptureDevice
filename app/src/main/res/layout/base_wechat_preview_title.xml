@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+    <!--
+    android:background="@color/wechatTitleBar"-->
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/wechatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.14%w">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/mBaseCreateFinishIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            app:layout_widthPercent="13.14%w"
+            app:stv_isShowState="true"
+            app:stv_state_drawable="@drawable/wechat_back_black"
+            app:stv_pressBgColor="@color/wechatLightGray" />
+
+        <!--<com.coorchice.library.SuperTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            app:layout_widthPercent="10.76%w"
+            android:background="@null"
+            android:drawableLeft="@drawable/wechat_back_black"
+            android:gravity="center"/>-->
+        <TextView
+            android:id="@+id/mBaseCreateTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信红包"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mBaseCreateFinishIv"
+            android:layout_alignTop="@+id/mBaseCreateFinishIv"
+            android:layout_alignBottom="@+id/mBaseCreateFinishIv"/>
+
+        <TextView
+            android:id="@+id/wechatTitleRightTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包详情"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/mBaseCreateFinishIv"
+            android:layout_alignBottom="@+id/mBaseCreateFinishIv"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:textSize="@dimen/wechatLittleTextSize"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/thirdPointIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_more"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/sureTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:background="@drawable/green_round_cornor"
+            android:padding="@dimen/normalPadding"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/wechatChangeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="零钱明细"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/mBaseCreateFinishIv"
+            android:layout_alignBottom="@+id/mBaseCreateFinishIv"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:textSize="@dimen/wechatNormalTextSize"
+            android:visibility="gone"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

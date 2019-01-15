@@ -1,2 +1,2 @@
-include ':app', ':rxeasyhttp'
+include ':app', ':rxeasyhttp', ':imageeditlibrary'
 

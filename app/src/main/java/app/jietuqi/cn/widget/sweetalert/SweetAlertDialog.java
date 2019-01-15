@@ -281,6 +281,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     }
     public SweetAlertDialog setCanTouchOutSideCancle (boolean cancle) {
         this.setCanceledOnTouchOutside(cancle);
+        this.setCancelable(cancle);
         return this;
     }
     public SweetAlertDialog canCancle (boolean cancle) {
@@ -379,7 +380,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
      * The real Dialog.dismiss() will be invoked async-ly after the animation finishes.
      */
     public void dismissWithAnimation() {
-        dismissWithAnimation(false);
+        if (isShowing()){
+            dismissWithAnimation(false);
+        }
     }
 
     private void dismissWithAnimation(boolean fromCancel) {

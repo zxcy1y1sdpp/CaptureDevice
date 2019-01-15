@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:left="-600dp"
-        android:right="-600dp">
+        android:left="-500dp"
+        android:right="-500dp">
         <rotate android:drawable="@drawable/gray_imaginary_line_h"
             android:visible="true"
             android:fromDegrees="90"/>

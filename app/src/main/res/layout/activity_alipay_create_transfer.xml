@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <include
+        layout="@layout/include_choice_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/mAlipayCreateTransferMoneyEt"
+        android:hint="转账金额"
+        style="@style/wechatEdit"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/normalPadding"/>
+    <EditText
+        android:id="@+id/mAlipayCreateTransferMsgEt"
+        android:hint="备注"
+        style="@style/wechatEdit"
+        android:padding="@dimen/normalPadding"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

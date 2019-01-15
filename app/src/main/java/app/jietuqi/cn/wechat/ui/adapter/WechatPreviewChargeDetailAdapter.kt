@@ -36,10 +36,10 @@ class WechatPreviewChargeDetailAdapter(val mList: ArrayList<WechatChargeDetailEn
             title.text = entity.name
             time.text = entity.time
             if (entity.type == "0"){
-                money.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "+")
+                money.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "+ ")
                 money.setTextColor(ContextCompat.getColor(itemView.context, R.color.overallGreen))
             }else{
-                money.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "-")
+                money.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "- ")
                 money.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechat_deep_text_color))
             }
         }

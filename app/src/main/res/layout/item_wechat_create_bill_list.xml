@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/sWechatCreateBillListIconIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        percent:layout_heightPercent="12%w"
+        percent:layout_widthPercent="12%w"
+        android:src="@drawable/head_default"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_marginBottom="@dimen/normalPadding"/>
+
+    <TextView
+        android:id="@+id/sWechatCreateBillTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/overall16sp"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:ellipsize="end"
+        android:text="a水电费健康和阿卡撒旦画付款计划爱上对方就会"
+        android:layout_alignTop="@+id/sWechatCreateBillListIconIv"
+        android:layout_toRightOf="@+id/sWechatCreateBillListIconIv"
+        android:includeFontPadding="false"
+        android:layout_toLeftOf="@+id/sWechatCreateBillMoneyTv"
+        android:lines="1" />
+    <TextView
+        android:id="@+id/sWechatCreateBillTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/wechatLightGray"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:ellipsize="end"
+        android:text="2018年12月1日 09：30"
+        android:layout_alignBottom="@+id/sWechatCreateBillListIconIv"
+        android:layout_toRightOf="@+id/sWechatCreateBillListIconIv"
+        android:includeFontPadding="false"/>
+
+    <app.jietuqi.cn.wechat.wechatfont.WechatNumTextView
+        android:id="@+id/sWechatCreateBillMoneyTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+123.00"
+        android:layout_alignTop="@+id/sWechatCreateBillTitleTv"
+        android:layout_alignBottom="@+id/sWechatCreateBillTitleTv"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/normalPadding"
+        android:textSize="@dimen/overall16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/overallBg"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_below="@+id/sWechatCreateBillListIconIv"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

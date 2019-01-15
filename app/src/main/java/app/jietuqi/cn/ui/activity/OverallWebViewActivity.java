@@ -17,6 +17,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -45,6 +46,7 @@ import java.util.Map;
 
 import app.jietuqi.cn.R;
 import app.jietuqi.cn.base.BaseOverallInternetActivity;
+import app.jietuqi.cn.constant.IntentKey;
 import app.jietuqi.cn.web.SonicJavaScriptInterface;
 import app.jietuqi.cn.web.SonicRuntimeImpl;
 import app.jietuqi.cn.web.SonicSessionClientImpl;
@@ -54,7 +56,7 @@ import app.jietuqi.cn.web.SonicSessionClientImpl;
  *  In this demo there are three modes,
  *  sonic mode: sonic mode means webview loads html by sonic,
  *  offline mode: offline mode means webview loads html from local offline packages,
- *  default mode: default mode means webview loads html in the normal way.
+ *  default_bg mode: default_bg mode means webview loads html in the normal way.
  *
  */
 
@@ -93,6 +95,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
     @Override
     protected void getAttribute(@NotNull Intent intent) {
         super.getAttribute(intent);
+
     }
 
     @Override
@@ -102,7 +105,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
         if (!SonicEngine.isGetInstanceAllowed()) {
             SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
         }
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         SonicSessionClientImpl sonicSessionClient = null;
         SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
         sessionConfigBuilder.setSupportLocalServer(true);
@@ -112,7 +115,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
                 return null; // offline pkg does not need cache
             }
         });
-
+        mUrl = intent.getStringExtra(IntentKey.URL);
         sessionConfigBuilder.setConnectionInterceptor(new SonicSessionConnectionInterceptor() {
             @Override
             public SonicSessionConnection getConnection(SonicSession session, Intent intent) {
@@ -126,19 +129,18 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
             Toast.makeText(this, "create sonic session fail!", Toast.LENGTH_LONG).show();
         }
         setContentView(R.layout.activity_overall_web);
-
+        String title = intent.getStringExtra(IntentKey.TITLE);
+        setTopTitle(title, 0, "", R.color.black, R.mipmap.back, R.color.white, R.color.black, -1, true);
         // init webview
         mWebView = findViewById(R.id.mOverallWebView);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 // hide element by class name
-                mWebView.loadUrl("javascript:(function() { " +
-                        "document.getElementById('t-courier').style.display='none';})()");
+                mWebView.loadUrl("javascript:(function() { " + "document.getElementById('t-courier').style.display='none';document.querySelector('.menus').style.display='none';document.querySelector('.head a').style.display='none';document.querySelector('.title').innerHTML='';document.querySelector('.tag').innerHTML=''})()");
                 // hide element by id
 //                mWebView.loadUrl("javascript:document.getElementById('t-center').style.display='none'");
-                mWebView.loadUrl("javascript:(function() { " +
-                        "document.getElementById('t-center').style.display='none';})()");
+                mWebView.loadUrl("javascript:(function() { " + "document.getElementById('t-center').style.display='none';document.querySelector('.menus').style.display='none';document.querySelector('.head a').style.display='none';document.querySelector('.title').innerHTML='';document.querySelector('.tag').innerHTML=''})()");
                 super.onPageFinished(view, url);
                 if (mSonicSession != null) {
                     mSonicSession.getSessionClient().pageFinish(url);
@@ -189,7 +191,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
         if (sonicSessionClient != null) {
             sonicSessionClient.bindWebView(mWebView);
             sonicSessionClient.clientReady();
-        } else { // default mode
+        } else { // default_bg mode
             mWebView.loadUrl(mUrl);
         }
     }

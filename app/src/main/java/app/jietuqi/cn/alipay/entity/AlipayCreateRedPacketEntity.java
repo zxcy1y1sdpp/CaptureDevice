@@ -1,6 +1,6 @@
 package app.jietuqi.cn.alipay.entity;
 
-import app.jietuqi.cn.database.table.WechatUserTable;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/31 17:20.
@@ -9,7 +9,7 @@ import app.jietuqi.cn.database.table.WechatUserTable;
  * 用途：
  */
 
-public class AlipayCreateRedPacketEntity extends WechatUserTable {
+public class AlipayCreateRedPacketEntity extends WechatUserEntity {
     /**
      * 红包金额
      */

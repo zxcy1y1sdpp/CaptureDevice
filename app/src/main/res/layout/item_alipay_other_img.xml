@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginBottomPercent="2.8%w">
+        <ImageView
+            android:id="@+id/sAlipayOtherAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11%w"
+            app:layout_widthPercent="11%w"
+            app:layout_marginLeftPercent="2.16%w"
+            app:layout_marginRightPercent="1.67%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"/>
+
+        <app.jietuqi.cn.ui.alipayscreenshot.widget.BubbleImageView
+            android:id="@+id/sAlipayOtherImgIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon0"
+            android:scaleType="fitStart"
+            app:bubble_angle="1dp"
+            app:bubble_arrowLocation="left"
+            app:bubble_arrowWidth="7dp"
+            app:bubble_arrowOffset="-7dp"
+            app:bubble_arrowHeight="15dp"
+            app:bubble_arrowTop="14dp"
+            android:layout_toRightOf="@+id/sAlipayOtherAvatarIv" />
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

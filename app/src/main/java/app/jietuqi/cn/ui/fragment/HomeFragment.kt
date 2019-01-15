@@ -1,19 +1,21 @@
 package app.jietuqi.cn.ui.fragment
 
 import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
+import android.widget.RelativeLayout
+import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseFragment
+import app.jietuqi.cn.callback.FabScrollListener
+import app.jietuqi.cn.callback.HideScrollListener
 import app.jietuqi.cn.callback.LikeListener
+import app.jietuqi.cn.entity.BannerEntity
 import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.activity.OverallPublishFriendsCircleActivity
 import app.jietuqi.cn.ui.adapter.HomeAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
+import app.jietuqi.cn.ui.entity.ProductFlavorsEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
@@ -33,68 +35,35 @@ import org.greenrobot.eventbus.ThreadMode
  * 用途：
  */
 
-class HomeFragment : BaseFragment(), LikeListener {
-    override fun like(overallDynamicEntity: OverallDynamicEntity?, comment: OverallDynamicEntity.Comment?, type: Int) {
-        overallDynamicEntity?.let { likeAndUnLike(it) }
-    }
-
+class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
     private var mAdapter: HomeAdapter? = null
     override fun setLayoutResouceId() = R.layout.fragment_home
     private var mList: ArrayList<OverallDynamicEntity> = arrayListOf()
+    private var mBannerList: ArrayList<BannerEntity> = arrayListOf()
 
     override fun initAllViews() {
         EventBusUtil.register(this)
         activity?.getString(R.string.app_name)?.let { setTitle(it, 1)}
-//        setTitle(activity?.getString(R.string.app_name), 1)
-        mAdapter = HomeAdapter(mList, this)
+        mAdapter = HomeAdapter(mList, mBannerList, this)
         mRecyclerView.adapter = mAdapter
         setRefreshLayout(mOverallHomeRefreshLayout)
         (mRecyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
+
     }
 
     override fun initViewsListener() {
-        mOverallPublisBtn.setOnClickListener(this)
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var mScrollThreshold = 0
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val isSignificantDelta = Math.abs(dy) > mScrollThreshold
-                if (isSignificantDelta) {
-                    if (dy > 0) {
-                        Log.e("direction", "上")
-//                        mOverallPublisBtn.animation = AnimationUtil.moveToViewLocation()
-//                        onScrollUp()
-                    } else {
-//                        mOverallPublisBtn.animation = AnimationUtil.moveToViewBottom()
-                        Log.e("direction", "下=-----------")
-//                        onScrollDown()
-                    }
-                }
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                when (newState) {
-                    RecyclerView.SCROLL_STATE_IDLE ->{// 当屏幕停止滚动
-
-                    }
-                    RecyclerView.SCROLL_STATE_DRAGGING ->{//当屏幕滚动且用户使用的触碰或手指还在屏幕上，停止加载图片
-
-                    }
-
-                    RecyclerView.SCROLL_STATE_SETTLING ->{ //由于用户的操作，屏幕产生惯性滑动，停止加载图片
-                    }
-                    else -> { }
-                }
-            }
-        })
+        mOverallHomeRefreshLayout.autoRefresh()
+        mOverallPublishBtn.setOnClickListener(this)
+        mRecyclerView.addOnScrollListener(FabScrollListener(this))
     }
 
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
-            R.id.mOverallPublisBtn ->{
-                LaunchUtil.launch(this.context, OverallPublishFriendsCircleActivity::class.java)
+            R.id.mOverallPublishBtn ->{
+                if (UserOperateUtil.isCurrentLoginDirectlyLogin(activity)){
+                    LaunchUtil.launch(this.context, OverallPublishFriendsCircleActivity::class.java)
+                }
             }
         }
     }
@@ -102,17 +71,18 @@ class HomeFragment : BaseFragment(), LikeListener {
     override fun loadFromServer() {
         super.loadFromServer()
         getData()
+        getBannerData()
     }
     private fun getData(){
         EasyHttp.post(HttpConfig.INFO)
                 .params("way", "article")
-                .params("uid", UserOperateUtil.getUserId())
+                .params("mid", UserOperateUtil.getUserId())
                 .params("limit", mLimitSize.toString())
                 .params("page", mPageSize.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallDynamicEntity>>, ArrayList<OverallDynamicEntity>>(object : SimpleCallBack<ArrayList<OverallDynamicEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallDynamicEntity>) {
                         if (mPageSize == 1){
-                            if (null != mList && mList.size != 0){
+                            if (mList.size != 0){
                                 mList.clear()
                             }
                         }
@@ -142,15 +112,13 @@ class HomeFragment : BaseFragment(), LikeListener {
                         mAdapter?.notifyDataSetChanged()
                     }
                     override fun onError(e: ApiException) {
-                        e.message?.let { showToast(it) }
-                        mOverallHomeRefreshLayout.finishRefresh(true)
-                        mOverallHomeRefreshLayout.finishLoadMore(true)
+                        if (mPageSize == 1){
+                            mList.clear()
+                            mAdapter?.notifyDataSetChanged()
+                        }else{
+                            mOverallHomeRefreshLayout.finishLoadMoreWithNoMoreData()
+                        }
                     }
-
-//                    override fun onEmpty() {
-//                        super.onEmpty()
-//                        mOverallHomeRefreshLayout.finishLoadMoreWithNoMoreData()
-//                    }
                 }) {})
     }
 
@@ -164,7 +132,9 @@ class HomeFragment : BaseFragment(), LikeListener {
                 .params("classify", "article")
                 .params("info_id", entity.id.toString())
                 .execute(object : SimpleCallBack<String>() {
-                    override fun onError(e: ApiException) {}
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
 
                     override fun onSuccess(t: String) {
                         if (entity.is_favour == 0){
@@ -179,36 +149,37 @@ class HomeFragment : BaseFragment(), LikeListener {
                     }
                 })
     }
+    /**
+     * 点赞/取消点赞
+     */
+    private fun getBannerData(){
+        EasyHttp.post(HttpConfig.INDEX)
+                .params("way", "swipe")
+                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<BannerEntity>>, ArrayList<BannerEntity>>(object : SimpleCallBack<ArrayList<BannerEntity>>() {
+                    override fun onSuccess(t: ArrayList<BannerEntity>?) {
+                        if (mBannerList.size != 0){
+                            mBannerList.clear()
+                        }
+                        t?.let { mBannerList.addAll(it) }
+                        mAdapter?.notifyItemChanged(0)
+                    }
 
-    object AnimationUtil {
-        private val TAG = AnimationUtil::class.java.simpleName
+                    override fun onError(e: ApiException) {
+                        Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                    }
 
-        /**
-         * 从控件所在位置移动到控件的底部
-         *
-         * @return
-         */
-        fun moveToViewBottom(): TranslateAnimation {
-            val mHiddenAction = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                    0.0f, Animation.RELATIVE_TO_SELF, 1.0f)
-            mHiddenAction.duration = 500
-            return mHiddenAction
-        }
+                }){})
 
-        /**
-         * 从控件的底部移动到控件所在位置
-         *
-         * @return
-         */
-        fun moveToViewLocation(): TranslateAnimation {
-            val mHiddenAction = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                    1.0f, Animation.RELATIVE_TO_SELF, 0.0f)
-            mHiddenAction.duration = 500
-            return mHiddenAction
-        }
     }
+
+    /**
+     * 事件订阅者自定义的接收方法
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMessageEvent(entity: ProductFlavorsEntity) {
+        mAdapter?.notifyDataSetChanged()
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDynamicChange(overallDynamicEntity: OverallDynamicEntity) {
         val position = overallDynamicEntity.position
@@ -225,5 +196,16 @@ class HomeFragment : BaseFragment(), LikeListener {
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtil.unRegister(this)
+    }
+    override fun onHide() {
+        val layoutParams = mOverallPublishBtn.layoutParams as RelativeLayout.LayoutParams
+        mOverallPublishBtn.animate().translationX((mOverallPublishBtn.width / 2 + layoutParams.rightMargin).toFloat()).setDuration(300).alpha(0.5f)/*.interpolator = AccelerateInterpolator(3f)*/
+    }
+
+    override fun onShow() {
+        mOverallPublishBtn.animate().translationX(0f).setDuration(300).alpha(1f)/*.interpolator = DecelerateInterpolator(3f)*/
+    }
+    override fun like(overallDynamicEntity: OverallDynamicEntity?, comment: OverallDynamicEntity.Comment?, type: Int) {
+        overallDynamicEntity?.let { likeAndUnLike(it) }
     }
 }

@@ -11,16 +11,23 @@ package app.jietuqi.cn.constant;
  */
 
 public final class ColorFinal {
-    public static final int wechatPreviewTitleLayout = 0xFFDA5A41;
+    public static final int wechatPreviewTitleLayout = 0xFFF15E4E;
     public static final int wechatTitleBar = 0xFF303030;
-    public static final int wechatMyWallet = 0xFF686f79;
+    public static final int wechatMyWallet = 0xFFF2F2F2;
     public static final int WHITE = 0xFFFFFFFF;
+    public static final int BLACK = 0xFF000000;
     /** 支付宝红包的状态栏颜色*/
     public static final int alipayRedPacketRed = 0xffa63237;
     /** 支付宝余额的状态栏颜色*/
     public static final int alipayBalanceRed = 0xff1c6ca9;
     /** 支付宝余额的状态栏颜色*/
     public static final int alipayMy = 0xff1B629B;
+    /** 爆粉的状态栏颜色*/
+    public static final int explore = 0xffE6594b;
+    /** 零钱明细的状态栏颜色*/
+    public static final int chargeDetail = 0xFFF1F1F1;
+    public static final int NEW_WECHAT_TITLEBAR = 0xFFF7F7F7;
+    public static final int NEW_WECHAT_TITLEBAR_DARK = 0xFFEDEDED;
 
 
 }

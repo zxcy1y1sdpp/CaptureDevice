@@ -14,17 +14,17 @@
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
+        <ImageView
             android:id="@+id/mOverallAddFansAndGroupAddFansBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="加粉"
             percent:layout_heightPercent="29.3%w"
             percent:layout_widthPercent="42.6%w"
             percent:layout_marginTopPercent="3.73%w"
             percent:layout_marginLeftPercent="4.8%w"
-            percent:layout_marginRightPercent="4.8%w"/>
-        <Button
+            percent:layout_marginRightPercent="4.8%w"
+            android:src="@drawable/jf"/>
+        <ImageView
             android:id="@+id/mOverallAddFansAndGroupAddGroupsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,13 +34,15 @@
             percent:layout_marginTopPercent="3.73%w"
             android:layout_alignParentRight="true"
             percent:layout_marginRightPercent="4.8%w"
-            percent:layout_marginBottomPercent="4%w"/>
+            percent:layout_marginBottomPercent="4%w"
+            android:src="@drawable/jq"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mOverallAddFansAndGroupPreciseAddFansLayout"
         style="@style/overallMyItem"
-        percent:layout_heightPercent="13.3%w">
+        percent:layout_heightPercent="13.3%w"
+        android:visibility="gone">
         <TextView
             android:text="精准加粉"
             android:drawableLeft="@mipmap/jingzhunjiafen"
@@ -70,14 +72,16 @@
         <TextView
             android:id="@+id/view1"
             style="@style/overallMyItemRight"/>
-        <TextView
+        <com.coorchice.library.SuperTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="会员专享"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/view1"
-            android:background="@drawable/red_round_cornor"
-            android:textColor="@color/white"/>
+            android:text="会员专享"
+            android:textColor="@color/white"
+            android:padding="@dimen/normalPaddingHalf"
+            percent:stv_corner="5dp"
+            percent:stv_solid="#F95645"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <com.zhy.android.percent.support.PercentRelativeLayout

@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,12 +40,9 @@ public class ContactUtil {
         try {
             context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
             UserOperateUtil.deleteContactCache(context);
-            Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
         } catch (OperationApplicationException e) {
-            Toast.makeText(context, "删除失败", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         } catch (RemoteException e) {
-            Toast.makeText(context, "删除失败", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -87,7 +83,7 @@ public class ContactUtil {
             ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
                     .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, rawContactInsertIndex)
                     .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                    .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, contactList.get(i).nickName)
+                    .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, "yxb_"+contactList.get(i).nickName)
                     .withYieldAllowed(true)
                     .build());
             ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
@@ -105,8 +101,10 @@ public class ContactUtil {
             while (cursor.moveToNext()) {
                 long contactId = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.RAW_CONTACT_ID));
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+//                name = StringUtils.insertFront(name, "yxb_");
                 for (ContactEntity model : contactList) {
-                    if (model.nickName.equals(name)) {
+//                    String nameRemoveYXB = name.replace("yxb_", "");
+                    if (("yxb_" + model.nickName).equals(name)) {
                         model.rawContactId = contactId;
                     }
                 }
@@ -138,7 +136,7 @@ public class ContactUtil {
         if (!TextUtils.isEmpty(entity.nickName)) {
             values.put("raw_contact_id", rawContactId);
             values.put("mimetype", "vnd.android.cursor.item/name");
-            values.put("data2", StringUtils.insertFront(entity.nickName, "yxb"));
+            values.put("data2", StringUtils.insertFront(entity.nickName, "yxb_"));
             contentResolver.insert(uri, values);
         }
         // 向data表插入电话号码

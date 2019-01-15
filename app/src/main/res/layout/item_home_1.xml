@@ -1,222 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/overallBg">
     <com.youth.banner.Banner
         android:id="@+id/mBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="35.2%w"
-        android:visibility="gone"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        percent:layout_heightPercent="35.2%w"
-        android:src="@drawable/banner_icon"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="实用工具"
-        android:paddingLeft="@dimen/normalPadding"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/overallBg"
-        android:layout_below="@+id/mBanner"
-        android:textColor="@color/wechat_deep_text_color"/>
-
+        app:layout_heightPercent="38.73%w"
+        app:layout_marginBottomPercent="2.67%w"
+        app:image_scale_type="fit_xy"
+        app:indicator_height="5dp"
+        app:indicator_width="5dp"
+        app:indicator_drawable_selected="@drawable/banner_select"/>
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/wechatFunLayout"
-            android:layout_width="0dp"
+        android:layout_below="@+id/line"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/alipayBlueColor"
+            android:layout_marginTop="@dimen/normalPadding"
+            android:layout_marginBottom="@dimen/normalPadding"
+            app:layout_marginLeftPercent="4.27%w"/>
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/wsjt"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="微商截图"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/alipayFunLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:visibility="gone">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/jfjq"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加粉加群"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/removeWaterMarkFunLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/spqsy"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="视频去水印"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/kuaiDiChaXunFunLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/kdcx"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="快递查询"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
+            android:text="实用工具"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/normalPadding"
+            app:layout_heightPercent="9.07%w"
+            android:gravity="center_vertical"/>
     </com.zhy.android.percent.support.PercentLinearLayout>
 
-    <com.zhy.android.percent.support.PercentLinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sFunRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
-        <LinearLayout
-            android:id="@+id/mWatermarkCameraLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            percent:layout_widthPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/home_syxj"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="水印相机"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/mMakePicsLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            percent:layout_widthPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/home_plzt"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="批量制图"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/mRemoveWaterMarkLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            percent:layout_widthPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/home_spqsy"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="视频去水印"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/mPinPicsAndVideosLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            percent:layout_heightPercent="25%w"
-            percent:layout_widthPercent="25%w"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/home_ptpsp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="拼图拼视频"
-                percent:layout_heightPercent="25%w"
-                percent:layout_widthPercent="25%w"
-                android:gravity="center"
-                android:padding="@dimen/normalPadding"
-                android:textColor="@color/wechat_deep_text_color"/>
-        </LinearLayout>
-    </com.zhy.android.percent.support.PercentLinearLayout>
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+        android:orientation="vertical"
+        android:background="@color/white"/>
+    <!--<com.zhy.android.percent.support.PercentLinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="@color/white">-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_heightPercent="25%w"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<com.coorchice.library.SuperTextView-->
+
+                <!--android:id="@+id/wechatFunLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="微商截图"-->
+                <!--android:drawableTop="@mipmap/wsjt"-->
+                <!--app:stv_pressBgColor="@color/pressColor"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="@dimen/normalPaddingHalf"/>-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/tag_home_hot"-->
+                <!--android:translationX="20dp"-->
+                <!--android:translationY="5dp"-->
+                <!--android:layout_centerHorizontal="true"/>-->
+        <!--</RelativeLayout>-->
+
+        <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/joinFansAndGroupsFunLayout"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="加粉加群"-->
+            <!--android:drawableTop="@mipmap/jfjq"-->
+            <!--app:stv_pressBgColor="@color/pressColor"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/normalPaddingHalf"-->
+            <!--app:layout_heightPercent="25%w"/>-->
+        <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/removeWaterMarkFunLayout"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="视频去水印"-->
+            <!--android:drawableTop="@mipmap/spqsy"-->
+            <!--app:stv_pressBgColor="@color/pressColor"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/normalPaddingHalf"-->
+            <!--app:layout_heightPercent="25%w"/>-->
+        <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/kuaiDiChaXunFunLayout"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="快递查询"-->
+            <!--android:drawableTop="@mipmap/kdcx"-->
+            <!--app:stv_pressBgColor="@color/pressColor"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/normalPaddingHalf"-->
+            <!--app:layout_heightPercent="25%w"/>-->
+    <!--</com.zhy.android.percent.support.PercentLinearLayout>-->
+
+    <!--<com.zhy.android.percent.support.PercentLinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/white"-->
+        <!--android:weightSum="4">-->
+        <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/editPictureLayout"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="图片编辑"-->
+            <!--android:drawableTop="@mipmap/tpbj"-->
+            <!--app:stv_pressBgColor="@color/pressColor"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/normalPaddingHalf"-->
+            <!--app:layout_heightPercent="25%w"/>-->
+        <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/createQRCodeLayout"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="二维码"-->
+            <!--android:drawableTop="@mipmap/ewm"-->
+            <!--app:stv_pressBgColor="@color/pressColor"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/normalPaddingHalf"-->
+            <!--app:layout_heightPercent="25%w"/>-->
+    <!--</com.zhy.android.percent.support.PercentLinearLayout>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -233,7 +165,7 @@
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="17%w"
+        app:layout_heightPercent="17%w"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/normalPadding"
         android:visibility="gone">
@@ -242,8 +174,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon0"
-            percent:layout_heightPercent="11%w"
-            percent:layout_widthPercent="11%w" />
+            app:layout_heightPercent="11%w"
+            app:layout_widthPercent="11%w" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -252,59 +184,56 @@
             android:lines="2"
             android:ellipsize="end"
             android:padding="@dimen/normalPadding"
-            percent:layout_widthPercent="70%w"
+            app:layout_widthPercent="70%w"
             android:textColor="@color/wechat_deep_text_color"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            percent:layout_widthPercent="9%w"
+            app:layout_widthPercent="9%w"
             android:src="@mipmap/right_arrow"/>
 
     </com.zhy.android.percent.support.PercentLinearLayout>
 
-    <LinearLayout
+    <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/wechatBg"
-        android:gravity="center_vertical"
-        percent:layout_heightPercent="7.4%w">
+        android:layout_below="@+id/line"
+        android:orientation="horizontal"
+        android:background="@color/white">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/gray2"/>
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/alipayBlueColor"
+            android:layout_marginTop="@dimen/normalPadding"
+            android:layout_marginBottom="@dimen/normalPadding"
+            app:layout_marginLeftPercent="4.27%w"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="微商交流"
-            android:textColor="@color/overallBlue"
-            android:textSize="@dimen/overall16sp"
-            android:gravity="center"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/gray2"/>
-    </LinearLayout>
-
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/normalPadding"
+            app:layout_heightPercent="9.07%w"
+            android:gravity="center_vertical"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
     <!--<android.support.design.widget.TabLayout
         android:id="@+id/mTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        percent:tabIndicatorColor="@color/overallBlue"
-        percent:tabSelectedTextColor="#999999"
-        percent:tabTextColor="#666666"
-        percent:layout_heightPercent="10.6%w"/>-->
+        app:tabIndicatorColor="@color/overallBlue"
+        app:tabSelectedTextColor="@color/wechatLightGray"
+        app:tabTextColor="#666666"
+        app:layout_heightPercent="10.6%w"/>-->
 
-   <!-- <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="微商课堂"
-        android:textColor="@color/overallBlue"
-        android:textSize="@dimen/overallNormal1"
-        android:gravity="center"
-        android:padding="@dimen/normalPadding"/>-->
+    <!-- <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="微商课堂"
+         android:textColor="@color/overallBlue"
+         android:textSize="@dimen/overallNormal1"
+         android:gravity="center"
+         android:padding="@dimen/normalPadding"/>-->
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="@dimen/normalPadding">
-
-    <TextView
-        android:id="@+id/wechatSingleTalkTimeTv"
+    android:paddingTop="@dimen/normalPaddingHalf">
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="下午5:21"
         android:background="@drawable/gray_round_cornor"
-        android:textColor="@color/white"
-        android:textSize="@dimen/wechatLittle2TextSize"/>
-</LinearLayout>
+        app:layout_marginTopPercent="3.44%w"
+        app:layout_marginBottomPercent="3.44%w">
+        <TextView
+            android:id="@+id/wechatSingleTalkTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下午5:21"
+            android:textColor="@color/wechatLightGray"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

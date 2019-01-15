@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 
 public class ProblemReportEntity implements Serializable{
+    public int id;
     public File pic;
     public int position;
     public int res;
@@ -20,4 +21,15 @@ public class ProblemReportEntity implements Serializable{
      * 1 -- 正常图片
      */
     public int type;
+    /**
+     * 0 -- 未上传
+     * 1 -- 上传中
+     * 2 -- 上传成功
+     * 3 -- 上传失败
+     */
+    public int uploadStatus = 0;
+    /**
+     * 上传的进度
+     */
+    public int progress;
 }

@@ -23,7 +23,9 @@ public class EventBusUtil {
 	 * @param object
 	 */
 	public static void unRegister(Object object){
-		EventBus.getDefault().unregister(object);
+		if (EventBus.getDefault().isRegistered(object)){
+			EventBus.getDefault().unregister(object);
+		}
 	}
 
 	/**

@@ -10,10 +10,7 @@ import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LikeListener
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
-import app.jietuqi.cn.util.GlideUtil
-import app.jietuqi.cn.util.StringUtils
-import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.util.WechatTimeUtil
+import app.jietuqi.cn.util.*
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import app.jietuqi.cn.widget.ninegrid.preview.NineGridViewClickAdapter
 import com.sackcentury.shinebuttonlib.ShineButton
@@ -135,18 +132,22 @@ class OverallCommunicateDetailsAdapter(val mList: ArrayList<OverallDynamicEntity
         var pingLunCount: TextView = itemView.findViewById(R.id.overallCommunicateDetails1PingLunTv)//评论人数
         var likeBtn: ShineButton = itemView.findViewById(R.id.overallCommunicateDetails1LikeBtn)//点赞按钮
         var pingLunAllCount: TextView = itemView.findViewById(R.id.overallCommunicateDetails1PingLunAllCountTv)
+        var vipTagIv: ImageView = itemView.findViewById(R.id.overallCommunicateVipTagIv)
         init {
             likeBtn.setOnClickListener(this)
             showAll.setOnClickListener(this)
         }
         fun bind() {
+            if (mEntity.vip >= 2){
+                vipTagIv.visibility = View.VISIBLE
+            }
             GlideUtil.displayHead(itemView.context, mEntity.headimgurl, avatar)
             nickName.text = mEntity.nickname
             content.text = mEntity.content
             pics.setAdapter(NineGridViewClickAdapter(itemView.context, mEntity.infoList))
             likeCount.text = mEntity.favour.toString()
             pingLunCount.text = mEntity.comment_number.toString()
-            createTime.text = WechatTimeUtil.getStandardDate(mEntity.create_time * 1000)
+            createTime.text = TimeUtil.stampToDateYMDHM(mEntity.create_time)
             pingLunAllCount.text = StringUtils.insertFrontAndBack(mList.size, "全部评论（","）")
             if (mEntity.is_favour == 1){
                 likeBtn.setChecked(true, false)

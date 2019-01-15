@@ -19,6 +19,7 @@ public class OverallRecentlyVipEntity implements Serializable {
     public int status;
     public String type;
     public String nickname;
+    public String content;
 
     @Override
     public String toString() {

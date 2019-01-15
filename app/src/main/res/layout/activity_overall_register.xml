@@ -2,158 +2,133 @@
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/overallBg">
+    android:background="@color/white">
 
     <include layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/app_icon"
+        app:layout_heightPercent="16.5%w"
+        app:layout_widthPercent="16.5%w"
+        app:riv_corner_radius="10dp"
+        android:scaleType="centerCrop"
+        app:layout_marginTopPercent="5%w"
+        app:layout_marginBottomPercent="6.3%w"
+        app:riv_border_width="1dp"
+        app:riv_border_color="@color/overallBg"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/mOverallRegisterPhoneNumberEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号"
+        android:paddingLeft="@dimen/normalPadding2"
+        android:background="@drawable/gray_login_edittext"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/overallGray"
+        android:textColorHint="@color/overallGray"
+        android:layout_below="@+id/mOverallLoginAccountAvatarIv"
+        app:layout_marginLeftPercent="10%w"
+        app:layout_marginRightPercent="10%w"
+        android:textSize="@dimen/normal_text_size"
+        android:maxLength="11"
+        android:inputType="number" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gray_solid4"
+        android:background="@drawable/gray_login_edittext"
         android:orientation="horizontal"
-        app:layout_heightPercent="11.73%w"
-        app:layout_marginTopPercent="9.3%w"
-        app:layout_marginLeftPercent="9.76%w"
-        app:layout_marginRightPercent="9.76%w"
-        app:layout_marginBottomPercent="3.47%w">
-        <TextView
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="手机号码"
-            android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/normalPadding"
-            android:textColor="@color/black"
-            android:textSize="@dimen/overall26px"
-            android:layout_weight="3"
-            android:gravity="center"/>
+        app:layout_marginBottomPercent="3.47%w"
+        app:layout_marginLeftPercent="10%w"
+        app:layout_marginRightPercent="10%w"
+        android:layout_marginTop="@dimen/normalPadding">
+        <!--
+        app:layout_heightPercent="11.73%w"-->
 
         <EditText
-            android:id="@+id/mOverallRegisterPhoneNumberEt"
+            android:id="@+id/mOverallRegisterVerificationCodeView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/view1"
             android:background="@null"
-            android:hint="13914800206"
+            android:hint="请输入验证码"
             android:inputType="number"
             android:maxLength="11"
             android:textSize="@dimen/overall26px"
             android:layout_weight="5" />
 
-        <app.jietuqi.cn.widget.ShapeCornerBgView
+        <TextView
             android:id="@+id/mOverallRegisterGetVerificationCodeView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="发送验证码"
-            android:textColor="#ffffff"
-            app:appBgColor="#2F80EC"
-            app:appBottomLeftCorner="false"
+            android:textColor="@color/black"
             android:textSize="@dimen/overall26px"
-            app:appTopLeftCorner="false"
-            app:appRadius="5dp"
+            android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_weight="4"/>
     </LinearLayout>
-    <LinearLayout
+    <EditText
+        android:id="@+id/mOverallRegisterPasswordViewEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gray_solid4"
-        android:orientation="horizontal"
-        app:layout_heightPercent="11.73%w"
-        app:layout_marginLeftPercent="9.76%w"
-        app:layout_marginRightPercent="9.76%w"
-        app:layout_marginBottomPercent="3.47%w">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="验证码"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/overall26px"
-            android:layout_weight="3"/>
-
-        <EditText
-            android:id="@+id/mOverallRegisterVerificationCodeView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:hint="输入验证码"
-            android:background="@null"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/overall26px"
-            android:inputType="number"
-            android:maxLength="6"
-            android:layout_weight="9"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gray_solid4"
-        android:orientation="horizontal"
-        app:layout_heightPercent="11.73%w"
-        app:layout_marginLeftPercent="9.76%w"
-        app:layout_marginRightPercent="9.76%w"
-        app:layout_marginBottomPercent="3.47%w">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="输入密码"
-            android:layout_centerVertical="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/overall26px"
-            android:layout_weight="3"
-            android:gravity="center"/>
-
-        <EditText
-            android:id="@+id/mOverallRegisterPasswordViewEt"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:hint="输入密码"
-            android:background="@null"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/overall26px"
-            android:layout_weight="9"/>
-    </LinearLayout>
-
-    <Button
+        android:hint="请输入密码"
+        android:background="@drawable/gray_login_edittext"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/overallGray"
+        android:textColorHint="@color/overallGray"
+        android:layout_below="@+id/mOverallLoginAccountAvatarIv"
+        app:layout_marginLeftPercent="10%w"
+        app:layout_marginRightPercent="10%w"
+        android:textSize="@dimen/normal_text_size"
+        android:maxLength="11" />
+    <TextView
         android:id="@+id/mOverallRegisterConfirmBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册"
-        android:textSize="@dimen/overall32px"
         android:textColor="@color/white"
-        android:background="@drawable/blue_round_cornor"
-        android:padding="10dp"
+        android:layout_below="@+id/mOverallLoginUserAgreementLayout"
+        app:layout_marginLeftPercent="10%w"
+        app:layout_marginRightPercent="10%w"
+        android:background="@drawable/blue_solid_login_btn_2"
         android:gravity="center"
-        android:layout_margin="@dimen/normalPadding"
-        android:layout_below="@+id/mOverallPreciseAddFansCountLayout"
-        app:layout_marginTopPercent="10.67%w"
-        app:layout_marginLeftPercent="9.76%w"
-        app:layout_marginRightPercent="9.76%w"/>
+        android:layout_margin="@dimen/normalPadding2"/>
 
     <LinearLayout
         android:id="@+id/mOverallRegisterUserAgreementTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/mOverallLoginPasswordEt"
+        android:layout_marginBottom="@dimen/normalPadding2"
         android:layout_gravity="center_horizontal"
-        app:layout_marginTopPercent="6.93%w">
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册即表示您同意"
+            android:layout_below="@+id/layout2"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/overall24px"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登录即表示您同意"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="《用户许可协议》"
-            android:textColor="#459DD8"/>
+            android:text="《微商营销宝用户许可协议》"
+            android:layout_below="@+id/layout2"
+            android:textColor="@color/overallBlue"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/overall24px" />
     </LinearLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

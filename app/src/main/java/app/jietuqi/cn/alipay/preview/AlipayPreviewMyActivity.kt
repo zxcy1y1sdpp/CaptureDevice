@@ -112,7 +112,7 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
         mBadgeView2 = QBadgeView(this).bindTarget(mAlipayMyBadgeView2).setBadgeTextSize(10f, true)
         mBadgeView3 = QBadgeView(this).bindTarget(mAlipayMyBadgeView3).setBadgeTextSize(10f, true)
         mBadgeView4 = QBadgeView(this).bindTarget(mAlipayMyBadgeView4).setBadgeTextSize(10f, true)
-        setAlipayPreviewTitle("我的", R.color.white, R.color.wechatBlue, showFinish = false, showRight = true, rightContext ="设置", showBottomLine = false)
+//        setAlipayPreviewTitle("我的", R.color.white, R.color.alipayBlueColor, showFinish = false, showRight = true, rightContext ="设置", showBottomLine = false)
 
     }
 
@@ -132,7 +132,7 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         val entity: AlipayCreateMyEntity = intent.getSerializableExtra(IntentKey.ENTITY) as AlipayCreateMyEntity
-        GlideUtil.display(this, entity.avatar, mAlipayPreviewMyAvatarIv)
+        GlideUtil.display(this, entity.avatarFile, mAlipayPreviewMyAvatarIv)
         mAlipayPreviewMyNickNameTv.text = entity.wechatUserNickName
         mAlipayPreviewMyAntTv.text = StringUtils.insertBack(entity.ant, " 积分")
         if (entity.showMerchant){
@@ -179,6 +179,7 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
 
     override fun onResume() {
         super.onResume()
+//        needVip()
         mBadgePadding = (ScreenUtil.getScreenWidth(this) * 0.05 / 4) .toFloat()
     }
 }

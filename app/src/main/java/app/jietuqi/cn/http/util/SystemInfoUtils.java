@@ -10,15 +10,19 @@ package app.jietuqi.cn.http.util;
  * @version 1.0.0 <br/>
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
+import app.jietuqi.cn.constant.SharedPreferenceKey;
 import app.jietuqi.cn.util.AppUtils;
+import app.jietuqi.cn.util.SharedPreferencesUtils;
 
 public final class SystemInfoUtils {
 
@@ -52,7 +56,7 @@ public final class SystemInfoUtils {
                 CommonConsts.SEMICOLON +
                 DensityUtils.getPhoneSize(context) + // 分辨率
                 CommonConsts.SEMICOLON +
-                SystemInfoUtils.getAppSource(context, CommonConsts.APP_SOURCE) + // 分发渠道
+                SystemInfoUtils.getChannel(context) + // 分发渠道
                 CommonConsts.SEMICOLON +
                 SystemInfoUtils.getNetType(context) + // 网络类型
                 CommonConsts.SEMICOLON;
@@ -66,25 +70,28 @@ public final class SystemInfoUtils {
     }
 
     /**
-     * 获取渠道，用于打包，by weatherfish
-     *
+     * 获取渠道，用于打包
      * @param context
-     * @param metaName
      * @return
      */
-    public static String getAppSource(Context context, String metaName) {
+    public static String getChannel(Context context) {
         String result = null;
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             if (appInfo.metaData == null)
                 return "Android";
-            result = appInfo.metaData.getString(metaName);
+            result = appInfo.metaData.getString("CHANNEL");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        SharedPreferencesUtils.putData(SharedPreferenceKey.CHANNEL_NAME, result);
         return result;
     }
-
+    public static String getIMEI(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        @SuppressLint("MissingPermission") String imei = telephonyManager.getDeviceId();
+        return imei;
+    }
     /**
      * 获取网络类型
      *
@@ -340,7 +347,7 @@ public final class SystemInfoUtils {
         /**
          * App渠道对应的meta名字
          */
-        public static final String APP_SOURCE = "AppSource";
+        public static final String APP_SOURCE = "CHANNEL";
 
         /**
          * 私有的构造方�?

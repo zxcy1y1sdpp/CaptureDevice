@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginBottomPercent="2.8%w">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sQQRedPacketMyAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="11.32%w"
+            app:layout_widthPercent="11.32%w"
+            app:layout_marginLeftPercent="1%w"
+            app:layout_marginRightPercent="2.83%w"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            app:layout_marginTopPercent="3.7%w"
+            app:riv_oval="true"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/sQQRedPacketMyStatusLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qq_duihua_hongbao_a"
+            android:layout_toLeftOf="@+id/sQQRedPacketMyAvatar"
+            app:layout_marginTopPercent="3.46%w"
+            app:layout_widthPercent="44.71%w"
+            app:layout_heightPercent="66.96%w">
+
+            <TextView
+                android:id="@+id/sQQRedPacketMyMessageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="恭喜发"
+                android:textColor="#FBB79B"
+                android:layout_centerHorizontal="true"
+                app:layout_marginTopPercent="50.21%w"
+                android:textSize="20sp"
+                android:lines="2"
+                android:maxLines="14"
+                android:maxLength="14"
+                android:gravity="center"
+                app:layout_marginLeftPercent="9.61%w"
+                app:layout_marginRightPercent="9.61%w"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QQ红包"
+            app:layout_marginTopPercent="2.16%w"
+            android:layout_below="@+id/sQQRedPacketMyStatusLayout"
+            android:layout_alignLeft="@+id/sQQRedPacketMyStatusLayout"
+            android:textColor="#76777C"
+            android:background="@drawable/qq_red_packet_tag"
+            app:layout_heightPercent="6.05%w"
+            android:textSize="13sp"
+            android:paddingLeft="@dimen/normalPaddingHalf"
+            android:paddingRight="@dimen/normalPaddingHalf"
+            android:gravity="center"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

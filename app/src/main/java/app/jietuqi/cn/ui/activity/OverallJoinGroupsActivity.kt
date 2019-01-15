@@ -122,11 +122,11 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         if(mType == 0){
-            setTitle("互粉", rightTitle = "批量加粉")
+            setTopTitle("互粉")
             mOverallJoinGroupsPublishCardTv.text = "发布名片"
             mOverallJoinGroupsPeopleCountTv.text = "性别"
         }else{
-            setTitle("加群")
+            setTopTitle("加群")
             mOverallJoinGroupsPublishCardTv.text = "发布群名片"
         }
         mAdapter = OverallJoinGroupsAdapter()
@@ -212,6 +212,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
         val postRequest = EasyHttp.post(HttpConfig.INFORMATION)
         postRequest.params("way", "lists")//way 必传add
                 . params("limit", mLimit)
+                . params("uid", UserOperateUtil.getUserId())
                 . params("page", mPage.toString())
                 .params("order", "update_time")
         if (mType == 0){//互粉
@@ -237,7 +238,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
                 mOverallJoinGroupsRefreshLayout.finishRefresh()
                 mOverallJoinGroupsRefreshLayout.finishLoadMore(true)
                 if (mPage == 1){
-                    if (null != mList && mList.size != 0){
+                    if (mList.size != 0){
                         mList.clear()
                     }
                 }
@@ -258,6 +259,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNeedLoadMyCardData(operate: String) {
+        mOverallJoinGroupsRefreshLayout.autoRefresh()
         getCard()
     }
     override fun onDestroy() {

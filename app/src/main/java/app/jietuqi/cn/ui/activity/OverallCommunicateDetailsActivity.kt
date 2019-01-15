@@ -14,12 +14,14 @@ import app.jietuqi.cn.callback.LikeListener
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.adapter.OverallCommunicateDetailsAdapter
+import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.SoftKeyBoardListener
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_communicate_details.*
@@ -51,7 +53,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
     }
 
     override fun initAllViews() {
-        setTitle("评论详情", 0)
+        setRefreshLayout(mOverallCommunicateDetailsRefreshLayout)
         (mOverallCommunicateDetailsRecyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
     }
 
@@ -77,6 +79,11 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mEntity = intent.getSerializableExtra(IntentKey.ENTITY) as OverallDynamicEntity
+        if (mEntity.uid.toString() == UserOperateUtil.getUserId()){
+            setTopTitle("内容详情", rightTitle = "删除")
+        }else{
+            setTopTitle("内容详情")
+        }
         mList.addAll(mEntity.comment)
         mAdapter = OverallCommunicateDetailsAdapter(mList, mEntity, this)
         mOverallCommunicateDetailsRecyclerView.adapter = mAdapter
@@ -95,6 +102,9 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)    //InputMethodManager.SHOW_FORCED
             }
+            R.id.overAllRightTitleTv ->{
+                del(mEntity)
+            }
             R.id.mOverallCommunicateDetailsSendPingLunTv -> {
                 if (UserOperateUtil.isCurrentLoginDirectlyLogin(this)) {
                     val content = mOverallCommunicateDetailsPingLunEt.text.toString().trim()
@@ -106,6 +116,20 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 }
             }
         }
+    }
+    private fun del(entity: OverallDynamicEntity){
+        EasyHttp.post(HttpConfig.INFO)
+                .params("way", "article_del")
+                .params("id", entity.id.toString())
+                .execute(object : SimpleCallBack<String>() {
+                    override fun onError(e: ApiException) {
+                        e?.message?.let { showToast(it) }
+                    }
+                    override fun onSuccess(t: String) {
+                        showToast("删除成功")
+                        finish()
+                    }
+                })
     }
     private fun pingLun(content: String){
         EasyHttp.post(HttpConfig.INFO)
@@ -184,5 +208,38 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                         EventBusUtil.post(mEntity)
                     }
                 })
+    }
+    private fun getData(){
+        EasyHttp.post(HttpConfig.INFO)
+                .params("way", "article")
+                .params("id", mEntity.id.toString())
+                .execute(object : CallBackProxy<OverallApiEntity<OverallDynamicEntity>, OverallDynamicEntity>(object : SimpleCallBack<OverallDynamicEntity>() {
+                    override fun onSuccess(t: OverallDynamicEntity) {
+                        mOverallCommunicateDetailsRefreshLayout.finishRefresh(true)
+                        mOverallCommunicateDetailsRefreshLayout.finishLoadMore(true)
+                        mEntity = t
+                        if (mPage == 1){
+                            mList.clear()
+                        }
+                        mList.addAll(mEntity.comment)
+                        mAdapter?.notifyDataSetChanged()
+                    }
+
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                        mOverallCommunicateDetailsRefreshLayout.finishRefresh(false)
+                        if (mPage == 1){
+                            mList.clear()
+                            mAdapter?.notifyDataSetChanged()
+                        }else{
+                            mOverallCommunicateDetailsRefreshLayout.finishLoadMoreWithNoMoreData()
+                        }
+                    }
+                }) {})
+    }
+
+    override fun refreshAndLoadMore() {
+        super.refreshAndLoadMore()
+        getData()
     }
 }

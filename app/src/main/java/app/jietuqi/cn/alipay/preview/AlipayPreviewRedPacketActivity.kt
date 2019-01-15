@@ -2,6 +2,7 @@ package app.jietuqi.cn.alipay.preview
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.alipay.entity.AlipayCreateRedPacketEntity
 import app.jietuqi.cn.base.alipay.BaseAlipayActivity
@@ -32,12 +33,10 @@ class AlipayPreviewRedPacketActivity : BaseAlipayActivity() {
         return false
     }
 
-    override fun initAllViews() {
-
-    }
+    override fun initAllViews() {}
 
     override fun initViewsListener() {
-
+        mAlibabaRedPacketBackBtn.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
@@ -47,6 +46,15 @@ class AlipayPreviewRedPacketActivity : BaseAlipayActivity() {
         mAlibabaRedPacketMsgTv.text = entity.msg
         mAlibabaRedPacketMoneyTv.text = StringUtils.keep2Point(entity.money)
         mAlipayRedPacketNumTv.text = StringUtils.insertFront(entity.num, "红包编号：")
-        GlideUtil.display(this, entity.avatar, mAlibabaRedPacketAvatarIv)
+        GlideUtil.displayHead(this, entity.getAvatarFile(), mAlibabaRedPacketAvatarIv)
+    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when(v.id){
+            R.id.mAlibabaRedPacketBackBtn ->{
+                finish()
+            }
+        }
     }
 }

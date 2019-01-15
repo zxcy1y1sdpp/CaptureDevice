@@ -1,12 +1,15 @@
 package app.jietuqi.cn.ui.activity
 
+import android.Manifest
 import android.content.Intent
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.callback.EditDialogChoiceListener
+import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.entity.EditDialogEntity
@@ -22,6 +25,8 @@ import com.zhouyou.http.body.UIProgressResponseCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_publish_my_card.*
+import kotlinx.android.synthetic.main.include_base_overall_top_black.*
+import permissions.dispatcher.*
 import java.io.File
 
 /**
@@ -30,6 +35,7 @@ import java.io.File
  * 邮箱： 972383753@qq.com
  * 用途： 发布我的名片/群名片
  */
+@RuntimePermissions
 class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoiceListener, QRCodeView.Delegate{
     /**
      * 0 -- 我的名片
@@ -46,12 +52,18 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
 
     override fun needLoadingView() = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStatusBarColor(ColorFinal.wechatTitleBar)
+        setLightStatusBarForM(this, false)
+    }
     override fun initAllViews() {}
 
     override fun initViewsListener() {
         mOverallPublishMyCardLayout.setOnClickListener(this)
         mOverallPublishCardNumberLayout.setOnClickListener(this)
         mOverallPublishCardPhoneNumberLayout.setOnClickListener(this)
+        mOverallPublishCardPhoneNumberTv.setOnClickListener(this)
         mOverallPublishCardQrCodeLayout.setOnClickListener(this)
         mOverallPublishCardIntroductionLayout.setOnClickListener(this)
         mOverallPublishCardTypeLayout.setOnClickListener(this)
@@ -59,15 +71,16 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
         mOverallPublishCardSexualityOrNumberLayout.setOnClickListener(this)
         mOverallPublishCardBtn.setOnClickListener(this)
         mOverallPublishCardZXingView.setDelegate(this)
+        overallAllRightWithOutBgTv.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mCardType = intent.getIntExtra(IntentKey.TYPE, 0)
         when (mCardType) {
-            0 -> setTitle("我的名片")
+            0 -> setBlackTitle("我的名片")
             1 -> {//修改我的名片
-                setTitle("编辑名片", rightTitle = "删除")
+                setBlackTitle("编辑名片", 2)
                 val cardEntity: OverallCardEntity = intent.getSerializableExtra(IntentKey.ENTITY) as OverallCardEntity
                 mOverallPublishCardPhoneNumberTv.text = cardEntity.mobile
                 for (entity in UserOperateUtil.getIndustrys()) {
@@ -81,7 +94,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 insertData(cardEntity)
             }
             2,3 -> {
-                setTitle("群名片")
+                setBlackTitle("群名片")
                 mOverallPublishCardNameTitleTv.text = "群名称"
                 mOverallPublishCardNameTv.hint = "请输入群名称"
                 mOverallPublishMyCardLayout.tag = "群名称"
@@ -104,7 +117,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 mOverallPublishCardPhoneNumberLayout.visibility = View.GONE
                 mOverallPublishCardBtn.text = "发布群名片"
                 if (mCardType == 3){
-                    setTitle("编辑群名片", rightTitle = "删除")
+                    setBlackTitle("编辑群名片", 2)
                     val cardEntity: OverallCardEntity = intent.getSerializableExtra(IntentKey.ENTITY) as OverallCardEntity
                     insertData(cardEntity)
                     for (entity in UserOperateUtil.getGroupType()) {
@@ -142,13 +155,13 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 dialog.setData(this, EditDialogEntity(1, "", mOverallPublishCardNumberLayout.tag.toString()))
                 dialog.show(supportFragmentManager, "publishMyCard")
             }
-            R.id.mOverallPublishCardPhoneNumberLayout ->{
+            R.id.mOverallPublishCardPhoneNumberLayout, R.id.mOverallPublishCardPhoneNumberTv ->{
                 val dialog = EditDialog()
                 dialog.setData(this, EditDialogEntity(2, "", mOverallPublishCardPhoneNumberLayout.tag.toString()))
                 dialog.show(supportFragmentManager, "publishMyCard")
             }
             R.id.mOverallPublishCardQrCodeLayout ->{
-                callAlbum(needCrop = true)
+                openAlbumWithPermissionCheck()
             }
             R.id.mOverallPublishCardIntroductionLayout ->{
                 val dialog = EditDialog()
@@ -157,9 +170,9 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
             }
             R.id.mOverallPublishCardTypeLayout ->{
                 if (mCardType < 2){
-                    initIndustryOrGroup()
+                    initIndustryOrGroup(showAllType = false)
                 }else{
-                    initIndustryOrGroup(3)
+                    initIndustryOrGroup(3, showAllType = false)
                 }
             }
             R.id.mOverallPublishCardAreaLayout ->{
@@ -187,7 +200,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                     }
                 }
             }
-            R.id.overAllRightTitleTv ->{
+            R.id.overallAllRightWithOutBgTv ->{
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("提示")
                         .setContentText("确定要删除您的名片吗？")
@@ -276,11 +289,9 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 showToast("请输入手机号")
                 return false
             }
-            if (mCardType == 2){
-                if (null == mWechatBgFile){
-                    showToast("请选择二维码")
-                    return false
-                }
+            if (null == mWechatBgFile){
+                showToast("请选择二维码")
+                return false
             }
             if (OtherUtil.getContent(mOverallPublishCardIntroductionTv).isEmpty()){
                 showToast("请输入个人介绍")
@@ -409,7 +420,9 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 .params("id", mOverallPublishCardBtn.tag.toString())
                 .params("uid", UserOperateUtil.getUserId())
                 .execute(object : SimpleCallBack<String>() {
-                    override fun onError(e: ApiException) {}
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
                     override fun onSuccess(t: String) {
                         EventBusUtil.post("")
                         showToast("删除成功")
@@ -437,5 +450,24 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
 
     override fun onScanQRCodeOpenCameraError() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun openAlbum() {
+        callAlbum(needCrop = true)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onShowRationale(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain() {
+        showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
 }

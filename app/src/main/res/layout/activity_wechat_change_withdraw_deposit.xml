@@ -43,14 +43,15 @@
         style="@style/wechatEdit"
         android:hint="银行卡尾号（后四位）"
         android:padding="@dimen/normalPadding"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:maxLength="4"/>
     <EditText
         android:id="@+id/mDepositMoneyEt"
         style="@style/wechatEdit"
         android:hint="提现金额（元）"
         android:padding="@dimen/normalPadding"
         android:layout_marginTop="@dimen/littleModuleSpace"
-        android:inputType="number"/>
+        android:inputType="numberDecimal"/>
 
     <RelativeLayout
         style="@style/wechatItem">

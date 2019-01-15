@@ -25,7 +25,7 @@ public class WechatChargeHelper extends MyOpenHelper {
     /**
      * 创建微信好友关系表
      */
-    public void createTable() {
+    public void createWechatChargeTable() {
         if (!isTableExists("wechatCharge")){
             SQLiteDatabase db = getWritableDatabase();
             StringBuilder builder = new StringBuilder();
@@ -40,7 +40,7 @@ public class WechatChargeHelper extends MyOpenHelper {
     }
     public int save(WechatChargeDetailEntity entity){
         String tableName = "wechatCharge";
-        createTable();
+        createWechatChargeTable();
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         //开始添加第一条数据

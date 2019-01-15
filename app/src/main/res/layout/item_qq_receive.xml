@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal">
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qq_red_packet_tag"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/normalPadding"
+        android:paddingRight="@dimen/normalPadding"
+        app:layout_marginTopPercent="1.51%w"
+        app:layout_marginBottomPercent="1.51%w"
+        app:layout_heightPercent="6.05%w">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qq_duihua_ico_hongbao"
+            android:layout_marginRight="@dimen/normalPaddingHalf"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/sQQReceiveRedPacketContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李凌轩领取了你的"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:drawablePadding="@dimen/normalPaddingHalf"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包"
+            android:textColor="#E32A57"
+            android:textSize="12sp"
+            android:includeFontPadding="false"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="。"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:includeFontPadding="false"
+            android:layout_gravity="center_vertical"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

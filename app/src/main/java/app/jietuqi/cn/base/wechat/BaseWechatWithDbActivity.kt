@@ -15,4 +15,5 @@ abstract class BaseWechatWithDbActivity : BaseWechatActivity() {
         super.onResume()
         loadFromDb()
     }
+
 }

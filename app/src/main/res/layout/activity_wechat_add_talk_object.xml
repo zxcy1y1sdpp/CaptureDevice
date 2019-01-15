@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         layout="@layout/base_wechat_title"/>
 
-    <RelativeLayout
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mSelectAvatarLayout"
         android:layout_below="@+id/titleLayout"
         style="@style/wechatItem"
@@ -29,12 +29,14 @@
             android:layout_toLeftOf="@+id/tagIv"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
             android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/tagIv"
             style="@style/wechatRightArrow"/>
-    </RelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_below="@+id/mSelectAvatarLayout"
         style="@style/wechatItem">
@@ -53,15 +55,15 @@
             android:padding="@dimen/normalPadding"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            percent:layout_heightPercent="14%w"
-            percent:layout_widthPercent="14%w"/>
+            app:layout_heightPercent="14%w"
+            app:layout_widthPercent="14%w"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <Button
         android:id="@+id/mWechatAddObject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="14%w"
+        app:layout_heightPercent="14%w"
         android:text="添加"
         android:textColor="@color/white"
         android:layout_margin="@dimen/normalPadding"

@@ -1,22 +1,29 @@
 package app.jietuqi.cn.ui.activity
 
-import android.content.ComponentName
-import android.content.Intent
+import android.Manifest
+import android.content.*
 import android.net.Uri
 import android.os.Environment
 import android.provider.ContactsContract
 import android.view.View
+import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.entity.ContactEntity
 import app.jietuqi.cn.ui.entity.OverallCardEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.ContactUtil
+import app.jietuqi.cn.util.FileUtil
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_personal_card.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import permissions.dispatcher.*
 import java.io.File
 
 
@@ -26,8 +33,8 @@ import java.io.File
  * 邮箱： 972383753@qq.com
  * 用途： 个人名片
  */
+@RuntimePermissions
 class OverallPersonalCardActivity : BaseOverallInternetActivity() {
-    private val TAG = "Contact"
     private lateinit var mOverallCardEntity: OverallCardEntity
     override fun setLayoutResourceId() = R.layout.activity_overall_personal_card
 
@@ -48,13 +55,42 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                 downloadQRCode()
             }
             R.id.mOverallPersonalSaveWXNumberTv ->{
-                ContactUtil.batchDelContact(this)
+                try {
+                    //获取剪贴板管理器：
+                    val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    // 创建普通字符型ClipData
+                    val mClipData = ClipData.newPlainText("Label", mOverallCardEntity.wxname)
+                    // 将ClipData内容放到系统剪贴板里。
+                    cm.primaryClip = mClipData
+                    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                            .setCanTouchOutSideCancle(false)
+                            .canCancle(false)
+                            .setTitleText("提示")
+                            .setContentText("已复制到粘贴板，是否立即前往添加？")
+                            .setConfirmText("立即添加")
+                            .setCancelText("取消")
+                            .setConfirmClickListener { sweetAlertDialog ->
+                                val intent = Intent()
+                                val cmp = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
+                                intent.action = Intent.ACTION_MAIN
+                                intent.addCategory(Intent.CATEGORY_LAUNCHER)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.component = cmp
+                                startActivity(intent)
+                                sweetAlertDialog.dismissWithAnimation()
+                            }.setCancelClickListener {
+                                it.dismissWithAnimation()
+                            }.show()
+                }catch (e: ActivityNotFoundException){
+                    Toast.makeText(this, "您还没有安装微信，请安装后使用", Toast.LENGTH_SHORT).show()
+                }
             }
             R.id.mOverallPersonalImportTv ->{
-                ContactUtil.addOneContact(this, ContactEntity(mOverallCardEntity.mobile, mOverallCardEntity.wxnickname))
+                addInContactsWithPermissionCheck()
             }
         }
     }
+
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
@@ -62,10 +98,10 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
         mOverallCardEntity = intent.getSerializableExtra(IntentKey.ENTITY) as OverallCardEntity
         mOverallPersonalSaveQRCodeTv.tag = mOverallCardEntity.wx_qr
         if (type == 0){
-            setTitle("个人名片", 0)
+            setTopTitle("个人名片", 0)
             mOverallPersonalWxNumberTv.text = StringUtils.insertFront(mOverallCardEntity.wxname, "微信号：")
         }else{
-            setTitle("群名片", 0)
+            setTopTitle("群名片", 0)
             mOverallPersonalSaveQRCodeTv.text = "保存群二维码"
             mOverallPersonalSaveWXNumberTv.text = "复制群主微信号"
             mOverallPersonalWxNumberTv.text = StringUtils.insertFront(mOverallCardEntity.wxname, "群主微信号：")
@@ -74,11 +110,8 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                 mOverallPersonalNoticeTv.visibility = View.VISIBLE
             }
         }
-        for (entity in UserOperateUtil.getGroupType()) {
-            if (entity.id == mOverallCardEntity.industry_id){
-                mOverallPersonalOtherTypeTv.text = StringUtils.insertFrontAndBack("/", mOverallCardEntity.area, entity.title)
-            }
-        }
+        mOverallPersonalOtherTypeTv.text = StringUtils.insertFront(mOverallCardEntity.wxname, "微信号：")
+        mOverallPersonalOtherTypeTv.text = StringUtils.insertFrontAndBack("/", mOverallCardEntity.area, mOverallCardEntity.industry.name)
         mOverallPersonalCardTitleTv.text = mOverallCardEntity.wxnickname
         mOverallPersonalContentTv.text = mOverallCardEntity.content
         GlideUtil.displayHead(this, mOverallCardEntity.headimgurl, mOverallPersonalCardPicIv)
@@ -142,4 +175,31 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
         showToast("删除成功")
     }
 
+    @NeedsPermission(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
+    fun addInContacts() {
+        showLoadingDialog()
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            ContactUtil.addOneContact(this@OverallPersonalCardActivity, ContactEntity(mOverallCardEntity.mobile, mOverallCardEntity.wxnickname))
+            runOnUiThread {
+                dismissLoadingDialog()
+                showToast("添加成功")
+            }
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
+    fun showRationaleContacts(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
+    fun neverAskAgainContacts() {
+        showToast("请授权 [ 微商营销宝 ] 的 [ 通讯录 ] 访问权限")
+    }
 }

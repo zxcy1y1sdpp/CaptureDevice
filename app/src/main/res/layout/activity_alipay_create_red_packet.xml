@@ -32,12 +32,13 @@
             android:id="@+id/mAlipayCreateRedPacketAvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/head_default"
             percent:layout_heightPercent="85%h"
             percent:layout_widthPercent="85%h"
             android:scaleType="centerCrop"
             android:layout_toStartOf="@+id/rightTgIv"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPadding"/>
 
         <ImageView
             android:id="@+id/rightTgIv"
@@ -47,7 +48,7 @@
         android:id="@+id/mAlipayCreateRedPacketInputMoneyEt"
         android:hint="输入红包金额"
         style="@style/wechatEdit"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:padding="@dimen/normalPadding"/>
     <EditText
         android:id="@+id/mAlipayCreateRedPacketLeaveMsgEt"

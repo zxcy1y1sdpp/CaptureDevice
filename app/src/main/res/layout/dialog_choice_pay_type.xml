@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/normalPadding">
+    android:orientation="vertical">
     <app.jietuqi.cn.widget.ShapeCornerBgView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +29,8 @@
         android:textColor="@color/overallBlue"
         android:gravity="center"
         android:background="@color/white"
-        android:textSize="@dimen/overall16sp"/>
+        android:textSize="@dimen/overall16sp"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/wechatLineNarrow"
@@ -42,18 +42,25 @@
         android:padding="15dp"
         app:appTopLeftCorner="false"
         app:appTopRightCorner="false"
+        app:appBottomLeftCorner="false"
+        app:appBottomRightCorner="false"
         android:text="支付宝付款"
         android:textColor="@color/overallBlue"
         app:appBgColor="@color/white"
         app:appRadius="10dp"
-        android:layout_marginBottom="@dimen/normalPadding"
         android:gravity="center"
         android:textSize="@dimen/overall16sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/overallBg"/>
     <app.jietuqi.cn.widget.ShapeCornerBgView
         android:id="@+id/sCancelItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="取消"
+        app:appTopLeftCorner="false"
+        app:appTopRightCorner="false"
         android:textColor="@color/overallBlue"
         app:appBgColor="@color/white"
         app:appRadius="10dp"

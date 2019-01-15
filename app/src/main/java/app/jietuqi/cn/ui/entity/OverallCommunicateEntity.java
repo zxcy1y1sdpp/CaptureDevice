@@ -23,6 +23,12 @@ public class OverallCommunicateEntity implements Serializable {
      */
     public String nickName;
     /**
+     * 2 -- 季度会员
+     * 3 -- 年费会员
+     * 4 -- 永久会员
+     */
+    public int vip;
+    /**
      * 评论内容
      */
     public String content;

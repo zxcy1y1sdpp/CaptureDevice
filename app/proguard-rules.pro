@@ -36,7 +36,6 @@
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-#Glide混淆相关---------------------------------------------------------结束
 -dontwarn com.squareup.picasso.**
 
 #uCrop 相关
@@ -44,7 +43,18 @@
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
 
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-dontwarn android.net.**
+-keep class android.net.SSLCertificateSocketFactory{*;}
+
+-keep class com.mob.**{*;}
+-keep class cn.smssdk.**{*;}
+-dontwarn com.mob.**
+-dontwarn cn.smssdk.**
+
 #Mob相关
 #PaySDK已经做了混淆处理，再次混淆会导致不可预期的错误，请在您的混淆脚本中添加如下的配置，跳过对PaySDK的混淆操作：
 -keep class com.mob.**{*;}
 -dontwarn com.mob.**
+

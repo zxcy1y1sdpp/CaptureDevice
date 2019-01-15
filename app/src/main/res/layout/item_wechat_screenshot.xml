@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        percent:layout_heightPercent="14.63%w"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/sWechatScreenShotAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            percent:layout_heightPercent="10%w"
+            percent:layout_widthPercent="10%w"
+            android:src="@drawable/head_default"
+            android:layout_marginLeft="@dimen/normalPadding"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/sWechatScreenShotContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/overall28px"
+            android:layout_marginLeft="@dimen/normalPadding"
+            android:layout_marginRight="@dimen/normalPadding"
+            android:lines="1"
+            android:ellipsize="end"/>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wechatLineNarrow"
+        android:background="@color/overallBg"
+        android:layout_marginLeft="@dimen/normalPadding"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

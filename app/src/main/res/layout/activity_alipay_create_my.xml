@@ -41,33 +41,50 @@
                     android:id="@+id/mAlipayCreateMyAvatarIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/head_default"
                     percent:layout_heightPercent="85%h"
                     percent:layout_widthPercent="85%h"
                     android:scaleType="centerCrop"
                     android:layout_toStartOf="@+id/rightTgIv"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/normalPadding"/>
 
                 <ImageView
                     android:id="@+id/rightTgIv"
                     style="@style/wechatRightArrow"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 style="@style/wechatItem">
                 <TextView
+                    android:id="@+id/view1"
                     style="@style/wechatLeftTitle"
                     android:text="支付宝账号"/>
                 <EditText
                     android:id="@+id/mAlipayCreateMyAccountTv"
                     android:hint="请输入支付宝账号"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     style="@style/wechatEdit"
                     android:textColorHint="@color/wechat_deep3_text_color"
-                    android:layout_toLeftOf="@+id/mRefreshIv"
+                    android:layout_toLeftOf="@+id/mAlipayCreateMyRefreshIv"
                     android:paddingLeft="@dimen/normalPadding"
                     android:gravity="right|center_vertical"
-                    android:layout_marginRight="@dimen/normalPadding"/>
-            </LinearLayout>
+                    android:layout_marginRight="@dimen/normalPadding"
+                    android:layout_toRightOf="@+id/view1"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/mAlipayCreateMyRefreshIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/wechat_refresh"
+                    android:padding="@dimen/normalPadding"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    percent:layout_heightPercent="14%w"
+                    percent:layout_widthPercent="14%w" />
+            </RelativeLayout>
 
             <LinearLayout
                 style="@style/wechatItem">
@@ -100,7 +117,7 @@
                     android:paddingLeft="@dimen/normalPadding"
                     android:gravity="right|center_vertical"
                     android:layout_marginRight="@dimen/normalPadding"
-                    android:inputType="number|numberDecimal"/>
+                    android:inputType="numberDecimal"/>
             </LinearLayout>
             <RelativeLayout
                 style="@style/wechatItem">

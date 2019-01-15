@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/wechatBg">
 
-    <include layout="@layout/base_wechat_title"
+    <include
+        layout="@layout/base_wechat_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -15,7 +16,7 @@
         android:hint="零钱金额（元）"
         style="@style/wechatEdit"
         android:layout_marginTop="@dimen/normalPadding"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:padding="@dimen/normalPadding"/>
     <include layout="@layout/include_wechat_preview_btn"
         android:layout_width="match_parent"

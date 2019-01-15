@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatSettingInfoMyLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="自己"
+            style="@style/wechatLeftTitle"/>
+        <TextView
+            android:id="@+id/mWechatSettingInfoMyNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:text="骑牛撞交警"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mWechatSettingInfoMyAvatarIv"/>
+
+        <ImageView
+            android:id="@+id/mWechatSettingInfoMyAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatSettingInfoOtherLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="对方"
+            style="@style/wechatLeftTitle"/>
+        <TextView
+            android:id="@+id/mWechatSettingInfoOtherNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            android:text="骑牛撞交警撒旦法"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/mWechatSettingInfoOtherAvatarIv"/>
+
+        <ImageView
+            android:id="@+id/mWechatSettingInfoOtherAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv1"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatSettingInfoBgLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="设置聊天背景"
+            style="@style/wechatLeftTitle"/>
+
+        <ImageView
+            android:id="@+id/mWechatSettingInfoBgIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_bg"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv2"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mQQOtherStatusLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="对方状态"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mQQOtherStatusTv"
+            android:text="手机在线 - WIFI"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mQQUnReadNumberLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="未读消息数"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mQQUnReadNumberTv"
+            android:text="20"
+            style="@style/wechatRightWithArrow"/>
+    </RelativeLayout>
+
+
+</com.zhy.android.percent.support.PercentLinearLayout>

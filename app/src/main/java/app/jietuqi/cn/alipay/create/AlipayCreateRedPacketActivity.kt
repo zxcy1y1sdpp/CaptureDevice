@@ -1,6 +1,7 @@
 package app.jietuqi.cn.alipay.create
 
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.alipay.entity.AlipayCreateRedPacketEntity
@@ -8,10 +9,9 @@ import app.jietuqi.cn.base.BaseCreateActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.constant.RandomUtil
 import app.jietuqi.cn.constant.RequestCode
-import app.jietuqi.cn.database.table.WechatUserTable
+import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
-import app.jietuqi.cn.wechat.ui.activity.WechatRoleActivity
 import kotlinx.android.synthetic.main.activity_alipay_create_red_packet.*
 
 /**
@@ -31,6 +31,14 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
     }
 
     override fun initAllViews() {
+        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        mEntity.avatarFile = userEntity.avatarFile
+        mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
+        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.wechatUserNickName = userEntity.wechatUserNickName
+
+        GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateRedPacketAvatarIv)
+        mAlipayCreateRedPacketNickNameTv.text = mEntity.wechatUserNickName
         mEntity.num = RandomUtil.getRandomNum(28)
         setCreateTitle("支付宝红包", 0)
         onlyOneEditTextNeedTextWatcher(mAlipayCreateRedPacketInputMoneyEt)
@@ -44,27 +52,33 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
         super.onClick(v)
         when(v.id){
             R.id.previewBtn ->{
+                var msg = mAlipayCreateRedPacketLeaveMsgEt.text.toString()
+                if (TextUtils.isEmpty(msg)){
+                    msg = "恭喜发财，万事如意！"
+                }
                 mEntity.money = mAlipayCreateRedPacketInputMoneyEt.text.toString()
-                mEntity.msg = mAlipayCreateRedPacketLeaveMsgEt.text.toString()
+                mEntity.msg = msg
                 LaunchUtil.startAlipayPreviewRedPacketActivity(this, mEntity)
             }
             R.id.mAlipayCreateRedPacketChangeRoleLayout ->{
-                LaunchUtil.launch(this, WechatRoleActivity::class.java, RequestCode.CHANGE_ROLE)
+                operateRole(mEntity, 1)
             }
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK){
-            when(requestCode){
-                RequestCode.CHANGE_ROLE ->{
-                    val entity: WechatUserTable = data?.getSerializableExtra(IntentKey.ENTITY) as WechatUserTable
-                    mEntity.avatar = entity.avatar
-                    mEntity.wechatUserNickName = entity.wechatUserNickName
+        when(requestCode){
+            RequestCode.OTHER_SIDE ->{
+                if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
+                    mEntity.avatarFile = mOtherSideEntity.avatarFile
+                    mEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
+                    mEntity.resAvatar = mOtherSideEntity.resAvatar
+                    mEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
+                    GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateRedPacketAvatarIv)
                     mAlipayCreateRedPacketNickNameTv.text = mEntity.wechatUserNickName
-                    GlideUtil.display(this, mEntity.avatar, mAlipayCreateRedPacketAvatarIv)
                 }
             }
+
         }
     }
 }
