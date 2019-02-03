@@ -42,7 +42,7 @@ class OverallExplodeActivity : BaseOverallActivity() {
         getCard()
     }
     override fun initAllViews() {
-        setTopTitle("VIP爆粉", leftColor = R.color.white, leftIv = R.drawable.back_white, bgColor = R.color.explore, contentColor = R.color.white, showBottomLine = false)
+        setTopTitle("VIP爆粉", leftColor = R.color.white, leftIv = R.drawable.back_white, bgColor = R.color.explore, contentColor = R.color.white)
 
     }
     override fun initViewsListener() {

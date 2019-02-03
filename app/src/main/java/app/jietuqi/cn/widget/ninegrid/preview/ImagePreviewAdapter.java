@@ -81,7 +81,7 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
 //                .placeholder(R.drawable.ic_default_image)//
 //                .error(R.drawable.ic_default_image)//
 //                .diskCacheStrategy(DiskCacheStrategy.ALL)//
-//                .listener(new RequestListener<String, GlideDrawable>() {
+//                .listener(newfun RequestListener<String, GlideDrawable>() {
 //                    @Override
 //                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
 //                        pb.setVisibility(View.GONE);

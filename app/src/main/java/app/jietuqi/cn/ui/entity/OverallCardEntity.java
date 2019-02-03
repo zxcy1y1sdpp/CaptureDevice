@@ -11,6 +11,7 @@ import app.jietuqi.cn.util.StringUtils;
  * 用途： 名片
  */
 public class OverallCardEntity implements Serializable {
+    private static final long serialVersionUID = 5907454140242663844L;
     public int id;
     public String title;
     /**
@@ -22,6 +23,10 @@ public class OverallCardEntity implements Serializable {
     public String description;
     public String content;
     public int status;
+    /**
+     * 会员等级
+     */
+    public int vip;
     public int is_top;
     public int view;
     public long update_time;
@@ -47,6 +52,7 @@ public class OverallCardEntity implements Serializable {
     }
 
     public class IndustryEntity implements Serializable{
+        private static final long serialVersionUID = -7715651537649468983L;
         public int id;
         public String name;
         public String background;

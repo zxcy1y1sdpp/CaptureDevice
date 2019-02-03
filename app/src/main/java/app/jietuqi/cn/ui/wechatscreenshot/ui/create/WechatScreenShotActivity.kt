@@ -6,19 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseCreateActivity
-import app.jietuqi.cn.constant.RandomUtil
-import app.jietuqi.cn.constant.SharedPreferenceKey
-import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
-import app.jietuqi.cn.ui.alipayscreenshot.db.AlipayScreenShotHelper
-import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.ui.qqscreenshot.db.QQScreenShotHelper
-import app.jietuqi.cn.ui.qqscreenshot.entity.QQScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.adapter.WechatScreenShotAdapter
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
 import app.jietuqi.cn.ui.wechatscreenshot.db.WechatScreenShotHelper
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.util.UserOperateUtil.getMySelf
 import app.jietuqi.cn.widget.dialog.ChoiceTalkTypeDialog
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
@@ -39,11 +34,18 @@ import java.util.*
  * 邮箱： 972383753@qq.com
  * 用途： 微信单聊生成页面
  */
-class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTypeListener {
+class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTypeListener, WechatScreenShotAdapter.DeleteListener {
+    override fun delete(entity: WechatScreenShotEntity, position: Int) {
+        mHelper.delete(entity)
+        mList.remove(entity)
+        mAdapter?.notifyItemRemoved(position)
+    }
+
     override fun choiceType(title: String, msgType: String) {
         when(title){
             "时间" ->{
-                initTimePickerView(tag = "创建")
+                LaunchUtil.startWechatCreateTimeActivity(this, mOtherSideEntity, null, 0)
+//                initTimePickerView(tag = "创建")
             }
             "文本" ->{
                 LaunchUtil.startWechatCreateTextActivity(this, mOtherSideEntity, null, 0)
@@ -116,36 +118,15 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setBlackTitle("微信单聊", 2)
+        setBlackTitle("聊天对话", 2)
         mHelper = WechatScreenShotHelper(this)
         mRoleHelper = RoleLibraryHelper(this)
         mMySideEntity = getMySelf()
-        try {
-            mOtherSideEntity = UserOperateUtil.getOtherSide()
-        }catch (e: IllegalStateException){
-            GlobalScope.launch { // 在一个公共线程池中创建一个协程
-                val list = mRoleHelper.query()
-                if (list.isNullOrEmpty() || list.size <= 0){
-                    var entity: WechatUserEntity
-                    var nickName: String
-                    for (i in RandomUtil.randomAvatar.indices){
-                        nickName = RandomUtil.getOrderNickName(i)
-                        entity = WechatUserEntity(RandomUtil.getOrderAvatar(i), "", nickName, OtherUtil.transformPinYin(nickName))
-                        var userId = mRoleHelper.save(entity)
-                        entity.wechatUserId = userId.toString()
-                        mRoleHelper.update(entity)
-                        if (i == 1){//第一条数据就是聊天页面的对方的身份
-                            mOtherSideEntity = entity
-                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
-                        }
-                    }
-                }
-            }
-        }
+        mOtherSideEntity = UserOperateUtil.getOtherSide()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatScreenShotMySideAvatarIv)
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatScreenShotOtherSideAvatarIv)
         mHelper.queryAll()?.let { mList.addAll(it) }
-        mAdapter = WechatScreenShotAdapter(mList)
+        mAdapter = WechatScreenShotAdapter(mList, this)
         mWechatScreenShotCreateMenuRecyclerView.setSwipeMenuCreator(swipeMenuCreator)
         mWechatScreenShotCreateMenuRecyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener)
         mWechatScreenShotCreateMenuRecyclerView.isLongPressDragEnabled = true // 拖拽排序，默认关闭。
@@ -167,9 +148,10 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                     LaunchUtil.startWechatCreatePictureAndVideoActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
                 }
                 2 ->{
-                    val calendar = Calendar.getInstance()
-                    calendar.timeInMillis = mEditEntity.time
-                    initTimePickerView(tag = "修改", selectedDate = calendar)
+                    LaunchUtil.startWechatCreateTimeActivity(this, mOtherSideEntity, mEditEntity, 1)
+                    /*val calendar = Calendar.getInstance()
+                    calendar.timeInMillis = mEditEntity.time*/
+//                    initTimePickerView(tag = "修改", selectedDate = calendar)
                 }
                 3, 4 ->{
                     LaunchUtil.startWechatCreateRedPacketActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
@@ -247,7 +229,23 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         if (meSelfEntity.meSelf){
             mMySideEntity = meSelfEntity
             GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatScreenShotMySideAvatarIv)
-            changeMyInfo()
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                if (!mList.isNullOrEmpty()){
+                    var wechatEntity: WechatScreenShotEntity
+                    for (i in 0 until mList.size) {
+                        wechatEntity = mList[i]
+                        if (!wechatEntity.isComMsg){
+                            wechatEntity.resourceName = mMySideEntity.resourceName
+                            wechatEntity.avatarInt = mMySideEntity.resAvatar
+                            wechatEntity.avatarStr = mMySideEntity.wechatUserAvatar
+                            mHelper.update(wechatEntity)
+                        }
+                    }
+                    runOnUiThread {
+                        mAdapter?.notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
     /**
@@ -258,106 +256,26 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         if (!otherSideEntity.meSelf){
             mOtherSideEntity = otherSideEntity
             GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatScreenShotOtherSideAvatarIv)
-            changeOtherInfo()
-        }
-    }
-    private fun changeMyInfo(){
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            if (!mList.isNullOrEmpty()){
-                var wechatEntity: WechatScreenShotEntity
-                for (i in 0 until mList.size) {
-                    wechatEntity = mList[i]
-                    if (!wechatEntity.isComMsg){
-                        wechatEntity.avatarInt = mMySideEntity.resAvatar
-                        wechatEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        mHelper.update(wechatEntity)
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                if (!mList.isNullOrEmpty()){
+                    var wechatEntity: WechatScreenShotEntity
+                    for (i in 0 until mList.size) {
+                        wechatEntity = mList[i]
+                        if (wechatEntity.isComMsg){
+                            wechatEntity.resourceName = mOtherSideEntity.resourceName
+                            wechatEntity.avatarInt = mOtherSideEntity.resAvatar
+                            wechatEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
+                            mHelper.update(wechatEntity)
+                        }
                     }
-                }
-                runOnUiThread {
-                    mAdapter?.notifyDataSetChanged()
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val qqHelper = QQScreenShotHelper(this@WechatScreenShotActivity)
-            val list = qqHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var qqEntity: QQScreenShotEntity
-                for (i in 0 until list.size) {
-                    qqEntity = list[i]
-                    if (!qqEntity.isComMsg){
-                        qqEntity.avatarInt = mMySideEntity.resAvatar
-                        qqEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        qqHelper.update(qqEntity)
-                    }
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val alipayHelper = AlipayScreenShotHelper(this@WechatScreenShotActivity)
-            val list = alipayHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var alipayEntity: AlipayScreenShotEntity
-                for (i in 0 until list.size) {
-                    alipayEntity = list[i]
-                    if (!alipayEntity.isComMsg){
-                        alipayEntity.avatarInt = mMySideEntity.resAvatar
-                        alipayEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        alipayHelper.update(alipayEntity)
+                    runOnUiThread {
+                        mAdapter?.notifyDataSetChanged()
                     }
                 }
             }
         }
     }
-    private fun changeOtherInfo(){
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            if (!mList.isNullOrEmpty()){
-                var wechatEntity: WechatScreenShotEntity
-                for (i in 0 until mList.size) {
-                    wechatEntity = mList[i]
-                    if (wechatEntity.isComMsg){
-                        wechatEntity.avatarInt = mOtherSideEntity.resAvatar
-                        wechatEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        mHelper.update(wechatEntity)
-                    }
-                }
-                runOnUiThread {
-                    mAdapter?.notifyDataSetChanged()
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val qqHelper = QQScreenShotHelper(this@WechatScreenShotActivity)
-            val list = qqHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var qqEntity: QQScreenShotEntity
-                for (i in 0 until list.size) {
-                    qqEntity = list[i]
-                    if (qqEntity.isComMsg){
-                        qqEntity.avatarInt = mOtherSideEntity.resAvatar
-                        qqEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        qqHelper.update(qqEntity)
-                    }
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val alipayHelper = AlipayScreenShotHelper(this@WechatScreenShotActivity)
-            val list = alipayHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var alipayEntity: AlipayScreenShotEntity
-                for (i in 0 until list.size) {
-                    alipayEntity = list[i]
-                    if (alipayEntity.isComMsg){
-                        alipayEntity.avatarInt = mOtherSideEntity.resAvatar
-                        alipayEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        alipayHelper.update(alipayEntity)
-                    }
-                }
-            }
-        }
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
         if (timeEntity.tag == "修改"){
             var position = mList.indexOf(mEditEntity)
@@ -370,7 +288,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             mList.add(entity)
             mAdapter?.notifyItemInserted(mList.size - 1)
         }
-    }
+    }*/
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNeedChangeOrAddData(entity: WechatScreenShotEntity) {

@@ -10,6 +10,7 @@ import app.jietuqi.cn.wechat.entity.WechatWithdrawDepositEntity;
  */
 
 public class AlipayCreateWithdrawDepositBillEntity extends WechatWithdrawDepositEntity {
+    private static final long serialVersionUID = 2048897980155378515L;
     /**
      * 持卡人姓名
      */

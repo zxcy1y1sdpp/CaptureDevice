@@ -17,8 +17,8 @@
             android:src="@drawable/head_default"
             app:riv_oval="false"
             app:riv_corner_radius="5dp"
-            app:layout_widthPercent="11.7%w"
-            app:layout_heightPercent="11.7%w"
+            app:layout_widthPercent="10%w"
+            app:layout_heightPercent="10%w"
             app:layout_marginTopPercent="3.41%w"
             app:layout_marginRightPercent="2.19%w"
             android:scaleType="centerCrop"
@@ -50,7 +50,23 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/vip_tag"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/normalPaddingHalf"
+                android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/overallCommunicateTopIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="置顶"
+                android:textColor="@color/white"
+                app:stv_corner="3dp"
+                app:stv_solid="#E55858"
+                android:textSize="10sp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:layout_marginLeft="@dimen/normalPadding"
                 android:visibility="gone"/>
         </LinearLayout>
 
@@ -155,7 +171,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/wechatLineNarrow"
-            android:background="@color/overallGray3"
+            android:background="@color/wechatLine"
             android:layout_below="@+id/layout1"
             app:layout_marginTopPercent="5.85%w"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>

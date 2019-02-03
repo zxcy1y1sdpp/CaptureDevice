@@ -11,6 +11,7 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 public class WechatTransferEntity extends WechatUserEntity {
 
+    private static final long serialVersionUID = 6938960178768810042L;
     /**
      * 转账金额
      */

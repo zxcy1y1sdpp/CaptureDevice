@@ -24,7 +24,7 @@
     <!--微信客服-->
     <string name="wechatService">jietu7</string>
     <!--QQ客服-->
-    <string name="qqService">619811415</string>
+    <string name="qqService">747365839</string>
 
     <string name="select">%1$s/%2$s</string>
 
@@ -51,4 +51,7 @@
     <string name="invite_title">微商必备的营销神器，娱乐装B，微信对话生成，加粉加群，抖音快手视频去水印等等</string>
 
     <string name="confirm">确定</string>
+    <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
+
 </resources>

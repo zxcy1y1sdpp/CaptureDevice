@@ -2,6 +2,9 @@ package app.jietuqi.cn.ui.activity
 
 import android.Manifest
 import android.content.Intent
+import android.support.v4.content.ContextCompat
+import android.text.TextUtils
+import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.view.View
 import app.jietuqi.cn.R
@@ -14,6 +17,7 @@ import app.jietuqi.cn.ui.adapter.ProblemReportAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.util.FileUtil
 import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.zhihu.matisse.Matisse
 import com.zhouyou.http.EasyHttp
@@ -42,6 +46,7 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
      */
     private var mPicList = arrayListOf<ProblemReportEntity>()
     private var mAdapter: ProblemReportAdapter? = null
+    private var mContactWay = "wx"
 
     override fun setLayoutResourceId() = R.layout.activity_report_problem
 
@@ -89,11 +94,29 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
         mSuggestionTv.setOnClickListener(this)
         mFunProblemTv.setOnClickListener(this)
         mOverallReportProblemSubmitBtn.setOnClickListener(this)
+        mWechatTv.setOnClickListener(this)
+        mQQTv.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
+            R.id.mWechatTv ->{
+                mWechatTv.setBackgroundResource(R.drawable.report_problem1)
+                mQQTv.setBackgroundResource(R.drawable.report_problem2)
+                mWechatTv.setTextColor(ContextCompat.getColor(this, R.color.white))
+                mQQTv.setTextColor(ContextCompat.getColor(this, R.color.wechatBlue))
+                mContactWay = "wx"
+                mOverallReportProblemContactEt.keyListener = DigitsKeyListener.getInstance(resources.getString(R.string.rule_text))
+            }
+            R.id.mQQTv ->{
+                mWechatTv.setBackgroundResource(R.drawable.report_problem3)
+                mQQTv.setBackgroundResource(R.drawable.report_problem4)
+                mWechatTv.setTextColor(ContextCompat.getColor(this, R.color.wechatBlue))
+                mQQTv.setTextColor(ContextCompat.getColor(this, R.color.white))
+                mContactWay = "qq"
+                mOverallReportProblemContactEt.keyListener = DigitsKeyListener.getInstance("0123456789")
+            }
             R.id.mSelectPicsIv ->{
                 openAlbumWithPermissionCheck()
             }
@@ -106,7 +129,12 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
                 mOverallReportProblemTypeLayout.tag = "gongneng"
             }
             R.id.mOverallReportProblemSubmitBtn ->{
-                report()
+                if (TextUtils.isEmpty(mOverallReportProblemEt.text.toString().trim())){
+                    showToast("请描述您的问题")
+                    return
+                }else{
+                    report()
+                }
             }
         }
     }
@@ -161,29 +189,32 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
             }
             coverId = sb.deleteCharAt(sb.length - 1).toString()
         }
-        EasyHttp.post(HttpConfig.INDEX)
-                .params("way", "guestbook")
+        val post = EasyHttp.post(HttpConfig.INDEX)
+
+        post.params("way", "guestbook")
                 .params("content", mOverallReportProblemEt.text.toString())
                 .params("classify", mOverallReportProblemTypeLayout.tag.toString())
                 .params("cover_id", coverId)
-                .params("description", mOverallReportProblemContactEt.text.toString())
-                .execute(object : SimpleCallBack<String>() {
-                    override fun onStart() {
-                        super.onStart()
-                        showLoadingDialog()
-                    }
-                    override fun onError(e: ApiException) {}
-                    override fun onSuccess(t: String) {
-                        SweetAlertDialog(this@OverallProblemReportActivity, SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("感谢您的反馈")
-                                .setContentText("有结果会第一时间通知您")
-                                .setConfirmText("知道了")
-                                .setConfirmClickListener { sweetAlertDialog ->
-                                    sweetAlertDialog.dismissWithAnimation()
-                                    finish()
-                                }.show()
-                    }
-                })
+                .params("os", "android")
+                .params("uid", UserOperateUtil.getUserId())
+                .params(mContactWay, mOverallReportProblemContactEt.text.toString().trim())
+        post.execute(object : SimpleCallBack<String>() {
+            override fun onStart() {
+                super.onStart()
+                showLoadingDialog()
+            }
+            override fun onError(e: ApiException) {}
+            override fun onSuccess(t: String) {
+                SweetAlertDialog(this@OverallProblemReportActivity, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("感谢您的反馈")
+                        .setContentText("有结果会第一时间通知您")
+                        .setConfirmText("知道了")
+                        .setConfirmClickListener { sweetAlertDialog ->
+                            sweetAlertDialog.dismissWithAnimation()
+                            finish()
+                        }.show()
+            }
+        })
     }
     private fun luban(entity: ProblemReportEntity){
         Log.e("luban --- ", FileUtil.getFileOrFilesSize(entity.pic.absolutePath, FileUtil.SIZETYPE_KB).toString())

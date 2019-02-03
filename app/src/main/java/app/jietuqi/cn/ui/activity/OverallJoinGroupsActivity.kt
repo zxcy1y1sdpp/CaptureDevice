@@ -108,6 +108,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
         mOverallJoinGroupsBusinessLayout.setOnClickListener(this)
         mOverallJoinGroupsPeopleCountLayout.setOnClickListener(this)
         mOverallJoinGroupsPublishCardLayout.setOnClickListener(this)
+        mOverallJoinGroupsSetUpLayout.setOnClickListener(this)
 
         mOverallJoinGroupsRecyclerView.addOnItemTouchListener(object : OnRecyclerItemClickListener(mOverallJoinGroupsRecyclerView) {
             override fun onItemClick(vh: RecyclerView.ViewHolder) {
@@ -172,6 +173,30 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
                     }
                 }
             }
+            R.id.mOverallJoinGroupsSetUpLayout ->{
+                val tag = mOverallJoinGroupsPublishCardTv.text.toString()
+                when(tag){
+                    "发布名片" ->{
+                        showToast("还没有名片，请先发布名片")
+                    }
+                    "修改我的名片" ->{
+                        LaunchUtil.startOverallStickActivity(this, mType)
+                    }
+                    "发布群名片" ->{
+                        showToast("还没有群名片，请先发布群名片")
+
+                    }
+                    "修改群名片" ->{
+                        LaunchUtil.startOverallPublishCardActivity(this, 2, mCardEntity)
+                    }
+                }
+                /*val tag = mOverallJoinGroupsPublishCardTv.text.toString()
+                if ("修改我的名片" == tag){
+                    LaunchUtil.startOverallStickActivity(this, mType)
+                }else if ("修改群名片" == tag){
+                    LaunchUtil.startOverallStickActivity(this, mType)
+                }*/
+            }
         }
     }
 
@@ -214,7 +239,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
                 . params("limit", mLimit)
                 . params("uid", UserOperateUtil.getUserId())
                 . params("page", mPage.toString())
-                .params("order", "update_time")
+                .params("order", "update_time desc")
         if (mType == 0){//互粉
             if (mOverallJoinGroupsPeopleCountTv.tag.toString().isNotBlank()){
                 postRequest.params("sex", mOverallJoinGroupsPeopleCountTv.tag.toString())

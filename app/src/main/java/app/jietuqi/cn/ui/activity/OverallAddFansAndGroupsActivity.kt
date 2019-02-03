@@ -4,19 +4,10 @@ import android.Manifest
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
-import app.jietuqi.cn.constant.SharedPreferenceKey
-import app.jietuqi.cn.http.HttpConfig
-import app.jietuqi.cn.ui.entity.OverallApiEntity
-import app.jietuqi.cn.ui.entity.OverallIndustryEntity
 import app.jietuqi.cn.util.ContactUtil
 import app.jietuqi.cn.util.LaunchUtil
-import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
-import com.zhouyou.http.EasyHttp
-import com.zhouyou.http.callback.CallBackProxy
-import com.zhouyou.http.callback.SimpleCallBack
-import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_add_fans_and_group.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -38,8 +29,8 @@ class OverallAddFansAndGroupsActivity : BaseOverallActivity() {
 
     override fun initAllViews() {
         setTopTitle("加粉加群", 0)
-        getIndustryData()
-        getGroupIndustryData()
+//        getIndustryData()
+//        getGroupIndustryData()
     }
 
     override fun initViewsListener() {
@@ -97,42 +88,6 @@ class OverallAddFansAndGroupsActivity : BaseOverallActivity() {
             }
         }
     }
-
-    /*private fun clearContacts(){
-
-    }*/
-
-    /**
-     * 获取行业类别
-     */
-    private fun getIndustryData(){
-        EasyHttp.post(HttpConfig.INFORMATION)
-                .params("way", "industry")
-                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
-                    override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
-                        SharedPreferencesUtils.putListData(SharedPreferenceKey.INDUSTRY, t)
-                    }
-                    override fun onError(e: ApiException) {
-                        e.message?.let { showToast(it) }
-                    }
-                }) {})
-    }
-    /**
-     * 获取行业类别
-     */
-    private fun getGroupIndustryData(){
-        EasyHttp.post(HttpConfig.INFORMATION)
-                .params("way", "heapsort")
-                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
-                    override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
-                        SharedPreferencesUtils.putListData(SharedPreferenceKey.HEAPSORT, t)
-                    }
-                    override fun onError(e: ApiException) {
-                        e.message?.let { showToast(it) }
-                    }
-                }) {})
-    }
-
     @NeedsPermission(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
     fun clearContacts() {
         mDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)

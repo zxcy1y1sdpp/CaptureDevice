@@ -52,4 +52,6 @@ public class HttpConfig {
      * 7: 获取行业类别的接口
      */
     public final static String INFORMATION = "/api/information";
+    public final static String STORE = "/api/store";
+    public final static String GOLD = "/api/gold";
 }

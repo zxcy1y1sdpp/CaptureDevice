@@ -15,7 +15,6 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.0'
-        /**上线*/
         classpath 'com.dongnao.optimizer:optimizer-picture:2.0.0'
     }
 }
@@ -42,8 +41,8 @@ ext {
      * Version相关
      */
     /******************************** 上线前需要修改的地方 Begin *****************************************/
-    versionCode = 11
-    versionName = "1.9.1"
+    versionCode = 13
+    versionName = "1.9.3"
     /**
      * Sdk and tools
      */

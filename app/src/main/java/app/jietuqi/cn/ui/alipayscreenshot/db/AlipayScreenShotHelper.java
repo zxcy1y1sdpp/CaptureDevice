@@ -40,7 +40,8 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             builder.append("wechatUserId text, avatarInt integer, avatarStr text, msgType integer" +
                     ", msg text, img integer, filePath text, time integer, transferOutTime integer, " +
                     "transferReceiveTime integer, receiveTransferId integer, receive text, money text, " +
-                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, lastTime integer");
+                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
+                    "lastTime integer, resourceName text, timeType text");
             builder.append(")");
             db.execSQL(builder.toString());
 //            db.close();
@@ -55,6 +56,8 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         values.put("wechatUserId", alipayScreenShotEntity.wechatUserId);
         values.put("avatarInt", alipayScreenShotEntity.avatarInt);
         values.put("avatarStr", alipayScreenShotEntity.avatarStr);
+        values.put("resourceName", alipayScreenShotEntity.resourceName);
+        values.put("timeType", alipayScreenShotEntity.timeType);
         values.put("msgType", alipayScreenShotEntity.msgType);
         if (alipayScreenShotEntity.msgType == 0){
             values.put("msg", alipayScreenShotEntity.msg);
@@ -100,9 +103,9 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         values.put("lastTime",alipayScreenShotEntity.lastTime);
         int position = allCaseNum(TABLE_NAME);
         values.put("position", position);
-        alipayScreenShotEntity.id = allCaseNum(TABLE_NAME) + 1;
         alipayScreenShotEntity.position = position;
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+        alipayScreenShotEntity.id = (int) l;
         Log.e("insert " , l+"");
         if (alipayScreenShotEntity.msgType != 2){
             EventBusUtil.post(alipayScreenShotEntity);
@@ -116,7 +119,6 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
     public ArrayList<AlipayScreenShotEntity> queryAll(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<AlipayScreenShotEntity> list = new ArrayList<>();
-//如果该表不存在数据库中，则不需要进行操作
         if (!isTableExists(TABLE_NAME)) {
             return null;
         }
@@ -128,6 +130,8 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));
@@ -194,6 +198,7 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         cv.put("wechatUserId" , alipayScreenShotEntity.wechatUserId);
         cv.put("avatarInt" , alipayScreenShotEntity.avatarInt);
         cv.put("avatarStr" , alipayScreenShotEntity.avatarStr);
+        cv.put("resourceName" , alipayScreenShotEntity.resourceName);
         cv.put("msgType", alipayScreenShotEntity.msgType);
         cv.put("isComMsg", alipayScreenShotEntity.isComMsg);
         cv.put("lastTime", alipayScreenShotEntity.lastTime);
@@ -250,7 +255,6 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
 //        db.close();
         return  result;
     }
-//
     /**
      * 随机查询出一个用户信息
      * @return
@@ -269,6 +273,8 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));

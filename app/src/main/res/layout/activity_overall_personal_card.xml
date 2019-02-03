@@ -75,8 +75,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:layout_marginTop="@dimen/wechatLineNarrow">
+                android:layout_marginTop="@dimen/wechatLineNarrow"
+                percent:layout_heightPercent="14.19%w">
+                <LinearLayout
+                    android:id="@+id/mOverallPersonalSaveQRCodeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jiafen_erweima"/>
+                    <TextView
+                        android:id="@+id/mOverallPersonalSaveQRCodeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="保存二维码"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/wechatLightGray"
+                        android:textSize="13sp"/>
+                </LinearLayout>
                 <TextView
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+                <LinearLayout
+                    android:id="@+id/mOverallPersonalSaveWXNumberLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jiafen_weixin"/>
+                    <TextView
+                        android:id="@+id/mOverallPersonalSaveWXNumberTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="复制微信号"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/wechatLightGray"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/overallBg"/>
+                <LinearLayout
+                    android:id="@+id/mOverallPersonalImportLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jiafen_shouji"/>
+                    <TextView
+                        android:id="@+id/mOverallPersonalImportTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="导入通讯录"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/wechatLightGray"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+                <!--<TextView
                     android:id="@+id/mOverallPersonalSaveQRCodeTv"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -86,8 +158,8 @@
                     android:drawableTop="@drawable/jiafen_erweima"
                     android:textSize="@dimen/overall26px"
                     android:padding="@dimen/normalPadding"
-                    android:drawablePadding="@dimen/normalPadding"/>
-                <TextView
+                    android:drawablePadding="@dimen/normalPadding"/>-->
+                <!--<TextView
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/overallBg"/>
@@ -116,7 +188,7 @@
                     android:drawableTop="@drawable/jiafen_shouji"
                     android:textSize="@dimen/overall26px"
                     android:padding="@dimen/normalPadding"
-                    android:drawablePadding="@dimen/normalPadding"/>
+                    android:drawablePadding="@dimen/normalPadding"/>-->
             </LinearLayout>
             <com.zhy.android.percent.support.PercentLinearLayout
                 android:layout_width="match_parent"
@@ -161,8 +233,7 @@
                     android:layout_gravity="center_horizontal"
                     percent:layout_marginTopPercent="3.62%w"
                     percent:layout_marginBottomPercent="3.62%w"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"/>
+                    android:adjustViewBounds="true"/>
             </com.zhy.android.percent.support.PercentLinearLayout>
         </com.zhy.android.percent.support.PercentLinearLayout>
     </ScrollView>

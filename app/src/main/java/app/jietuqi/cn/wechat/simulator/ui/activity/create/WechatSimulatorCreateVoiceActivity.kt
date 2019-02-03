@@ -1,5 +1,7 @@
 package app.jietuqi.cn.wechat.simulator.ui.activity.create
 
+import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.wechat.BaseWechatSimulatorCreateActivity
@@ -22,7 +24,6 @@ class WechatSimulatorCreateVoiceActivity : BaseWechatSimulatorCreateActivity() {
     override fun initAllViews() {
         super.initAllViews()
         mMsgEntity.msgType = 7
-//        mMsgEntity.isComMsg = false
         setBlackTitle("语音", 1)
     }
 
@@ -39,6 +40,21 @@ class WechatSimulatorCreateVoiceActivity : BaseWechatSimulatorCreateActivity() {
             override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {}
 
             override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
+            }
+        }
+    }
+
+    override fun getAttribute(intent: Intent) {
+        super.getAttribute(intent)
+        if (mType == 1){
+            mWechatSimulatorCreateVoiceSecondsSeekBar.setProgress(mMsgEntity.voiceLength.toFloat())
+            mWechatSimulatorCreateVoiceSecondsTv.text = StringUtils.insertBack(StringUtils.insertZeroFont(mMsgEntity.voiceLength), "秒")
+            OtherUtil.onOrOff(mMsgEntity.alreadyRead, mWechatSimulatorCreateVoiceSecondsAlreadyReadIv)
+            val toText = mMsgEntity.voiceToText
+            OtherUtil.onOrOff(!TextUtils.isEmpty(toText), mWechatSimulatorCreateVoiceSecondsTransferIv)
+            if (!TextUtils.isEmpty(toText)){
+                mWechatSimulatorCreateVoiceSecondsTransferTextEv.visibility = View.VISIBLE
+                mWechatSimulatorCreateVoiceSecondsTransferTextEv.setText(toText)
             }
         }
     }

@@ -340,6 +340,12 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         return this;
     }
+    public SweetAlertDialog setContentColor (int color) {
+        if (mContentTextView != null){
+            mContentTextView.setBackgroundColor(ContextCompat.getColor(getContext(), color));
+        }
+        return this;
+    }
 
     public String getConfirmText () {
         return mConfirmText;

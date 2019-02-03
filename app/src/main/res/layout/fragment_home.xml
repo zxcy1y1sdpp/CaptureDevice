@@ -5,19 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include
-        android:id="@+id/titleLayout"
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/include_base_overall_top"/>
+        app:layout_heightPercent="14%w"
+        android:background="@color/white">
 
+        <TextView
+            android:id="@+id/overAllTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="微商营销宝"
+            android:textSize="@dimen/overall32px"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/overallTextColor"
+            android:textStyle="bold"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mOverallHomeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/titleLayout">
+        android:layout_below="@+id/layout1">
+        <!--<com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:id="@+id/mOverallHomeRefreshHeadLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlAccentColor="@color/white"/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRecyclerView"
@@ -26,18 +43,25 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:orientation="vertical"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <!--<app.jietuqi.cn.widget.MoveTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="看看我能动不"
-        android:layout_centerVertical="true"
-        android:textSize="20dp"/>-->
+    <!-- <TextView
+         android:id="@+id/mHomeTitle"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:text="微商营销宝"
+         android:textSize="@dimen/overall32px"
+         android:gravity="center"
+         android:layout_centerHorizontal="true"
+         app:layout_heightPercent="14%w"
+         android:textColor="@color/black"
+         android:background="@color/white"
+         android:alpha="0"/>-->
     <ImageView
         android:id="@+id/mOverallPublishBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/home_release"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/normalPadding"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

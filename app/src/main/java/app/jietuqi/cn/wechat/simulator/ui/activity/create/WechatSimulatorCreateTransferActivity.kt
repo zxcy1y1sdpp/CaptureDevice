@@ -4,7 +4,7 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
-import app.jietuqi.cn.base.wechat.BaseWechatScreenShotCreateActivity
+import app.jietuqi.cn.base.wechat.BaseWechatSimulatorCreateActivity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.StringUtils
@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.ThreadMode
  * 邮箱： 972383753@qq.com
  * 用途： 微信转账截图
  */
-class WechatSimulatorCreateTransferActivity : BaseWechatScreenShotCreateActivity() {
+class WechatSimulatorCreateTransferActivity : BaseWechatSimulatorCreateActivity() {
     override fun setLayoutResourceId() = R.layout.activity_simulator_wechat_create_transfer
 
     override fun needLoadingView() = false
@@ -47,6 +47,7 @@ class WechatSimulatorCreateTransferActivity : BaseWechatScreenShotCreateActivity
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
+        mMsgEntity.receive = false
         if (mMsgEntity.msgType == 5){//转账
             OtherUtil.changeWechatTwoBtnBg(this, mSimulatorWechatCreatesTransferSendTv, mSimulatorWechatCreatesTransferReceiveTv)
         }else{//收钱
@@ -57,7 +58,6 @@ class WechatSimulatorCreateTransferActivity : BaseWechatScreenShotCreateActivity
             OtherUtil.changeWechatTwoBtnBg(this, mSimulatorWechatCreatesTransferReceiveTv, mSimulatorWechatCreatesTransferSendTv)
         }
         mSimulatorWechatCreatesTransferMoneyEt.setText(if (mMsgEntity.money.toFloat() > 0) mMsgEntity.money else "")
-
         mSimulatorWechatCreatesTransferSendTimeTv.text = if (mMsgEntity.transferOutTime > 0) TimeUtil.stampToDateWithYMDHM(mMsgEntity.transferOutTime) else ""
         mSimulatorWechatCreatesTransferReceiveTimeTv.text = if (mMsgEntity.transferReceiveTime > 0) TimeUtil.stampToDateWithYMDHM(mMsgEntity.transferReceiveTime) else ""
     }
@@ -96,16 +96,6 @@ class WechatSimulatorCreateTransferActivity : BaseWechatScreenShotCreateActivity
                         mMsgEntity.msg = "转账给你"
                     }else{
                         mMsgEntity.msg = StringUtils.insertFront(mOtherSideEntity.wechatUserNickName, "转账给")
-                    }
-                }
-                if (mType == 1){//修改
-                    val receiveEntity = mHelper.query(mMsgEntity.id)//与被修改的数据关联在一起的收钱的数据
-                    if (null != receiveEntity){
-                        receiveEntity.transferReceiveTime = mMsgEntity.transferReceiveTime
-                        receiveEntity.transferOutTime = mMsgEntity.transferOutTime
-                        receiveEntity.money = mMsgEntity.money
-                        mHelper.update(receiveEntity)
-//123                        EventBusUtil.post(receiveEntity)
                     }
                 }
             }

@@ -38,6 +38,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.resAvatar = userEntity.resAvatar
+        mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)
         mAlipayCreateMyNickNameTv.text = mEntity.wechatUserNickName
@@ -70,7 +71,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
                 LaunchUtil.startAlipayPreviewMyActivity(this, mEntity)
             }
             R.id.mAlipayCreateMyChangeRoleLayout ->{
-                operateRole(mEntity)
+                operateRole(mEntity, type = 1)
             }
             R.id.mAlipayCreateMyRefreshIv ->{
                 mAlipayCreateMyAccountTv.setText(RandomUtil.getRandomAccounts())
@@ -106,6 +107,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
                     mEntity.avatarFile = mMySideEntity.avatarFile
                     mEntity.wechatUserAvatar = mMySideEntity.wechatUserAvatar
                     mEntity.resAvatar = mMySideEntity.resAvatar
+                    mEntity.resourceName = mMySideEntity.resourceName
                     mEntity.wechatUserNickName = mMySideEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)
                     mAlipayCreateMyNickNameTv.text = mEntity.wechatUserNickName

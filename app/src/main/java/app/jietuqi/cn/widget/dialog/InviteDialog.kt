@@ -23,6 +23,7 @@ import cn.sharesdk.tencent.qzone.QZone
 import cn.sharesdk.wechat.friends.Wechat
 import cn.sharesdk.wechat.moments.WechatMoments
 import com.bm.zlzq.utils.ScreenUtil
+import com.xinlan.imageeditlibrary.ToastUtils
 import kotlinx.android.synthetic.main.dialog_invite.*
 import java.util.*
 
@@ -67,7 +68,7 @@ class InviteDialog : DialogFragment(), View.OnClickListener, PlatformActionListe
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))//注意此处
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.attributes?.windowAnimations = R.style.ChangeRoleDialog
+//        dialog?.window?.attributes?.windowAnimations = R.style.ChangeRoleDialog
         return inflater.inflate(R.layout.dialog_invite, container, false)
     }
 
@@ -146,7 +147,7 @@ class InviteDialog : DialogFragment(), View.OnClickListener, PlatformActionListe
                 val mClipData = ClipData.newPlainText("Label", "http://www.jietuqi.cn?uid=" + UserOperateUtil.getUserId())
                 // 将ClipData内容放到系统剪贴板里。
                 cm.primaryClip = mClipData
-                Toast.makeText(activity, "链接已复制", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(activity, "链接已复制")
                 dismiss()
             }
             R.id.mScanTv -> {

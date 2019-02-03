@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
 
     <TextView
         android:id="@+id/sFunTv"
@@ -11,13 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="微商截图"
-        android:drawableTop="@mipmap/wsjt"
+        android:drawableTop="@drawable/wsjt"
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="@dimen/normalPaddingHalf"
-        android:drawablePadding="@dimen/normalPadding"
-        app:layout_heightPercent="100%w"
         app:layout_widthPercent="100%w"
+        android:drawablePadding="10dp"
         android:background="@drawable/layout_water_selector"
         android:clickable="true"
         android:focusable="true"/>
@@ -27,6 +27,5 @@
         android:layout_height="wrap_content"
         android:src="@drawable/tag_home_hot"
         android:translationX="20dp"
-        android:translationY="5dp"
         android:layout_centerHorizontal="true"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

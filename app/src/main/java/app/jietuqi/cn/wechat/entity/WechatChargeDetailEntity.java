@@ -10,6 +10,8 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity;
  */
 
 public class WechatChargeDetailEntity extends WechatUserEntity {
+    private static final long serialVersionUID = -8511153219728847984L;
+
     public WechatChargeDetailEntity() {}
     public WechatChargeDetailEntity(int id, String type, String name, String money, String time) {
         this.id = id;

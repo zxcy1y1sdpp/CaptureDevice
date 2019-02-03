@@ -21,12 +21,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@mipmap/back"
-                android:padding="@dimen/normalPadding"/>
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
             <TextView
                 android:id="@+id/overAllBackTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="返回"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
@@ -41,7 +41,8 @@
             android:textSize="@dimen/overall32px"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/overallTextColor"/>
+            android:textColor="#777777"
+            android:textStyle="bold"/>
         <ImageView
             android:id="@+id/overAllRightIv"
             android:layout_width="wrap_content"
@@ -62,13 +63,6 @@
             android:layout_alignParentRight="true"
             android:paddingRight="@dimen/normalPadding"
             android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/overAllBottomLine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/wechatLineNarrow"
-            android:background="@color/overallBg"
-            android:layout_alignParentBottom="true"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
 </com.zhy.android.percent.support.PercentLinearLayout>

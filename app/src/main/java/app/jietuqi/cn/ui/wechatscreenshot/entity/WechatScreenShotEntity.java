@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.wechatscreenshot.entity;
 
 import android.text.TextUtils;
 
+import app.jietuqi.cn.ResourceHelper;
 import app.jietuqi.cn.ui.entity.SingleTalkEntity;
 
 /**
@@ -11,49 +12,9 @@ import app.jietuqi.cn.ui.entity.SingleTalkEntity;
  * 用途：
  */
 public class WechatScreenShotEntity extends SingleTalkEntity {
+    private static final long serialVersionUID = 8377233446853070151L;
+
     public WechatScreenShotEntity(){}
-    /**
-     * 文字消息
-     * @param wechatUserId
-     * @param msgType
-     * @param msg
-     * @param isComMsg
-     * @param lastTime
-     */
-    public WechatScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, String msg , long lastTime){
-        this.wechatUserId = wechatUserId;
-        this.msgType = msgType;
-        this.isComMsg = isComMsg;
-        this.avatarInt = avatarInt;
-        this.avatarStr = avatarStr;
-        this.msg = msg;
-        if (lastTime <= 0){
-            this.lastTime = System.currentTimeMillis();
-        }else {
-            this.lastTime = lastTime;
-        }
-    }
-    /**
-     * 图片消息
-     * @param wechatUserId
-     * @param msgType
-     * @param img
-     * @param isComMsg
-     * @param lastTime
-     */
-    public WechatScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, int img , long lastTime){
-        this.wechatUserId = wechatUserId;
-        this.avatarInt = avatarInt;
-        this.avatarStr = avatarStr;
-        this.msgType = msgType;
-        this.isComMsg = isComMsg;
-        this.img = img;
-        if (lastTime <= 0){
-            this.lastTime = System.currentTimeMillis();
-        }else {
-            this.lastTime = lastTime;
-        }
-    }
     public WechatScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, long time , long lastTime){
         this.wechatUserId = wechatUserId;
         this.avatarInt = avatarInt;
@@ -67,37 +28,32 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
             this.lastTime = lastTime;
         }
     }
-    /**
-     * 红包相关
-     * @param wechatUserId
-     * @param msgType
-     * @param isComMsg
-     * @param receive : 红包是否被领取了
-     * @param money : 当前红包的金额
-     * @param msg : 留言（如果没有备注默认 -- 恭喜发财，大吉大利）
-     * @param lastTime
-     */
-    public WechatScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, boolean receive, String money, String msg, long lastTime){
-        this.wechatUserId = wechatUserId;
-        this.avatarInt = avatarInt;
-        this.avatarStr = avatarStr;
-        this.msgType = msgType;
-        this.isComMsg = isComMsg;
-        this.receive = receive;
-        this.money = money;
-        if (!TextUtils.isEmpty(msg)){
-            this.msg = msg;
-        }else {
-            this.msg = "恭喜发财，大吉大利";
-        }
-        if (lastTime <= 0){
-            this.lastTime = System.currentTimeMillis();
-        }else {
-            this.lastTime = lastTime;
-        }
-    }
     public int avatarInt;
     public String avatarStr;
+
+    /**
+     * 转账状态
+     * 已收钱
+     * 代收款
+     * 已退款
+     */
+    public String transferType;
+    /**
+     * 转出时间
+     */
+    public String outTime;
+    /**
+     * 收钱时间
+     */
+    public String receiveTime;
+    public String wechatUserNickName;
+    /**
+     * 收钱还是转出
+     * 0 -- 收钱
+     * 1 -- 转出
+     */
+    public int type;
+
     /**
      * 是否需要eventbus发送消息
      */
@@ -106,8 +62,15 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
     public Object getAvatar(){
         if (!TextUtils.isEmpty(avatarStr)){
             return avatarStr;
+        }else if (!TextUtils.isEmpty(resourceName)){
+            return ResourceHelper.getAppIconId(resourceName);
         }else {
             return avatarInt;
         }
+        /*if (!TextUtils.isEmpty(avatarStr)){
+            return avatarStr;
+        }else {
+            return avatarInt;
+        }*/
     }
 }

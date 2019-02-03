@@ -47,7 +47,6 @@ public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
     protected void onStart() {
         HttpLog.e("-->http is onStart");
         if (contextWeakReference != null && contextWeakReference.get() != null && !isNetworkAvailable(contextWeakReference.get())) {
-            //Toast.makeText(context, "无网络，读取缓存数据", Toast.LENGTH_SHORT).show();
             onComplete();
         }
     }

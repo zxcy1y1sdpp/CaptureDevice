@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.qqscreenshot.entity;
 
 import android.text.TextUtils;
 
+import app.jietuqi.cn.ResourceHelper;
 import app.jietuqi.cn.ui.entity.SingleTalkEntity;
 
 /**
@@ -11,6 +12,8 @@ import app.jietuqi.cn.ui.entity.SingleTalkEntity;
  * 用途：
  */
 public class QQScreenShotEntity extends SingleTalkEntity {
+    private static final long serialVersionUID = 7526899828386293994L;
+
     public QQScreenShotEntity(){}
     /**
      * 文字消息
@@ -100,8 +103,16 @@ public class QQScreenShotEntity extends SingleTalkEntity {
     public String avatarStr;
 
     public Object getAvatar(){
+        /*if (!TextUtils.isEmpty(avatarStr)){
+            return avatarStr;
+        }else {
+            return avatarInt;
+        }*/
+
         if (!TextUtils.isEmpty(avatarStr)){
             return avatarStr;
+        }else if (!TextUtils.isEmpty(resourceName)){
+            return ResourceHelper.getAppIconId(resourceName);
         }else {
             return avatarInt;
         }

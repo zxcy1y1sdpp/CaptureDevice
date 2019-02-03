@@ -92,7 +92,7 @@ public abstract class SupportBlurDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mBlurEngine = new BlurDialogEngine(getActivity());
+        mBlurEngine = newfun BlurDialogEngine(getActivity());
 
         if (mToolbar != null) {
             mBlurEngine.setToolbar(mToolbar);
@@ -100,13 +100,13 @@ public abstract class SupportBlurDialogFragment extends DialogFragment {
 
         int radius = getBlurRadius();
         if (radius <= 0) {
-            throw new IllegalArgumentException("Blur radius must be strictly positive. Found : " + radius);
+            throw newfun IllegalArgumentException("Blur radius must be strictly positive. Found : " + radius);
         }
         mBlurEngine.setBlurRadius(radius);
 
         float factor = getDownScaleFactor();
         if (factor <= 1.0) {
-            throw new IllegalArgumentException("Down scale must be strictly greater than 1.0. Found : " + factor);
+            throw newfun IllegalArgumentException("Down scale must be strictly greater than 1.0. Found : " + factor);
         }
         mBlurEngine.setDownScaleFactor(factor);
 

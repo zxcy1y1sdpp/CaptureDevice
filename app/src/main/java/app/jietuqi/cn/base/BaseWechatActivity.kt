@@ -265,14 +265,6 @@ abstract class BaseWechatActivity : BaseActivity(), ChoicePaySheetDialog.OnItemC
         return time
     }
     /**
-     * 获取只有年-月-日- 时:分 的时间
-     */
-    private fun getStringTimeYMDHM(date: Date): String {//可根据需要自行截取数据显示
-        var format: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        val dateString = format.format(date)
-        return dateString
-    }
-    /**
      * 获取年-月-日- 时:分:秒
      */
     private fun getStringTimeYMDHMS(date: Date): String {//可根据需要自行截取数据显示

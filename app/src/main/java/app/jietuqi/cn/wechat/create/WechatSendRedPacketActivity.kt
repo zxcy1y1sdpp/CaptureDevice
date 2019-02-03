@@ -85,9 +85,11 @@ class WechatSendRedPacketActivity : BaseWechatActivity() {
             R.id.previewBtn ->{
                 mSendEntity.msg = mLeaveMsgEt.text.toString()
                 if (mReceivePacketLayout.visibility == View.VISIBLE){//发红包
-                    LaunchUtil.startWechatRedPacketPreviewActivity(this, mSendEntity, mReceiveEntity, mInputPacketEt.text.toString())
+                    mSendEntity.money = mInputPacketEt.text.toString()
+                    LaunchUtil.startWechatScreenShotSendRedPacketActivity(this, mSendEntity, mReceiveEntity)
                 }else{//收红包
-                    LaunchUtil.startWechatRedPacketPreviewActivity(this, mSendEntity, mInputPacketEt.text.toString())
+                    mSendEntity.money = mInputPacketEt.text.toString()
+                    LaunchUtil.startWechatScreenShotReceiveRedPacketActivity(this, mSendEntity)
                 }
             }
             R.id.mSelectTimeLayout ->{

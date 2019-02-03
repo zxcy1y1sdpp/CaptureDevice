@@ -5,14 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/overallBg"
+    android:background="@color/wechatLine"
     android:layout_weight="4">
 
     <include
         layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <app.jietuqi.cn.widget.OverScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.zhy.android.percent.support.PercentLinearLayout
@@ -20,11 +20,68 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_heightPercent="26.91%w"
+                android:background="@color/overallBlue">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatSimulatorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="微信模拟器"
+                        android:textColor="@color/white"
+                        android:drawableTop="@mipmap/zfbjt"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:textSize="16sp"/>
+                    <!--<ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/newfun"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/normalPadding"/>-->
+                </RelativeLayout>
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mAlipaySimulatorLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="支付宝模拟器"
+                    android:textColor="@color/white"
+                    android:drawableTop="@mipmap/wxjt"
+                    app:stv_pressBgColor="#4169E1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPaddingHalf"
+                    android:visibility="gone"/>
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mQQSimulatorLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="QQ模拟器"
+                    android:textColor="@color/white"
+                    android:drawableTop="@mipmap/qqjt"
+                    app:stv_pressBgColor="#4169E1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/normalPaddingHalf"
+                    android:visibility="gone"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+            <com.zhy.android.percent.support.PercentLinearLayout
                 android:id="@+id/mOverallSimulatorScreenShotLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_marginBottomPercent="2.67%w"
                 app:layout_heightPercent="26.91%w"
                 android:background="@color/overallBlue">
 
@@ -39,7 +96,8 @@
                     app:stv_pressBgColor="#4169E1"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="@dimen/normalPaddingHalf"/>
+                    android:padding="@dimen/normalPadding"
+                    android:textSize="16sp"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mAlipayScreenShotLayout"
                     android:layout_width="0dp"
@@ -51,7 +109,8 @@
                     app:stv_pressBgColor="#4169E1"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="@dimen/normalPaddingHalf"/>
+                    android:padding="@dimen/normalPadding"
+                    android:textSize="16sp"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mQQScreenShotLayout"
                     android:layout_width="0dp"
@@ -63,17 +122,18 @@
                     app:stv_pressBgColor="#4169E1"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="@dimen/normalPaddingHalf"/>
+                    android:padding="@dimen/normalPadding"
+                    android:textSize="16sp"/>
             </com.zhy.android.percent.support.PercentLinearLayout>
             <TextView
-                android:id="@+id/mWechatLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="微信截图"
                 android:padding="@dimen/normalPadding"
                 android:background="@color/white"
                 android:layout_marginTop="@dimen/wechatLineNarrow"
-                android:layout_marginBottom="@dimen/wechatLineNarrow"/>
+                android:layout_marginBottom="@dimen/wechatLineNarrow"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:id="@+id/mCloseLayout"
@@ -96,7 +156,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun2"
                     android:layout_width="0dp"
@@ -112,7 +172,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun3"
                     android:layout_width="0dp"
@@ -146,7 +206,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun8"
                     android:layout_width="0dp"
@@ -162,7 +222,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <RelativeLayout
                     android:id="@+id/mWechatWalletLayout"
                     android:layout_width="0dp"
@@ -192,7 +252,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
 
             </LinearLayout>
             <LinearLayout
@@ -228,7 +288,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -258,16 +318,15 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/white"
-                    android:layout_weight="1"
-                    android:visibility="invisible">
-                    <com.coorchice.library.SuperTextView
+                    android:layout_weight="1">
+                    <!--<com.coorchice.library.SuperTextView
                         android:id="@+id/mWechatFun16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -283,7 +342,7 @@
                         android:id="@+id/mVipFun16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/vip_fun"/>
+                        android:src="@drawable/vip_fun"/>-->
 
                 </RelativeLayout>
 
@@ -298,7 +357,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <LinearLayout
                     android:id="@+id/mWechatFun9"
                     android:layout_width="0dp"
@@ -329,7 +388,8 @@
                 android:padding="@dimen/normalPadding"
                 android:background="@color/white"
                 android:layout_marginTop="@dimen/normalPadding"
-                android:layout_marginBottom="@dimen/wechatLineNarrow" />
+                android:layout_marginBottom="@dimen/wechatLineNarrow"
+                android:textSize="16sp"/>
             <LinearLayout
                 android:id="@+id/mCloseLayout2"
                 android:layout_width="match_parent"
@@ -350,7 +410,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun11"
                     android:layout_width="0dp"
@@ -366,7 +426,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/mWechatFun12"
                     android:layout_width="0dp"
@@ -403,7 +463,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -431,7 +491,7 @@
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
-                    android:background="@color/overallBg"/>
+                    android:background="@color/wechatLine"/>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -458,5 +518,5 @@
                 </RelativeLayout>
             </com.zhy.android.percent.support.PercentLinearLayout>
         </com.zhy.android.percent.support.PercentLinearLayout>
-    </app.jietuqi.cn.widget.OverScrollView>
+    </ScrollView>
 </com.zhy.android.percent.support.PercentLinearLayout>

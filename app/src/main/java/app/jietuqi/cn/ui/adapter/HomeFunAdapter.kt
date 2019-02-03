@@ -9,14 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
-import app.jietuqi.cn.ui.activity.OverallAddFansAndGroupsActivity
-import app.jietuqi.cn.ui.activity.OverallCreateQRCodeActivity
-import app.jietuqi.cn.ui.activity.OverallRemoveWatermarkActivity
-import app.jietuqi.cn.ui.activity.SimulatorActivity
+import app.jietuqi.cn.ui.activity.*
 import app.jietuqi.cn.ui.entity.HomeFunEntity
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatScreenShotActivity
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
-
 
 /**
  * 作者： liuyuanbo on 2019/1/9 11:48.
@@ -28,33 +25,39 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
     private var mFunList = arrayListOf<HomeFunEntity>()
     init {
         if (BuildConfig.DEBUG){
-            mFunList.add(HomeFunEntity("微商截图", R.mipmap.wsjt, true))
-            mFunList.add(HomeFunEntity("加粉加群", R.mipmap.jfjq, false))
-            mFunList.add(HomeFunEntity("视频去水印", R.mipmap.spqsy, false))
-            mFunList.add(HomeFunEntity("快递查询", R.mipmap.kdcx, false))
-            mFunList.add(HomeFunEntity("图片编辑", R.mipmap.tpbj, false))
-            mFunList.add(HomeFunEntity("二维码", R.mipmap.ewm, false))
+            mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
+            mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
+            mFunList.add(HomeFunEntity("项目市场", R.drawable.xmsc, false))
+            mFunList.add(HomeFunEntity("视频去水印", R.drawable.spqsy, false))
+            mFunList.add(HomeFunEntity("二维码", R.drawable.ewm, false))
+            mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
+            mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
+
         }else{
             if (UserOperateUtil.needColseByChannel()){
-                if (!UserOperateUtil.isXiaomiChannel() && !UserOperateUtil.isHuaweiChannel() && !UserOperateUtil.isWandoujiaChannel() && !UserOperateUtil.isVivoChannel()){
-                    mFunList.add(HomeFunEntity("微商截图", R.mipmap.wsjt, true))
+                mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
+                if (!UserOperateUtil.isVivoChannel() && !UserOperateUtil.isBaiduChannel()
+                        && !UserOperateUtil.is360Channel() && !UserOperateUtil.isHuaweiChannel()){
+                    mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
                 }
-                if (!UserOperateUtil.isVivoChannel() && !UserOperateUtil.isHuaweiChannel()){
-                    mFunList.add(HomeFunEntity("加粉加群", R.mipmap.jfjq, false))
+                if (!UserOperateUtil.isXiaomiChannel() && !UserOperateUtil.is360Channel()){
+                    mFunList.add(HomeFunEntity("视频去水印", R.drawable.spqsy, false))
                 }
-                if (!UserOperateUtil.isXiaomiChannel() && !UserOperateUtil.isWandoujiaChannel()){
-                    mFunList.add(HomeFunEntity("视频去水印", R.mipmap.spqsy, false))
+
+                mFunList.add(HomeFunEntity("二维码", R.drawable.ewm, false))
+                mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
+
+                if (!UserOperateUtil.isXiaomiChannel()){
+                    mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
                 }
-                mFunList.add(HomeFunEntity("快递查询", R.mipmap.kdcx, false))
-                mFunList.add(HomeFunEntity("图片编辑", R.mipmap.tpbj, false))
-                mFunList.add(HomeFunEntity("二维码", R.mipmap.ewm, false))
             }else{
-                mFunList.add(HomeFunEntity("微商截图", R.mipmap.wsjt, true))
-                mFunList.add(HomeFunEntity("加粉加群", R.mipmap.jfjq, false))
-                mFunList.add(HomeFunEntity("视频去水印", R.mipmap.spqsy, false))
-                mFunList.add(HomeFunEntity("快递查询", R.mipmap.kdcx, false))
-                mFunList.add(HomeFunEntity("图片编辑", R.mipmap.tpbj, false))
-                mFunList.add(HomeFunEntity("二维码", R.mipmap.ewm, false))
+                mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
+                mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
+                mFunList.add(HomeFunEntity("项目市场", R.drawable.xmsc, false))
+                mFunList.add(HomeFunEntity("视频去水印", R.drawable.spqsy, false))
+                mFunList.add(HomeFunEntity("二维码", R.drawable.ewm, false))
+                mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
+                mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
             }
         }
     }
@@ -91,7 +94,17 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
         }
         override fun onClick(v: View?) {
             when(funTv.text){
-                "微商截图" -> LaunchUtil.launch(itemView.context, SimulatorActivity::class.java)
+                "微商截图" ->{
+                    if (BuildConfig.DEBUG){
+                        LaunchUtil.launch(itemView.context, SimulatorActivity::class.java)
+                    }else{
+                        if (UserOperateUtil.needColseByChannel()){
+                            LaunchUtil.launch(itemView.context, WechatScreenShotActivity::class.java)
+                        }else{
+                            LaunchUtil.launch(itemView.context, SimulatorActivity::class.java)
+                        }
+                    }
+                }
                 "加粉加群" ->{
                     if (UserOperateUtil.isCurrentLoginDirectlyLogin(itemView.context)){
                         LaunchUtil.launch(itemView.context, OverallAddFansAndGroupsActivity::class.java)
@@ -101,8 +114,8 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
                 "快递查询" -> LaunchUtil.startOverallWebViewActivity(itemView.context, "https://m.kuaidi100.com/app/?coname=dasheng", "快递查询")
                 "图片编辑" -> LaunchUtil.launch(itemView.context, com.xinlan.imageeditlibrary.temporary.EditImageActivity::class.java)
                 "二维码" -> LaunchUtil.launch(itemView.context, OverallCreateQRCodeActivity::class.java)
+                "项目市场" -> LaunchUtil.launch(itemView.context, OverallProjectMarketActivity::class.java)
             }
         }
     }
-
 }

@@ -105,11 +105,6 @@
         android:layout_height="@dimen/wechatLineNarrow"
         android:background="@color/overallBg"
         android:layout_below="@+id/layout1"/>
-    <!--<TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wechatLineNarrow"
-        android:background="@color/overallBg"
-        app:layout_marginTopPercent="2.66%w"/>-->
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mOverallJoinGroupsRefreshLayout"
@@ -117,17 +112,69 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/view1"
         android:layout_marginBottom="@dimen/wechatLineNarrow"
-        android:layout_above="@+id/mOverallJoinGroupsPublishCardLayout">
+        android:layout_above="@+id/line2">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mOverallJoinGroupsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:paddingTop="@dimen/normalPadding"
             android:clipToPadding="false"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <LinearLayout
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"
+        android:layout_above="@+id/mBottomLayout"/>
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/mBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        app:layout_heightPercent="14.13%w">
+        <LinearLayout
+            android:id="@+id/mOverallJoinGroupsPublishCardLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_widthPercent="50%w"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group_publish_icon"
+                android:layout_marginRight="@dimen/normalPadding"/>
+            <TextView
+                android:id="@+id/mOverallJoinGroupsPublishCardTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布群名片"/>
+        </LinearLayout>
+        <View
+            android:layout_width="@dimen/Line"
+            android:layout_height="match_parent"
+            android:background="@color/wechatLine"/>
+        <LinearLayout
+            android:id="@+id/mOverallJoinGroupsSetUpLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_widthPercent="50%w"
+            android:gravity="center"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group_set_top"
+                android:layout_marginRight="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="置顶服务"/>
+        </LinearLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+    <!--<LinearLayout
         android:id="@+id/mOverallJoinGroupsPublishCardLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,5 +189,5 @@
             android:text="发布群名片"
             android:textColor="@color/black"
             android:textSize="@dimen/overall16sp"/>
-    </LinearLayout>
+    </LinearLayout>-->
 </com.zhy.android.percent.support.PercentRelativeLayout>

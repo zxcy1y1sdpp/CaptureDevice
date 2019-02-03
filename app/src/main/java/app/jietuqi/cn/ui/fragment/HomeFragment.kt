@@ -3,7 +3,6 @@ package app.jietuqi.cn.ui.fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.view.View
 import android.widget.RelativeLayout
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseFragment
 import app.jietuqi.cn.callback.FabScrollListener
@@ -35,7 +34,8 @@ import org.greenrobot.eventbus.ThreadMode
  * 用途：
  */
 
-class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
+class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAdapter.StatusBarListener*/ {
+
     private var mAdapter: HomeAdapter? = null
     override fun setLayoutResouceId() = R.layout.fragment_home
     private var mList: ArrayList<OverallDynamicEntity> = arrayListOf()
@@ -43,12 +43,15 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
 
     override fun initAllViews() {
         EventBusUtil.register(this)
-        activity?.getString(R.string.app_name)?.let { setTitle(it, 1)}
-        mAdapter = HomeAdapter(mList, mBannerList, this)
-        mRecyclerView.adapter = mAdapter
+//        mAdapter = HomeAdapter(mList, mBannerList, this /*,this*/)
+//        mRecyclerView.adapter = mAdapter
         setRefreshLayout(mOverallHomeRefreshLayout)
         (mRecyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-
+        if (UserOperateUtil.needColseByChannel()) {
+            if (UserOperateUtil.isWandoujiaChannel()) {
+                mOverallPublishBtn.visibility = View.GONE
+            }
+        }
     }
 
     override fun initViewsListener() {
@@ -149,9 +152,6 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
                     }
                 })
     }
-    /**
-     * 点赞/取消点赞
-     */
     private fun getBannerData(){
         EasyHttp.post(HttpConfig.INDEX)
                 .params("way", "swipe")
@@ -161,11 +161,13 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
                             mBannerList.clear()
                         }
                         t?.let { mBannerList.addAll(it) }
-                        mAdapter?.notifyItemChanged(0)
+                        mAdapter = HomeAdapter(mList, mBannerList, this@HomeFragment /*,this*/)
+                        mRecyclerView.adapter = mAdapter
+//                        mAdapter?.notifyItemChanged(0)
                     }
 
                     override fun onError(e: ApiException) {
-                        Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                        e.message?.let { showToast(it) }
                     }
 
                 }){})
@@ -200,6 +202,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener {
     override fun onHide() {
         val layoutParams = mOverallPublishBtn.layoutParams as RelativeLayout.LayoutParams
         mOverallPublishBtn.animate().translationX((mOverallPublishBtn.width / 2 + layoutParams.rightMargin).toFloat()).setDuration(300).alpha(0.5f)/*.interpolator = AccelerateInterpolator(3f)*/
+
     }
 
     override fun onShow() {

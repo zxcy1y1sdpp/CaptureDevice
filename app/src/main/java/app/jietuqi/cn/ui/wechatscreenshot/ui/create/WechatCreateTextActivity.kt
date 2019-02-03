@@ -135,6 +135,7 @@ class WechatCreateTextActivity: BaseCreateActivity() {
         unChoiceIv.setImageResource(R.drawable.un_choice)
     }
     private fun setMsg(entity: WechatUserEntity){
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarInt = entity.resAvatar
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId

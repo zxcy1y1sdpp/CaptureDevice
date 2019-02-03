@@ -45,9 +45,9 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
     }
 
     override fun setLayoutResourceId() = R.layout.activity_overall_publish_friends_circle
-    private var mList: MutableList<OverallPublishEntity> = mutableListOf()
+    private var mList: ArrayList<OverallPublishEntity> = arrayListOf()
     private var mAdapter: OverallPublishFriendsCircleAdapter = OverallPublishFriendsCircleAdapter(mList, 9, this)
-    private var mLastEntity = OverallPublishEntity(R.drawable.publish_circle)
+    private var mLastEntity = OverallPublishEntity(R.mipmap.add_more_pics)
     override fun needLoadingView() = false
 
     override fun initAllViews() {

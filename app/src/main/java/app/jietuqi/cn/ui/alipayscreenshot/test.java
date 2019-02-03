@@ -1,8 +1,7 @@
 package app.jietuqi.cn.ui.alipayscreenshot;
 
 import android.app.Activity;
-
-import java.util.ArrayList;
+import android.content.Intent;
 
 /**
  * 作者： liuyuanbo on 2018/12/10 17:56.
@@ -11,13 +10,11 @@ import java.util.ArrayList;
  * 用途：
  */
 public class test extends Activity {
-    public void init(){
-        ArrayList<String> list = new ArrayList();
-        for (int i = 0, size = list.size(); i < size; i++) {
 
-        }
-        for (int i = 0; i < 9999; i++) {
+    public test(){
+        Intent intent = getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+        startActivity(intent);
 
-        }
     }
+
 }

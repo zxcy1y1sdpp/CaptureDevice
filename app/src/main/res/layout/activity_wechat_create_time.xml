@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black" />
+
+    <TextView
+        android:id="@+id/mTimeTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请选择时间"
+        android:padding="@dimen/normalPadding"/>
+    <Button
+        android:id="@+id/m12TypeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/overall_blue_circular"
+        app:layout_widthPercent="80%w"
+        app:layout_heightPercent="10.9%w"
+        app:layout_marginTopPercent="2.9%w"
+        android:text="12小时制"
+        android:textColor="@color/white"
+        android:textSize="@dimen/overall26px"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/m24TypeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/overall_blue_circular"
+        app:layout_widthPercent="80%w"
+        app:layout_heightPercent="10.9%w"
+        app:layout_marginTopPercent="2.9%w"
+        android:text="24小时制"
+        android:textColor="@color/white"
+        android:textSize="@dimen/overall26px"
+        android:layout_gravity="center_horizontal"/>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

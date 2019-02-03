@@ -20,6 +20,7 @@
     <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -35,7 +36,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,293 +50,411 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:resizeableActivity="false" />
         <!--角色库-->
         <activity
             android:name=".RoleOfLibraryActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信发红包的功能 -->
-        <!-- 评论列表 -->
-        <activity
-            android:name=".ui.activity.OverallCommunicateActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <!-- 评论列表详情 -->
         <activity
             android:name=".ui.activity.OverallCommunicateDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false" />
         <!-- 评论列表详情 -->
         <activity
             android:name=".ui.activity.OverallMyPublishActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信发红包的功能 -->
         <activity
             android:name=".wechat.create.WechatSendRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信创建账单的功能 -->
         <activity
             android:name=".wechat.create.WechatCreateBillActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信展示账单列表的功能 -->
         <activity
             android:name=".wechat.create.WechatCreateBillsListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <!-- 微信红包预览页面 -->
-        <activity
-            android:name=".wechat.preview.WechatRedPacketPreviewActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信修改角色页面 -->
         <activity
             android:name=".wechat.ui.activity.WechatRoleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信转账的页面 -->
         <activity
             android:name=".wechat.create.WechatTransferActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信提现的页面 -->
         <activity
             android:name=".wechat.create.WechatChangeWithdrawDepositActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信转账详情的页面 -->
         <activity
             android:name=".wechat.create.WechatTransferDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信视频通话的页面 -->
         <activity
             android:name=".wechat.create.WechatVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信语音通话的页面 -->
         <activity
             android:name=".wechat.create.WechatVoiceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 预览微信视屏通话的页面 -->
         <activity
             android:name=".wechat.preview.WechatVoiceAndVideoPreviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 预览微信零钱的页面 -->
         <activity
             android:name=".wechat.create.WechatChangeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 预览微信提现的页面 -->
         <activity
             android:name=".wechat.preview.WechatPreviewChangeWithdrawDepositActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 预览 - 微信  零钱明细页面 -->
         <activity
             android:name=".wechat.preview.WechatPreviewChargeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信零钱明细 -->
         <activity
             android:name=".wechat.create.WechatAddChargeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 生成微信支付成功页面 -->
         <!-- 准备添加微信零钱明细的页面 -->
         <activity
             android:name=".wechat.create.WechatChargeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信模拟器整体页面 -->
         <activity
             android:name=".ui.activity.SimulatorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信模拟器 -->
         <activity
             android:name=".wechat.create.WechatLooseChangeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信我的钱包 -->
         <activity
             android:name=".wechat.create.WechatMyWalletActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 聊天列表 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatChoiceBankActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 修改对方数据 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatEditOtherActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 充值成功 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorRechargeSuccessActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 选择银行卡 -->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatChatListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <!-- 微信 == 单聊页面 -->
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 零钱充值 -->
         <activity
-            android:name=".wechat.create.WechatSingleChatActivity"
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorRechargeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false"
+            android:theme="@style/Anim_fade"/>
+        <!-- 微信 == 钱包 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorWalletActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 添加聊天对象页面 -->
         <activity
             android:name=".wechat.ui.activity.WechatAddTalkObjectActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 设置资料 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateSettingInfoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 修改角色 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateEditRoleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 创建文本聊天 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateTextActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 创建时间 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateTimeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 创建图片-视频聊天 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreatePictureAndVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 系统消息 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateSystemMessageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 收发红包 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 转账 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateTransferActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 语音 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateVoiceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
 
         <!-- 微信 == 微信聊天截图的预览页面 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.preview.WechatScreenShotPreviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 单聊页面 -->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatSimulatorPreviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 个人信息页面 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorMyInfoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateVoiceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建文本 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateTextActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建图片 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreatePictureActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateTransferActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateSystemMessageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建时间 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateTimeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- Overall相关的Activity -->
         <!-- 设置页面 -->
         <activity
             android:name=".ui.activity.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 问题反馈页面 -->
         <activity
             android:name=".ui.activity.OverallProblemReportActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <!-- 选择客服页面 -->
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 项目推广页面 -->
         <activity
-            android:name=".ui.activity.OverAllChoiceServiceActivity"
+            android:name=".ui.activity.ProjectPopularizeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 置顶页面 -->
+        <activity
+            android:name=".ui.activity.OverallStickActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微币明细 -->
+        <activity
+            android:name=".ui.activity.OverallWbDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 选择客服页面 -->
+        <activity
+            android:name=".ui.activity.OverallServerHelpActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 成为代理页面 -->
         <activity
             android:name=".ui.activity.OverOpenAgentActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 开通VIP页面 -->
         <activity
             android:name=".ui.activity.OverallPurchaseVipActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 加粉加群页面 -->
         <activity
             android:name=".ui.activity.OverallAddFansAndGroupsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 精准加粉页面 -->
         <activity
             android:name=".ui.activity.OverallPreciseAddFansActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 个人名片页面 -->
         <activity
             android:name=".ui.activity.OverallPersonalCardActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 号段加粉页面 -->
         <activity
             android:name=".ui.activity.OverallNumberAddFansActivity"
@@ -346,7 +466,8 @@
             android:name=".ui.activity.OverallJoinGroupsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 发布个人名片页面 -->
         <activity
             android:name=".ui.activity.OverallPublishCardActivity"
@@ -586,6 +707,110 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+        <!--项目市场-->
+        <activity
+            android:name=".ui.activity.OverallProjectMarketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--某一项目分类-->
+        <activity
+            android:name=".ui.activity.OverallProjectClassifyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--发布项目-->
+        <activity
+            android:name=".ui.activity.OverallProjectPublishActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--我的项目-->
+        <activity
+            android:name=".ui.activity.OverallProjectMyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--项目详情-->
+        <activity
+            android:name=".ui.activity.OverallProjectPublishDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微币首页-->
+        <activity
+            android:name=".ui.activity.OverallWbActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--编辑框-->
+        <activity
+            android:name=".ui.activity.OverallEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--产品展示-->
+        <activity
+            android:name=".ui.activity.OverallProjectShowActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 钱包页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotMyWalletActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 红包页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotRedPacketPreviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 提现成功页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotPreviewChangeWithdrawDepositActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 转账页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotTransferDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 收红包页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotReceiveRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 发红包页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotSendRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信模拟器 - 收红包页面-->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorReceiveRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信模拟器 - 发红包页面-->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorSendRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信截图 - 充值页面-->
+        <activity
+            android:name=".wechat.screenshot.WechatScreenShotChangeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+
         <!-- 第三方activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -604,13 +829,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <!--微信分享回调 -->
-        <!--<activity-->
-            <!--android:name=".wxapi.WXEntryActivity"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:exported="true"-->
-            <!--android:screenOrientation="portrait" />-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="app.jietuqi.cn.fileprovider"

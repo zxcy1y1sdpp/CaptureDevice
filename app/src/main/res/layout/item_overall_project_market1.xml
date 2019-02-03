@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/overallBg">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.ms.banner.Banner
+            android:id="@+id/sBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="48%w"
+            app:title_height="30dp"
+            android:layout_below="@+id/sTitleTv"
+            android:background="@color/white"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sOverallProjectMarketRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:spanCount="4"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:layout_marginBottomPercent="2.2%w"
+            android:background="@color/white"
+            android:layout_below="@+id/sBanner"
+            android:paddingTop="10dp"/>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"
+            android:layout_below="@+id/sOverallProjectMarketRv"/>
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@+id/line1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最新项目"
+                app:layout_marginLeftPercent="2.7%w"
+                android:layout_marginTop="@dimen/normalPadding"
+                android:layout_marginBottom="@dimen/normalPadding"
+                android:textSize="16sp"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"
+            android:layout_below="@+id/titleLayout"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -48,6 +48,10 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
      * 微信二维码
      */
     private var mWechatBgFile: File? = null
+    /**
+     * 编辑的时候是否修改了二维码选择了不是二维码的图片
+     */
+    private var mChangeQRCode = false
     override fun setLayoutResourceId() = R.layout.activity_overall_publish_my_card
 
     override fun needLoadingView() = false
@@ -90,7 +94,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                     }
                 }
                 mOverallPublishCardSexualityOrNumberTv.text = if(cardEntity.sex == 1) "男" else "女"
-                mOverallPublishCardBtn.text = "修改我的名片"
+                mOverallPublishCardBtn.text = "修改名片"
                 insertData(cardEntity)
             }
             2,3 -> {
@@ -264,10 +268,11 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == AppCompatActivity.RESULT_OK){
             when(requestCode){
-                RequestCode.CROP_IMAGE ->{
-                    mWechatBgFile = mFinalCropFile
-                    mOverallPublishCardZXingView.decodeQRCode(mFinalCropFile?.absolutePath)
-                    GlideUtil.display(this, mFinalCropFile, mOverallPublishCardQrCodeIv)
+                RequestCode.IMAGE_SELECT ->{
+                    mWechatBgFile = mFiles[0]
+                    mOverallPublishCardZXingView.decodeQRCode(mFiles[0].absolutePath)
+                    GlideUtil.display(this, mFiles[0], mOverallPublishCardQrCodeIv)
+                    mChangeQRCode = false
                 }
             }
         }
@@ -289,10 +294,18 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 showToast("请输入手机号")
                 return false
             }
-            if (null == mWechatBgFile){
-                showToast("请选择二维码")
-                return false
+            if (mCardType == 1 || mCardType == 3){
+                if (mChangeQRCode){
+                    showToast("请选择二维码")
+                    return false
+                }
+            } else{
+                if (null == mWechatBgFile){
+                    showToast("请选择二维码")
+                    return false
+                }
             }
+
             if (OtherUtil.getContent(mOverallPublishCardIntroductionTv).isEmpty()){
                 showToast("请输入个人介绍")
                 return false
@@ -305,7 +318,6 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 showToast("请选择性别")
                 return false
             }
-
         }else{
             if (OtherUtil.getContent(mOverallPublishCardNameTv).isEmpty()){
                 showToast("请输入群名称")
@@ -339,7 +351,6 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
             showToast("请选择所在地区")
             return false
         }
-
         return true
     }
 
@@ -437,6 +448,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
     }
     override fun onScanQRCodeSuccess(result: String?) {
         if (TextUtils.isEmpty(result)){
+            mChangeQRCode = true
             showToast("图像中不包含二维码，请重新选择")
             mWechatBgFile = null
             mFinalCropFile = null
@@ -453,7 +465,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

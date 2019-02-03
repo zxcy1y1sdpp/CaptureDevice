@@ -23,8 +23,8 @@ public class GlobalGlideConfig extends AppGlideModule {
 		super.applyOptions(context, builder);
 //		int memoryCacheSizeBytes = 1024 * 1024 * 20; // 20mb
 //		int diskCacheSizeBytes = 1024 * 1024 * 100;  //100 MB
-//		builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes))
-//				.setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
+//		builder.setMemoryCache(newfun LruResourceCache(memoryCacheSizeBytes))
+//				.setDiskCache(newfun InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class GlobalGlideConfig extends AppGlideModule {
 	@Override
 	public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
 		super.registerComponents(context, glide, registry);
-//		registry.append(String.class, InputStream.class,new CustomBaseGlideUrlLoader.Factory());
+//		registry.append(String.class, InputStream.class,newfun CustomBaseGlideUrlLoader.Factory());
 	}
 }
 

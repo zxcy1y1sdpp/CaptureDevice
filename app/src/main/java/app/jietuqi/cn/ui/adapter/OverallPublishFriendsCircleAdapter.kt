@@ -1,16 +1,17 @@
 package app.jietuqi.cn.ui.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.DeleteListener
 import app.jietuqi.cn.ui.entity.OverallPublishEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.widget.VerticalProgressBar
+import com.xinlan.imageeditlibrary.ToastUtils
 
 /**
  * 作者： liuyuanbo on 2018/11/20 11:31.
@@ -18,7 +19,12 @@ import app.jietuqi.cn.widget.VerticalProgressBar
  * 邮箱： 972383753@qq.com
  * 用途：
  */
-class OverallPublishFriendsCircleAdapter(val mList: MutableList<OverallPublishEntity>, private val mMaxCount: Int, val mDeleteListener: DeleteListener) : RecyclerView.Adapter<OverallPublishFriendsCircleAdapter.Holder>() {
+class OverallPublishFriendsCircleAdapter(val mList: ArrayList<OverallPublishEntity>, private val mMaxCount: Int, val mDeleteListener: DeleteListener) : RecyclerView.Adapter<OverallPublishFriendsCircleAdapter.Holder>() {
+
+    private var mType = 0
+    fun setType(type: Int){
+        mType = type
+    }
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(mList[position])
     }
@@ -43,7 +49,7 @@ class OverallPublishFriendsCircleAdapter(val mList: MutableList<OverallPublishEn
                     mDeleteListener.delete(adapterPosition)
                 }
                 R.id.sUploadProgress ->{
-                    Toast.makeText(itemView.context, "重试", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(itemView.context, "重试")
                 }
             }
         }
@@ -68,7 +74,15 @@ class OverallPublishFriendsCircleAdapter(val mList: MutableList<OverallPublishEn
                 GlideUtil.display(itemView.context, entity.lastPic, uploadIv)
                 deleteIv.visibility = View.GONE
             }else{
-                GlideUtil.displayFile(itemView.context, entity.pic, uploadIv)
+                if (mType == 0){
+                    GlideUtil.displayFile(itemView.context, entity.pic, uploadIv)
+                }else{
+                    if (TextUtils.isEmpty(entity.url)){
+                        GlideUtil.displayFile(itemView.context, entity.pic, uploadIv)
+                    }else{
+                        GlideUtil.display(itemView.context, entity.url, uploadIv)
+                    }
+                }
                 deleteIv.visibility = View.VISIBLE
             }
         }

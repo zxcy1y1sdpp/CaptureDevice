@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_cir_10"
+    android:padding="@dimen/normalPadding2">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发现新版本"
+        android:drawableLeft="@mipmap/app_icon"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/normalPadding"
+        android:textSize="@dimen/wechat18"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/wechatLine"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/updateContentTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_marginBottom="@dimen/normalPadding"
+        android:text="阿萨德浪费空间离开家阿水电费离开家阿水电费离开家阿撒地方了健康阿水电费离开家阿水电费离开家啊水电费离开家阿撒地方了健康阿撒地方了健康阿水电费离开家"/>
+
+
+    <app.jietuqi.cn.widget.ProgressButton
+        android:id="@+id/updateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:text="马上安装"
+        app:cornerRadius="10dp"
+        app:progressMargin="10dp"
+        app:progressColor="@color/alipayBlueTextColor"
+        app:buttonColor="@color/alipayBlueColor"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂不升级"
+        android:layout_gravity="right"
+        android:paddingTop="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"
+        android:paddingLeft="@dimen/normalPadding"/>
+
+</LinearLayout>

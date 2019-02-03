@@ -24,6 +24,7 @@ public class GlideImageLoader implements NineGridView.ImageLoader {
                 .thumbnail(0.1f)
                 .error(R.mipmap.loading)
                 .fallback(R.mipmap.loading)
+                .placeholder(R.mipmap.loading)
                 .into(imageView);
     }
 

@@ -10,7 +10,11 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.constant.IntentKey
+import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorWalletActivity
+import com.zhy.android.percent.support.PercentRelativeLayout
 import kotlinx.android.synthetic.main.activity_wechat_my_wallet.*
 
 /**
@@ -21,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_wechat_my_wallet.*
  */
 
 class WechatMyWalletActivity : BaseWechatActivity() {
+    private lateinit var mAdapter: MyWalletAdapter
     override fun setLayoutResourceId() = R.layout.activity_wechat_my_wallet
 
     override fun needLoadingView() = false
@@ -36,7 +41,9 @@ class WechatMyWalletActivity : BaseWechatActivity() {
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
-        mRecyclerView.adapter = MyWalletAdapter(intent.getStringExtra(IntentKey.MONEY))
+        mAdapter = MyWalletAdapter()
+        mAdapter.setMoney(intent.getStringExtra(IntentKey.MONEY))
+        mRecyclerView.adapter = mAdapter
     }
 
     override fun onClick(v: View) {
@@ -47,7 +54,12 @@ class WechatMyWalletActivity : BaseWechatActivity() {
             }
         }
     }
-    inner class MyWalletAdapter(val balance: String): RecyclerView.Adapter<MyWalletAdapter.Holder>() {
+    inner class MyWalletAdapter: RecyclerView.Adapter<MyWalletAdapter.Holder>() {
+        var balance: String = ""
+        fun setMoney(ba: String){
+            balance = ba
+            notifyDataSetChanged()
+        }
         override fun getItemCount() = 1
 
         override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -58,6 +70,11 @@ class WechatMyWalletActivity : BaseWechatActivity() {
 
         inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
             private val balanceTv: TextView = itemView.findViewById(R.id.balanceTv)
+            init {
+                itemView.findViewById<PercentRelativeLayout>(R.id.chargeLayout).setOnClickListener{
+                        LaunchUtil.launch(itemView.context, WechatSimulatorWalletActivity::class.java)
+                }
+            }
             fun bind() {
                 balanceTv.text = StringUtils.insertFront(StringUtils.keep2Point(balance), "¥")
             }
@@ -66,6 +83,9 @@ class WechatMyWalletActivity : BaseWechatActivity() {
 
     override fun onResume() {
         super.onResume()
-        needVip()
+        needVipForCover()
+        var cash = UserOperateUtil.getWechatSimulatorMySelf().cash
+        mAdapter.setMoney(cash.toString())
+        mAdapter.notifyDataSetChanged()
     }
 }

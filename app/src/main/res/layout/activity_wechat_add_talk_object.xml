@@ -25,7 +25,7 @@
             android:id="@+id/mUserAvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/icon0"
+            android:src="@drawable/head_default"
             android:layout_toLeftOf="@+id/tagIv"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
@@ -47,16 +47,6 @@
             style="@style/wechatEdit"
             android:layout_toLeftOf="@+id/mRefreshIv"/>
 
-        <ImageView
-            android:id="@+id/mRefreshIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/wechat_refresh"
-            android:padding="@dimen/normalPadding"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            app:layout_heightPercent="14%w"
-            app:layout_widthPercent="14%w"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <Button

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         app:layout_heightPercent="14%w"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
+        android:background="#F7F7F7"
         app:containerId="@+id/mWechatFragments"
         app:navigateTabSelectedTextColor="#2F82EC"
         app:navigateTabTextColor="@color/wechat_deep2_text_color"/>

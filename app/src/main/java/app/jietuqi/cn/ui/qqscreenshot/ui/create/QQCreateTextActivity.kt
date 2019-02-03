@@ -64,7 +64,7 @@ class QQCreateTextActivity: BaseCreateActivity() {
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
         mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mMySideEntity = UserOperateUtil.getQQMySelf()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
         mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
         setMsg(mMySideEntity)
@@ -135,6 +135,7 @@ class QQCreateTextActivity: BaseCreateActivity() {
         unChoiceIv.setImageResource(R.drawable.un_choice)
     }
     private fun setMsg(entity: WechatUserEntity){
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarInt = entity.resAvatar
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId

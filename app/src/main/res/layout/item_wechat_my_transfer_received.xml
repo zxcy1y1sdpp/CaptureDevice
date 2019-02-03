@@ -23,6 +23,7 @@
             android:layout_alignParentRight="true"
             app:riv_corner_radius="5dp"/>
         <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/wechatMyTransferReceivedLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_hongbao_c"
@@ -56,7 +57,7 @@
                     android:layout_marginLeft="@dimen/normalPadding"
                     android:textStyle="bold"/>
 
-                <TextView
+                <app.jietuqi.cn.wechat.wechatfont.WechatChar6TextView
                     android:id="@+id/wechatMyTransferReceivedMoneyTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,8 +67,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/wechatLittleTextSize"
                     android:layout_alignLeft="@+id/noticeTv"
-                    android:layout_marginLeft="@dimen/normalPadding"
-                    android:textStyle="bold"/>
+                    android:layout_marginLeft="@dimen/normalPadding"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
             <TextView
                 android:layout_width="wrap_content"

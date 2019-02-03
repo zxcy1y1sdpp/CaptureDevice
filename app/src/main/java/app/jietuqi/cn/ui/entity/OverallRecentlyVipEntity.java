@@ -11,6 +11,7 @@ import app.jietuqi.cn.util.StringUtils;
  * 用途： 最近成为会员的实体
  */
 public class OverallRecentlyVipEntity implements Serializable {
+    private static final long serialVersionUID = 3417562760450939779L;
     /**
      * 2 -- 季度会员
      * 3 -- 年费会员

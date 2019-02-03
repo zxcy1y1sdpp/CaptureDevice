@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 用途： 会员卡的相关信息
  */
 public class OverallVipCardEntity implements Serializable {
+    private static final long serialVersionUID = 5441381029049166811L;
     /**
      * 会员卡的id
      */
@@ -29,6 +30,8 @@ public class OverallVipCardEntity implements Serializable {
      * 支付渠道
      */
     public String payChannel;
+    public String picture_url;
+    public String time_name;
     /**
      * -1：已删除
      * 0：进入了黑名单
@@ -38,4 +41,5 @@ public class OverallVipCardEntity implements Serializable {
      * 4：永久会员
      */
     public String status;
+
 }

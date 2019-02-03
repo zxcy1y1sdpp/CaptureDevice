@@ -10,14 +10,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.SingleTalkEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.WechatScreenShotHelper
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.*
+import app.jietuqi.cn.widget.autolink.AutoLinkMode
+import app.jietuqi.cn.widget.autolink.AutoLinkTextView
 import com.makeramen.roundedimageview.RoundedImageView
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhy.android.percent.support.PercentRelativeLayout
 import java.io.File
 
@@ -194,9 +196,21 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
 
     inner class OtherTextHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val otherAvatar: ImageView = itemView.findViewById(R.id.sWechatScreenShotOtherAvatarIv)
-        private val otherText: TextView = itemView.findViewById(R.id.sWechatScreenShotOtherContentTv)
+        private val otherText: AutoLinkTextView = itemView.findViewById(R.id.sWechatScreenShotOtherContentTv)
 
         fun bind(entity: SingleTalkEntity){
+            otherText.addAutoLinkMode(
+                    AutoLinkMode.MODE_HASHTAG,
+                    AutoLinkMode.MODE_PHONE,
+                    AutoLinkMode.MODE_Number_7,
+                    AutoLinkMode.MODE_URL,
+                    AutoLinkMode.MODE_EMAIL,
+                    AutoLinkMode.MODE_MENTION)
+            otherText.setHashtagModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setPhoneModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setCustomModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setMentionModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setNumber7Color(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             val msg = entity.msg
             val cs = EmojiWechatManager.parse(msg, otherText.textSize)
@@ -205,9 +219,21 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
     }
     inner class MyTextHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val myAvatar: ImageView = itemView.findViewById(R.id.sWechatScreenShotMyAvatarIv)
-        private val myText: TextView = itemView.findViewById(R.id.sWechatScreenShotMyContentTv)
+        private val myText: AutoLinkTextView = itemView.findViewById(R.id.sWechatScreenShotMyContentTv)
 
         fun bind(entity: SingleTalkEntity){
+            myText.addAutoLinkMode(
+                    AutoLinkMode.MODE_HASHTAG,
+                    AutoLinkMode.MODE_PHONE,
+                    AutoLinkMode.MODE_Number_7,
+                    AutoLinkMode.MODE_URL,
+                    AutoLinkMode.MODE_EMAIL,
+                    AutoLinkMode.MODE_MENTION)
+            myText.setHashtagModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setPhoneModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setCustomModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setMentionModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setNumber7Color(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             val msg = entity.msg
             val cs = EmojiWechatManager.parse(msg, myText.textSize)
@@ -242,7 +268,11 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
             }else{
                 time.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
             }
-            time.text = WechatTimeUtil.getNewChatTime(entity.time)
+            if ("12" == entity.timeType){
+                time.text = WechatTimeUtil.getNewChat12Time(entity.time)
+            }else{
+                time.text = WechatTimeUtil.getNewChat24Time(entity.time)
+            }
         }
     }
 
@@ -263,7 +293,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     WechatScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "我查看对方的的红包的详细页面", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(itemView.context, "我查看对方的的红包的详细页面")
                 }
             }
         }
@@ -298,7 +328,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     entity.receive = true
                     WechatScreenShotHelper(itemView.context).update(entity)
                 }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(itemView.context, "对方查看我的红包的详情")
                 }
             }
         }
@@ -332,7 +362,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     WechatScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "我查看对方的的转账 的详细页面", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "我查看对方的的转账 的详细页面")
                 }
             }
         }
@@ -371,7 +401,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     WechatScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "对方查看我的红包的详情")
                 }
             }
         }
@@ -429,7 +459,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     WechatScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "我查看收款的明细", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "我查看收款的明细")
                 }
             }
         }
@@ -450,7 +480,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
                     WechatScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "对方查看收款的明细", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "对方查看收款的明细")
                 }
             }
         }
@@ -488,7 +518,7 @@ class WechatScreenShotPreviewAdapter(val mList: MutableList<WechatScreenShotEnti
         private val myAvatar: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAvatarIv)
         private val voiceLayout: LinearLayout = itemView.findViewById(R.id.mWechatVoiceMyLayout)//长度
         private val lengthTv: TextView = itemView.findViewById(R.id.mWechatVoiceMyLengthTv)//秒数
-//        private val alreadyIv: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAlreadyIv)//是否已经读过了
+        //        private val alreadyIv: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAlreadyIv)//是否已经读过了
         private val transferTv: TextView = itemView.findViewById(R.id.mWechatMyVoiceTransferToTextTv)//转换文字
         private val transferToTextLayout: PercentRelativeLayout = itemView.findViewById(R.id.mWechatMyVoiceTransferToTextLayout)//转文字
         fun bind(entity: SingleTalkEntity){

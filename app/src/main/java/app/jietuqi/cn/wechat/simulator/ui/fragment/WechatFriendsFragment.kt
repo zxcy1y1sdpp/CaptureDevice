@@ -9,8 +9,8 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.wechat.simulator.adapter.WechatSimulatorContactAdapter
-import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
 import kotlinx.android.synthetic.main.fragment_wechat_friends.*
 import java.util.*
@@ -27,7 +27,6 @@ class WechatFriendsFragment : BaseWechatFragment() {
     private lateinit var mHelper: RoleLibraryHelper
     private val mList: ArrayList<WechatUserEntity> = arrayListOf()
     private lateinit var mAdapter: WechatSimulatorContactAdapter
-    private var mRequestCode = -1
     override fun setLayoutResouceId() = R.layout.fragment_wechat_friends
 
     override fun initAllViews() {
@@ -52,8 +51,6 @@ class WechatFriendsFragment : BaseWechatFragment() {
             }
         }
         mList[mList.size - 1].isLast = true
-//        var entity = mList[position]
-        System.out.print(mList.size)
         mAdapter.notifyDataSetChanged()
     }
     private fun comparePinyin(){
@@ -63,11 +60,18 @@ class WechatFriendsFragment : BaseWechatFragment() {
     override fun initViewsListener() {
         mWechatFriendsRecyclerView.addOnItemTouchListener(object : OnRecyclerItemClickListener(mWechatFriendsRecyclerView) {
             override fun onItemClick(vh: RecyclerView.ViewHolder) {
+                if (vh.adapterPosition == 0){
+                    return
+                }
                 val position = vh.adapterPosition - 1
-                val entity = mList[position]
+                var entity = mList[position]
+                var entityInList = WechatSimulatorListHelper(activity).query(entity.wechatUserId)
+                if (null == entityInList){//没有该数据，说明没有保存到聊天列表中
+                    entity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                }else{
+                    entity = entityInList
+                }
                 LaunchUtil.startWechatSimulatorPreviewActivity(activity, entity)
-                WechatSimulatorHelper(activity, entity.wechatUserId).saveWechatMsg(entity)
-                WechatSimulatorListHelper(activity).save(entity)
             }
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
         })

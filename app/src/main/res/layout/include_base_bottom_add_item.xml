@@ -15,10 +15,10 @@
         android:background="@drawable/overall_blue_circular"
         percent:layout_widthPercent="44.6%w"
         percent:layout_heightPercent="10.9%w"
+        percent:layout_marginLeftPercent="4.3%w"
         percent:layout_marginTopPercent="2.9%w"
         percent:layout_marginBottomPercent="2.9%w"
         percent:layout_marginRightPercent="2.6%w"
-        percent:layout_marginLeftPercent="4.3%w"
         android:text="添加记录"
         android:textColor="@color/white"
         android:textSize="@dimen/overall26px"/>
@@ -29,6 +29,7 @@
         android:background="@drawable/overall_green_circular"
         percent:layout_widthPercent="44.6%w"
         percent:layout_heightPercent="10.9%w"
+        percent:layout_marginRightPercent="4.3%w"
         android:text="生成预览"
         android:textColor="@color/white"
         android:textSize="@dimen/overall26px"/>

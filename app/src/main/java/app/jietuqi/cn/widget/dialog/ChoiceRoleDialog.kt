@@ -20,14 +20,24 @@ import app.jietuqi.cn.widget.ShapeCornerBgView
 
 class ChoiceRoleDialog : BottomSheetDialogFragment(), View.OnClickListener{
     private var mRequestCode = -1
+    /**
+     * 0 -- 微信
+     * 1 -- 支付宝
+     * 2 -- QQ
+     */
+    private var mType = 0
     private lateinit var mUserEntity: WechatUserEntity
+    /**
+     * 是否需要同时操作数据库
+     */
+    private var mNeedOperateDb = false
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.dialogChangeRoleView ->{
                 LaunchUtil.startForResultRoleOfLibraryActivity(activity, mRequestCode)
             }
             R.id.dialogEditRoleView ->{
-                LaunchUtil.startForResultWechatCreateEditRoleActivity(activity, mUserEntity, mRequestCode)
+                LaunchUtil.startForResultWechatCreateEditRoleActivity(activity, mUserEntity, mRequestCode, mType, mNeedOperateDb)
             }
         }
         dismiss()
@@ -46,8 +56,10 @@ class ChoiceRoleDialog : BottomSheetDialogFragment(), View.OnClickListener{
         view.findViewById<ShapeCornerBgView>(R.id.dialogCancelView).setOnClickListener(this)
         return dialog
     }
-    open fun setRequestCode(requestCode: Int, entity: WechatUserEntity){
+    fun setRequestCode(requestCode: Int, entity: WechatUserEntity, type: Int, needdB: Boolean){
         mRequestCode = requestCode
         mUserEntity = entity
+        mNeedOperateDb = needdB
+        mType = type
     }
 }

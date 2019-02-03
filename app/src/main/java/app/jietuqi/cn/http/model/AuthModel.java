@@ -3,6 +3,7 @@ package app.jietuqi.cn.http.model;
 import java.io.Serializable;
 
 public class AuthModel implements Serializable {
+    private static final long serialVersionUID = -4793796211453923113L;
     private String accessToken;
     private String accessTokenExpires;
     private String refreshToken;

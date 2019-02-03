@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout
+<com.zhy.android.percent.support.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:percent="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -8,7 +8,9 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include layout="@layout/base_wechat_preview_title"
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/base_wechat_preview_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <!--<TextView
@@ -25,12 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/wechatLineNarrow"
         android:background="@color/wechatBg"
-        android:layout_below="@+id/wechatTitleTv"/>
+        android:layout_below="@+id/titleLayout"/>
 
     <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        percent:layout_heightPercent="62.31%w">
+        percent:layout_heightPercent="62.31%w"
+        android:layout_below="@+id/line1">
         <com.zhy.android.percent.support.PercentRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -145,7 +149,8 @@
         percent:layout_marginTopPercent="14.79%w"
         percent:layout_marginRightPercent="6.69%w"
         percent:layout_marginLeftPercent="6.69%w"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/layout1">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
@@ -239,5 +244,9 @@
             percent:layout_heightPercent="10%w"
             android:scaleType="fitXY"/>-->
     </com.zhy.android.percent.support.PercentLinearLayout>
+    <include layout="@layout/include_wechat_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
-</com.zhy.android.percent.support.PercentLinearLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

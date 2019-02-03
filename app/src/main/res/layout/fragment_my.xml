@@ -6,15 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/overallBg">
-    <include
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mMyOverallTitleBgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="14%w"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/overAllTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="个人中心"
+            android:textSize="@dimen/overall32px"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/overallTextColor"/>
+
+        <TextView
+            android:id="@+id/overAllBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wechatLineNarrow"
+            android:background="@color/overallBg"
+            android:layout_alignParentBottom="true"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <!--<include
         layout="@layout/include_base_overall_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/mMyRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableLoadMore="false">
+        app:srlEnableLoadMore="false"
+        app:srlEnableRefresh="false">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -111,11 +138,19 @@
                     android:id="@+id/mOpenVipLayout"
                     style="@style/overallMyItem"
                     app:layout_marginTopPercent="5.33%w">
+
+                    <ImageView
+                        android:id="@+id/tagView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/kaitongvip"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="开通VIP"
-                        android:drawableLeft="@mipmap/kaitongvip"
                         style="@style/overallLeftTitle"
-                        android:textColor="#FC615A"/>
+                        android:textColor="#FC615A"
+                        android:layout_toRightOf="@+id/tagView1"/>
                     <TextView
                         android:id="@+id/mOpenIsVipTv"
                         style="@style/overallMyItemRight"
@@ -123,12 +158,40 @@
                         android:textColor="@color/overallGray"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
-                    android:id="@+id/mOpenAgentLayout"
+                    android:id="@+id/mWbLayout"
                     style="@style/overallMyItem">
+
+                    <ImageView
+                        android:id="@+id/tagView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/wodeweibi"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
+                    <TextView
+                        android:text="我的微币"
+                        style="@style/overallLeftTitle"
+                        android:textColor="#FC615A"
+                        android:layout_toRightOf="@+id/tagView9"/>
+                    <TextView
+                        style="@style/overallMyItemRight"
+                        android:textColor="@color/overallGray"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mOpenAgentLayout"
+                    style="@style/overallMyItem"
+                    android:visibility="gone">
+                    <ImageView
+                        android:id="@+id/tagView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ktdl"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="开通代理"
-                        android:drawableLeft="@mipmap/ktdl"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView2"/>
                     <TextView
                         style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
@@ -148,10 +211,17 @@
                     android:id="@+id/mInviteLayout"
                     app:layout_marginTopPercent="5.33%w"
                     style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/yqyj"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="邀请有奖"
-                        android:drawableLeft="@mipmap/yqyj"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView3"/>
 
                     <TextView style="@style/overallMyItemRight"
                         android:text="免费获得VIP"
@@ -161,53 +231,72 @@
                     android:id="@+id/mMyPublishLayout"
                     style="@style/overallMyItem"
                     app:layout_marginBottomPercent="5.33%w">
+                    <ImageView
+                        android:id="@+id/tagView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/wodefabu"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="我的发布"
-                        android:drawableLeft="@mipmap/wodefabu"
-                        style="@style/overallLeftTitle"/>
-
-                    <TextView style="@style/overallMyItemRight"/>
-                </com.zhy.android.percent.support.PercentRelativeLayout>
-                <com.zhy.android.percent.support.PercentRelativeLayout
-                    android:id="@+id/mCreditLayout"
-                    style="@style/overallMyItem"
-                    android:visibility="gone">
-                    <TextView
-                        android:text="我的说说"
-                        android:drawableLeft="@mipmap/wsxyrz"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView4"/>
 
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mQQGroupLayout"
                     style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/qqq"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="会员QQ群"
-                        android:drawableLeft="@mipmap/qqq"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView5"/>
                     <TextView
                         android:id="@+id/mQQGroupType"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         style="@style/overallMyItemRight"
                         android:text="824315403"
                         android:textColor="@color/overallGray"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
-                    android:id="@+id/mContactServerLayout"
+                    android:id="@+id/mServerHelpLayout"
                     style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/lxkf"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
-                        android:text="联系客服"
-                        android:drawableLeft="@mipmap/lxkf"
-                        style="@style/overallLeftTitle"/>
+                        android:text="客服帮助"
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView10"/>
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mProblemReportLayout"
                     style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/wtfk"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="问题反馈"
-                        android:drawableLeft="@mipmap/wtfk"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView7"/>
 
                     <TextView style="@style/overallMyItemRight"
                         android:text="有什么想法告诉我们吧"
@@ -216,13 +305,37 @@
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mSettingLayout"
                     style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sz"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
                     <TextView
                         android:text="设置"
-                        android:drawableLeft="@mipmap/sz"
-                        style="@style/overallLeftTitle"/>
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView8"/>
 
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
+                <!--<com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mWbLayout"
+                    style="@style/overallMyItem">
+                    <ImageView
+                        android:id="@+id/tagView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sz"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
+                    <TextView
+                        android:text="设置"
+                        style="@style/overallLeftTitle"
+                        android:layout_toRightOf="@+id/tagView9"/>
+
+                    <TextView style="@style/overallMyItemRight"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>-->
 
             </com.zhy.android.percent.support.PercentLinearLayout>
         </ScrollView>

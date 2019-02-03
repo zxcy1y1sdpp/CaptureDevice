@@ -40,12 +40,17 @@
                 android:gravity="center_vertical"
                 app:layout_marginRightPercent="8.77%w">
                 <ImageView
-                    android:id="@+id/sOverallAddFansEachOtherTopIv"
+                    android:id="@+id/sOverallJoinGroupTopIv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/zhiding"
-                    android:layout_marginRight="3dp"
-                    android:visibility="gone"/>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/jiafen_zhiding"
+                    android:layout_marginRight="3dp"/>
+                <ImageView
+                    android:id="@+id/sOverallJoinGroupVipIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/jiafen_vip"
+                    android:layout_marginRight="3dp"/>
                 <TextView
                     android:id="@+id/sOverallAddFansEachOtherNickNameTv"
                     android:layout_width="wrap_content"

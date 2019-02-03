@@ -6,11 +6,11 @@ import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
 import app.jietuqi.cn.constant.AppPayConfig
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.alipay.sdk.app.PayTask
+import com.xinlan.imageeditlibrary.ToastUtils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -24,7 +24,11 @@ class AlipayUtil {
     private val SDK_PAY_FLAG = 1
     private var mActivity: Activity? = null
     private var info: String? = null
-    private lateinit var mDialog: SweetAlertDialog
+    /**
+     * 0 -- 购买会员卡
+     * 1 -- 微币充值
+     */
+    private var mType = 0
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -39,18 +43,30 @@ class AlipayUtil {
                     val resultStatus = payResult.resultStatus
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("支付成功")
-                                .setContentText("恭喜您成为尊贵的Vip用户")
-                                .setConfirmText("朕知道了")
-                                .setConfirmClickListener {
-                                    it.dismissWithAnimation()
-                                }.show()
-                        EventBusUtil.postSticky("购买会员卡成功")
+                        if (mType == 0){
+                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("支付成功")
+                                    .setContentText("恭喜您成为尊贵的Vip用户")
+                                    .setConfirmText("朕知道了")
+                                    .setConfirmClickListener {
+                                        it.dismissWithAnimation()
+                                    }.show()
+                            EventBusUtil.postSticky("购买会员卡成功")
+                        }else{
+                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("提示")
+                                    .setContentText("充值成功")
+                                    .setConfirmText("朕知道了")
+                                    .setConfirmClickListener {
+                                        it.dismissWithAnimation()
+                                    }.show()
+                            EventBusUtil.postSticky("微币充值成功")
+                        }
+
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         EventBusUtil.postSticky("购买会员卡失败")
-                        Toast.makeText(mActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(mActivity, "支付失败")
                     }
                 }
                 else -> {
@@ -59,9 +75,10 @@ class AlipayUtil {
         }
     }
 
-    fun init(context: Activity, info: String) {
+    fun init(context: Activity, info: String, type: Int = 1) {
         mActivity = context
         this.info = info
+        mType = type
         payV2()
     }
 
@@ -70,7 +87,7 @@ class AlipayUtil {
      */
     private fun payV2() {
         if (TextUtils.isEmpty(AppPayConfig.APPID) || TextUtils.isEmpty(AppPayConfig.RSA2_PRIVATE) && TextUtils.isEmpty(AppPayConfig.RSA2_PRIVATE)) {
-            Toast.makeText(mActivity, "支付遇到问题，请联系客服！", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(mActivity, "支付遇到问题，请联系客服！")
             return
         }
         GlobalScope.launch { // 在一个公共线程池中创建一个协程

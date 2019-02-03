@@ -55,15 +55,16 @@ class QQScreenShotPreviewActivity : BaseWechatActivity() {
                 mQQScreenShotPreviewStatusTv.text = if (TextUtils.isEmpty(status)) "手机在线 - WIFI" else status
             }
         }
-        mOtherSideEntity = UserOperateUtil.getOtherSide()
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mOtherSideEntity = UserOperateUtil.getQQOtherSide()
+        mMySideEntity = UserOperateUtil.getQQMySelf()
         mAdapter = QQScreenShotPreviewAdapter(mList)
         mQQScreenShotPreviewRecyclerView.adapter = mAdapter
-        val otherEntity = UserOperateUtil.getOtherSide()
+        val otherEntity = UserOperateUtil.getQQOtherSide()
         mQQScreenShotPreviewNickNameTv.text = otherEntity.wechatUserNickName
-        val entity = UserOperateUtil.getSingleTalkBg()
+        val entity = UserOperateUtil.getQQSingleTalkBg()
         if (entity.needBg){
             GlideUtil.displayAll(this, entity.bg, mQQScreenShotPreviewRecyclerViewBgIv)
+            mQQScreenShotPreviewRecyclerViewBgIv.visibility = View.VISIBLE
         }else{
             mQQScreenShotPreviewRecyclerViewBgIv.visibility = View.GONE
         }
@@ -123,11 +124,13 @@ class QQScreenShotPreviewActivity : BaseWechatActivity() {
             receiveEntity.wechatUserId = mMySideEntity.wechatUserId
             receiveEntity.avatarStr = mMySideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mMySideEntity.resAvatar
+            receiveEntity.resourceName = mMySideEntity.resourceName
 
         }else{
             receiveEntity.wechatUserId = mOtherSideEntity.wechatUserId
             receiveEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mOtherSideEntity.resAvatar
+            receiveEntity.resourceName = mOtherSideEntity.resourceName
         }
         if (entity.msgType == 3){//领红包
             receiveEntity.msgType = 4

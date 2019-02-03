@@ -102,7 +102,7 @@ public class OverScrollView extends ScrollView {
                     break;  //如果没有移动布局， 则跳过执行
                 }
                 // 开启动画
-                //  TranslateAnimation anim = new TranslateAnimation(0, 0, contentView.getTop() , originalRect.top);
+                //  TranslateAnimation anim = newfun TranslateAnimation(0, 0, contentView.getTop() , originalRect.top);
                 /**
                  * 修复当自身设有PaddingTop值时，归位动画起始、结束位置不正确的问题。
                  */

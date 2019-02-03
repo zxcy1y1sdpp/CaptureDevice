@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.inputmethod.EditorInfo
 import app.jietuqi.cn.R
-
 import app.jietuqi.cn.callback.EditDialogChoiceListener
 import app.jietuqi.cn.entity.EditDialogEntity
 import kotlinx.android.synthetic.main.dialog_change_role.*
+
+
 
 /**
  * @author lyb
@@ -44,6 +46,9 @@ class EditDialog : DialogFragment(), View.OnClickListener {
         okTv.setOnClickListener(this)
         contentEt.setText(mEntity?.content)
         titleTv.text = mEntity?.title
+        if (mEntity?.inputNumber == true){
+            contentEt.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

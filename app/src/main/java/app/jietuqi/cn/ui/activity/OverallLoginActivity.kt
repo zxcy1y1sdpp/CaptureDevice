@@ -6,7 +6,6 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.constant.SharedPreferenceKey
@@ -24,6 +23,7 @@ import cn.sharesdk.framework.ShareSDK
 import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.wechat.friends.Wechat
 import com.mob.tools.utils.UIHandler
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
@@ -145,17 +145,17 @@ class OverallLoginActivity : BaseOverallInternetActivity(), PlatformActionListen
 
     private fun canLogin(): Boolean{
         if(OtherUtil.getContentLength(mOverallLoginAccountEt) != 11){
-            Toast.makeText(this, "手机号长度不正确", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(this, "手机号长度不正确")
             return false
         }
         if (mLoginType == 0){
             if (6 > OtherUtil.getContentLength(mOverallLoginPasswordEt)){
-                Toast.makeText(this, "密码长度必须大于6位", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this, "密码长度必须大于6位")
                 return false
             }
         }else if (mLoginType == 1){
             if (6 > OtherUtil.getContentLength(mOverallLoginPasswordEt)){
-                Toast.makeText(this, "验证码输入不正确", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this, "验证码输入不正确")
                 return false
             }
         }
@@ -197,7 +197,7 @@ class OverallLoginActivity : BaseOverallInternetActivity(), PlatformActionListen
             }
             override fun onSuccess(t: OverallUserInfoEntity) {
                 dismissLoadingDialog()
-                Toast.makeText(this@OverallLoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this@OverallLoginActivity, "登录成功")
                 SharedPreferencesUtils.saveBean2Sp(t, SharedPreferenceKey.USER_INFO)
                 SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, true)
                 finish()
@@ -229,15 +229,15 @@ class OverallLoginActivity : BaseOverallInternetActivity(), PlatformActionListen
 //                WebServiceAPI.getInstance().tLogin(mThirdLoginType, mOpenId, mNickName, mGender, mUserAvatar, JPushInterface.getRegistrationID(this), this, this)
             }
             MSG_AUTH_CANCEL -> {
-                Toast.makeText(this@OverallLoginActivity, "取消了", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this@OverallLoginActivity, "取消了")
                 ProgressUtils.cancleProgressDialog()
             }
             MSG_AUTH_ERROR -> {
                 ProgressUtils.cancleProgressDialog()
-                Toast.makeText(this@OverallLoginActivity, "授权错误", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this@OverallLoginActivity, "授权错误")
             }
             MSG_AUTH_COMPLETE -> {
-                Toast.makeText(this@OverallLoginActivity, "R.string.auth_complete", Toast.LENGTH_SHORT).show()
+                ToastUtils.showShort(this@OverallLoginActivity, "授权成功")
             }
         }
         return false

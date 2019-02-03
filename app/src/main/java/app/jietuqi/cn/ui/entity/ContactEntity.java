@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class ContactEntity implements Serializable {
 
+    private static final long serialVersionUID = 5013949222549911415L;
+
     public ContactEntity(String phoneNumner, String nickName){
         this.phoneNumner = phoneNumner;
         this.nickName = nickName;

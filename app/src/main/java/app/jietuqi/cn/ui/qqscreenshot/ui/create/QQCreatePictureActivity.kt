@@ -55,7 +55,7 @@ class QQCreatePictureActivity : BaseCreateActivity() {
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
         mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mMySideEntity = UserOperateUtil.getQQMySelf()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
         mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
         setMsg(mMySideEntity)
@@ -102,6 +102,7 @@ class QQCreatePictureActivity : BaseCreateActivity() {
         unChoiceIv.setImageResource(R.drawable.un_choice)
     }
     private fun setMsg(entity: WechatUserEntity){
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarInt = entity.resAvatar
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
@@ -109,15 +110,15 @@ class QQCreatePictureActivity : BaseCreateActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.CROP_IMAGE ->{
-                GlideUtil.displayAll(this, mFinalCropFile, mQQCreatePictureIv)
-                mMsgEntity.filePath = mFinalCropFile?.absolutePath
+            RequestCode.IMAGE_SELECT ->{
+                GlideUtil.displayAll(this, mFiles[0], mQQCreatePictureIv)
+                mMsgEntity.filePath = mFiles[0].absolutePath
             }
         }
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

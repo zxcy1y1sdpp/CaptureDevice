@@ -273,6 +273,7 @@
                     app:layout_widthPercent="33.33%w"
                     app:layout_heightPercent="27.1%w"
                     android:layout_below="@+id/mMyWalletCityServiceLayout"
+                    android:background="@drawable/wechat_wallet_bottom_leftcorner"
                     style="@style/wechat_my_wallet_item">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -287,13 +288,25 @@
                         android:text="腾讯公益"
                         android:textColor="@color/wechatDeepGray"/>
                 </com.zhy.android.percent.support.PercentLinearLayout>
-                <TextView
+                <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_heightPercent="27.1%w"
                     android:layout_toRightOf="@+id/mMyWalletTencentPublicWelfareLayout"
                     android:layout_alignTop="@+id/mMyWalletTencentPublicWelfareLayout"
-                    android:background="@color/white"/>
+                    android:background="@color/white"/>-->
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_heightPercent="27.1%w"
+                    android:layout_toRightOf="@+id/mMyWalletTencentPublicWelfareLayout"
+                    android:layout_alignTop="@+id/mMyWalletTencentPublicWelfareLayout"
+
+                    android:textColor="@color/white"
+                    app:stv_corner="5dp"
+                    app:stv_right_bottom_corner="true"
+                    app:stv_solid="@color/white" />
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/thirdPartyServices"
                     android:layout_width="match_parent"
@@ -551,12 +564,10 @@
                     android:layout_alignBottom="@+id/mMyWallet58Layout"
                     android:layout_toRightOf="@+id/mMyWalletHotelLayout"
                     android:gravity="center"
-                    android:text="设置两个圆角"
                     android:textColor="@color/white"
                     app:stv_corner="5dp"
                     app:stv_right_bottom_corner="true"
-                    app:stv_solid="@color/white"
-                    />
+                    app:stv_solid="@color/white" />
                 <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

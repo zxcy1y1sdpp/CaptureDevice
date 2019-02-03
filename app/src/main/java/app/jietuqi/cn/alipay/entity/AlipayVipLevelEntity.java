@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 
 public class AlipayVipLevelEntity implements Serializable {
+    private static final long serialVersionUID = -3187237143455039256L;
     public String levelName;
     public int levelPic;
     public AlipayVipLevelEntity(String levelName, int levelPic){

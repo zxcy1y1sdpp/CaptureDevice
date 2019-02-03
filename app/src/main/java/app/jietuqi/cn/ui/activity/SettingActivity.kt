@@ -1,5 +1,7 @@
 package app.jietuqi.cn.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
@@ -63,8 +65,20 @@ class SettingActivity : BaseOverallActivity() {
                     finish()
                 }
             }
-            R.id.mGiveUsSupportLayout ->{}
+            R.id.mGiveUsSupportLayout ->{
+                val uri = Uri.parse("market://details?id=$packageName")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
         }
+    }
+
+    /**
+     * 清除模拟器和截图器中的数据
+     */
+    private fun cleanWechatSimulatorOrScreenShot(){
+
     }
     private fun clean() {
         if (!this.isFinishing) {

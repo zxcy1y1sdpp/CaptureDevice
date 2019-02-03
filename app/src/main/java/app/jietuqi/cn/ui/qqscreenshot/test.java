@@ -1,5 +1,7 @@
 package app.jietuqi.cn.ui.qqscreenshot;
 
+import android.widget.Toast;
+
 /**
  * 作者： liuyuanbo on 2018/12/24 17:40.
  * 时间： 2018/12/24 17:40
@@ -7,4 +9,7 @@ package app.jietuqi.cn.ui.qqscreenshot;
  * 用途：
  */
 public class test {
+    void test(){
+
+    }
 }

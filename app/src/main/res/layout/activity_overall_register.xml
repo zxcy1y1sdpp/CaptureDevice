@@ -15,11 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/app_icon"
-        app:layout_heightPercent="16.5%w"
-        app:layout_widthPercent="16.5%w"
+        app:layout_heightPercent="20%w"
+        app:layout_widthPercent="20%w"
         app:riv_corner_radius="10dp"
         android:scaleType="centerCrop"
-        app:layout_marginTopPercent="5%w"
+        app:layout_marginTopPercent="10%w"
         app:layout_marginBottomPercent="6.3%w"
         app:riv_border_width="1dp"
         app:riv_border_color="@color/overallBg"
@@ -35,8 +35,8 @@
         android:textColor="@color/overallGray"
         android:textColorHint="@color/overallGray"
         android:layout_below="@+id/mOverallLoginAccountAvatarIv"
-        app:layout_marginLeftPercent="10%w"
-        app:layout_marginRightPercent="10%w"
+        app:layout_marginLeftPercent="12%w"
+        app:layout_marginRightPercent="12%w"
         android:textSize="@dimen/normal_text_size"
         android:maxLength="11"
         android:inputType="number" />
@@ -47,8 +47,8 @@
         android:background="@drawable/gray_login_edittext"
         android:orientation="horizontal"
         app:layout_marginBottomPercent="3.47%w"
-        app:layout_marginLeftPercent="10%w"
-        app:layout_marginRightPercent="10%w"
+        app:layout_marginLeftPercent="12%w"
+        app:layout_marginRightPercent="12%w"
         android:layout_marginTop="@dimen/normalPadding">
         <!--
         app:layout_heightPercent="11.73%w"-->
@@ -88,8 +88,8 @@
         android:textColor="@color/overallGray"
         android:textColorHint="@color/overallGray"
         android:layout_below="@+id/mOverallLoginAccountAvatarIv"
-        app:layout_marginLeftPercent="10%w"
-        app:layout_marginRightPercent="10%w"
+        app:layout_marginLeftPercent="12%w"
+        app:layout_marginRightPercent="12%w"
         android:textSize="@dimen/normal_text_size"
         android:maxLength="11" />
     <TextView
@@ -99,8 +99,8 @@
         android:text="注册"
         android:textColor="@color/white"
         android:layout_below="@+id/mOverallLoginUserAgreementLayout"
-        app:layout_marginLeftPercent="10%w"
-        app:layout_marginRightPercent="10%w"
+        app:layout_marginLeftPercent="12%w"
+        app:layout_marginRightPercent="12%w"
         android:background="@drawable/blue_solid_login_btn_2"
         android:gravity="center"
         android:layout_margin="@dimen/normalPadding2"/>

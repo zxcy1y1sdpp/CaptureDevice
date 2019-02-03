@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 用途：
  */
 public class ProductFlavorsEntity implements Serializable {
+    private static final long serialVersionUID = -7739180224469902827L;
     /**
      * 版本号
      */

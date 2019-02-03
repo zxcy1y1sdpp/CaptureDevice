@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.alipayscreenshot.db.AlipayScreenShotHelper
 import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity
 import app.jietuqi.cn.ui.alipayscreenshot.widget.BubbleImageView
+import app.jietuqi.cn.ui.alipayscreenshot.widget.EmojiAlipayManager
 import app.jietuqi.cn.ui.entity.SingleTalkEntity
-import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.*
 import com.zhy.android.percent.support.PercentRelativeLayout
 import java.io.File
@@ -43,8 +42,8 @@ class AlipayScreenShotPreviewAdapter(val mList: MutableList<AlipayScreenShotEnti
     private val VOICE_OTHER = 13//对方发送的转账
     private val SYSTEM_TYPE = 14//系统提示
 
-    private val mOtherEntity = UserOperateUtil.getOtherSide()
-    private val mMyEntity = UserOperateUtil.getMySelf()
+    private val mOtherEntity = UserOperateUtil.getAlipayOtherSide()
+    private val mMyEntity = UserOperateUtil.getAlipayMySelf()
     override fun getItemViewType(position: Int): Int {
         val entity = mList[position]
         if (entity.isComMsg){//接收到的消息
@@ -186,7 +185,7 @@ class AlipayScreenShotPreviewAdapter(val mList: MutableList<AlipayScreenShotEnti
         fun bind(entity: SingleTalkEntity){
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             val msg = entity.msg + " "
-            val cs = EmojiWechatManager.parse(msg, otherText.textSize)
+            val cs = EmojiAlipayManager.parse(msg, otherText.textSize)
             otherText.setText(cs, TextView.BufferType.SPANNABLE)
         }
     }
@@ -197,7 +196,7 @@ class AlipayScreenShotPreviewAdapter(val mList: MutableList<AlipayScreenShotEnti
         fun bind(entity: SingleTalkEntity){
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             val msg = entity.msg + " "
-            val cs = EmojiWechatManager.parse(msg, myText.textSize)
+            val cs = EmojiAlipayManager.parse(msg, myText.textSize)
             myText.setText(cs, TextView.BufferType.SPANNABLE)
         }
     }
@@ -240,7 +239,7 @@ class AlipayScreenShotPreviewAdapter(val mList: MutableList<AlipayScreenShotEnti
                     entity.receive = true
                     AlipayScreenShotHelper(itemView.context).update(entity)
                 }else{
-                    Toast.makeText(itemView.context, "我查看对方的的红包的详细页面", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(itemView.context, "我查看对方的的红包的详细页面")
                 }
             }
         }
@@ -272,7 +271,7 @@ class AlipayScreenShotPreviewAdapter(val mList: MutableList<AlipayScreenShotEnti
                     AlipayScreenShotHelper(itemView.context).update(entity)
 //123                    EventBusUtil.post(entity)
                 }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(itemView.context, "对方查看我的红包的详情")
                 }
             }
         }

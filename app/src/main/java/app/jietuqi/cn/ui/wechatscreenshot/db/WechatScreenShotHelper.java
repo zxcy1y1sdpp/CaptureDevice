@@ -40,10 +40,10 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             builder.append("wechatUserId text, avatarInt integer, avatarStr text, msgType integer" +
                     ", msg text, img integer, filePath text, time integer, transferOutTime integer, " +
                     "transferReceiveTime integer, receiveTransferId integer, receive text, money text, " +
-                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, lastTime integer");
+                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
+                    "lastTime integer, resourceName text, timeType text");
             builder.append(")");
             db.execSQL(builder.toString());
-//            db.close();
         }
     }
     public int save(WechatScreenShotEntity wechatScreenShotEntity){
@@ -55,6 +55,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         values.put("wechatUserId", wechatScreenShotEntity.wechatUserId);
         values.put("avatarInt", wechatScreenShotEntity.avatarInt);
         values.put("avatarStr", wechatScreenShotEntity.avatarStr);
+        values.put("resourceName", wechatScreenShotEntity.resourceName);
+        values.put("timeType", wechatScreenShotEntity.timeType);
         values.put("msgType", wechatScreenShotEntity.msgType);
         if (wechatScreenShotEntity.msgType == 0){
             values.put("msg", wechatScreenShotEntity.msg);
@@ -100,13 +102,13 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         values.put("lastTime",wechatScreenShotEntity.lastTime);
         int position = allCaseNum(TABLE_NAME);
         values.put("position", position);
-        wechatScreenShotEntity.id = allCaseNum(TABLE_NAME) + 1;
         wechatScreenShotEntity.position = position;
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+        wechatScreenShotEntity.id = (int) l;
         Log.e("insert " , l+"");
-        if (wechatScreenShotEntity.msgType != 2){
-            EventBusUtil.post(wechatScreenShotEntity);
-        }
+//        if (wechatScreenShotEntity.msgType != 2){
+        EventBusUtil.post(wechatScreenShotEntity);
+//        }
         return (int) l;
     }
     /**
@@ -116,7 +118,6 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
     public ArrayList<WechatScreenShotEntity> queryAll(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<WechatScreenShotEntity> list = new ArrayList<>();
-//如果该表不存在数据库中，则不需要进行操作
         if (!isTableExists(TABLE_NAME)) {
             return null;
         }
@@ -128,6 +129,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));
@@ -194,6 +197,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
         cv.put("wechatUserId" , wechatScreenShotEntity.wechatUserId);
         cv.put("avatarInt" , wechatScreenShotEntity.avatarInt);
         cv.put("avatarStr" , wechatScreenShotEntity.avatarStr);
+        cv.put("resourceName" , wechatScreenShotEntity.resourceName);
+        cv.put("timeType" , wechatScreenShotEntity.timeType);
         cv.put("msgType", wechatScreenShotEntity.msgType);
         cv.put("isComMsg", wechatScreenShotEntity.isComMsg);
         cv.put("lastTime", wechatScreenShotEntity.lastTime);
@@ -244,9 +249,7 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                 Log.e("db", "Exception : " + e.getMessage());
             }
         }
-        if (msgType != 2){
-            EventBusUtil.post(wechatScreenShotEntity);
-        }
+        EventBusUtil.post(wechatScreenShotEntity);
 //        db.close();
         return  result;
     }
@@ -269,6 +272,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));

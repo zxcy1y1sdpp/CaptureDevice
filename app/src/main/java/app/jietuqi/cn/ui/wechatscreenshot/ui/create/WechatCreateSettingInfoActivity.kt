@@ -50,14 +50,6 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
     }
 
     override fun initViewsListener() {
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val status = UserOperateUtil.getQQOtherStatus()
-            val number = UserOperateUtil.getQQUnReadNumber()
-            runOnUiThread {
-                mQQUnReadNumberTv.text = if (number.toInt() >= 100) "99+" else number
-                mQQOtherStatusTv.text = if (TextUtils.isEmpty(status)) "手机在线 - WIFI" else status
-            }
-        }
         mWechatSettingInfoMyLayout.setOnClickListener(this)
         mWechatSettingInfoOtherLayout.setOnClickListener(this)
         mWechatSettingInfoBgLayout.setOnClickListener(this)
@@ -68,9 +60,22 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
-        if (mType == 2){
+        if (mType == 0){
+
+        }else if (mType == 1){
+
+        }else if (mType == 2){
             mQQOtherStatusLayout.visibility = View.VISIBLE//对方状态
             mQQUnReadNumberLayout.visibility = View.VISIBLE//消息未读数量
+            mWechatSettingInfoQQLayout.visibility = View.VISIBLE
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                val status = UserOperateUtil.getQQOtherStatus()
+                val number = UserOperateUtil.getQQUnReadNumber()
+                runOnUiThread {
+                    mQQUnReadNumberTv.text = if (number.toInt() >= 100) "99+" else number
+                    mQQOtherStatusTv.text = if (TextUtils.isEmpty(status)) "手机在线 - WIFI" else status
+                }
+            }
         }
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         mMySideEntity = intent.getSerializableExtra(IntentKey.MY_SIDE) as WechatUserEntity
@@ -78,9 +83,20 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatSettingInfoOtherAvatarIv)
         mWechatSettingInfoMyNickNameTv.text = mMySideEntity.wechatUserNickName
         mWechatSettingInfoOtherNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        val wechatBg = UserOperateUtil.getSingleTalkBg()
-        if (wechatBg.needBg){
-            GlideUtil.displayAll(this, wechatBg.bg, mWechatSettingInfoBgIv)
+        var chatBg: ChangeSingleTaklBgEntity? = null
+        when(mType) {
+            0 -> {
+                chatBg = UserOperateUtil.getSingleTalkBg()
+            }
+            1 -> {
+                chatBg = UserOperateUtil.getAlipayChatBg()
+            }
+            2 -> {
+                chatBg = UserOperateUtil.getQQSingleTalkBg()
+            }
+        }
+        if (chatBg?.needBg == true){
+            GlideUtil.displayAll(this, chatBg?.bg, mWechatSettingInfoBgIv)
         }else{
             GlideUtil.displayAll(this, R.drawable.default_bg, mWechatSettingInfoBgIv)
         }
@@ -101,12 +117,32 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
             }
             R.id.mWechatSettingInfoMyLayout ->{
                 val dialog = ChoiceRoleDialog()
-                dialog.setRequestCode(RequestCode.MY_SIDE, mMySideEntity)
+                when(mType) {
+                    0 -> {
+                        dialog.setRequestCode(RequestCode.MY_SIDE, mMySideEntity, mType, true)
+                    }
+                    1 -> {
+                        dialog.setRequestCode(RequestCode.ALIPAY_MY_SIDE, mMySideEntity, mType, true)
+                    }
+                    2 -> {
+                        dialog.setRequestCode(RequestCode.QQ_MY_SIDE, mMySideEntity, mType, true)
+                    }
+                }
                 dialog.show(supportFragmentManager, "choiceRole")
             }
             R.id.mWechatSettingInfoOtherLayout ->{
                 val dialog = ChoiceRoleDialog()
-                dialog.setRequestCode(RequestCode.OTHER_SIDE, mOtherSideEntity)
+                when(mType) {
+                    0 -> {
+                        dialog.setRequestCode(RequestCode.OTHER_SIDE, mOtherSideEntity, mType, true)
+                    }
+                    1 -> {
+                        dialog.setRequestCode(RequestCode.ALIPAY_OTHER_SIDE, mOtherSideEntity, mType, true)
+                    }
+                    2 -> {
+                        dialog.setRequestCode(RequestCode.QQ_OTHER_SIDE, mOtherSideEntity, mType, true)
+                    }
+                }
                 dialog.show(supportFragmentManager, "choiceRole")
             }
             R.id.mWechatSettingInfoBgLayout ->{
@@ -129,23 +165,33 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.MY_SIDE -> {
+            RequestCode.MY_SIDE, RequestCode.QQ_MY_SIDE, RequestCode.ALIPAY_MY_SIDE-> {
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     mMySideEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatSettingInfoMyAvatarIv)
                     mWechatSettingInfoMyNickNameTv.text = mMySideEntity.wechatUserNickName
                 }
             }
-            RequestCode.OTHER_SIDE -> {
+            RequestCode.OTHER_SIDE, RequestCode.QQ_OTHER_SIDE, RequestCode.ALIPAY_OTHER_SIDE -> {
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     mOtherSideEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatSettingInfoOtherAvatarIv)
                     mWechatSettingInfoOtherNickNameTv.text = mOtherSideEntity.wechatUserNickName
                 }
             }
-            RequestCode.CROP_IMAGE ->{
-                GlideUtil.displayAll(this, mFinalCropFile, mWechatSettingInfoBgIv)
-                SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFinalCropFile?.absolutePath), SharedPreferenceKey.SINGLE_TALK_BG)
+            RequestCode.IMAGE_SELECT ->{
+                GlideUtil.displayAll(this, mFiles[0], mWechatSettingInfoBgIv)
+                when(mType){
+                    0 ->{
+                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.SINGLE_TALK_BG)
+                    }
+                    1 ->{
+                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.ALIPAY_CHAT_BG)
+                    }
+                    2 ->{
+                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.QQ_CHAT_BG)
+                    }
+                }
             }
         }
     }
@@ -154,23 +200,47 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
             openAlbumWithPermissionCheck()
         }else{
             GlideUtil.displayAll(this, R.drawable.default_bg, mWechatSettingInfoBgIv)
-            SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.SINGLE_TALK_BG)
+            when(mType){
+                0 ->{
+                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.SINGLE_TALK_BG)
+                }
+                1 ->{
+                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.ALIPAY_CHAT_BG)
+                }
+                2 ->{
+                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.QQ_CHAT_BG)
+                }
+            }
+
         }
     }
     override fun finish() {
         mMySideEntity.meSelf = true
         mOtherSideEntity.meSelf = false
-        if(mType == 2){
-            SharedPreferencesUtils.putData(SharedPreferenceKey.QQ_UN_READ_NUMBER, mQQUnReadNumberTv.text.toString())
-            SharedPreferencesUtils.putData(SharedPreferenceKey.QQ_OTHER_STATUS, mQQOtherStatusTv.text.toString())
+        when(mType){
+            0 ->{
+                SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.MY_SELF)
+                SharedPreferencesUtils.saveBean2Sp(mOtherSideEntity, SharedPreferenceKey.OTHER_SIDE)
+            }
+            1 ->{
+                SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                SharedPreferencesUtils.saveBean2Sp(mOtherSideEntity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
+            }
+            2 ->{
+                SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.QQ_ME_SELF)
+                SharedPreferencesUtils.saveBean2Sp(mOtherSideEntity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                SharedPreferencesUtils.putData(SharedPreferenceKey.QQ_UN_READ_NUMBER, mQQUnReadNumberTv.text.toString())
+                SharedPreferencesUtils.putData(SharedPreferenceKey.QQ_OTHER_STATUS, mQQOtherStatusTv.text.toString())
+            }
         }
-        EventBusUtil.postSticky(mMySideEntity)
-        EventBusUtil.postSticky(mOtherSideEntity)
+
+        EventBusUtil.post(mMySideEntity)
+        EventBusUtil.post(mOtherSideEntity)
         super.finish()
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

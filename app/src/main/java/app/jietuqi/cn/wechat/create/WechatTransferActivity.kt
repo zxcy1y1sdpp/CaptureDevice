@@ -4,8 +4,8 @@ import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.RandomUtil
-import app.jietuqi.cn.entity.WechatTransferEntity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
+import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.TimeUtil
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 
 class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.OnItemSelectListener {
-    internal val mEntity: WechatTransferEntity = WechatTransferEntity()
+    val mEntity: WechatScreenShotEntity = WechatScreenShotEntity()
     override fun click(type: String) {
         mEntity.transferType = type
         mStatusTv.text = type
@@ -87,7 +87,7 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
             R.id.previewBtn ->{
                 mEntity.wechatUserNickName = mNickNameEt.text.toString()
                 mEntity.money = mMoneyEt.text.toString()
-                LaunchUtil.startWechatTransferDetailActivity(this, mEntity)
+                LaunchUtil.startWechatScreenShotTransferDetailActivity(this, mEntity)
             }
         }
     }

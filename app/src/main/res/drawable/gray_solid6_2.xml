@@ -6,8 +6,8 @@
 
     <!-- 设置一个黑色边框 -->
     <stroke
-        android:width="0.5dp"
-        android:color="@color/overallBlue" />
+        android:width="0.7dp"
+        android:color="#4169E1" />
     <!-- 设置四个圆角的半径 -->
     <corners android:radius="5dp" />
     <!-- 设置一下边距,让空间大一点 -->

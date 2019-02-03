@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mChoiceBankLayout"
+        style="@style/overallMyItem"
+        android:background="@color/white">
+        <TextView
+            android:text="选择银行卡"
+            style="@style/overallLeftTitle"
+            android:layout_toRightOf="@+id/tagView1"/>
+        <TextView
+            android:id="@+id/mChoiceBankTv"
+            style="@style/overallMyItemRight"
+            android:textColor="@color/overallGray"
+            android:text="请选择银行"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/overallMyItem"
+        android:background="@color/white">
+        <TextView
+            android:text="银行卡尾号后四位"
+            style="@style/overallLeftTitle"
+            android:layout_toRightOf="@+id/tagView1"/>
+        <EditText
+            android:id="@+id/mBankTailEt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="银行卡后四位"
+            android:gravity="right|center_vertical"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            app:layout_marginRightPercent="4.64%w"
+            android:textSize="15sp"
+            android:maxLength="4"
+            android:inputType="number"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

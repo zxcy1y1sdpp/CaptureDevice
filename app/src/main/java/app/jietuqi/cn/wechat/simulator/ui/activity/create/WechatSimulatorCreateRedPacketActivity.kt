@@ -36,6 +36,7 @@ class WechatSimulatorCreateRedPacketActivity : BaseWechatSimulatorCreateActivity
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
+        mMsgEntity.receive = false
         if (mMsgEntity.msgType == 3){//发红包
             OtherUtil.changeWechatTwoBtnBg(this, mSimulatorWechatCreatesRedPacketSendTv, mSimulatorWechatCreatesRedPacketReceiveTv)
             mSimulatorWechatCreatesRedPacketMoneyEt.setText(if (mMsgEntity.money.toFloat() > 0) mMsgEntity.money else "")

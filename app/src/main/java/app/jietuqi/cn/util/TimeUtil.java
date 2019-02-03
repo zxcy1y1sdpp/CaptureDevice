@@ -78,6 +78,32 @@ public class TimeUtil {
     /**
      * 将时间戳转换为时间
      */
+    public static String stampToDate(long time){
+        if (String.valueOf(time).length() <= 10){//秒
+            time = time * 1000;
+        }
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy—MM—dd HH:mm");
+        Date date = new Date(time);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+    /**
+     * 将时间戳转换为时间
+     */
+    public static String stampToDateWithS(Long timesamp){
+        if (String.valueOf(timesamp).length() <= 10){//秒
+            timesamp = timesamp * 1000;
+        }
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(Long.parseLong(timesamp.toString()));
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+    /**
+     * 将时间戳转换为时间
+     */
     public static String stampToDateYMDHM(Object time){
         Long timeStamp = Long.parseLong(time.toString());
         if (String.valueOf(time).length() <= 10){//秒
@@ -109,14 +135,14 @@ public class TimeUtil {
      */
     public static String getNowTimeOnlyHMS(){
 //        String res;
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-//        Date date = new Date(Long.parseLong(time.toString()) * 1000);
+//        SimpleDateFormat simpleDateFormat = newfun SimpleDateFormat("HH:mm:ss");
+//        Date date = newfun Date(Long.parseLong(time.toString()) * 1000);
 //        res = simpleDateFormat.format(date);
 //        return res;
 
         String time = String.valueOf(System.currentTimeMillis());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");//中间的横线（-）比较短
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy—MM—dd HH:mm");//中间的横线（-）比较长
+//        SimpleDateFormat simpleDateFormat = newfun SimpleDateFormat("yyyy—MM—dd HH:mm");//中间的横线（-）比较长
         Date date;
         if (time.length() < 10){//秒
             date = new Date(Long.parseLong(time) * 1000);
@@ -131,7 +157,19 @@ public class TimeUtil {
     public static String stampToDateWithYMDHM(Object object){
         String time = object.toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");//中间的横线（-）比较短
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy—MM—dd HH:mm");//中间的横线（-）比较长
+//        SimpleDateFormat simpleDateFormat = newfun SimpleDateFormat("yyyy—MM—dd HH:mm");//中间的横线（-）比较长
+        Date date;
+        if (time.length() < 10){//秒
+            date = new Date(Long.parseLong(time) * 1000);
+        }else {
+            date = new Date(Long.parseLong(time));
+        }
+        return simpleDateFormat.format(date);
+    }
+    public static String stampToDateWithYMDHM2(Object object){
+        String time = object.toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//中间的横线（-）比较短
+//        SimpleDateFormat simpleDateFormat = newfun SimpleDateFormat("yyyy—MM—dd HH:mm");//中间的横线（-）比较长
         Date date;
         if (time.length() < 10){//秒
             date = new Date(Long.parseLong(time) * 1000);
@@ -167,5 +205,20 @@ public class TimeUtil {
         // }
         return false;
 
+    }
+
+
+    /**
+     * 将时间戳转换为时间
+     */
+    public static String timeWithoutHMS(long time){
+        if (String.valueOf(time).length() <= 10){//秒
+            time = time * 1000;
+        }
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy—MM—dd hh:mm");
+        Date date = new Date(time);
+        res = simpleDateFormat.format(date);
+        return res;
     }
 }

@@ -34,9 +34,18 @@ class WechatCreateEditRoleActivity : BaseWechatActivity(), EditDialogChoiceListe
         mUserEntity?.pinyinNickName = OtherUtil.transformPinYin(entity?.content)
         mUserEntity?.firstChar = OtherUtil.getFirstLetter(mUserEntity?.pinyinNickName)
     }
-
+    /**
+     * 0 -- 微信
+     * 1 -- 支付宝
+     * 2 -- QQ
+     */
+    private var mType = 0
     private var mUserEntity: WechatUserEntity? = null
     private var mRequestCode = -1
+    /**
+     * 是否需要操作数据库
+     */
+    private var mNeedOperateDB = false
     override fun setLayoutResourceId() = R.layout.activity_wechat_edit_role
 
     override fun needLoadingView(): Boolean {
@@ -56,6 +65,8 @@ class WechatCreateEditRoleActivity : BaseWechatActivity(), EditDialogChoiceListe
         super.getAttribute(intent)
         mUserEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity?
         mRequestCode = intent.getIntExtra(IntentKey.REQUEST_CODE, -1)
+        mType = intent.getIntExtra(IntentKey.TYPE, 0)
+        mNeedOperateDB = intent.getBooleanExtra(IntentKey.NEED_OPERATE_DB, false)
         mWechatEditRoleNickNameTv.text = mUserEntity?.wechatUserNickName
         mUserEntity?.getAvatarFile()?.let { GlideUtil.displayHead(this, it, mWechatEditRoleAvatarIv) }
     }
@@ -64,12 +75,6 @@ class WechatCreateEditRoleActivity : BaseWechatActivity(), EditDialogChoiceListe
         super.onClick(v)
         when(v.id){
             R.id.overallAllRightWithBgTv ->{
-                if (mRequestCode == RequestCode.MY_SIDE){
-                    SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.MY_SELF)
-                }else{
-                    SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.OTHER_SIDE)
-                }
-                RoleLibraryHelper(this).update(mUserEntity)
                 finish()
             }
             R.id.mWechatEditRoleAvatarLayout ->{
@@ -95,9 +100,20 @@ class WechatCreateEditRoleActivity : BaseWechatActivity(), EditDialogChoiceListe
         }
     }
     override fun finish() {
+
+        if (mNeedOperateDB){
+            when (mRequestCode) {
+                RequestCode.MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.MY_SELF)
+                RequestCode.OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.OTHER_SIDE)
+                RequestCode.QQ_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.QQ_ME_SELF)
+                RequestCode.QQ_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                RequestCode.ALIPAY_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                RequestCode.ALIPAY_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(mUserEntity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
+            }
+            RoleLibraryHelper(this).update(this, mUserEntity)
+        }
         intent.putExtra(IntentKey.ENTITY, mUserEntity)
         setResult(mRequestCode, intent)
-        RoleLibraryHelper(this).update(mUserEntity)
         super.finish()
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)

@@ -13,11 +13,12 @@ import app.jietuqi.cn.ui.alipayscreenshot.widget.EmojiAlipayManager
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.qqscreenshot.widget.EmojiQQManager
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
+import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
-import app.jietuqi.cn.util.OtherUtil
-import app.jietuqi.cn.util.SharedPreferencesUtils
-import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.util.*
 import app.jietuqi.cn.web.SonicRuntimeImpl
+import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
+import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import com.mob.MobSDK
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -46,8 +47,21 @@ import javax.net.ssl.SSLSession
  */
 
 class App : Application() {
+    init {
+//设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
+            MRefreshHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+        }
+        //设置全局的Footer构建器
+        /*SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            //指定为经典Footer，默认是 BallPulseFooter
+            ClassicsFooter(context).setDrawableSize(20f)
+        }*/
+    }
     override fun onCreate() {
         super.onCreate()
+
         initBugly()
         // 通过代码注册你的AppKey和AppSecret
         MobSDK.init(this)
@@ -56,11 +70,16 @@ class App : Application() {
         NineGridView.setImageLoader(GlideImageLoader())
         SharedPreferencesUtils.getInstance(this, SharedPreferencesUtils.SHARED_NAME)
         initTencentWeb()
+
+        GlobalScope.launch {
+            // 在一个公共线程池中创建一个协程
+//            delay(5000L)
+            EmojiWechatManager.init(this@App)
+            EmojiAlipayManager.init(this@App)
+            EmojiQQManager.init(this@App)
+        }
+        ResourceHelper()
         initRoleLibrary()
-        EmojiWechatManager.init(this)
-        EmojiAlipayManager.init(this)
-        EmojiQQManager.init(this)
-//        MagicScreenAdapter.initDesignWidthInDp(360)
     }
 
     override fun attachBaseContext(base: Context) {
@@ -74,38 +93,394 @@ class App : Application() {
         }
     }
     private fun initRoleLibrary(){
-        var helper = RoleLibraryHelper(this)
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
+//            delay(5000L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            var helper = RoleLibraryHelper(this@App)
             val list = helper.query()
-            if (list.isNullOrEmpty() || list.size <= 0){
+            if (null == list || list.size <= 0){
                 var entity: WechatUserEntity
                 var nickName: String
                 for (i in RandomUtil.randomAvatar.indices){
                     nickName = RandomUtil.getOrderNickName(i)
-                    entity = WechatUserEntity(RandomUtil.getOrderAvatar(i), "", nickName, OtherUtil.transformPinYin(nickName))
+                    entity = WechatUserEntity(RandomUtil.getRandomAvatarName(i),  nickName, OtherUtil.transformPinYin(nickName))
+//                    entity = WechatUserEntity(RandomUtil.getOrderAvatar(i), "", nickName, OtherUtil.transformPinYin(nickName))
                     var userId = helper.save(entity)
                     entity.wechatUserId = userId.toString()
-                    helper.update(entity)
-                    if (i == 0){//第一条数据就是聊天页面的我的身份
+                    helper.update(this@App, entity)
+                    if (i == 0){//微信截图中的“我”
+                        entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
                         SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
                     }
-                    if (i == 1){//第一条数据就是聊天页面的对方的身份
+                    if (i == 1){//微信截图中的“对方”
                         SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
+                    }
+                    if (i == 2){//QQ截图中的“我
+                        SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_ME_SELF)
+                    }
+                    if (i == 3){//QQ截图中的“对方”
+                        SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                    }
+                    if (i == 4){//支付宝截图中的“我
+                        SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                    }
+                    if (i == 5){//支付宝截图中的“对方”
+                        SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
+                    }
+                    if (i == 6){//微信模拟器中的“我”
+                        entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                        SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE)
+                    }
+                    if (i == 7){//微信模拟器中的“对方”,新手引导用的
+                        var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                        wechatMySimulator?.let { initWechatSimulatorData1(it, entity) }
+//                        wechatMySimulator?.let { initWechatSimulatorData(it, entity, listHelper) }
+                    }
+                    if (i == 8){//微信模拟器中的“对方”,新手引导用的
+                        var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                        wechatMySimulator?.let { initWechatSimulatorData2(it, entity) }
+//                        wechatMySimulator?.let { initWechatSimulatorData(it, entity, listHelper) }
+                    }
+                    if (i == 9){//微信模拟器中的“对方”,新手引导用的
+                        var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                        wechatMySimulator?.let { initWechatSimulatorData3(it, entity) }
+//                        wechatMySimulator?.let { initWechatSimulatorData(it, entity, listHelper) }
+                    }
+                    if (i == 10){//微信模拟器中的“对方”,新手引导用的
+                        var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                        wechatMySimulator?.let { initWechatSimulatorData4(it, entity) }
+//                        wechatMySimulator?.let { initWechatSimulatorData(it, entity, listHelper) }
                     }
                 }
             }else{
-                var mySelf: WechatUserEntity? = UserOperateUtil.getMySelf()
-                if (null == mySelf){
-                    SharedPreferencesUtils.saveBean2Sp(list[0], SharedPreferenceKey.MY_SELF)
-                }
-                var otherSide: WechatUserEntity? = UserOperateUtil.getOtherSide()
-                if (null == otherSide){
-                    SharedPreferencesUtils.saveBean2Sp(list[1], SharedPreferenceKey.OTHER_SIDE)
+                var wxMySelf: WechatUserEntity? = UserOperateUtil.getMySelf()
+                if (null == wxMySelf) {
+                    var entity: WechatUserEntity
+                    var nickName: String
+                    helper.deleteAll()
+                    for (i in RandomUtil.randomAvatar.indices) {
+                        nickName = RandomUtil.getOrderNickName(i)
+                        entity = WechatUserEntity(RandomUtil.getRandomAvatarName(i),  nickName, OtherUtil.transformPinYin(nickName))
+                        var userId = helper.save(entity)
+                        entity.wechatUserId = userId.toString()
+                        helper.update(this@App, entity)
+                        if (i == 0) {//微信截图中的“我”
+                            entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
+                        }
+                        if (i == 1) {//微信截图中的“对方”
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
+                        }
+                        if (i == 2) {//QQ截图中的“我
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_ME_SELF)
+                        }
+                        if (i == 3) {//QQ截图中的“对方”
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                        }
+                        if (i == 4) {//支付宝截图中的“我
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                        }
+                        if (i == 5) {//支付宝截图中的“对方”
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
+                        }
+                        if (i == 6) {//微信模拟器中的“我”
+                            entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                            SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE)
+                        }
+                        if (i == 7) {//微信模拟器中的“对方”,新手引导用的
+                            var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                            wechatMySimulator?.let { initWechatSimulatorData1(it, entity) }
+                        }
+                        if (i == 8) {//微信模拟器中的“对方”,新手引导用的
+                            var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                            wechatMySimulator?.let { initWechatSimulatorData2(it, entity) }
+                        }
+                        if (i == 9) {//微信模拟器中的“对方”,新手引导用的
+                            var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                            wechatMySimulator?.let { initWechatSimulatorData3(it, entity) }
+                        }
+                        if (i == 10) {//微信模拟器中的“对方”,新手引导用的
+                            var wechatMySimulator: WechatUserEntity? = UserOperateUtil.getWechatSimulatorMySelf()
+                            wechatMySimulator?.let { initWechatSimulatorData4(it, entity) }
+                        }
+                    }
                 }
             }
         }
     }
 
+    /**
+     * 初始化新手指引的数据
+     */
+    private fun initWechatSimulatorData1(mySide: WechatUserEntity, otherSide: WechatUserEntity){
+        val helper = WechatSimulatorHelper(this, otherSide.wechatUserId)
+        var msgEntity = WechatScreenShotEntity()
+        msgEntity.msgType = 2
+        msgEntity.time = TimeUtil.getCurrentTimeEndMs()
+        msgEntity.needEventBus = false
+        helper.save(msgEntity)
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.msg = "你已添加" + otherSide.wechatUserNickName + "，现在可以开始聊天了"
+        msgEntity.msgType = 8
+        helper.save(msgEntity)
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "\uD83D\uDD34APP新手必看\uD83D\uDD34\n" +
+                "\n" +
+                "\uD83D\uDD39切换角色\uD83D\uDD39：切换角色说话点最上面“昵称”\n" +
+                "\n" +
+                "\uD83D\uDD39删除消息\uD83D\uDD39：长按消息，点删除\n" +
+                "\n" +
+                "\uD83D\uDD39清空消息\uD83D\uDD39：点右上角的···按钮，进入新页面，点清空即可\n" +
+                "\n" +
+                "\uD83D\uDD39更多功能\uD83D\uDD39：点击右下角的“+”按钮。\n" +
+                "\n" +
+                "\uD83D\uDD39添加时间\uD83D\uDD39：点击右下角的“+”按钮，然后点击\"时间\"。"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = true
+        msgEntity.msgType = 0
+        msgEntity.msg = "\uD83D\uDD34转账及红包的发和领取方法\uD83D\uDD34\n" +
+                "\n" +
+                "\uD83D\uDD39向对方转账(或红包)\uD83D\uDD39：点击右下角“+”，之后点击“转账(或红包)”。\n" +
+                "\n" +
+                "\uD83D\uDD39让对方收钱(或红包)\uD83D\uDD39：你发给对方红包或转账点最上面“昵称”切换到对方说话领取就可以了\n" +
+                "\uD83D\uDD39让自己收钱(或红包)\uD83D\uDD39:   别人给你发红包或者转账，不管切换谁说话都是可以直接领取。"
+        msgEntity.avatarInt = otherSide.resAvatar
+        msgEntity.avatarStr = otherSide.wechatUserAvatar
+        msgEntity.resourceName = otherSide.resourceName
+        msgEntity.wechatUserId = otherSide.wechatUserId
+        helper.save(msgEntity)
+
+        msgEntity = WechatScreenShotEntity()
+        msgEntity?.receive = false
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 5
+        msgEntity.money = "200"
+        msgEntity.msg = StringUtils.insertFront(otherSide.wechatUserNickName, "转账给")
+        msgEntity.transferOutTime = TimeUtil.getCurrentTimeEndMs()
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "\uD83D\uDD34操作练习①\uD83D\uDD34\n" +
+                "\n" +
+                "\uD83D\uDD39让对方收钱\uD83D\uDD39\n" +
+                "\n" +
+                "▶️操作步骤：\n" +
+                "\n" +
+                "1️⃣1、点最上面“昵称切换聊天”；\n" +
+                "\n" +
+                "2️⃣2、点开转账“☆确认收钱☆”"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = true
+        msgEntity.msgType = 0
+        msgEntity.msg = "\uD83D\uDD34操作练习②\uD83D\uDD34\n" +
+                "\n" +
+                "\uD83D\uDD39让自己收钱\uD83D\uDD39\n" +
+                "\n" +
+                "▶️操作步骤：\n" +
+                "\n" +
+                "1️⃣1、不需要切换聊天直接点\n" +
+                "\n" +
+                "2️⃣2、点开转账“☆确认收钱☆”"
+        msgEntity.avatarInt = otherSide.resAvatar
+        msgEntity.avatarStr = otherSide.wechatUserAvatar
+        msgEntity.resourceName = otherSide.resourceName
+        msgEntity.wechatUserId = otherSide.wechatUserId
+        helper.save(msgEntity)
+        val lastEntity = helper.queryLastMsg()
+        if (null != lastEntity){
+            val userEntity = WechatUserEntity()
+            userEntity.id = otherSide.listId
+            userEntity.wechatUserId = otherSide.wechatUserId
+            userEntity.resourceName = otherSide.resourceName
+            userEntity.resAvatar = otherSide.resAvatar
+            userEntity.wechatUserAvatar = otherSide.wechatUserAvatar
+            userEntity.wechatUserNickName = otherSide.wechatUserNickName
+            userEntity.avatarFile = otherSide.avatarFile
+            userEntity.pinyinNickName = otherSide.pinyinNickName
+            userEntity.firstChar = otherSide.firstChar
+            userEntity.isFirst = otherSide.isFirst
+            userEntity.isLast = otherSide.isLast
+            userEntity.meSelf = otherSide.meSelf
+            userEntity.top = otherSide.top
+            userEntity.unReadNum = "1"
+            userEntity.showPoint = false
+            userEntity.chatBg = ""
+
+            userEntity.msgType = lastEntity.msgType.toString()
+            userEntity.msg = lastEntity.msg
+            userEntity.lastTime = lastEntity.lastTime
+            userEntity.isComMsg = lastEntity.isComMsg
+            userEntity.alreadyRead = lastEntity.alreadyRead
+            userEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+            var listHelper = WechatSimulatorListHelper(this)
+            listHelper.save(userEntity)
+        }
+    }
+    /**
+     * 初始化新手指引的数据
+     */
+    private fun initWechatSimulatorData2(mySide: WechatUserEntity, otherSide: WechatUserEntity){
+        val helper = WechatSimulatorHelper(this, otherSide.wechatUserId)
+        var msgEntity = WechatScreenShotEntity()
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "点击到我的页面 - 支付 - 可充值提现"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "点击到我的页面 - 头像一栏 进入个人信息页面 - 可修改头像、昵称、微信号"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+
+        val lastEntity = helper.queryLastMsg()
+        if (null != lastEntity){
+            val userEntity = WechatUserEntity()
+            userEntity.id = otherSide.listId
+            userEntity.wechatUserId = otherSide.wechatUserId
+            userEntity.resourceName = otherSide.resourceName
+            userEntity.resAvatar = otherSide.resAvatar
+            userEntity.wechatUserAvatar = otherSide.wechatUserAvatar
+            userEntity.wechatUserNickName = otherSide.wechatUserNickName
+            userEntity.avatarFile = otherSide.avatarFile
+            userEntity.pinyinNickName = otherSide.pinyinNickName
+            userEntity.firstChar = otherSide.firstChar
+            userEntity.isFirst = otherSide.isFirst
+            userEntity.isLast = otherSide.isLast
+            userEntity.meSelf = otherSide.meSelf
+            userEntity.top = otherSide.top
+            userEntity.unReadNum = "1"
+            userEntity.showPoint = false
+            userEntity.chatBg = ""
+
+            userEntity.msgType = lastEntity.msgType.toString()
+            userEntity.msg = lastEntity.msg
+            userEntity.lastTime = lastEntity.lastTime
+            userEntity.isComMsg = lastEntity.isComMsg
+            userEntity.alreadyRead = lastEntity.alreadyRead
+            userEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+            var listHelper = WechatSimulatorListHelper(this)
+            listHelper.save(userEntity)
+        }
+    }
+    /**
+     * 初始化新手指引的数据
+     */
+    private fun initWechatSimulatorData3(mySide: WechatUserEntity, otherSide: WechatUserEntity){
+        val helper = WechatSimulatorHelper(this, otherSide.wechatUserId)
+        var msgEntity = WechatScreenShotEntity()
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "长按我，可执行置顶聊天、设置未读消息数、删除等操作"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+        val lastEntity = helper.queryLastMsg()
+        if (null != lastEntity){
+            val userEntity = WechatUserEntity()
+            userEntity.id = otherSide.listId
+            userEntity.wechatUserId = otherSide.wechatUserId
+            userEntity.resourceName = otherSide.resourceName
+            userEntity.resAvatar = otherSide.resAvatar
+            userEntity.wechatUserAvatar = otherSide.wechatUserAvatar
+            userEntity.wechatUserNickName = otherSide.wechatUserNickName
+            userEntity.avatarFile = otherSide.avatarFile
+            userEntity.pinyinNickName = otherSide.pinyinNickName
+            userEntity.firstChar = otherSide.firstChar
+            userEntity.isFirst = otherSide.isFirst
+            userEntity.isLast = otherSide.isLast
+            userEntity.meSelf = otherSide.meSelf
+            userEntity.top = otherSide.top
+            userEntity.unReadNum = "1"
+            userEntity.showPoint = false
+            userEntity.chatBg = ""
+
+            userEntity.msgType = lastEntity.msgType.toString()
+            userEntity.msg = lastEntity.msg
+            userEntity.lastTime = lastEntity.lastTime
+            userEntity.isComMsg = lastEntity.isComMsg
+            userEntity.alreadyRead = lastEntity.alreadyRead
+            userEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+            var listHelper = WechatSimulatorListHelper(this)
+            listHelper.save(userEntity)
+        }
+    }
+    /**
+     * 初始化新手指引的数据
+     */
+    private fun initWechatSimulatorData4(mySide: WechatUserEntity, otherSide: WechatUserEntity){
+        val helper = WechatSimulatorHelper(this, otherSide.wechatUserId)
+        var msgEntity = WechatScreenShotEntity()
+        msgEntity = WechatScreenShotEntity()
+        msgEntity.isComMsg = false
+        msgEntity.msgType = 0
+        msgEntity.msg = "点击右上角" + " ，添加新的对话"
+        msgEntity.avatarInt = mySide.resAvatar
+        msgEntity.avatarStr = mySide.wechatUserAvatar
+        msgEntity.resourceName = mySide.resourceName
+        msgEntity.wechatUserId = mySide.wechatUserId
+        helper.save(msgEntity)
+        val lastEntity = helper.queryLastMsg()
+        if (null != lastEntity){
+            val userEntity = WechatUserEntity()
+            userEntity.id = otherSide.listId
+            userEntity.wechatUserId = otherSide.wechatUserId
+            userEntity.resourceName = otherSide.resourceName
+            userEntity.resAvatar = otherSide.resAvatar
+            userEntity.wechatUserAvatar = otherSide.wechatUserAvatar
+            userEntity.wechatUserNickName = otherSide.wechatUserNickName
+            userEntity.avatarFile = otherSide.avatarFile
+            userEntity.pinyinNickName = otherSide.pinyinNickName
+            userEntity.firstChar = otherSide.firstChar
+            userEntity.isFirst = otherSide.isFirst
+            userEntity.isLast = otherSide.isLast
+            userEntity.meSelf = otherSide.meSelf
+            userEntity.top = otherSide.top
+            userEntity.unReadNum = "1"
+            userEntity.showPoint = false
+            userEntity.chatBg = ""
+
+            userEntity.msgType = lastEntity.msgType.toString()
+            userEntity.msg = lastEntity.msg
+            userEntity.lastTime = lastEntity.lastTime
+            userEntity.isComMsg = lastEntity.isComMsg
+            userEntity.alreadyRead = lastEntity.alreadyRead
+            userEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+            var listHelper = WechatSimulatorListHelper(this)
+            listHelper.save(userEntity)
+        }
+    }
     /**
      * 第三个参数为SDK调试模式开关，调试模式的行为特性如下：
      * 输出详细的Bugly SDK的Log；
@@ -167,6 +542,8 @@ class App : Application() {
         //        headers.put("Content-Type", "application/x-www-form-urlencoded");
         headers.put("Authorization", HttpConfig.APPID + "|" + MD5.string2MD5(HttpConfig.APPID + HttpConfig.APPSECRET))
         headers.put("Accept-Encoding", "identity")
+        headers.put("os", "android")
+        headers.put("version", "20190130")
         //设置请求参数
         EasyHttp.getInstance()
                 .debug("RxEasyHttp", true)
@@ -185,8 +562,8 @@ class App : Application() {
                 //.addConverterFactory(GsonConverterFactory.create(gson))//本框架没有采用Retrofit的Gson转化，所以不用配置
                 .addCommonHeaders(headers)//设置全局公共头
         //                .addCommonParams(params)//设置全局公共参数
-        //                .addInterceptor(new CustomSignInterceptor());//添加参数签名拦截器
-        //.addInterceptor(new HeTInterceptor());//处理自己业务的拦截器
+        //                .addInterceptor(newfun CustomSignInterceptor());//添加参数签名拦截器
+        //.addInterceptor(newfun HeTInterceptor());//处理自己业务的拦截器
     }
 
     inner class UnSafeHostnameVerifier(private val host: String?) : HostnameVerifier {
@@ -209,7 +586,7 @@ class App : Application() {
             //设置全局的Header构建器
             SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
                 layout.setPrimaryColorsId(R.color.overallBg, R.color.overallGray3)//全局设置主题颜色
-                ClassicsHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                ClassicsHeader(context)//.setTimeFormat(newfun DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             }
             //设置全局的Footer构建器
             SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->

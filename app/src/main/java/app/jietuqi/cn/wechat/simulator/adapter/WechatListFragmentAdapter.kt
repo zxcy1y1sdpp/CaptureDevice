@@ -3,6 +3,7 @@ package app.jietuqi.cn.wechat.simulator.adapter
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.WechatUserEntity
+import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.WechatTimeUtil
+import app.jietuqi.cn.wechat.simulator.widget.RedPointTextView
+import com.zhy.android.percent.support.PercentRelativeLayout
 
 /**
  * 作者： liuyuanbo on 2018/10/10 10:07.
@@ -36,15 +40,18 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
         private val nickName: TextView = itemView.findViewById(R.id.nickNameTv)
         private val lastMsg: TextView = itemView.findViewById(R.id.lastMsgTv)
         private val time: TextView = itemView.findViewById(R.id.timeTv)
+        private val topLayout: PercentRelativeLayout = itemView.findViewById(R.id.sTopLayout)
+        private val unReadTv: RedPointTextView = itemView.findViewById(R.id.unReadNumberTv)
 
         fun bind(entity: WechatUserEntity){
             GlideUtil.displayHead(itemView.context, entity.getAvatarFile(), avatar)
             nickName.text = entity.wechatUserNickName
             lastMsg.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
-            if (null != entity.msgType){
+            if (!TextUtils.isEmpty(entity.msgType)){
                 when(entity.msgType.toInt()){
                     0 ->{//文字
-                        lastMsg.text = entity.msg
+                        val cs = EmojiWechatManager.parse(entity.msg, lastMsg.textSize)
+                        lastMsg.setText(cs, TextView.BufferType.SPANNABLE)
                     }
                     1 ->{//图片
                         lastMsg.text = "[图片]"
@@ -56,7 +63,7 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
                         lastMsg.text = StringUtils.insertBack("[微信红包]", entity.msg)
                     }
                     4 ->{//领红包
-                        if (!entity.isComMsg){//自己的红包被领取
+                        if (entity.isComMsg){//自己的红包被领取
                             lastMsg.text = StringUtils.insertBack(entity.wechatUserNickName, "领取了你的红包")
                         }else{//领取对方的红包
                             lastMsg.text = StringUtils.insertFrontAndBack(entity.wechatUserNickName, "你领取了", "的红包")
@@ -92,9 +99,29 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
                         lastMsg.text = entity.msg
                     }
                 }
+            }else{
+                lastMsg.text = ""
             }
-            var timeStr = WechatTimeUtil.getNewChatTime(entity.lastTime)
-            time.text = timeStr
+            if (entity.timeType == "12"){
+                time.text = WechatTimeUtil.getNewChat12Time(entity.lastTime)
+            }else{
+                time.text = WechatTimeUtil.getNewChat24Time(entity.lastTime)
+            }
+            if (entity.top){
+                topLayout.setBackgroundColor(Color.parseColor("#EDEDED"))
+            }else{
+                topLayout.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            }
+            if ("0" == entity.unReadNum){
+                unReadTv.visibility = View.GONE
+            }else{
+                unReadTv.visibility = View.VISIBLE
+                if (entity.unReadNum.toInt() >= 99){
+                    unReadTv.setText("···")
+                }else{
+                    unReadTv.setText(entity.unReadNum)
+                }
+            }
         }
     }
 }

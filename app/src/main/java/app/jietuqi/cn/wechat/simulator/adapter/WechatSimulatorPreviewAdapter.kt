@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
-import app.jietuqi.cn.ui.entity.SingleTalkEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
+import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.*
-import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
+import app.jietuqi.cn.widget.autolink.AutoLinkMode
+import app.jietuqi.cn.widget.autolink.AutoLinkTextView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.zhy.android.percent.support.PercentRelativeLayout
 import java.io.File
+
 
 /**
  * 作者： liuyuanbo on 2018/10/10 17:50.
@@ -28,11 +29,10 @@ import java.io.File
  * 用途：
  */
 
-class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, val mShowBg: Boolean, val mOtherEntity: WechatUserEntity, val mHelper: WechatSimulatorHelper) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntity>, val mListener: WechatOperateListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * 默认是本人操作
      */
-//    private var mSwitchRoles = true
     private val TEXT_TYPE_OTHER = 0//、对方发送的文本聊天数据
     private val TEXT_TYPE_MY = 1//我发送的文本聊天数据
     private val IMG_TYPE_OTHER = 2//对方发送的图片聊天数据
@@ -48,9 +48,25 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
     private val VOICE_MY = 12//我发送的语音消息
     private val VOICE_OTHER = 13//对方发送的语音消息
     private val SYSTEM_TYPE = 14//系统提示
-
-//    private val mOtherEntity = UserOperateUtil.getOtherSide()
-    private val mMyEntity = UserOperateUtil.getMySelf()
+    /**
+     * 默认是自己发送
+     */
+    private var mIsComMsg: Boolean = false
+    /**
+     * 是否显示聊天背景
+     */
+    private var mShowChatBg: Boolean = false
+    var mOtherEntity: WechatUserEntity = WechatUserEntity()
+    fun changeRole(isComMsg: Boolean){
+        mIsComMsg =  isComMsg
+    }
+    fun showChatBg(showBg: Boolean){
+        mShowChatBg = showBg
+    }
+    fun setOtherSide(entity: WechatUserEntity){
+        mOtherEntity = entity
+    }
+    private val mMyEntity = UserOperateUtil.getWechatSimulatorMySelf()
     override fun getItemViewType(position: Int): Int {
         val entity = mList[position]
         if (entity.isComMsg){//接收到的消息
@@ -195,9 +211,21 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
 
     inner class OtherTextHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val otherAvatar: ImageView = itemView.findViewById(R.id.sWechatScreenShotOtherAvatarIv)
-        private val otherText: TextView = itemView.findViewById(R.id.sWechatScreenShotOtherContentTv)
+        private val otherText: AutoLinkTextView = itemView.findViewById(R.id.sWechatScreenShotOtherContentTv)
 
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
+            otherText.addAutoLinkMode(
+                    AutoLinkMode.MODE_HASHTAG,
+                    AutoLinkMode.MODE_PHONE,
+                    AutoLinkMode.MODE_Number_7,
+                    AutoLinkMode.MODE_URL,
+                    AutoLinkMode.MODE_EMAIL,
+                    AutoLinkMode.MODE_MENTION)
+            otherText.setHashtagModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setPhoneModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setCustomModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setMentionModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            otherText.setNumber7Color(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             val msg = entity.msg
             val cs = EmojiWechatManager.parse(msg, otherText.textSize)
@@ -206,9 +234,21 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
     }
     inner class MyTextHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val myAvatar: ImageView = itemView.findViewById(R.id.sWechatScreenShotMyAvatarIv)
-        private val myText: TextView = itemView.findViewById(R.id.sWechatScreenShotMyContentTv)
+        private val myText: AutoLinkTextView = itemView.findViewById(R.id.sWechatScreenShotMyContentTv)
 
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
+            myText.addAutoLinkMode(
+                    AutoLinkMode.MODE_HASHTAG,
+                    AutoLinkMode.MODE_PHONE,
+                    AutoLinkMode.MODE_Number_7,
+                    AutoLinkMode.MODE_URL,
+                    AutoLinkMode.MODE_EMAIL,
+                    AutoLinkMode.MODE_MENTION)
+            myText.setHashtagModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setPhoneModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setCustomModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setMentionModeColor(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
+            myText.setNumber7Color(ContextCompat.getColor(itemView.context, R.color.wechatAutoColor))
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             val msg = entity.msg
             val cs = EmojiWechatManager.parse(msg, myText.textSize)
@@ -219,7 +259,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val otherAvatar: ImageView = itemView.findViewById(R.id.wechatOtherAvatar)
         private val imageFile: RoundedImageView = itemView.findViewById(R.id.wechatOtherIv)
 
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             GlideUtil.display(itemView.context, File(entity.filePath), imageFile)
         }
@@ -228,7 +268,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val myAvatar: ImageView = itemView.findViewById(R.id.wechatMyAvatar)
         private val imageFile: RoundedImageView = itemView.findViewById(R.id.wechatMyIv)
 
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             GlideUtil.display(itemView.context, File(entity.filePath), imageFile)
         }
@@ -237,13 +277,17 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val time: TextView = itemView.findViewById(R.id.wechatSingleTalkTimeTv)
 
         @RequiresApi(Build.VERSION_CODES.N)
-        fun bind(entity: SingleTalkEntity){
-            if (mShowBg){
+        fun bind(entity: WechatScreenShotEntity){
+            if (mShowChatBg){
                 time.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
             }else{
                 time.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
             }
-            time.text = WechatTimeUtil.getNewChatTime(entity.time)
+            if ("12" == entity.timeType){
+                time.text = WechatTimeUtil.getNewChat12Time(entity.time)
+            }else{
+                time.text = WechatTimeUtil.getNewChat24Time(entity.time)
+            }
         }
     }
 
@@ -254,18 +298,44 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val msgTv: TextView = itemView.findViewById(R.id.wechatLeaveMessage)//留言
         private val statusTv: TextView = itemView.findViewById(R.id.wechatRedPackageStatusTv)//红包状态
         init {
-            itemView.setOnClickListener{
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-                if (!entity.receive){//如果红包没有被领取，就领取
-                    entity.receive = true
-                    mHelper.update(entity)
-                    notifyItemChanged(adapterPosition)
-                }else{
-                    Toast.makeText(itemView.context, "我查看对方的的红包的详细页面", Toast.LENGTH_SHORT).show()
+                val senderEntity = WechatUserEntity()//发送人
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取红包，就领取，如果已经领取就是查看对方红包详情
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        senderEntity.money = entity.money
+                        senderEntity.wechatUserId = entity.wechatUserId
+                        senderEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
+                        senderEntity.avatarFile = mOtherEntity.avatarFile
+                        senderEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
+                        senderEntity.resourceName = mOtherEntity.resourceName
+                        senderEntity.resAvatar = mOtherEntity.resAvatar
+                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        LaunchUtil.startWechatSimulatorReceiveRedPacketActivity(itemView.context, senderEntity)
+                    }else{//“对方操作“对方”未被领取的红包”
+                        entity.receive = true
+                        mListener.meTakeOtherRedPacket(entity, adapterPosition)
+                    }
+                }else{//如果当前操作对象是“对方”，查看详情
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        senderEntity.money = entity.money
+                        senderEntity.wechatUserId = entity.wechatUserId
+                        senderEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
+                        senderEntity.avatarFile = mOtherEntity.avatarFile
+                        senderEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
+                        senderEntity.resourceName = mOtherEntity.resourceName
+                        senderEntity.resAvatar = mOtherEntity.resAvatar
+                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        LaunchUtil.startWechatSimulatorReceiveRedPacketActivity(itemView.context, senderEntity)
+                    }else{//“我操作”“我未被领取的红包”
+                        entity.receive = true
+                        mListener.meTakeOtherRedPacket(entity, adapterPosition)
+                    }
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             msgTv.text = entity.msg
             if (entity.receive){
@@ -274,6 +344,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
                 statusTv.visibility = View.VISIBLE
                 statusTv.text = "已领取"
             }else{
+                bubbleLayout.setBackgroundResource(R.drawable.bg_hongbao_b)//未领取
                 GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_send, tagIv)
                 statusTv.text = "领取红包"
                 statusTv.visibility = View.GONE
@@ -287,18 +358,60 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val msgTv: TextView = itemView.findViewById(R.id.wechatLeaveMessage)//留言
         private val statusTv: TextView = itemView.findViewById(R.id.wechatRedPackageStatusTv)//红包状态
         init {
-            itemView.setOnClickListener{
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-                if (!entity.receive){//如果红包没有被领取，就领取
-                    entity.receive = true
-                    mHelper.update(entity)
-                    notifyItemChanged(adapterPosition)
-                }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+                val senderEntity = WechatUserEntity()//发送人
+                val receiveEntity = WechatUserEntity()//接收人
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取红包，就领取，如果已经领取就是查看详情
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        senderEntity.money = entity.money
+                        senderEntity.wechatUserId = entity.wechatUserId
+                        senderEntity.wechatUserNickName = mMyEntity.wechatUserNickName
+                        senderEntity.avatarFile = mMyEntity.avatarFile
+                        senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
+                        senderEntity.resAvatar = mMyEntity.resAvatar
+                        senderEntity.resourceName = mMyEntity.resourceName
+                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        receiveEntity.money = entity.money
+                        receiveEntity.wechatUserId = entity.wechatUserId
+                        receiveEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
+                        receiveEntity.avatarFile = mOtherEntity.avatarFile
+                        receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
+                        receiveEntity.resAvatar = mOtherEntity.resAvatar
+                        receiveEntity.resourceName = mOtherEntity.resourceName
+                        receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
+                    }else{//“我操作”“我未被领取的红包”
+                        ToastUtils.showShort(itemView.context, "请切换到 [对方] 进行红包领取")
+                    }
+                }else{//如果当前操作对象是“对方”，查看详情
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        senderEntity.money = entity.money
+                        senderEntity.wechatUserId = entity.wechatUserId
+                        senderEntity.wechatUserNickName = mMyEntity.wechatUserNickName
+                        senderEntity.avatarFile = mMyEntity.avatarFile
+                        senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
+                        senderEntity.resourceName = mMyEntity.resourceName
+                        senderEntity.resAvatar = mMyEntity.resAvatar
+                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        receiveEntity.money = entity.money
+                        receiveEntity.wechatUserId = entity.wechatUserId
+                        receiveEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
+                        receiveEntity.avatarFile = mOtherEntity.avatarFile
+                        receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
+                        receiveEntity.resourceName = mOtherEntity.resourceName
+                        receiveEntity.resAvatar = mOtherEntity.resAvatar
+                        receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
+                    }else{//“我操作”“我未被领取的红包”
+                        entity.receive = true
+                        mListener.otherTakeMyRedPacket(entity, adapterPosition)
+                    }
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             msgTv.text = entity.msg
             if (entity.receive){
@@ -310,6 +423,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
                 statusTv.text = "查看红包"
                 statusTv.visibility = View.GONE
                 GlideUtil.display(itemView.context, R.drawable.wechat_redpacket_send, tagIv)
+                bubbleLayout.setBackgroundResource(R.drawable.bg_hongbao_a)//已领取
             }
         }
     }
@@ -320,18 +434,45 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val msgTv: TextView = itemView.findViewById(R.id.wechatOtherTransferLeaveMessageTv)//留言
         private val moneyTv: TextView = itemView.findViewById(R.id.wechatOtherTransferMoneyTv)//红包状态
         init {
-            itemView.setOnClickListener{
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-                if (!entity.receive){//如果红包没有被领取，就领取
-                    entity.receive = true
-                    mHelper.update(entity)
-                    notifyItemChanged(adapterPosition)
-                }else{
-                    Toast.makeText(itemView.context, "我查看对方的的转账 的详细页面", Toast.LENGTH_SHORT).show()
+                entity.itemPosition = adapterPosition
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，就领取，如果已经领取就是查看对方转账详情
+                    entity.type = 0
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        entity.transferType = "已收钱"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }else{//“我操作”对方“未被领取的转账
+                        entity.transferType = "待收款"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }
+                }else{//如果当前操作对象是“对方”
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        entity.type = 1
+                        entity.transferType = "已收钱"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }else{//“对方"操作”对方“未被领取的转账
+                        entity.type = 0
+                        entity.transferType = "待收款"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             if (entity.receive){
                 bubbleLayout.setBackgroundResource(R.drawable.bg_hongbao_d)//已领取
@@ -344,6 +485,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
             }else{
                 msgTv.text = if (entity.msg.isNotBlank()) entity.msg else "转账给你"
                 GlideUtil.display(itemView.context, R.drawable.wechat_transfer_send, tagIv)
+                bubbleLayout.setBackgroundResource(R.drawable.bg_hongbao_b)//未领取
             }
             moneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
         }
@@ -355,18 +497,46 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val msgTv: TextView = itemView.findViewById(R.id.wechatMyTransferLeaveMessageTv)//留言
         private val moneyTv: TextView = itemView.findViewById(R.id.wechatMyTransferMoneyTv)//转账金额
         init {
-            itemView.setOnClickListener{
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-                if (!entity.receive){//如果红包没有被领取，就领取
-                    entity.receive = true
-                    mHelper.update(entity)
-                    notifyItemChanged(adapterPosition)
-                }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+                entity.itemPosition = adapterPosition
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，
+                    entity.type = 1
+                    if (entity.receive){//如果被领取了，就是查看详情
+                        entity.transferType = "已收钱"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }else{//“我操作”我“未被领取的转账”
+                        entity.transferType = "待收款"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }
+                }else{//如果当前操作对象是“对方”
+                    entity.type = 0
+                    if (entity.receive){//对方操作我被领取的转账
+                        entity.transferType = "已收钱"
+                        entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                        entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                        entity.money = entity.money
+                        LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                    }else{//“对方"操作”我“未被领取的转账
+                        entity.transferType = "已收钱"
+                        entity.transferReceiveTime = TimeUtil.getCurrentTimeEndMs()
+                        entity.receiveTime = TimeUtil.stampToDateWithS(TimeUtil.getCurrentTimeEndMs())
+                        entity.receive = true
+                        mListener.myTransferWasReceive(entity, adapterPosition)
+//                        mHelper.update(entity, true)
+                        notifyItemChanged(adapterPosition)
+                    }
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             msgTv.text = entity.msg
             if (entity.receive){
@@ -380,14 +550,15 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
             }else{
                 msgTv.text = if (entity.msg.isNotBlank()) entity.msg else StringUtils.insertFront(mOtherEntity.wechatUserNickName, "转账给")
                 GlideUtil.display(itemView.context, R.drawable.wechat_transfer_send, tagIv)
+                bubbleLayout.setBackgroundResource(R.drawable.bg_hongbao_a)//已领取
             }
             moneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
         }
     }
     inner class ReceiveRedPacketHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val contentTv: TextView = itemView.findViewById(R.id.wechatReceiveRedPacketContentTv)//谁领了红包
-        fun bind(entity: SingleTalkEntity){
-            if (mShowBg){
+        fun bind(entity: WechatScreenShotEntity){
+            if (mShowChatBg){
                 contentTv.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
             }else{
                 contentTv.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
@@ -407,21 +578,30 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
     inner class OtherTransferReceivedHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val otherAvatar: ImageView = itemView.findViewById(R.id.wechatOtherTransferReceivedAvatarIv)
         private val moneyTv: TextView = itemView.findViewById(R.id.wechatOtherTransferMoneyTv)//红包状态
+        private val bubbleLayout: PercentRelativeLayout = itemView.findViewById(R.id.wechatOtherTransferReceivedLayout)//红包状态
         init {
-            itemView.setOnClickListener{
-
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-//                entity.position = adapterPosition//确定条目在列表中的位置
-                if (!entity.receive){//如果转账没有被领取，就领取
-                    entity.receive = true
-//                    WechatScreenShotHelper(itemView.context).update(entity)
-//123                    EventBusUtil.post(entity)
-                }else{
-                    Toast.makeText(itemView.context, "我查看收款的明细", Toast.LENGTH_SHORT).show()
+                entity.itemPosition = adapterPosition
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，
+                    entity.type = 1
+                    entity.transferType = "已收钱"
+                    entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                    entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                    entity.money = entity.money
+                    LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                }else{//如果当前操作对象是“对方”
+                    entity.type = 0
+                    entity.transferType = "已收钱"
+                    entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                    entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                    entity.money = entity.money
+                    LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             moneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
         }
@@ -429,20 +609,30 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
     inner class MyTransferReceivedHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val myAvatar: ImageView = itemView.findViewById(R.id.wechatMyTransferReceivedAvatarIv)
         private val moneyTv: TextView = itemView.findViewById(R.id.wechatMyTransferReceivedMoneyTv)//转账金额
+        private val bubbleLayout: PercentRelativeLayout = itemView.findViewById(R.id.wechatMyTransferReceivedLayout)//红包状态
         init {
-            itemView.setOnClickListener{
+            bubbleLayout.setOnClickListener{
+                mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-//                entity.position = adapterPosition//确定条目在列表中的位置
-                if (!entity.receive){//如果红包没有被领取，就领取
-                    entity.receive = true
-//                    WechatScreenShotHelper(itemView.context).update(entity)
-//123                    EventBusUtil.post(entity)
-                }else{
-                    Toast.makeText(itemView.context, "对方查看收款的明细", Toast.LENGTH_SHORT).show()
+                entity.itemPosition = adapterPosition
+                if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，
+                    entity.type = 0
+                    entity.transferType = "已收钱"
+                    entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                    entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                    entity.money = entity.money
+                    LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
+                }else{//如果当前操作对象是“对方”
+                    entity.type = 1
+                    entity.transferType = "已收钱"
+                    entity.outTime = TimeUtil.stampToDateWithS(entity.transferOutTime)
+                    entity.receiveTime = TimeUtil.stampToDateWithS(entity.transferReceiveTime)
+                    entity.money = entity.money
+                    LaunchUtil.startWechatTransferDetailActivity(itemView.context, entity)
                 }
             }
         }
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             moneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
         }
@@ -455,7 +645,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val transferTv: TextView = itemView.findViewById(R.id.mWechatOtherVoiceTransferToTextTv)//转换文字
         private val transferToTextLayout: PercentRelativeLayout = itemView.findViewById(R.id.mWechatOtherVoiceTransferToTextLayout)//转文字
 
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             OtherUtil.setWechatVoiceLength(itemView.context, voiceLayout, entity.voiceLength)
             GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             lengthTv.text = StringUtils.insertBack(entity.voiceLength.toString(), "\"")
@@ -476,10 +666,10 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
         private val myAvatar: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAvatarIv)
         private val voiceLayout: LinearLayout = itemView.findViewById(R.id.mWechatVoiceMyLayout)//长度
         private val lengthTv: TextView = itemView.findViewById(R.id.mWechatVoiceMyLengthTv)//秒数
-//        private val alreadyIv: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAlreadyIv)//是否已经读过了
+        //        private val alreadyIv: ImageView = itemView.findViewById(R.id.mWechatVoiceMyAlreadyIv)//是否已经读过了
         private val transferTv: TextView = itemView.findViewById(R.id.mWechatMyVoiceTransferToTextTv)//转换文字
         private val transferToTextLayout: PercentRelativeLayout = itemView.findViewById(R.id.mWechatMyVoiceTransferToTextLayout)//转文字
-        fun bind(entity: SingleTalkEntity){
+        fun bind(entity: WechatScreenShotEntity){
             OtherUtil.setWechatVoiceLength(itemView.context, voiceLayout, entity.voiceLength)
             GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), myAvatar)
             lengthTv.text = StringUtils.insertBack(entity.voiceLength.toString(), "\"")
@@ -495,8 +685,8 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
     inner class SystemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val systemContent: TextView = itemView.findViewById(R.id.wechatSystemTv)
         private val systemContent2: TextView = itemView.findViewById(R.id.wechatSystemTv2)
-        fun bind(entity: SingleTalkEntity){
-            if (mShowBg){
+        fun bind(entity: WechatScreenShotEntity){
+            if (mShowChatBg){
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
             }else{
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
@@ -509,5 +699,12 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<SingleTalkEntity>, va
                 systemContent2.visibility = View.GONE
             }
         }
+    }
+
+    interface WechatOperateListener{
+        fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int)//对方领取我的红包
+        fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
+        fun myTransferWasReceive(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
+        fun closeBottomMenu()//关闭底部菜单
     }
 }

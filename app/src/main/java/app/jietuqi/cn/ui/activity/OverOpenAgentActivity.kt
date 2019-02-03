@@ -7,6 +7,7 @@ import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
 import app.jietuqi.cn.util.StringUtils
+import com.xinlan.imageeditlibrary.ToastUtils
 import kotlinx.android.synthetic.main.activity_overall_open_agent.*
 
 
@@ -43,7 +44,7 @@ class OverOpenAgentActivity : BaseOverallActivity() {
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(this, "请检查是否安装QQ客户端", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(this, "请检查是否安装QQ客户端")
                 }
 
 //                //加人

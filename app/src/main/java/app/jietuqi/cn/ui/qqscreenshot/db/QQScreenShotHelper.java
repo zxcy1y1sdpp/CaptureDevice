@@ -40,7 +40,8 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
             builder.append("wechatUserId text, avatarInt integer, avatarStr text, msgType integer" +
                     ", msg text, img integer, filePath text, time integer, transferOutTime integer, " +
                     "transferReceiveTime integer, receiveTransferId integer, receive text, money text, " +
-                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, lastTime integer");
+                    "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
+                    "lastTime integer, resourceName text, timeType text");
             builder.append(")");
             db.execSQL(builder.toString());
 //            db.close();
@@ -55,6 +56,8 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
         values.put("wechatUserId", entity.wechatUserId);
         values.put("avatarInt", entity.avatarInt);
         values.put("avatarStr", entity.avatarStr);
+        values.put("resourceName", entity.resourceName);
+        values.put("timeType", entity.timeType);
         values.put("msgType", entity.msgType);
         if (entity.msgType == 0){
             values.put("msg", entity.msg);
@@ -100,9 +103,9 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
         values.put("lastTime",entity.lastTime);
         int position = allCaseNum(TABLE_NAME);
         values.put("position", position);
-        entity.id = allCaseNum(TABLE_NAME) + 1;
         entity.position = position;
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+        entity.id = (int) l;
         Log.e("insert " , l+"");
         if (entity.msgType != 2){
             EventBusUtil.post(entity);
@@ -129,6 +132,8 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));
@@ -195,6 +200,8 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
         cv.put("wechatUserId" , entity.wechatUserId);
         cv.put("avatarInt" , entity.avatarInt);
         cv.put("avatarStr" , entity.avatarStr);
+        cv.put("timeType" , entity.timeType);
+        cv.put("resourceName" , entity.resourceName);
         cv.put("msgType", entity.msgType);
         cv.put("isComMsg", entity.isComMsg);
         cv.put("lastTime", entity.lastTime);
@@ -270,6 +277,8 @@ public class QQScreenShotHelper extends MyOpenHelper implements IOpenHelper {
             entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
             entity.avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             entity.avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            entity.resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));

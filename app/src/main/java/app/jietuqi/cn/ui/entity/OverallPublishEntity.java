@@ -10,11 +10,21 @@ import java.io.Serializable;
  * 用途：
  */
 public class OverallPublishEntity implements Serializable {
+    private static final long serialVersionUID = -3510765647013466262L;
+
     public OverallPublishEntity(){
     }
     public OverallPublishEntity(int lastPic){
         this.lastPic = lastPic;
     }
+    /**
+     * 图片id
+     */
+    public int id;
+    /**
+     * 图片地址
+     */
+    public String url;
 
     /**
      * 在列表中的位置
@@ -22,6 +32,11 @@ public class OverallPublishEntity implements Serializable {
     public int position;
     public int lastPic;
     public File pic;
+    /**
+     * 是否网络图片
+     */
+    public boolean fromNet;
+
     /**
      * 0 -- 未上传
      * 1 -- 上传中
@@ -33,14 +48,8 @@ public class OverallPublishEntity implements Serializable {
      * 上传的进度
      */
     public int progress;
-    /**
-     * 图片id
-     */
-    public int id;
-    /**
-     * 图片地址
-     */
-    public String url;
+
+
     public int width;
     public int height;
     @Override

@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 
 public class AlipayPreviewBalanceEntity implements Serializable{
+    private static final long serialVersionUID = 4094281241756509333L;
     /**
      * 红包金额
      */

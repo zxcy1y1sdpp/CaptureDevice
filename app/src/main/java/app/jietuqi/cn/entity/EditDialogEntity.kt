@@ -7,7 +7,7 @@ package app.jietuqi.cn.entity
  * 用途： 编辑dialog的实体
  */
 
-class EditDialogEntity(
+class EditDialogEntity (
         /**
          * 是第几个点击显示的dialog，方便返回数据的时候进行区分
          */
@@ -19,4 +19,8 @@ class EditDialogEntity(
         /**
          * dialog标题
          */
-        var title: String)
+        var title: String,
+        /**
+         * dialog中输入框的内容
+         */
+        var inputNumber: Boolean = false)

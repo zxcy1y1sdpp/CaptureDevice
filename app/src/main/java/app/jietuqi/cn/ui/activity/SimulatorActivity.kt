@@ -9,16 +9,15 @@ import app.jietuqi.cn.alipay.create.AlipayCreateMyActivity
 import app.jietuqi.cn.alipay.create.AlipayCreateRedPacketActivity
 import app.jietuqi.cn.alipay.create.AlipayCreateWithdrawDepositBillActivity
 import app.jietuqi.cn.base.BaseOverallActivity
-import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.ui.alipayscreenshot.ui.create.AlipayScreenShotActivity
 import app.jietuqi.cn.ui.qqscreenshot.ui.create.QQScreenShotActivity
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatScreenShotActivity
 import app.jietuqi.cn.util.LaunchUtil
-import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.create.*
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatChatListActivity
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import com.coorchice.library.SuperTextView
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.zhouyou.http.utils.HttpLog
 import kotlinx.android.synthetic.main.activity_wechatsimulator.*
 
@@ -56,7 +55,7 @@ class SimulatorActivity : BaseOverallActivity() {
             }
         }
         setTopTitle("微商截图", 0, rightIv = R.mipmap.jietu_lianxiren)
-        if (!UserOperateUtil.screenShotAgreememt()){
+        /*if (!UserOperateUtil.screenShotAgreememt()){
             SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                     .setCanTouchOutSideCancle(false)
                     .canCancle(false)
@@ -71,7 +70,7 @@ class SimulatorActivity : BaseOverallActivity() {
                         it.dismissWithAnimation()
                         finish()
                     }.show()
-        }
+        }*/
     }
 
     override fun initViewsListener() {
@@ -87,7 +86,7 @@ class SimulatorActivity : BaseOverallActivity() {
         mWechatFun7.setOnClickListener(this)
         mWechatFun8.setOnClickListener(this)
         mWechatFun9.setOnClickListener(this)
-        mWechatFun16.setOnClickListener(this)
+//        mWechatFun16.setOnClickListener(this)
 
         mWechatFun10.setOnClickListener(this)
         mWechatFun11.setOnClickListener(this)
@@ -96,7 +95,9 @@ class SimulatorActivity : BaseOverallActivity() {
         mWechatFun14.setOnClickListener(this)
         mWechatFun15.setOnClickListener(this)
 
-        mWechatLayout.setOnClickListener(this)
+        mWechatSimulatorLayout.setOnClickListener(this)
+        mAlipaySimulatorLayout.setOnClickListener(this)
+        mQQSimulatorLayout.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -107,8 +108,13 @@ class SimulatorActivity : BaseOverallActivity() {
             mVipFun7.visibility = View.GONE
             mVipFun14.visibility = View.GONE
             mVipFun15.visibility = View.GONE
-            mVipFun16.visibility = View.GONE
+//            mVipFun16.visibility = View.GONE
         }
+    }
+    private fun showTip(tv: SuperTextView){
+        var dialog = QMUITipDialog.Builder(this).setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO).setTipWord("努力开发中").create()
+        dialog.show()
+        tv.postDelayed({ dialog.dismiss() }, 1500)
     }
     override fun onClick(v: View) {
         super.onClick(v)
@@ -118,6 +124,12 @@ class SimulatorActivity : BaseOverallActivity() {
             }
         }
         when(v.id){
+            R.id.mAlipaySimulatorLayout ->{
+                showTip(mAlipaySimulatorLayout)
+            }
+            R.id.mQQSimulatorLayout ->{
+                showTip(mQQSimulatorLayout)
+            }
             R.id.overAllRightIv ->{
                 LaunchUtil.launch(this, RoleOfLibraryActivity::class.java)
             }
@@ -154,7 +166,7 @@ class SimulatorActivity : BaseOverallActivity() {
             R.id.mWechatFun8 ->{
                 LaunchUtil.launch(this, WechatVideoActivity::class.java)
             }
-            R.id.mWechatFun9, R.id.mWechatLayout ->{
+            R.id.mWechatFun9, R.id.mWechatSimulatorLayout ->{
                 LaunchUtil.launch(this, WechatChatListActivity::class.java)
             }
             R.id.mWechatFun10 ->{
@@ -176,9 +188,9 @@ class SimulatorActivity : BaseOverallActivity() {
             R.id.mWechatFun15 ->{
                 LaunchUtil.launch(this, AlipayCreateMyActivity::class.java)
             }
-            R.id.mWechatFun16 ->{
-                LaunchUtil.launch(this, WechatCreateBillsListActivity::class.java)
-            }
+//            R.id.mWechatFun16 ->{
+//                LaunchUtil.launch(this, WechatCreateBillsListActivity::class.java)
+//            }
         }
     }
 }

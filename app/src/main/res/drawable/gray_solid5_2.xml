@@ -12,8 +12,6 @@
     <corners android:radius="5dp" />
     <!-- 设置一下边距,让空间大一点 -->
     <padding
-        android:left="@dimen/normalPadding2"
-        android:right="@dimen/normalPadding2"
         android:bottom="@dimen/normalPadding"
         android:top="@dimen/normalPadding"/>
 

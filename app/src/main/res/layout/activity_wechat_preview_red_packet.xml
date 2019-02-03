@@ -8,12 +8,6 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:background="@color/white">
-
-    <!--<include-->
-    <!--android:id="@+id/titleLayout"-->
-    <!--layout="@layout/base_wechat_title"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"/>-->
     <ImageView
         android:id="@+id/mPreviewPacketTopLayout"
         android:layout_width="match_parent"
@@ -277,4 +271,7 @@
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
     </com.zhy.android.percent.support.PercentLinearLayout>
+    <include layout="@layout/include_wechat_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

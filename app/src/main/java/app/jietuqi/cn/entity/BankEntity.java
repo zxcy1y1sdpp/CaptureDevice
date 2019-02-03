@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 
 public class BankEntity implements Serializable {
+    private static final long serialVersionUID = 7985828342119210331L;
     public String bankName;
     public int bankPic;
 }

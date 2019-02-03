@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/sBankIconIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_simulator_add_new_bank"
+            app:layout_widthPercent="6.45%w"
+            app:layout_heightPercent="6.45%w"
+            app:layout_marginLeftPercent="6.88%w"
+            android:layout_centerVertical="true"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/sBankNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用新卡充值"
+            app:layout_heightPercent="16.34%w"
+            app:layout_marginLeftPercent="6.88%w"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/sBankIconIv"
+            android:textColor="@color/wechatDeepGray"/>
+
+        <CheckBox
+            android:id="@+id/sBankChoiceCb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            app:layout_marginRightPercent="6.88%w"
+            android:button="@drawable/wechat_choice_bank" />
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

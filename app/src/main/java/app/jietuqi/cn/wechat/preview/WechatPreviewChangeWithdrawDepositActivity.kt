@@ -21,6 +21,7 @@ import java.math.RoundingMode
  */
 
 class WechatPreviewChangeWithdrawDepositActivity : BaseWechatActivity() {
+    private var mMoney: Double = 0.0
     override fun setLayoutResourceId() = R.layout.activity_wechat_preview_change_withdraw_deposit
 
     override fun needLoadingView() = false
@@ -32,14 +33,17 @@ class WechatPreviewChangeWithdrawDepositActivity : BaseWechatActivity() {
     }
 
     override fun initViewsListener() {
-        mFinishTv.setOnClickListener { finish() }
+        mFinishTv.setOnClickListener {
+            finish()
+        }
     }
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         val entity: WechatWithdrawDepositEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatWithdrawDepositEntity
         mWechatTimeTv.text = StringUtils.insertFrontAndBack(entity.time, "预计", "到账")
-        mWechatMoneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥")
+        mMoney = entity.money.toDouble()
+        mWechatMoneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(mMoney), "¥")
         mBankTv.text = StringUtils.insertFrontAndBack(" ", entity.bank, entity.bankNum4)
         if(entity.serviceCharge){
             if (entity.money.toFloat() < 104){
@@ -55,6 +59,6 @@ class WechatPreviewChangeWithdrawDepositActivity : BaseWechatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        needVip()
+        needVipForCover()
     }
 }

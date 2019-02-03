@@ -1,13 +1,9 @@
 package app.jietuqi.cn.ui.activity
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.DefaultItemAnimator
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.callback.LikeListener
@@ -19,7 +15,7 @@ import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.widget.SoftKeyBoardListener
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
@@ -58,9 +54,9 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
     }
 
     override fun initViewsListener() {
-        mOverallCommunicateDetailsCallPinglunTv.setOnClickListener(this)
+//        mOverallCommunicateDetailsCallPinglunTv.setOnClickListener(this)
         mOverallCommunicateDetailsSendPinglunLayout.setOnClickListener(this)
-        SoftKeyBoardListener.setListener(this, object : SoftKeyBoardListener.OnSoftKeyBoardChangeListener {
+        /*SoftKeyBoardListener.setListener(this, object : SoftKeyBoardListener.OnSoftKeyBoardChangeListener {
             override fun keyBoardShow(height: Int) {
                 Log.e("softkeyboard", "显示")
                 mOverallCommunicateDetailsPinglunLayout.visibility = View.GONE
@@ -72,7 +68,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 mOverallCommunicateDetailsPinglunLayout.visibility = View.VISIBLE
                 mOverallCommunicateDetailsSendPinglunLayout.visibility = View.GONE
             }
-        })
+        })*/
         mOverallCommunicateDetailsSendPingLunTv.setOnClickListener(this)
     }
 
@@ -92,7 +88,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
-            R.id.mOverallCommunicateDetailsCallPinglunTv ->{
+            /*R.id.mOverallCommunicateDetailsCallPinglunTv ->{
                 mOverallCommunicateDetailsPinglunLayout.visibility = View.GONE
                 mOverallCommunicateDetailsSendPinglunLayout.visibility = View.VISIBLE
                 mOverallCommunicateDetailsPingLunEt.isFocusable = true
@@ -101,7 +97,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 //打开软键盘
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)    //InputMethodManager.SHOW_FORCED
-            }
+            }*/
             R.id.overAllRightTitleTv ->{
                 del(mEntity)
             }
@@ -109,7 +105,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 if (UserOperateUtil.isCurrentLoginDirectlyLogin(this)) {
                     val content = mOverallCommunicateDetailsPingLunEt.text.toString().trim()
                     if (TextUtils.isEmpty(content)) {
-                        Toast.makeText(this@OverallCommunicateDetailsActivity, "评论不能为空", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this@OverallCommunicateDetailsActivity, "评论不能为空")
                         return
                     }
                     pingLun(content)

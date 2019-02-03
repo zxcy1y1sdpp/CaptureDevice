@@ -80,7 +80,6 @@ class OverallMyPublishActivity : BaseOverallInternetActivity(), LikeListener {
                                 mList.clear()
                             }
                         }
-
                         mOverallMyPublishRefreshLayout.finishRefresh(true)
                         mOverallMyPublishRefreshLayout.finishLoadMore(true)
                         mList.addAll(t)

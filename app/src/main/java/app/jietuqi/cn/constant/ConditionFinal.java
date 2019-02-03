@@ -12,12 +12,18 @@ public class ConditionFinal {
     /**
      * 性别选择
      */
-    public final static ArrayList<String> SEXUALITY = new ArrayList<String>(){{
+    public final static ArrayList<String> SEXUALITY = new ArrayList<String>(){
+        private static final long serialVersionUID = 2723025083697285144L;
+
+        {
         add("性别不限");
         add("男");
         add("女");
     }};
-    public final static ArrayList<String> BUSINESSTTYP = new ArrayList<String>(){{
+    public final static ArrayList<String> BUSINESSTTYP = new ArrayList<String>(){
+        private static final long serialVersionUID = 4856839214319731662L;
+
+        {
         add("全部类型");
         add("美装");
         add("食品");
@@ -36,7 +42,10 @@ public class ConditionFinal {
         add("Java");
         add("Php");
     }};
-    public final static ArrayList<String> GROUPTYPE = new ArrayList<String>(){{
+    public final static ArrayList<String> GROUPTYPE = new ArrayList<String>(){
+        private static final long serialVersionUID = 8500886688691885843L;
+
+        {
         add("全部类型");
         add("互粉群");
         add("兼职群");
@@ -48,12 +57,18 @@ public class ConditionFinal {
         add("兴趣爱好群");
         add("其他");
     }};
-    public final static ArrayList<String> GROUPPEOPLE = new ArrayList<String>(){{
+    public final static ArrayList<String> GROUPPEOPLE = new ArrayList<String>(){
+        private static final long serialVersionUID = -1126138954819440700L;
+
+        {
         add("人数不限");
         add(">100人");
         add("<100人");
     }};
-    public final static ArrayList<String> ADD_FANS_COUNT = new ArrayList<String>(){{
+    public final static ArrayList<String> ADD_FANS_COUNT = new ArrayList<String>(){
+        private static final long serialVersionUID = -4298274179194974435L;
+
+        {
         add("人数不限");
         add("10");
         add("50");
@@ -61,7 +76,10 @@ public class ConditionFinal {
         add("200");
         add("300");
     }};
-    public final static ArrayList<String> ADD_FANS_COUNT_2 = new ArrayList<String>(){{
+    public final static ArrayList<String> ADD_FANS_COUNT_2 = new ArrayList<String>(){
+        private static final long serialVersionUID = 2077253620319717831L;
+
+        {
         add("10");
         add("50");
         add("100(VIP)");

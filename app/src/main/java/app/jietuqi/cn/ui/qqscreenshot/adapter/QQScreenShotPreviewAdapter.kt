@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.SingleTalkEntity
 import app.jietuqi.cn.ui.qqscreenshot.db.QQScreenShotHelper
@@ -44,8 +43,8 @@ class QQScreenShotPreviewAdapter(val mList: MutableList<QQScreenShotEntity>) : R
     private val VOICE_OTHER = 13//对方发送的转账
     private val SYSTEM_TYPE = 14//系统提示
 
-    private val mOtherEntity = UserOperateUtil.getOtherSide()
-    private val mMyEntity = UserOperateUtil.getMySelf()
+    private val mOtherEntity = UserOperateUtil.getQQOtherSide()
+    private val mMyEntity = UserOperateUtil.getQQMySelf()
     override fun getItemViewType(position: Int): Int {
         val entity = mList[position]
         if (entity.isComMsg){//接收到的消息
@@ -239,7 +238,7 @@ class QQScreenShotPreviewAdapter(val mList: MutableList<QQScreenShotEntity>) : R
                     entity.receive = true
                     QQScreenShotHelper(itemView.context).update(entity)
                 }else{
-                    Toast.makeText(itemView.context, "我查看对方的的红包的详细页面", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "我查看对方的的红包的详细页面")
                 }
             }
         }
@@ -264,7 +263,7 @@ class QQScreenShotPreviewAdapter(val mList: MutableList<QQScreenShotEntity>) : R
                     entity.receive = true
                     QQScreenShotHelper(itemView.context).update(entity)
                 }else{
-                    Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "对方查看我的红包的详情")
                 }
             }
         }

@@ -9,6 +9,8 @@ import java.io.Serializable;
  * 用途： 聊天页面的背景
  */
 public class ChangeSingleTaklBgEntity implements Serializable {
+    private static final long serialVersionUID = -8938601180720471041L;
+
     public ChangeSingleTaklBgEntity(boolean needBg, String bg){
         this.needBg = needBg;
         this.bg = bg;

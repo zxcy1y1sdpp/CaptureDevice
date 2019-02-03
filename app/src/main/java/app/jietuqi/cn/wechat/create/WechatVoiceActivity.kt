@@ -36,6 +36,7 @@ class WechatVoiceActivity : BaseWechatActivity() {
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mEntity.resAvatar = userEntity.resAvatar
+        mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.avatarFile = userEntity.avatarFile
         GlideUtil.displayHead(this, mEntity.getAvatarFile(), mVoiceAvatarIv)
@@ -85,6 +86,7 @@ class WechatVoiceActivity : BaseWechatActivity() {
                     val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     mEntity.avatarFile = userEntity.avatarFile
                     mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.resourceName = userEntity.resourceName
                     mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
                     mVoiceNickNameTv.text = mEntity.wechatUserNickName

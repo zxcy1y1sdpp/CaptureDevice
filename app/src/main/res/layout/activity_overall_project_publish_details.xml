@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/overallBg">
+
+    <include
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/overallLine"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="16.53%w"
+                app:layout_marginTopPercent="4%w"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Line"
+                    android:background="@color/overallLine"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="项目介绍"
+                    app:layout_marginLeftPercent="4.27%w"
+                    android:gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Line"
+                    android:background="@color/overallLine"
+                    android:layout_alignParentBottom="true"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="38.4%w"
+                android:background="@color/white">
+                <EditText
+                    android:id="@+id/mOverallProjectPublishDetailsEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:background="@null"
+                    android:hint="描述一下你的项目，请勿包含不符合国家法律的元素"
+                    app:layout_marginLeftPercent="4.27%w"
+                    app:layout_marginTopPercent="4.27%w"
+                    app:layout_marginRightPercent="4.27%w"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="16.53%w"
+                app:layout_marginTopPercent="4%w"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Line"
+                    android:background="@color/overallLine"/>
+                <TextView
+                    android:id="@+id/tagView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="项目图片"
+                    app:layout_marginLeftPercent="4.27%w"
+                    android:gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/mOverallProjectPublishDetailsPicCountTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0/8"
+                    android:layout_toRightOf="@+id/tagView"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/normalPadding"
+                    android:textColor="@color/red_btn_bg_color"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Line"
+                    android:background="@color/overallLine"
+                    android:layout_alignParentBottom="true"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mOverallProjectPublishDetailsRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="app.jietuqi.cn.widget.NeverCrashGridLayoutManager"
+                android:orientation="vertical"
+                app:spanCount="4"
+                app:layout_marginLeftPercent="4.27%w"
+                app:layout_marginTopPercent="4%w"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </ScrollView>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

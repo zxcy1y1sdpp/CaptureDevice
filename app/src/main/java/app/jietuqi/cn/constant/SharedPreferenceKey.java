@@ -15,10 +15,6 @@ public class SharedPreferenceKey {
     public final static String CHANNEL_NAME = "channel_name";
     /**是否登录*/
     public final static String IS_LOGIN = "isLogin";
-    /**聊天页面的我的身份*/
-    public final static String MY_SELF = "mySelf";
-    /**聊天页面的对方的身份*/
-    public final static String OTHER_SIDE = "otherSide";
     /**用户id*/
     public final static String USER_ID = "userId";
     /**用户头像*/
@@ -31,6 +27,8 @@ public class SharedPreferenceKey {
     public final static String USER_IS_VIP = "isvip";
     /**邀请了多少好友*/
     public final static String USER_SHARE_NUMBER = "share_number";
+    /** 我的微币*/
+    public final static String WB = "wb";
     /**用户手机号*/
     public final static String USER_PHONE_NUMBER = "phoneNumber";
     /**用户微信号*/
@@ -39,8 +37,6 @@ public class SharedPreferenceKey {
     public final static String USER_QQ_OPENID = "qq_openid";
     /**用户实体*/
     public final static String USER_INFO = "userInfo";
-    /**聊天背景*/
-    public final static String SINGLE_TALK_BG = "singleTalkBg";
     /**行业类别*/
     public final static String INDUSTRY = "industry";
     /**群类别*/
@@ -61,4 +57,67 @@ public class SharedPreferenceKey {
     public final static String QQ_UN_READ_NUMBER = "qqUnReadNumber";
     /**QQ对方在线状态*/
     public final static String QQ_OTHER_STATUS = "qqOtherStatus";
+
+    /**
+     * 微信截图中的“我”
+     */
+    public final static String MY_SELF = "mySelf";
+    /**
+     * QQ中的“我”
+     */
+    public final static String QQ_ME_SELF = "qqMeSelf";
+    /**
+     * 支付宝中的“我”
+     */
+    public final static String ALIPAY_ME_SELF = "alipayMeSelf";
+    /**
+     * 微信截图中的“对方”
+     */
+    public final static String OTHER_SIDE = "otherSide";
+    /**
+     * QQ中的“对方”
+     */
+    public final static String QQ_OTHER_SIDE = "qqOtherSide";
+    /**
+     * 支付宝中的“对方”
+     */
+    public final static String ALIPAY_OTHER_SIDE = "alipayOtherSide";
+
+    /**
+     * 微信的聊天背景
+     */
+    public final static String SINGLE_TALK_BG = "singleTalkBg";
+    /**
+     * 支付宝的聊天背景
+     */
+    public final static String ALIPAY_CHAT_BG = "alipaySingleTalkBg";
+    /**
+     * qq的聊天背景
+     */
+    public final static String QQ_CHAT_BG = "qqSingleTalkBg";
+
+    /**
+     * 微信模拟器中的“我”
+     */
+    public final static String WECHAT_SIMULATOR_MY_SIDE = "wechatSimulatorMySide";
+    /**
+     * 微信模拟器中的“对方”
+     */
+    public final static String WECHAT_SIMULATOR_OTHER_SIDE = "wechatSimulatorOtherSide";
+    /**
+     * 未读的朋友圈提示
+     */
+    public final static String UNREAD_FRIEND_CIRCLE = "hasUnReadFriendCircle";
+
+    /**是否需要展示微信模拟器的覆盖层*/
+    public final static String WECHAT_COVER = "wechatCover";
+    /**
+     * 项目市场中的分类
+     */
+    public final static String PROJECT_CLASSIFY = "projectClassify";
+    /**
+     * 微信模拟器中保存的银行卡
+     */
+    public final static String WECHAT_SIMULATOR_BANK_LIST = "wechatSimulatorBankList";
+
 }

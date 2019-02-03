@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -166,7 +167,7 @@ public class EmojiQQBoard extends LinearLayout {
                 } else {
                     view = (ViewGroup) convertView;
                 }
-                ImageView image = view.findViewById(R.id.image);
+                ImageButton image = view.findViewById(R.id.image);
                 image.setImageResource(resList.get(position));
                 return view;
             }

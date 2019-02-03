@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.OverallCardEntity
 import app.jietuqi.cn.util.GlideUtil
@@ -27,7 +26,6 @@ class OverallJoinGroupsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     fun setData(fansList: ArrayList<OverallCardEntity>, type: Int){
         mType = type
         mFanslist = fansList
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (mType == 0){
@@ -56,13 +54,29 @@ class OverallJoinGroupsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         private var titleBg: ShapeCornerBgView = itemView.findViewById(R.id.sOverallJoinGroupBgView)
         private var title: TextView = itemView.findViewById(R.id.sOverallJoinGroupTitleTv)
         private var content: TextView = itemView.findViewById(R.id.sOverallJoinGroupContentTv)
+        private var isTopTagIv: ImageView = itemView.findViewById(R.id.sOverallJoinGroupTopIv)//置顶标识
+//        private var isVipIv: ImageView = itemView.findViewById(R.id.sOverallJoinGroupVipIv)//置顶标识
         fun bind(entity: OverallCardEntity){
-            if (adapterPosition < 5){//前五个红色
-                title.setTextColor(ContextCompat.getColor(itemView.context, R.color.inviteRed))
+            if (entity.is_top >= 1){
+                isTopTagIv.visibility = View.VISIBLE
             }else{
-                title.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
-                Color.RED
+                isTopTagIv.visibility = View.GONE
             }
+            when {
+                entity.is_top == 0 -> //未置顶
+                    title.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                entity.is_top == 1 -> //置顶一小时
+                    title.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                entity.is_top == 3 -> //置顶三小时
+                    title.setTextColor(ContextCompat.getColor(itemView.context, R.color.overallBlue))
+                else -> //置顶24小时
+                    title.setTextColor(ContextCompat.getColor(itemView.context, R.color.inviteRed))
+            }
+            /*if (entity.vip > 1){
+                isVipIv.visibility = View.VISIBLE
+            }else{
+                isVipIv.visibility = View.GONE
+            }*/
             var color = Color.parseColor(StringUtils.insertFront(entity.industry.background, "#"))
             titleBg.setBgColor(color)
             titleBg.text = entity.industry.name
@@ -70,36 +84,35 @@ class OverallJoinGroupsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             content.text = entity.content
         }
     }
-    class Holder1(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    class Holder1(itemView: View): RecyclerView.ViewHolder(itemView){
         private var avatar: ImageView = itemView.findViewById(R.id.sOverallAddFansEachOtherAvatarIv)//头像
-        private var top: ImageView = itemView.findViewById(R.id.sOverallAddFansEachOtherTopIv)//置顶
         private var nickName: TextView = itemView.findViewById(R.id.sOverallAddFansEachOtherNickNameTv)//昵称
         private var content: TextView = itemView.findViewById(R.id.sOverallAddFansEachOtherContentTv)
-        init {
-            itemView.findViewById<ShapeCornerBgView>(R.id.sOverallMakeFriendsBgView).setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            when(v?.id){
-                R.id.sOverallMakeFriendsBgView ->{
-                    Toast.makeText(itemView.context, "加不加", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        private var isTopTagIv: ImageView = itemView.findViewById(R.id.sOverallJoinGroupTopIv)//置顶标识
+        private var isVipIv: ImageView = itemView.findViewById(R.id.sOverallJoinGroupVipIv)//置顶标识
         fun bind(entity: OverallCardEntity){
-            if (adapterPosition < 5){//前五个红色
-                nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.inviteRed))
-            }else{
-                nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
-                Color.RED
-            }
             content.text = entity.content
-            GlideUtil.displayAll(itemView.context, entity.headimgurl, avatar)
+            GlideUtil.displayHead(itemView.context, entity.headimgurl, avatar)
             nickName.text = entity.wxnickname
-            if (entity.is_top > 0){//置顶
-                top.visibility = View.VISIBLE
+            if (entity.is_top >= 1){
+                isTopTagIv.visibility = View.VISIBLE
             }else{
-                top.visibility = View.GONE
+                isTopTagIv.visibility = View.GONE
+            }
+            when {
+                entity.is_top == 0 -> //未置顶
+                    nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                entity.is_top == 1 -> //置顶一小时
+                    nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                entity.is_top == 3 -> //置顶三小时
+                    nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.overallBlue))
+                else -> //置顶24小时
+                    nickName.setTextColor(ContextCompat.getColor(itemView.context, R.color.inviteRed))
+            }
+            if (entity.vip > 1){
+                isVipIv.visibility = View.VISIBLE
+            }else{
+                isVipIv.visibility = View.GONE
             }
         }
     }

@@ -10,6 +10,7 @@ import java.io.Serializable;
  * 用途： 登录和注册的实体
  */
 public class OverallUserInfoEntity implements Serializable {
+    private static final long serialVersionUID = 6784921186334736423L;
     public int id;
     public String title;
     public String headimgurl;
@@ -19,12 +20,17 @@ public class OverallUserInfoEntity implements Serializable {
     public String description;
     public String content;
     /**
+     * 我的微币
+     */
+    public int gold;
+    /**
      * -1：已删除
      * 0：进入了黑名单
      * 1：普通会员
      * 2：季度会员
      * 3：年度会员
      * 4：永久会员
+     * 5 -- 半年会员
      */
     public int status;
     public long update_time;

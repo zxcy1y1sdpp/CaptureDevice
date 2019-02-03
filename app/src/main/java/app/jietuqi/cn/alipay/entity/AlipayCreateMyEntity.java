@@ -10,6 +10,8 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity;
  */
 
 public class AlipayCreateMyEntity extends WechatUserEntity {
+
+    private static final long serialVersionUID = 836111735200106238L;
     /**
      * 支付宝账号
      */

@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+
+import app.jietuqi.cn.R;
 
 /**
  * 作者： liuyuanbo on 2018/11/20 15:29.
@@ -51,8 +54,10 @@ public class VerticalProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 //        paint.setColor(0x00000000);// 设置画笔颜色
-        paint.setColor(Color.rgb(255, 255, 255));// 设置画笔颜色
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.alipayBlueColor));// 设置画笔颜色
         paint.setAlpha(100);
+//        paint.setColor(Color.rgb(255, 255, 255));// 设置画笔颜色
+//        paint.setAlpha(100);
 
         canvas.drawRect(0, height - progress / 100f * height, width, height, paint);// 画矩形
 

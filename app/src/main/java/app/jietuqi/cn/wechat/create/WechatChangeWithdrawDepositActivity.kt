@@ -80,7 +80,7 @@ class WechatChangeWithdrawDepositActivity : BaseWechatActivity(), ChoiceBankDial
                 mEntity?.money = mDepositMoneyEt.text.toString()
                 mEntity?.bankNum4 = StringUtils.insertFront(mBankNumEt.text.toString(), "尾号")
                 mEntity?.bank = mBankTv.text.toString()
-                LaunchUtil.startWechatPreviewChangeWithdrawDepositActivity(this, mEntity)
+                LaunchUtil.startWechatScreenShotPreviewChangeWithdrawDepositActivity(this, mEntity)
             }
         }
     }

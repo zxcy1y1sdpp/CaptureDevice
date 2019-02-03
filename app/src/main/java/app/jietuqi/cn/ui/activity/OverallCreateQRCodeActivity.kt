@@ -102,8 +102,8 @@ class OverallCreateQRCodeActivity : BaseOverallActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            RequestCode.CROP_IMAGE ->{
-                mLogoBitmap = BitmapFactory.decodeFile(mFinalCropFile?.absolutePath, getBitmapOption(2)) //将图片的长和宽缩小味原来的1/2
+            RequestCode.IMAGE_SELECT ->{
+                mLogoBitmap = BitmapFactory.decodeFile(mFiles[0].absolutePath, getBitmapOption(2)) //将图片的长和宽缩小味原来的1/2
                 createQRCode(mChoiceColor, mLogoBitmap)
             }
         }
@@ -193,7 +193,7 @@ class OverallCreateQRCodeActivity : BaseOverallActivity() {
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 
 public class ProblemReportEntity implements Serializable{
+    private static final long serialVersionUID = 1906773951499633086L;
     public int id;
     public File pic;
     public int position;

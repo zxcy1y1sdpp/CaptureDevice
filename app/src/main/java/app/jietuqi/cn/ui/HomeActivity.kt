@@ -5,23 +5,35 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
-import android.widget.Toast
 import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
 import app.jietuqi.cn.constant.Constant
+import app.jietuqi.cn.constant.SharedPreferenceKey
+import app.jietuqi.cn.http.HttpConfig
+import app.jietuqi.cn.ui.entity.OverallApiEntity
+import app.jietuqi.cn.ui.entity.OverallIndustryEntity
 import app.jietuqi.cn.ui.entity.ProductFlavorsEntity
 import app.jietuqi.cn.ui.fragment.HomeFragment
 import app.jietuqi.cn.ui.fragment.MyFragment
 import app.jietuqi.cn.util.FileUtil
+import app.jietuqi.cn.util.SharedPreferencesUtils
+import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.wechat.entity.WechatBankEntity
 import app.jietuqi.cn.widget.MainNavigateTabBar
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.ProgressButton
+import app.jietuqi.cn.widget.dialog.UpdateView
 import cn.jzvd.Jzvd
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.DownloadProgressCallBack
+import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.utils.HttpLog
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
@@ -33,13 +45,43 @@ import java.io.File
  * 用途： App首页
  */
 
-open class HomeActivity : BaseOverallActivity() {
+open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
+    override fun update(update: Boolean, url: String, btn: ProgressButton) {
+        if (update){//去更新
+            updataApk(url, btn)
+        }
+    }
+
     override fun setLayoutResourceId() = R.layout.activity_home
     override fun needLoadingView(): Boolean {
         return false
     }
 
+    /*override fun beforeSetContentView() {
+        super.beforeSetContentView()
+        setNavigationBarBg(ColorFinal.WHITE)
+        setLightNavigationBar(this, false)
+    }*/
     override fun initAllViews() {
+        /*GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            var entity = UserOperateUtil.getWechatSimulatorMySelf()
+            if (null != entity){
+                if (entity.cash == -1){
+                    SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE, entity)
+                }
+            }
+        }*/
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            var bankList = UserOperateUtil.getWechatSimulatorBank()
+            if (null ==  bankList || bankList.size == 0){
+                var list = arrayListOf<WechatBankEntity>()
+                list.add(WechatBankEntity("R.drawable.wechat_zhongguoyinhang", "中国银行储蓄卡", "中国银行", 20000, "5685", "当天24点前到账"))
+                SharedPreferencesUtils.putListData(SharedPreferenceKey.WECHAT_SIMULATOR_BANK_LIST, list)
+            }
+        }
+        getProjectClassify()
+        getIndustryData()
+        getGroupIndustryData()
         registerEventBus()
         mMainTabBar.addTab(this, HomeFragment::class.java, MainNavigateTabBar.TabParam(R.drawable.overall_home_unselect, R.drawable.overall_home_select, "首页"))
         mMainTabBar.addTab(this, MyFragment::class.java, MainNavigateTabBar.TabParam(R.drawable.overall_my_unselect, R.drawable.overall_my_select, "我的"))
@@ -53,7 +95,7 @@ open class HomeActivity : BaseOverallActivity() {
             return
         }
         if (System.currentTimeMillis() - mExitTime > 2000) {
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(this, "再按一次退出程序")
             mExitTime = System.currentTimeMillis()
         } else {
             Jzvd.releaseAllVideos()
@@ -81,31 +123,22 @@ open class HomeActivity : BaseOverallActivity() {
                 }
                 msg = builder.toString()
             }
-            SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
-                    .setCanTouchOutSideCancle(false)
-                    .setTitleText("发现新版本")
-                    ?.setContentText(msg)
-                    ?.setContentText(msg)
-                    ?.setConfirmText("去更新")
-                    ?.setCancelText("暂不更新")
-                    ?.setConfirmClickListener { sDialog ->
-                        sDialog.dismissWithAnimation()
-                        updataApk(entity.apkurl)
-                    }?.setCancelClickListener {
-                        it.dismissWithAnimation()
-                    }?.show()
+            var dialog = UpdateView()
+            dialog.setData(msg, entity.apkurl, this)
+            dialog.show(supportFragmentManager, "update")
         }
     }
 
-    private fun updataApk(apkUrl: String) {//下载回调是在异步里处理的
+    private fun updataApk(apkUrl: String, progressButton: ProgressButton) {//下载回调是在异步里处理的
         FileUtil.RecursionDeleteFile(Constant.APK_PATH)
         EasyHttp.downLoad(apkUrl)
                 //EasyHttp.downLoad("http://crfiles2.he1ju.com/0/925096f8-f720-4aa5-86ae-ef30548d2fdc.txt")
-                .savePath(Constant.APK_PATH)//默认在：/storage/emulated/0/Android/data/包名/files/1494647767055
+//                .savePath(Constant.APK_PATH)//默认在：/storage/emulated/0/Android/data/包名/files/1494647767055
                 .saveName("wxyxb.apk")//默认名字是时间戳生成的
                 .execute(object : DownloadProgressCallBack<String>() {
                     override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
                         val progress = (bytesRead * 100 / contentLength).toInt()
+                        progressButton.setProgress(progress)
                         HttpLog.e(progress.toString() + "% ")
                         if (done) {
                         }
@@ -117,12 +150,13 @@ open class HomeActivity : BaseOverallActivity() {
 
                     override fun onComplete(path: String) {
                         var apkFile = File(path)
+                        progressButton.reset()
                         installApk(apkFile)
                     }
 
                     override fun onError(e: ApiException) {
                         HttpLog.i("======" + Thread.currentThread().name)
-                        Toast.makeText(this@HomeActivity, e.message, Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this@HomeActivity, e.message)
                     }
                 })
     }
@@ -138,5 +172,51 @@ open class HomeActivity : BaseOverallActivity() {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+    /**
+     * 获取群类别
+     */
+    private fun getGroupIndustryData(){
+        EasyHttp.post(HttpConfig.INFORMATION)
+                .params("way", "heapsort")
+                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
+                    override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
+                        SharedPreferencesUtils.putListData(SharedPreferenceKey.HEAPSORT, t)
+                    }
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
+                }) {})
+    }
+
+    /**
+     * 获取行业类别
+     */
+    private fun getIndustryData(){
+        EasyHttp.post(HttpConfig.INFORMATION)
+                .params("way", "industry")
+                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
+                    override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
+                        SharedPreferencesUtils.putListData(SharedPreferenceKey.INDUSTRY, t)
+                    }
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
+                }) {})
+    }
+    /**
+     * 获取行业类别
+     */
+    private fun getProjectClassify(){
+        EasyHttp.post(HttpConfig.STORE)
+                .params("way", "industry")
+                .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
+                    override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
+                        SharedPreferencesUtils.putListData(SharedPreferenceKey.PROJECT_CLASSIFY, t)
+                    }
+                    override fun onError(e: ApiException) {
+                        e.message?.let { showToast(it) }
+                    }
+                }) {})
     }
 }

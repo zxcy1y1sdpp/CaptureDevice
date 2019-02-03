@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 用途： 购买会员卡时返回的实体
  */
 public class OverallVipCardOrderEntity implements Serializable {
+    private static final long serialVersionUID = 4292209350002172153L;
     public String add;
     public String pay;
     public String money;

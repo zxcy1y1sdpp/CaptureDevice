@@ -59,9 +59,9 @@ public class WechatCreateBillsHelper extends MyOpenHelper implements IOpenHelper
         values.put("hasRefund", entity.hasRefund);
         int position = allCaseNum(TABLE_NAME);
         values.put("position", position);
-        entity.id = allCaseNum(TABLE_NAME) + 1;
         entity.position = position;
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+        entity.id = (int) l;
         Log.e("insert " , l+"");
 //            EventBusUtil.post(entity);
         return (int) l;

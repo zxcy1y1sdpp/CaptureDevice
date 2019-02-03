@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/base_wechat_preview_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <app.jietuqi.cn.widget.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@+id/titleLayout">
+
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    percent:layout_heightPercent="17.72%w"
+                    percent:layout_widthPercent="17.72%w"
+                    android:src="@drawable/wechat_charge"
+                    percent:layout_marginTopPercent="13.24%w"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的零钱"
+                    android:textSize="18sp"
+                    percent:layout_marginTopPercent="8.96%w"
+                    android:textColor="@color/wechat_deep_text_color"
+                    android:includeFontPadding="false"/>
+
+                <app.jietuqi.cn.wechat.wechatfont.WechatChar5TextView
+                    android:id="@+id/mMoneyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥2.78"
+                    android:gravity="top"
+                    percent:layout_marginTopPercent="4.48%w"
+                    android:textSize="45sp"
+                    android:textColor="@color/wechat_deep_text_color"/>
+
+                <TextView
+                    android:id="@+id/mChargeTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    percent:layout_marginTopPercent="8.96%w"
+                    percent:layout_heightPercent="10.54%w"
+                    percent:layout_marginLeftPercent="24.4%w"
+                    percent:layout_marginRightPercent="24.4%w"
+                    android:background="@drawable/green_round_cornor"
+                    android:textColor="@color/white"
+                    android:text="充值"
+                    android:textSize="@dimen/wechatNormalTextSize"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/mWithdrawDepositTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    percent:layout_heightPercent="10.54%w"
+                    percent:layout_marginLeftPercent="24.4%w"
+                    percent:layout_marginRightPercent="24.4%w"
+                    percent:layout_marginTopPercent="4.48%w"
+                    android:background="@drawable/gray_solid7_2"
+                    android:textSize="@dimen/wechatNormalTextSize"
+                    android:textColor="#20BE64"
+                    android:text="提现"
+                    android:gravity="center"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="常见问题"
+                android:textColor="#576B95"
+                percent:layout_marginBottomPercent="2.15%w"
+                percent:layout_marginTopPercent="40.12%w"
+                android:textSize="14sp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_above="@+id/tagTv"/>
+            <TextView
+                android:id="@+id/tagTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="本服务由财付通提供"
+                android:gravity="center"
+                android:textColor="#ACACAC"
+                percent:layout_marginBottomPercent="2.04%w"
+                android:textSize="13sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </app.jietuqi.cn.widget.OverScrollView>
+</com.zhy.android.percent.support.PercentRelativeLayout>

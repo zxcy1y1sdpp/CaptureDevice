@@ -59,7 +59,7 @@
                     android:textStyle="bold"
                     android:includeFontPadding="false"/>
 
-                <TextView
+                <app.jietuqi.cn.wechat.wechatfont.WechatChar6TextView
                     android:id="@+id/wechatMyTransferMoneyTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,7 +69,6 @@
                     android:textSize="@dimen/wechatLittleTextSize"
                     android:layout_alignLeft="@+id/wechatMyTransferLeaveMessageTv"
                     android:includeFontPadding="false"
-                    android:textStyle="bold"
                     android:layout_below="@+id/wechatMyTransferLeaveMessageTv"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
             <TextView

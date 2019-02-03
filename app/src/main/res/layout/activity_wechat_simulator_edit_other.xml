@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatBg">
+
+    <include
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOtherAvatarLayout"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/littleModuleSpace">
+        <TextView
+            android:text="头像"
+            style="@style/wechatLeftTitle"/>
+        <ImageView
+            android:id="@+id/mOtherAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/head_default"
+            android:layout_toLeftOf="@+id/tagIv"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/tagIv"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mNickNameLayout"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="昵称"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mOtherNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tagIv2"
+            android:text="你好啊" />
+        <ImageView
+            android:id="@+id/tagIv2"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOtherBgLayout"
+        android:layout_marginTop="@dimen/normalPadding"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="设置聊天背景"
+            style="@style/wechatLeftTitle"/>
+
+        <ImageView
+            android:id="@+id/mOtherBgIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_bg"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPaddingHalf"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv2"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <Button
+        android:id="@+id/mOtherCleanBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="14%w"
+        android:text="清空"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/normalPadding"
+        android:background="@drawable/red_round_cornor"
+        style="@style/wechatTextSameSize"
+        android:padding="@dimen/normalPadding"
+        android:layout_alignParentBottom="true"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

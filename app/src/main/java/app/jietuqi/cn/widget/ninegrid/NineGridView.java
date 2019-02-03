@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,9 @@ public class NineGridView extends ViewGroup {
     private float mFirstPicWhPercent = 0;//第一张图片的宽高比例：宽/高
     private int mFirstPicHeight = 0;//第一张图片的高度
     private int mFirstPicWidth = 0;//第一张图片的宽度
-    private float mWechatWHPercent = 0.5536f;//微信朋友圈最大宽高占屏幕宽的的百分比
+    private float mWechatWHPercent = 0.35f;//微信朋友圈最大宽高占屏幕宽的的百分比
+//    private float mWechatWHPercent = 0.5536f;//微信朋友圈最大宽高占屏幕宽的的百分比
+    private boolean isOperate = false;
 
     public NineGridView(Context context) {
         this(context, null);
@@ -74,70 +75,78 @@ public class NineGridView extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int screenWidth = ScreenUtil.INSTANCE.getScreenWidth(getContext());
-        float singleSpec = screenWidth * mWechatWHPercent;//单张图片时候的宽高
-        int height = 0;
-        if (mImageInfo != null && mImageInfo.size() > 0) {
-            if (mImageInfo.size() == 1) {
-                if (mFirstPicWhPercent < 1){//长图
-                    gridHeight = height = (int) singleSpec;
-                    gridWidth = width = (int) (mFirstPicWidth / (mFirstPicHeight / singleSpec));
-                }else {
-                    gridWidth = width = (int) singleSpec;
-                    gridHeight = height = (int) (mFirstPicHeight / (mFirstPicWidth / singleSpec));
-                }
-                Log.e("onMeasure ----- ", "width: " + gridWidth + "       height: " + gridHeight);
-            } else {
-                //这里无论是几张图片，宽高都按总宽度的 1/3
+//        if (!isOperate){
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int screenWidth = ScreenUtil.INSTANCE.getScreenWidth(getContext());
+            float singleSpec = screenWidth * mWechatWHPercent;//单张图片时候的宽高
+            int height = 0;
+            if (mImageInfo != null && mImageInfo.size() > 0) {
+                if (mImageInfo.size() == 1) {
+                    if (mFirstPicWhPercent < 1){//长图
+                        gridHeight = height = (int) singleSpec;
+                        gridWidth = width = (int) (mFirstPicWidth / (mFirstPicHeight / singleSpec));
+                    }else {
+                        gridWidth = width = (int) singleSpec;
+                        gridHeight = height = (int) (mFirstPicHeight / (mFirstPicWidth / singleSpec));
+                    }
+//                    Log.e("onMeasure ----- ", "width: " + gridWidth + "       height: " + gridHeight);
+                } else {
+                    //这里无论是几张图片，宽高都按总宽度的 1/3
 //                gridWidth = gridHeight = (totalWidth - gridSpacing * 2) / 3;
-                gridWidth = gridHeight = (int) (screenWidth * 0.2365);
+                    gridWidth = gridHeight = (int) (screenWidth * 0.2365);
 
-                // 宫格宽度
-                width = gridWidth * columnCount + gridSpacing * (columnCount - 1) + getPaddingLeft() + getPaddingRight();
-                height = gridHeight * rowCount + gridSpacing * (rowCount - 1) + getPaddingTop() + getPaddingBottom();
+                    // 宫格宽度
+                    width = gridWidth * columnCount + gridSpacing * (columnCount - 1) + getPaddingLeft() + getPaddingRight();
+                    height = gridHeight * rowCount + gridSpacing * (rowCount - 1) + getPaddingTop() + getPaddingBottom();
+                }
             }
-        }
-        setMeasuredDimension(width, height);
+            setMeasuredDimension(width, height);
+//        }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.e("onlayout", "1111111111" + changed);
-        if (mImageInfo == null) return;
-        int childrenCount = mImageInfo.size();
-        for (int i = 0; i < childrenCount; i++) {
-            final ImageView childrenView = (ImageView) getChildAt(i);
-            if (childrenCount == 1){
-                childrenView.setAdjustViewBounds(true);
-                childrenView.setScaleType(ImageView.ScaleType.FIT_START);
-            }else {
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
+//        if (!isOperate){
+//            Log.e("onlayout", "1111111111" + changed);
+            if (mImageInfo == null) return;
+            int childrenCount = mImageInfo.size();
+            for (int i = 0; i < childrenCount; i++) {
+                final ImageView childrenView = (ImageView) getChildAt(i);
+                if (childrenCount == 1){
+                    childrenView.setAdjustViewBounds(true);
+                    childrenView.setScaleType(ImageView.ScaleType.FIT_START);
+                }else {
+//                Handler handler = newfun Handler();
+//                handler.postDelayed(newfun Runnable() {
 //                    public void run() {
 //                        childrenView.setAdjustViewBounds(false);
 //                        childrenView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //                    }
 //                }, 500);
-                if (null == childrenView){
-                    return;
+                    if (null == childrenView){
+                        return;
+                    }
+                    childrenView.setAdjustViewBounds(false);
+                    childrenView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                 }
-                childrenView.setAdjustViewBounds(false);
-                childrenView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                int rowNum = i / columnCount;
+                int columnNum = i % columnCount;
+                int left = (gridWidth + gridSpacing) * columnNum + getPaddingLeft();
+                int top = (gridHeight + gridSpacing) * rowNum + getPaddingTop();
+                int right = left + gridWidth;
+                int bottom = top + gridHeight;
+                childrenView.layout(left, top, right, bottom);
 
+                if (mImageLoader != null) {
+                    ImageInfo info = mImageInfo.get(i);
+                    String url = info.thumbnailUrl;
+                    mImageLoader.onDisplayImage(getContext(), childrenView, url);
+                }
             }
-            int rowNum = i / columnCount;
-            int columnNum = i % columnCount;
-            int left = (gridWidth + gridSpacing) * columnNum + getPaddingLeft();
-            int top = (gridHeight + gridSpacing) * rowNum + getPaddingTop();
-            int right = left + gridWidth;
-            int bottom = top + gridHeight;
-            childrenView.layout(left, top, right, bottom);
+            isOperate = true;
+//        }
 
-            if (mImageLoader != null) {
-                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
-            }
-        }
     }
 
     /** 设置适配器 */

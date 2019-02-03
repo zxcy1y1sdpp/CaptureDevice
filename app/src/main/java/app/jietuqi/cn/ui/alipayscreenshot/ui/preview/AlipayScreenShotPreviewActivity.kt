@@ -37,16 +37,17 @@ class AlipayScreenShotPreviewActivity : BaseWechatActivity() {
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        mOtherSideEntity = UserOperateUtil.getOtherSide()
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mOtherSideEntity = UserOperateUtil.getAlipayOtherSide()
+        mMySideEntity = UserOperateUtil.getAlipayMySelf()
         setStatusBarColor(ColorFinal.alipayBalanceRed)
         mAdapter = AlipayScreenShotPreviewAdapter(mList)
         mAlipayScreenShotPreviewRecyclerView.adapter = mAdapter
-        val otherEntity = UserOperateUtil.getOtherSide()
+        val otherEntity = UserOperateUtil.getAlipayOtherSide()
         mAlipayScreenShotPreviewNickNameTv.text = otherEntity.wechatUserNickName
-        val entity = UserOperateUtil.getSingleTalkBg()
+        val entity = UserOperateUtil.getAlipayChatBg()
         if (entity.needBg){
             GlideUtil.displayAll(this, entity.bg, mAlipayScreenShotPreviewRecyclerViewBgIv)
+            mAlipayScreenShotPreviewRecyclerViewBgIv.visibility = View.VISIBLE
         }else{
             mAlipayScreenShotPreviewRecyclerViewBgIv.visibility = View.GONE
         }
@@ -96,11 +97,13 @@ class AlipayScreenShotPreviewActivity : BaseWechatActivity() {
             receiveEntity.wechatUserId = mMySideEntity.wechatUserId
             receiveEntity.avatarStr = mMySideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mMySideEntity.resAvatar
+            receiveEntity.resourceName = mMySideEntity.resourceName
 
         }else{
             receiveEntity.wechatUserId = mOtherSideEntity.wechatUserId
             receiveEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mOtherSideEntity.resAvatar
+            receiveEntity.resourceName = mOtherSideEntity.resourceName
         }
         if (entity.msgType == 3){//领红包
             receiveEntity.msgType = 4

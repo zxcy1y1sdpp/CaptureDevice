@@ -89,7 +89,7 @@
             android:layout_alignBottom="@+id/mBaseCreateFinishIv"
             android:gravity="center"
             android:layout_marginRight="@dimen/normalPadding"
-            android:textSize="@dimen/wechatNormalTextSize"
+            android:textSize="17sp"
             android:visibility="gone"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 

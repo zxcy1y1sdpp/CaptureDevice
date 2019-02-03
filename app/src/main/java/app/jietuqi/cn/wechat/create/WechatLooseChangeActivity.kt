@@ -46,9 +46,9 @@ class WechatLooseChangeActivity : BaseWechatActivity() {
         when(v.id){
             R.id.previewBtn ->{
                 if (mType == 0){
-                    LaunchUtil.startWechatMyWalletActivity(this, mWechatLooseChangeEt.text.toString())
+                    LaunchUtil.startWechatScreenShotMyWalletActivity(this, mWechatLooseChangeEt.text.toString())
                 }else{
-                    LaunchUtil.startWechatChangeActivity(this, mWechatLooseChangeEt.text.toString())
+                    LaunchUtil.startWechatScreenShotChangeActivity(this, mWechatLooseChangeEt.text.toString())
                 }
             }
         }

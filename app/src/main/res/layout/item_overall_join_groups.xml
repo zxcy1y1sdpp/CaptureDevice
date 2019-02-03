@@ -36,9 +36,8 @@
             android:id="@+id/sOverallJoinGroupTopIv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/zhiding"
-            android:layout_marginRight="3dp"
-            android:visibility="gone"/>
+            android:src="@drawable/jiafen_zhiding"
+            android:layout_marginRight="3dp"/>
         <TextView
             android:id="@+id/sOverallJoinGroupTitleTv"
             android:layout_width="wrap_content"

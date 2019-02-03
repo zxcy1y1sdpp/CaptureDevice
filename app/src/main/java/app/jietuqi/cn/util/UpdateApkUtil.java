@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.callback.DownloadProgressCallBack;
@@ -76,7 +75,7 @@ public class UpdateApkUtil {
 					@Override
 					public void onError(final ApiException e) {
 						HttpLog.i("======"+Thread.currentThread().getName());
-						Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+						ToastUtils.showShort(context, e.getMessage());
 						dialog.dismiss();
 					}
 				});

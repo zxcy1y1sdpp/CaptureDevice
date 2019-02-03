@@ -111,114 +111,112 @@
         android:layout_above="@+id/mQQScreenShotPreviewBottomLayout"
         android:clipToPadding="false"/>
 
-    <com.zhy.android.percent.support.PercentRelativeLayout
+    <com.zhy.android.percent.support.PercentLinearLayout
         android:id="@+id/mQQScreenShotPreviewBottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_above="@+id/layout1"
-        app:layout_marginBottomPercent="2.17%w">
+        android:background="#F1F2F7"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
         <com.zhy.android.percent.support.PercentRelativeLayout
-            android:id="@+id/mQQScreenShotPreviewContentAndEmojiLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_widthPercent="81.1%w"
-            app:layout_marginLeftPercent="2.17%w"
-            app:layout_marginRightPercent="1.3%w"
-            android:layout_alignBottom="@+id/mQQScreenShotPreviewSendTv">
+            android:layout_above="@+id/layout1"
+            app:layout_marginBottomPercent="2.17%w"
+            app:layout_marginTopPercent="0.5%w">
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:id="@+id/mQQScreenShotPreviewContentAndEmojiLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_widthPercent="81.1%w"
+                app:layout_marginLeftPercent="2.17%w"
+                app:layout_marginRightPercent="1.3%w"
+                android:layout_alignBottom="@+id/mQQScreenShotPreviewSendTv">
 
-            <EditText
-                android:id="@+id/mQQScreenShotPreviewContentEt"
+                <EditText
+                    android:id="@+id/mQQScreenShotPreviewContentEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_edittext"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/normalPadding"
+                    android:paddingRight="30dp"/>
+
+                <ImageView
+                    android:id="@+id/mQQScreenShotPreviewEmojiIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="3dp"
+                    android:src="@drawable/qq_edit_icon"
+                    app:layout_marginRightPercent="1.93%w"
+                    android:paddingBottom="@dimen/normalPaddingHalf"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/mQQScreenShotPreviewSendTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded_edittext"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/normalPadding"
-                android:paddingRight="30dp"/>
+                android:text="发送"
+                android:textColor="@color/white"
+                app:stv_corner="5dp"
+                app:stv_solid="#DDDEE2"
+                app:stv_drawableAsBackground="true"
+                android:layout_toRightOf="@+id/mQQScreenShotPreviewContentAndEmojiLayout"
+                app:layout_marginRightPercent="2.17%w"
+                app:layout_heightPercent="10%w"
+                android:gravity="center"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            app:layout_heightPercent="10%w">
 
             <ImageView
-                android:id="@+id/mQQScreenShotPreviewEmojiIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="3dp"
-                android:src="@drawable/qq_edit_icon"
-                app:layout_marginRightPercent="1.93%w"
-                android:paddingBottom="@dimen/normalPaddingHalf"
-                android:layout_centerVertical="true"
-                android:visibility="gone"/>
-        </com.zhy.android.percent.support.PercentRelativeLayout>
+                android:src="@drawable/qq_input_ptt_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_image_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_camera_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_chuo_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_gif_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_emotion_nor"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qq_input_more_nor"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
 
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/mQQScreenShotPreviewSendTv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="发送"
-            android:textColor="@color/white"
-            app:stv_corner="5dp"
-            app:stv_solid="#DDDEE2"
-            app:stv_drawableAsBackground="true"
-            android:layout_toRightOf="@+id/mQQScreenShotPreviewContentAndEmojiLayout"
-            app:layout_marginRightPercent="2.17%w"
-            app:layout_heightPercent="10%w"
-            android:gravity="center"/>
-        <!--<com.allen.library.SuperButton-->
-        <!--android:id="@+id/mQQScreenShotPreviewSendTv"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:sCornersRadius="5dp"-->
-        <!--android:text="发送"-->
-        <!--app:layout_marginRightPercent="2.17%w"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:gravity="center"-->
-        <!--app:layout_heightPercent="10%w"-->
-        <!--android:layout_toRightOf="@+id/mQQScreenShotPreviewContentAndEmojiLayout"/>-->
-
-    </com.zhy.android.percent.support.PercentRelativeLayout>
-    <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        app:layout_heightPercent="10%w">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_ptt_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_image_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_camera_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_chuo_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_gif_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_emotion_nor"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qq_input_more_nor"
-            android:layout_weight="1"/>
-    </LinearLayout>
 
 </com.zhy.android.percent.support.PercentRelativeLayout>

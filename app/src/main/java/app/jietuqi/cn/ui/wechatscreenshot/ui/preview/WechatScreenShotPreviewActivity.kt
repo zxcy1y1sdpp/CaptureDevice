@@ -41,7 +41,7 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR)
+        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
         setLightStatusBarForM(this, true)
         mOtherSideEntity = UserOperateUtil.getOtherSide()
         mMySideEntity = UserOperateUtil.getMySelf()
@@ -58,6 +58,11 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
         val otherEntity = UserOperateUtil.getOtherSide()
         mWechatScreenShotPreviewNickNameTv.text = otherEntity.wechatUserNickName
         registerEventBus()
+        mWechatScreenShotPreviewRecyclerView.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (bottom < oldBottom) {
+                mWechatScreenShotPreviewRecyclerView.postDelayed({ mWechatScreenShotPreviewRecyclerView.scrollToPosition(mList.size - 1) }, 0)
+            }
+        }
     }
 
     override fun initViewsListener() {
@@ -116,10 +121,12 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
                 msgEntity.isComMsg = mComMsg//默认为自己说话
                 msgEntity.msg = msg
                 if (mComMsg){//如果是自己说话
+                    msgEntity.resourceName = mMySideEntity.resourceName
                     msgEntity.avatarInt = mMySideEntity.resAvatar
                     msgEntity.avatarStr = mMySideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mMySideEntity.wechatUserId
                 }else{//对方说话
+                    msgEntity.resourceName = mOtherSideEntity.resourceName
                     msgEntity.avatarInt = mOtherSideEntity.resAvatar
                     msgEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mOtherSideEntity.wechatUserId
@@ -142,11 +149,13 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
             receiveEntity.wechatUserId = mMySideEntity.wechatUserId
             receiveEntity.avatarStr = mMySideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mMySideEntity.resAvatar
+            receiveEntity.resourceName = mMySideEntity.resourceName
 
         }else{
             receiveEntity.wechatUserId = mOtherSideEntity.wechatUserId
             receiveEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
             receiveEntity.avatarInt = mOtherSideEntity.resAvatar
+            receiveEntity.resourceName = mOtherSideEntity.resourceName
         }
         if (entity.msgType == 3){//领红包
             receiveEntity.msgType = 4

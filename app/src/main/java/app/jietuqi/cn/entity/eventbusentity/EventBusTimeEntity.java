@@ -1,5 +1,7 @@
 package app.jietuqi.cn.entity.eventbusentity;
 
+import java.io.Serializable;
+
 /**
  * 作者： liuyuanbo on 2018/10/19 14:30.
  * 时间： 2018/10/19 14:30
@@ -7,7 +9,8 @@ package app.jietuqi.cn.entity.eventbusentity;
  * 用途： 选择时间的时候返回的数据
  */
 
-public class EventBusTimeEntity {
+public class EventBusTimeEntity implements Serializable {
+    private static final long serialVersionUID = 8225772176250022940L;
     /**
      * 返回的long类型的时间
      */

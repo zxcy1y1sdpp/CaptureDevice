@@ -23,8 +23,8 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
+            android:layout_height="@dimen/wechatLineNarrow"
+            android:background="@color/overallBg"/>
         <com.coorchice.library.SuperTextView
             android:id="@+id/dialogTagUnreadTv"
             android:layout_width="match_parent"
@@ -47,7 +47,8 @@
             app:stv_pressBgColor="@color/wechatLightGray"
             android:text="显示小圆点"
             android:textColor="@color/overallBlue"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:visibility="gone"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/wechatLineNarrow"

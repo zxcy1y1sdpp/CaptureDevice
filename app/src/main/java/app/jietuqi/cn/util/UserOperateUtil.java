@@ -9,6 +9,7 @@ import com.zhouyou.http.request.PostRequest;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import app.jietuqi.cn.R;
@@ -21,7 +22,11 @@ import app.jietuqi.cn.ui.entity.ContactEntity;
 import app.jietuqi.cn.ui.entity.OverallIndustryEntity;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
 import app.jietuqi.cn.ui.wechatscreenshot.entity.ChangeSingleTaklBgEntity;
+import app.jietuqi.cn.wechat.entity.WechatBankEntity;
 
+import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_CHAT_BG;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_ME_SELF;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_OTHER_SIDE;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_NAME;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_STATUS;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_VERSION;
@@ -30,17 +35,25 @@ import static app.jietuqi.cn.constant.SharedPreferenceKey.EXPLORING;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.IS_LOGIN;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.MY_SELF;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.OTHER_SIDE;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_CHAT_BG;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_ME_SELF;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_OTHER_SIDE;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_OTHER_STATUS;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_UN_READ_NUMBER;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.SCREENSHOT_AGREEMENT;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.SINGLE_TALK_BG;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.TIMES;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.UNREAD_FRIEND_CIRCLE;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_AVATAR;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_INFO;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_IS_VIP;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_NICKNAME;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_SHARE_NUMBER;
 import static app.jietuqi.cn.constant.SharedPreferenceKey.UUIDKEY;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.WB;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_COVER;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE;
+import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_SIMULATOR_OTHER_SIDE;
 
 /**
  * 作者： liuyuanbo on 2018/11/12 17:03.
@@ -148,6 +161,54 @@ public class UserOperateUtil {
         return otherSide;
     }
     /**
+     * 获取QQ聊天页面的我的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getQQMySelf(){
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(QQ_ME_SELF);
+        return mySelf;
+    }
+    /**
+     * 获取QQ聊天页面的对方的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getQQOtherSide(){
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(QQ_OTHER_SIDE);
+        return otherSide;
+    }
+    /**
+     * 获取支付宝聊天页面的对方的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getAlipayOtherSide(){
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(ALIPAY_OTHER_SIDE);
+        return otherSide;
+    }
+    /**
+     * 获取支付宝聊天页面的我的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getAlipayMySelf(){
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(ALIPAY_ME_SELF);
+        return mySelf;
+    }
+    /**
+     * 获取微信模拟器聊天页面的对方的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getWechatSimulatorOtherSide(){
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(WECHAT_SIMULATOR_OTHER_SIDE);
+        return otherSide;
+    }
+    /**
+     * 获取微信模拟器页面的我的身份的实体
+     * @return
+     */
+    public static WechatUserEntity getWechatSimulatorMySelf(){
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(WECHAT_SIMULATOR_MY_SIDE);
+        return mySelf;
+    }
+    /**
      * 获取用户头像
      * @return
      */
@@ -180,54 +241,6 @@ public class UserOperateUtil {
         return number;
     }
     /**
-     * 是不是Vivo的渠道包
-     * @return
-     */
-    public static boolean isVivoChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
-        if ("vivo".equals(channelName)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    /**
-     * 是不是Huawei的渠道包
-     * @return
-     */
-    public static boolean isHuaweiChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
-        if ("huawei".equals(channelName)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    /**
-     * 是不是Wandoujia的渠道包
-     * @return
-     */
-    public static boolean isWandoujiaChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
-        if ("wandoujia".equals(channelName)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    /**
-     * 是不是xiaomi的渠道包
-     * @return
-     */
-    public static boolean isXiaomiChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
-        if ("xiaomi".equals(channelName)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    /**
      * 获取用户完整的信息
      * @return
      */
@@ -251,6 +264,14 @@ public class UserOperateUtil {
     public static boolean screenShotAgreememt(){
         boolean agree = (boolean) SharedPreferencesUtils.getData(SCREENSHOT_AGREEMENT, false);
         return agree;
+    }
+    /**
+     * 是否需要显示微信模拟器的覆盖层
+     * @return
+     */
+    public static boolean hideWechatCover(){
+        boolean hide = (boolean) SharedPreferencesUtils.getData(WECHAT_COVER, false);
+        return hide;
     }
 
     /**
@@ -279,7 +300,7 @@ public class UserOperateUtil {
         return list;
     }
     public static void deleteContactCache(Context context){
-        SharedPreferencesUtils.remove(context, SharedPreferenceKey.CONTACT);
+        SharedPreferencesUtils.remove(SharedPreferenceKey.CONTACT);
     }
 
     public static PostRequest getChannelParams(Context context){
@@ -292,19 +313,9 @@ public class UserOperateUtil {
 //                .params("deviceid", SystemInfoUtils.getIMEI(context))
                 .params("devicemodel", SystemInfoUtils.getModelName())
                 .params("code", String.valueOf(SystemInfoUtils.getAppVersionCode(context)))
-                .params("systemtype", "android");
+                .params("systemtype", "android")
+                .params("uid", UserOperateUtil.getUserId());
         return request;
-    }
-    /**
-     * 获取用户完整的信息
-     * @return
-     */
-    public static ChangeSingleTaklBgEntity getSingleTalkBg(){
-        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(SINGLE_TALK_BG);
-        if (null == entity){
-            return new ChangeSingleTaklBgEntity(false, "");
-        }
-        return entity;
     }
 
     /**
@@ -327,16 +338,12 @@ public class UserOperateUtil {
         return times;
     }
     /**
-     * 获取会员等级
-     * -1：已删除
-     * 0：进入了黑名单
-     * 1：普通会员
-     * 2：季度会员
-     * 3：年度会员
-     * 4：永久会员
+     * 获取微币数量
+     * @return
      */
-    public static int getVipLevel(){
-        return UserOperateUtil.getUserInfo().status;
+    public static int getMyWb(){
+        int wb = (int) SharedPreferencesUtils.getData(WB, 0);
+        return wb;
     }
 
     /**
@@ -371,5 +378,175 @@ public class UserOperateUtil {
     public static String getQQOtherStatus(){
         String number = SharedPreferencesUtils.getData(QQ_OTHER_STATUS, "手机在线 - WIFI").toString();
         return number;
+    }
+    /**
+     * 获取微信是否需要聊天背景
+     * @return
+     */
+    public static ChangeSingleTaklBgEntity getSingleTalkBg(){
+        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(SINGLE_TALK_BG);
+        if (null == entity){
+            return new ChangeSingleTaklBgEntity(false, "");
+        }
+        return entity;
+    }
+    /**
+     * 获取支付宝是否需要聊天背景
+     * @return
+     */
+    public static ChangeSingleTaklBgEntity getAlipayChatBg(){
+        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(ALIPAY_CHAT_BG);
+        if (null == entity){
+            return new ChangeSingleTaklBgEntity(false, "");
+        }
+        return entity;
+    }
+
+    /**
+     * 获取微信模拟器的聊天背景
+     * @return
+     */
+    public static ChangeSingleTaklBgEntity getWechatSimulatorBg(){
+        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(ALIPAY_CHAT_BG);
+        if (null == entity){
+            return new ChangeSingleTaklBgEntity(false, "");
+        }
+        return entity;
+    }
+    /**
+     * 获取微信是否需要聊天背景
+     * @return
+     */
+    public static ChangeSingleTaklBgEntity getQQSingleTalkBg(){
+        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(QQ_CHAT_BG);
+        if (null == entity){
+            return new ChangeSingleTaklBgEntity(false, "");
+        }
+        return entity;
+    }
+
+    /**
+     * 是否有未读的朋友圈提示
+     * @return
+     */
+    public static boolean hasUnReadFriendCircle(){
+        boolean has = (boolean) SharedPreferencesUtils.getData(UNREAD_FRIEND_CIRCLE, false);
+        return has;
+    }
+
+    /**
+     * 获取项目市场中的分类
+     * @return
+     */
+    public static ArrayList<OverallIndustryEntity> getProjectClassify(){
+        ArrayList<OverallIndustryEntity> list = (ArrayList<OverallIndustryEntity>) SharedPreferencesUtils.getListData(SharedPreferenceKey.PROJECT_CLASSIFY, OverallIndustryEntity.class);
+        return list;
+    }
+    /**
+     * 获取微信模拟器中的银行卡信息
+     * @return
+     */
+    public static List<WechatBankEntity> getWechatSimulatorBank(){
+        List<WechatBankEntity> list = SharedPreferencesUtils.getListData(SharedPreferenceKey.WECHAT_SIMULATOR_BANK_LIST, WechatBankEntity.class);
+        return list;
+    }
+
+
+
+    /**
+     * 是不是_360的渠道包
+     * @return
+     */
+    public static boolean is360Channel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("_360".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是Huawei的渠道包
+     * @return
+     */
+    public static boolean isHuaweiChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("huawei".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是xiaomi的渠道包
+     * @return
+     */
+    public static boolean isXiaomiChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("xiaomi".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是Vivo的渠道包
+     * @return
+     */
+    public static boolean isVivoChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("vivo".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是OPPO的渠道包
+     * @return
+     */
+    public static boolean isOppoChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("oppo".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是tencent的渠道包
+     * @return
+     */
+    public static boolean isTencentChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("tencent".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是百度的渠道包
+     * @return
+     */
+    public static boolean isBaiduChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("baidu".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * 是不是Wandoujia的渠道包
+     * @return
+     */
+    public static boolean isWandoujiaChannel(){
+        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        if ("wandoujia".equals(channelName)){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

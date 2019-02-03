@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.GlideUtil
@@ -53,16 +52,12 @@ class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>) : Re
         override fun onClick(v: View?) {
             when(v?.id){
                 R.id.sWechatNewFriendsLayout ->{
-                    Toast.makeText(itemView.context, "新的朋友", Toast.LENGTH_SHORT).show()
                 }
                 R.id.sWechatGroupLayout ->{
-                    Toast.makeText(itemView.context, "群聊", Toast.LENGTH_SHORT).show()
                 }
                 R.id.sWechatTagLayout ->{
-                    Toast.makeText(itemView.context, "标签", Toast.LENGTH_SHORT).show()
                 }
                 R.id.sWechatThePublicLayout ->{
-                    Toast.makeText(itemView.context, "公众号", Toast.LENGTH_SHORT).show()
                 }
             }
         }

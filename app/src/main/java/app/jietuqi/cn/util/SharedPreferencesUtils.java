@@ -3,12 +3,10 @@ package app.jietuqi.cn.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.ByteArrayInputStream;
@@ -17,10 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import app.jietuqi.cn.constant.SharedPreferenceKey;
 import app.jietuqi.cn.entity.OverallUserInfoEntity;
@@ -219,50 +214,6 @@ public class SharedPreferencesUtils {
         return list;
     }
 
-    /**
-     * 用于保存集合
-     *
-     * @param key key
-     * @param map map数据
-     * @return 保存结果
-     */
-    public static <K, V> boolean putHashMapData(String key, Map<K, V> map) {
-        boolean result;
-        SharedPreferences.Editor editor = sp.edit();
-        try {
-            Gson gson = new Gson();
-            String json = gson.toJson(map);
-            editor.putString(key, json);
-            result = true;
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        editor.apply();
-        return result;
-    }
-
-    /**
-     * 用于保存集合
-     *
-     * @param key key
-     * @return HashMap
-     */
-    public static <V> HashMap<String, V> getHashMapData(String key, Class<V> clsV) {
-        String json = sp.getString(key, "");
-        HashMap<String, V> map = new HashMap<>();
-        Gson gson = new Gson();
-        JsonObject obj = new JsonParser().parse(json).getAsJsonObject();
-        Set<Map.Entry<String, JsonElement>> entrySet = obj.entrySet();
-        for (Map.Entry<String, JsonElement> entry : entrySet) {
-            String entryKey = entry.getKey();
-            JsonObject value = (JsonObject) entry.getValue();
-            map.put(entryKey, gson.fromJson(value, clsV));
-        }
-        Log.e("SharedPreferencesUtil", obj.toString());
-        return map;
-    }
-
     public static <T> void saveBean2Sp(T t, String keyName) {
         ByteArrayOutputStream bos;
         ObjectOutputStream oos = null;
@@ -287,7 +238,7 @@ public class SharedPreferencesUtils {
                 }
             }
         }
-        if (t instanceof OverallUserInfoEntity){
+        if (t instanceof OverallUserInfoEntity && SharedPreferenceKey.USER_INFO.equals(keyName)){
             updateUserInfo();
         }
     }
@@ -301,8 +252,9 @@ public class SharedPreferencesUtils {
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_WECHAT_OPENID, entity.wx_openid);//保存wx_openid
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_QQ_OPENID, entity.qq_openid);//保存qq_open_d
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_SHARE_NUMBER, entity.share_number);//保存qq_open_d
+        SharedPreferencesUtils.putData(SharedPreferenceKey.WB, entity.gold);//保存微币
         boolean isVip = false;
-        if (entity.status == 2 || entity.status == 3 || entity.status == 4){
+        if (entity.status >= 2){
             isVip = true;
         }
         SharedPreferencesUtils.putData(SharedPreferenceKey.USER_IS_VIP, isVip);//保存qq_open_d
@@ -334,13 +286,10 @@ public class SharedPreferencesUtils {
     /**
      * 移除某个key值已经对应的值
      */
-    public static void remove(Context context, String key) {
-        remove(context, SHARED_NAME, key);
-    }
-
-    public static void remove(Context context, String spName, String key) {
+    public static void remove(String key) {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.apply();
     }
+
 }

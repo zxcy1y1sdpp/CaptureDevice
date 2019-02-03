@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -16,7 +17,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
 import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.constant.*
@@ -38,6 +38,7 @@ import com.google.gson.Gson
 import com.jaeger.library.StatusBarUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.yalantis.ucrop.UCrop
+import com.yalantis.ucrop.UCropActivity
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhouyou.http.EasyHttp
@@ -48,9 +49,11 @@ import com.zhouyou.http.request.PostRequest
 import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.include_base_overall_top.*
 import kotlinx.android.synthetic.main.include_base_overall_top_black.*
+import kotlinx.android.synthetic.main.include_wechat_cover.*
 import org.jetbrains.annotations.NotNull
 import org.json.JSONArray
 import java.io.File
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,6 +70,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      * 2 -- 地区选择
      * 3 -- 群类型选择
      * 4 -- 群人数
+     * 7 -- 项目市场中的项目分类
      */
     var mPickerType = 0
     /**
@@ -108,11 +112,10 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     private var mNeedCrop = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setNavigationBarBg()
+        setLightNavigationBar(this, true)
         beforeSetContentView()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.navigationBarColor = Color.parseColor("#F7F7F7")
-        }
         if (0 != setLayoutResourceId()){
             setContentView(setLayoutResourceId())
         }
@@ -146,6 +149,32 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 ui or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             } else {
                 ui and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            }
+            decor.systemUiVisibility = ui
+        }
+    }
+    /**
+     * 设置状态栏的颜色
+     */
+    private fun setNavigationBarBg(color: Int = Color.parseColor("#F7F7F7")){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.navigationBarColor = color
+        }
+    }
+
+    /**
+     * 虚拟键盘的颜色
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    fun setLightNavigationBar(@NotNull activity: Activity, dark: Boolean) {
+        val window = activity.window
+        if (window != null) {
+            val decor = window.decorView
+            var ui = decor.systemUiVisibility
+            ui = if (dark) {
+                ui or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            } else {
+                ui and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
             }
             decor.systemUiVisibility = ui
         }
@@ -226,13 +255,10 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      *        1 -- 只有标题
      *        2 -- 包含右侧标题
      */
-    protected fun setTopTitle(title: String, type: Int = 0, rightTitle: String = ""
+    protected fun setTopTitle(title: String, type: Int = 0, rightTitle: String = "", rightTvColor: Int = R.color.overallTextColor
                               , leftColor: Int = R.color.black
                               , leftIv: Int = R.mipmap.back, bgColor: Int = R.color.white
-                              , contentColor: Int = R.color.black, rightIv: Int = -1, showBottomLine: Boolean = true) {
-        if (!showBottomLine){
-            overAllBottomLine.visibility = View.GONE
-        }
+                              , contentColor: Int = R.color.overallTitleColor, rightIv: Int = -1) {
         overAllBackTv.setTextColor(ContextCompat.getColor(this, leftColor))
         overAllBackLayout.setOnClickListener(this)
         overallTitleBgLayout.setBackgroundColor(ContextCompat.getColor(this, bgColor))
@@ -242,6 +268,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         if (!TextUtils.isEmpty(rightTitle)){
             overAllRightTitleTv.text = rightTitle
             overAllRightTitleTv.setOnClickListener(this)
+            overAllRightTitleTv.setTextColor(ContextCompat.getColor(this, rightTvColor))
             overAllRightTitleTv.visibility = View.VISIBLE
         }
         if(rightIv > 0){
@@ -396,13 +423,26 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 .setSelectOptions(0, 1)//默认选中项
                 .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .setTitleText("地区选择")
+//                .setTitleText("地区选择")
+        when(type){
+            1 ->{//性别选择
+                optionsPickerBuilder.setTitleText("行业类别")
+            }
+            3 ->{
+                optionsPickerBuilder.setTitleText("群类型")
+            }
+            7 ->{
+                optionsPickerBuilder.setTitleText("项目类型")
+            }
+        }
         optionPickerView = optionsPickerBuilder.build()
         val list: ArrayList<OverallIndustryEntity> = arrayListOf()
         if (type == 1){
             list.addAll(UserOperateUtil.getIndustrys())
-        }else{
+        }else if (type == 3){
             list.addAll(UserOperateUtil.getGroupType())
+        }else if (type == 7){
+            list.addAll(UserOperateUtil.getProjectClassify())
         }
         if (showAllType){
             var all = OverallIndustryEntity()
@@ -499,6 +539,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
             }
             v?.tag = list[options1]
         }
+
         if (mPickerType == 2){
             if (!mShowAll){
                 v?.tag = options1Items[options1] + " " + options2Items[options1][options2]
@@ -549,6 +590,15 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 }
             }
         }
+        if (mPickerType == 7){//行业类别
+            val list: ArrayList<OverallIndustryEntity> =  UserOperateUtil.getProjectClassify()
+            if (mShowAll){
+                var all = OverallIndustryEntity()
+                all.title = "全部类型"
+                list.add(0, all)
+            }
+            v?.tag = list[options1]
+        }
     }
     private var mLoadingDialog: ProgressUtils? = null
     /**
@@ -584,7 +634,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     }
 
     fun showToast(msg: String?) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        ToastUtils.showShort(this, msg)
     }
     fun refreshUserInfo(){
         var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "id").params("id", UserOperateUtil.getUserId())
@@ -607,9 +657,9 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 if (imm != null) {
                     assert(v != null)
-                    closeKeyboard()
+                    closeKeyboard(v)
                     if (editText != null) {
-                        editText!!.clearFocus()
+                        editText?.clearFocus()
                     }
                 }
             }
@@ -621,7 +671,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
 
     private var editText: EditText? = null
 
-    private fun isShouldHideInput(v: View?, event: MotionEvent): Boolean {
+    fun isShouldHideInput(v: View?, event: MotionEvent): Boolean {
         if (v != null && v is EditText) {
             editText = v
             val leftTop = intArrayOf(0, 0)
@@ -638,23 +688,31 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     }
 
     // 返回时关闭软键盘
-    private fun closeKeyboard() {
-        if (currentFocus != null) {
-            (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    fun closeKeyboard(v: View) {
+        if (v != null) {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)?.hideSoftInputFromWindow(v.windowToken, 0)
         }
+    }
+
+    fun showKeyBoard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
 
     /**
      * 更换角色，修改角色
      * 0 -- 操作自己
      * 1 -- 操作对方
+     * type 0 -- 微信
+     * type 1 -- 支付宝
+     * type 2 -- QQ
      */
-    fun operateRole(roleEntity: WechatUserEntity, side: Int = 0){
+    fun operateRole(roleEntity: WechatUserEntity, side: Int = 0, type: Int = 0){
         val dialog = ChoiceRoleDialog()
         if (side == 0){
-            dialog.setRequestCode(RequestCode.MY_SIDE, roleEntity)
+            dialog.setRequestCode(RequestCode.MY_SIDE, roleEntity, type, false)
         }else{
-            dialog.setRequestCode(RequestCode.OTHER_SIDE, roleEntity)
+            dialog.setRequestCode(RequestCode.OTHER_SIDE, roleEntity, type, false)
         }
         dialog.show(supportFragmentManager, "choiceRole")
     }
@@ -679,6 +737,19 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                         it.dismissWithAnimation()
                         finish()
                     }.show()
+        }
+    }
+    /**
+     * 需要VIP才可以去水印
+     */
+    fun needVipForCover(){
+        if (UserOperateUtil.isVip()){
+            mCoverIv.visibility = View.GONE
+        }else{
+            mCoverIv.visibility = View.VISIBLE
+            mCoverIv.setOnClickListener {
+                LaunchUtil.launch(this, OverallPurchaseVipActivity::class.java)
+            }
         }
     }
 
@@ -711,7 +782,28 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         val imageName = simpleDateFormat.format(date)
         var destinationUri: Uri
         destinationUri = Uri.fromFile(File(cacheDir, "$imageName.jpeg"))
-        UCrop.of(uri, destinationUri).start(this, RequestCode.CROP_IMAGE)
+
+        var uCrop = UCrop.of(uri, destinationUri)
+//        UCrop.of(uri, destinationUri).useSourceImageAspectRatio().start(this, RequestCode.CROP_IMAGE)
+        //是否能调整裁剪框
+
+        //初始化UCrop配置
+        var options: UCrop.Options  = UCrop.Options()
+        //设置裁剪图片可操作的手势
+        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL)
+        //是否隐藏底部容器，默认显示
+//        options.setHideBottomControls(true)
+        //设置toolbar颜色
+        options.setToolbarColor(ActivityCompat.getColor(this, R.color.colorPrimary))
+        //设置状态栏颜色
+        options.setStatusBarColor(ActivityCompat.getColor(this, R.color.colorPrimary))
+        //是否能调整裁剪框
+        options.setFreeStyleCropEnabled(true)
+        //UCrop配置
+        uCrop.withOptions(options)
+        //设置裁剪图片的宽高比，比如16：9
+        uCrop.withAspectRatio(1f, 1f)
+        uCrop.start(this, RequestCode.CROP_IMAGE)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -727,12 +819,16 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                             mFiles.add(file)
                         }
                     }
+                }else{
+                    mFiles.add(File(""))
                 }
             }
             RequestCode.CROP_IMAGE ->{
-                mFinalPicUri = data?.let { UCrop.getOutput(it) }
-                var path = FileUtil.getFilePathByUri(this, mFinalPicUri)
-                mFinalCropFile = File(path) //转换为File
+                if (null != data){
+                    mFinalPicUri = data?.let { UCrop.getOutput(it) }
+                    var path = FileUtil.getFilePathByUri(this, mFinalPicUri)
+                    mFinalCropFile = File(path) //转换为File
+                }
             }
 
             RequestCode.MY_SIDE -> {
@@ -746,5 +842,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 }
             }
         }
+    }
+    /**
+     * 获取只有年-月-日- 时:分 的时间
+     */
+    fun getStringTimeYMDHM(date: Date): String {//可根据需要自行截取数据显示
+        var format: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        val dateString = format.format(date)
+        return dateString
     }
 }

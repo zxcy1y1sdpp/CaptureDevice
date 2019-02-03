@@ -28,7 +28,7 @@ class UpdateDialog : SupportBlurDialogFragment(){
     private lateinit var mDownloadView: DownloadView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.setCanceledOnTouchOutside(false)
-        dialog.setOnKeyListener { dialog, keyCode, event ->
+        dialog.setOnKeyListener { _, keyCode, _ ->
             keyCode == KeyEvent.KEYCODE_BACK
         }
         val bundle: Bundle? = arguments
@@ -86,16 +86,16 @@ class UpdateDialog : SupportBlurDialogFragment(){
 
             override fun onStart() {
                 UpdateApkUtil(activity as AppCompatActivity?).updataApk(bean.apkurl, this@UpdateDialog, activity)
-               /* if ("app" == bean.channel){
-                    UpdateDialog(activity as AppCompatActivity?).updataApk(bean.path, this@UpgradAppDialog, activity)
-                }else{
-                    val intent = Intent()
-                    intent.action = "android.intent.action.VIEW"
-                    val content_url = Uri.parse("http://www.pgyer.com/ZLZQ")
-                    intent.data = content_url
-                    startActivity(intent)
-                    dismiss()
-                }*/
+                /* if ("app" == bean.channel){
+                     UpdateDialog(activity as AppCompatActivity?).updataApk(bean.path, this@UpgradAppDialog, activity)
+                 }else{
+                     val intent = Intent()
+                     intent.action = "android.intent.action.VIEW"
+                     val content_url = Uri.parse("http://www.pgyer.com/ZLZQ")
+                     intent.data = content_url
+                     startActivity(intent)
+                     dismiss()
+                 }*/
                 cancelIv.visibility = View.GONE
             }
 
@@ -107,13 +107,13 @@ class UpdateDialog : SupportBlurDialogFragment(){
     override fun onStart() {
         super.onStart()
         var window = dialog.window
-        var params = window.attributes
-        params.gravity = Gravity.CENTER_HORIZONTAL
+        var params = window?.attributes
+        params?.gravity = Gravity.CENTER_HORIZONTAL
         var width = activity?.let { ScreenUtil.getScreenWidth(it) * 0.8 }
 //        var width = ScreenUtil.getScreenWidth(context) * 0.8
-        width?.let { params.width = it.toInt() }
-        window.attributes = params
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        width?.let { params?.width = it.toInt() }
+        window?.attributes = params
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
     override fun isDebugEnable(): Boolean = false
 

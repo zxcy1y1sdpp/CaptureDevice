@@ -52,10 +52,13 @@ class RoleOfLibraryActivity : BaseWechatWithDbActivity() {
                 val entity = mList[vh.adapterPosition]
                 intent.putExtra(IntentKey.ENTITY, entity)
                 setResult(mRequestCode, intent)
-                if (mRequestCode == RequestCode.MY_SIDE){
-                    SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
-                }else{
-                    SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
+                when (mRequestCode) {
+                    RequestCode.MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
+                    RequestCode.OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
+                    RequestCode.QQ_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_ME_SELF)
+                    RequestCode.QQ_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                    RequestCode.ALIPAY_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                    RequestCode.ALIPAY_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
                 }
                 finish()
             }

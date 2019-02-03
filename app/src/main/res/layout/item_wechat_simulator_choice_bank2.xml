@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/sBankIconIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bank_abc"
+            app:layout_widthPercent="6.45%w"
+            app:layout_heightPercent="6.45%w"
+            android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="6.88%w"/>
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="16.34%w"
+            app:layout_marginLeftPercent="6.88%w"
+            android:layout_toRightOf="@+id/sBankIconIv"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/sBankNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中国银行储蓄卡(1234)"
+                android:gravity="center_vertical"
+                android:textColor="@color/wechatDeepGray"/>
+
+            <TextView
+                android:id="@+id/sBankReachTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2小时内到账"
+                android:textColor="@color/wechatLightGray"
+                android:layout_marginTop="2dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/sBankChoiceCb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            app:layout_marginRightPercent="6.88%w"
+            android:button="@drawable/wechat_choice_bank"
+            android:checked="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"
+            android:layout_below="@+id/layout1"
+            android:layout_alignLeft="@+id/sBankIconIv"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

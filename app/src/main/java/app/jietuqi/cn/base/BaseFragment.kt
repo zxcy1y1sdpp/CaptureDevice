@@ -1,5 +1,8 @@
 package app.jietuqi.cn.base
 
+import android.annotation.TargetApi
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
@@ -8,13 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LoadMoreListener
 import app.jietuqi.cn.callback.RefreshListener
+import app.jietuqi.cn.constant.ColorFinal
+import com.jaeger.library.StatusBarUtil
 import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.include_base_overall_top.*
+import org.jetbrains.annotations.NotNull
 
 /**
  * 作者： liuyuanbo on 2018/10/9 17:43.
@@ -94,6 +100,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     open fun loadFromDb() {
 
     }
+
     open fun loadFromServer() {
     }
 
@@ -101,10 +108,11 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         super.onHiddenChanged(hidden)
         if (!hidden) {
             visiableForUser()
-        }else{
+        } else {
             invisiableForUser()
         }
     }
+
     override fun onResume() {
         super.onResume()
         loadFromDb()
@@ -117,14 +125,17 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     open fun visiableForUser() {
 
     }
+
     /**
      * 对用户来说是不可见的状态
      */
     open fun invisiableForUser() {
 
     }
+
     override fun onClick(v: View) {
     }
+
     /**
      * 设置页面的标题
      * @param title
@@ -136,13 +147,13 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     protected fun setTitle(title: String, type: Int = 0, rightTitle: String = "") {
         val titleTv = findViewById<TextView>(R.id.overAllTitleTv)
         val iv = findViewById<ImageView>(R.id.overAllBackIv)
-        if (!TextUtils.isEmpty(rightTitle)){
+        if (!TextUtils.isEmpty(rightTitle)) {
             val rightTitleTv = findViewById<TextView>(R.id.overAllRightTitleTv)
             rightTitleTv?.setOnClickListener(this)
             rightTitleTv?.visibility = View.VISIBLE
         }
-        when(type){
-            1 ->{
+        when (type) {
+            1 -> {
                 overAllBackTv.visibility = View.GONE
                 iv?.visibility = View.GONE
             }
@@ -150,6 +161,31 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         iv?.setOnClickListener(this)
         titleTv?.setOnClickListener(this)
         titleTv?.text = title
+    }
+
+    /**
+     * 设置状态栏的颜色
+     */
+    fun setStatusBarColor(color: Int = ColorFinal.wechatTitleBar, alpha: Int = 0) {
+        StatusBarUtil.setColor(activity, color, alpha)
+    }
+
+    /**
+     * Android6.0设置亮色状态栏模式
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    fun setLightStatusBarForM(@NotNull activity: Activity, dark: Boolean) {
+        val window = activity.window
+        if (window != null) {
+            val decor = window.decorView
+            var ui = decor.systemUiVisibility
+            ui = if (dark) {
+                ui or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                ui and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            }
+            decor.systemUiVisibility = ui
+        }
     }
 
     /**
@@ -162,17 +198,18 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     }
 
     fun dismissLoadingDialog() {
-        if (ProgressUtils.mProgressDialog != null){
+        if (ProgressUtils.mProgressDialog != null) {
             ProgressUtils.cancleProgressDialog()
         }
     }
+
     fun showToast(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+        ToastUtils.showShort(activity, msg)
     }
 
-    fun setRefreshLayout(refreshLayout: RefreshLayout, refreshListener: RefreshListener? = null, loadMoreListener: LoadMoreListener? = null){
+    fun setRefreshLayout(refreshLayout: RefreshLayout, refreshListener: RefreshListener? = null, loadMoreListener: LoadMoreListener? = null) {
 
-        refreshLayout.setOnRefreshListener{
+        refreshLayout.setOnRefreshListener {
             mPageSize = 1
             loadFromServer()
             refreshListener?.refresh()
@@ -181,7 +218,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         refreshLayout.setOnLoadMoreListener {
             mPageSize += 1
             loadFromServer()
-            if (null != loadMoreListener){
+            if (null != loadMoreListener) {
                 loadMoreListener.loadMore()
             }
         }

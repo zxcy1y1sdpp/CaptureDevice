@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class BannerEntity implements Serializable {
 
+    private static final long serialVersionUID = -4089934159173047596L;
     public String title;
     public String content;
     public String imgurl;

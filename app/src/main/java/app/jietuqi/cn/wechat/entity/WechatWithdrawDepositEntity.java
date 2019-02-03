@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 
 public class WechatWithdrawDepositEntity implements Serializable{
+    private static final long serialVersionUID = 3269311488643973436L;
     /**
      * 预计到账时间
      */

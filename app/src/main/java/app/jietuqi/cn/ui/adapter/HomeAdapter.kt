@@ -1,11 +1,15 @@
 package app.jietuqi.cn.ui.adapter
 
+import android.graphics.Color
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LikeListener
@@ -13,15 +17,15 @@ import app.jietuqi.cn.entity.BannerEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
-import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.widget.GlideImageLoader
+import app.jietuqi.cn.util.WechatTimeUtil
+import app.jietuqi.cn.widget.BannerItemType
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import app.jietuqi.cn.widget.ninegrid.preview.NineGridViewClickAdapter
+import com.ms.banner.Banner
+import com.ms.banner.BannerConfig
+import com.ms.banner.Transformer
 import com.sackcentury.shinebuttonlib.ShineButton
-import com.youth.banner.Banner
-import com.youth.banner.BannerConfig
-import com.youth.banner.Transformer
 
 /**
  * 作者： liuyuanbo on 2018/10/24 15:46.
@@ -30,7 +34,7 @@ import com.youth.banner.Transformer
  * 用途：
  */
 
-class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: ArrayList<BannerEntity>, val mLikeListener: LikeListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: ArrayList<BannerEntity>, val mLikeListener: LikeListener/*, val mStatusListener: StatusBarListener*/) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE1 = 0
     private val TYPE2 = 1
     private val MAX_LINE_COUNT = 3//最大显示行数
@@ -46,9 +50,20 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE1 -> Holder1(LayoutInflater.from(parent.context).inflate(R.layout.item_home_1, parent, false))
-            else -> Holder2(LayoutInflater.from(parent.context).inflate(R.layout.item_overall_communicate, parent, false))
+        return if (UserOperateUtil.needColseByChannel()) {
+            if (UserOperateUtil.isWandoujiaChannel()) {
+                Holder1(LayoutInflater.from(parent.context).inflate(R.layout.item_home_1, parent, false))
+            }else{
+                when (viewType) {
+                    TYPE1 -> Holder1(LayoutInflater.from(parent.context).inflate(R.layout.item_home_1, parent, false))
+                    else -> Holder2(LayoutInflater.from(parent.context).inflate(R.layout.item_overall_communicate, parent, false))
+                }
+            }
+        }else{
+            when (viewType) {
+                TYPE1 -> Holder1(LayoutInflater.from(parent.context).inflate(R.layout.item_home_1, parent, false))
+                else -> Holder2(LayoutInflater.from(parent.context).inflate(R.layout.item_overall_communicate, parent, false))
+            }
         }
     }
 
@@ -104,38 +119,77 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
     }
 
     override fun getItemCount(): Int {
-        return mList.size + 1
+        return if (UserOperateUtil.needColseByChannel()) {
+            if (UserOperateUtil.isWandoujiaChannel()) {
+                1
+            }else{
+                mList.size + 1
+            }
+        }else{
+            mList.size + 1
+        }
     }
 
     internal inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView){
         private var banner: Banner = itemView.findViewById(R.id.mBanner)
         private var funRecyclerView: RecyclerView = itemView.findViewById(R.id.sFunRecyclerView)
+        private var indicatorImages: ArrayList<ImageView>  = arrayListOf()
+        private var lastPosition = 0
+        var indicator: LinearLayout = itemView.findViewById(R.id.indicator2)
+
+        private val mIndicatorSelectedResId = R.mipmap.indicator
+        private val mIndicatorUnselectedResId = R.mipmap.indicator2
         init {
+            indicatorImages.clear()
+            initIndicator()
             funRecyclerView.adapter = HomeFunAdapter()
-            banner.setOnBannerListener {
-                LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
+            banner.setOnBannerClickListener {
+                var url = mBannerList[it].hrefurl
+                if (!TextUtils.isEmpty(url)){
+                    LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
+                }
             }
+
+
         }
         fun bind() {
-            //设置banner样式
-            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-            //设置图片加载器
-            banner.setImageLoader(GlideImageLoader())
-            //设置图片集合
-            with(banner) {
-                setImages(mBannerList as List<Any>)
-                //设置banner动画效果
-                setBannerAnimation(Transformer.Default)
-                //设置标题集合（当banner样式有显示title时）
-//                            banner.setBannerTitles(Arrays.asList(titles));
-                //banner，默认为true
-                isAutoPlay(true)
-                //设置轮播时间
-                setDelayTime(5000)
-                //设置指示器位置（当banner模式中有指示器时）
-                setIndicatorGravity(BannerConfig.CENTER)
-                //mBanner
-                start()
+            banner.setAutoPlay(true)
+                    .setOffscreenPageLimit(mBannerList.size)
+                    .setBannerAnimation(Transformer.Scale)
+                    .setBannerStyle(BannerConfig.NOT_INDICATOR)
+                    .setPages(mBannerList) { BannerItemType() }
+                    .start()
+            banner.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+                }
+
+                override fun onPageSelected(position: Int) {
+                    indicatorImages[(lastPosition + mBannerList.size) % mBannerList.size].setImageResource(mIndicatorUnselectedResId)
+                    indicatorImages[(position + mBannerList.size) % mBannerList.size].setImageResource(mIndicatorSelectedResId)
+                    lastPosition = position
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+
+                }
+            })
+        }
+
+        private fun initIndicator() {
+            for (i in 0 until mBannerList.size) {
+                val imageView = ImageView(itemView.context)
+                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                val custom_params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                custom_params.leftMargin = 10
+                custom_params.rightMargin = 10
+                if (i == 0) {
+                    imageView.setImageResource(mIndicatorSelectedResId)//选中
+                } else {
+                    imageView.setImageResource(mIndicatorUnselectedResId)//未选中
+                }
+                indicatorImages.add(imageView)
+                indicator.addView(imageView, custom_params)
             }
         }
     }
@@ -172,6 +226,7 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
         }
 
         var avatar: ImageView = itemView.findViewById(R.id.overallCommunicateAvatarIv)
+        var topTv: TextView = itemView.findViewById(R.id.overallCommunicateTopIv)
         private var nickName: TextView = itemView.findViewById(R.id.overallCommunicateNickNameTv)
         var content: TextView = itemView.findViewById(R.id.overallCommunicateContentTv)
         var showAll: TextView = itemView.findViewById(R.id.overallCommunicateShowAllContentTv)//展开/全文按钮
@@ -189,6 +244,13 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
         }
 
         fun bind(entity: OverallDynamicEntity) {
+            if (entity.uid == 1){//官方发送
+                nickName.setTextColor(Color.parseColor("#0F5AEB"))
+                topTv.visibility = View.VISIBLE
+            }else{
+                nickName.setTextColor(Color.parseColor("#616981"))
+                topTv.visibility = View.GONE
+            }
             if (entity.vip >= 2){
                 vipTagIv.visibility = View.VISIBLE
             }else{
@@ -205,9 +267,7 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
             }
             likeCount.text = entity.favour.toString()
             pingLunCount.text = entity.comment_number.toString()
-            createTime.text = TimeUtil.stampToDateYMDHM(entity.create_time)
-//            createTime.text = WechatTimeUtil.getStandardDate(entity.create_time * 1000)
-
+            createTime.text = WechatTimeUtil.getNewChatTime(entity.create_time)
             if (entity.is_favour == 1) {
                 likeBtn.setChecked(true, false)
             } else {

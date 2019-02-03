@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.ContactsContract
 import android.view.View
-import android.widget.Toast
+import app.jietuqi.cn.GlideApp
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.constant.IntentKey
@@ -17,6 +17,8 @@ import app.jietuqi.cn.util.FileUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.exception.ApiException
@@ -43,18 +45,18 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
     override fun initAllViews() {}
 
     override fun initViewsListener() {
-        mOverallPersonalSaveQRCodeTv.setOnClickListener(this)
-        mOverallPersonalSaveWXNumberTv.setOnClickListener(this)
-        mOverallPersonalImportTv.setOnClickListener(this)
+        mOverallPersonalSaveQRCodeLayout.setOnClickListener(this)
+        mOverallPersonalSaveWXNumberLayout.setOnClickListener(this)
+        mOverallPersonalImportLayout.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
-            R.id.mOverallPersonalSaveQRCodeTv ->{
-                downloadQRCode()
+            R.id.mOverallPersonalSaveQRCodeLayout ->{
+                downloadQRCodeWithPermissionCheck()
             }
-            R.id.mOverallPersonalSaveWXNumberTv ->{
+            R.id.mOverallPersonalSaveWXNumberLayout ->{
                 try {
                     //获取剪贴板管理器：
                     val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -82,10 +84,10 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                                 it.dismissWithAnimation()
                             }.show()
                 }catch (e: ActivityNotFoundException){
-                    Toast.makeText(this, "您还没有安装微信，请安装后使用", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(this, "您还没有安装微信，请安装后使用")
                 }
             }
-            R.id.mOverallPersonalImportTv ->{
+            R.id.mOverallPersonalImportLayout ->{
                 addInContactsWithPermissionCheck()
             }
         }
@@ -105,7 +107,7 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
             mOverallPersonalSaveQRCodeTv.text = "保存群二维码"
             mOverallPersonalSaveWXNumberTv.text = "复制群主微信号"
             mOverallPersonalWxNumberTv.text = StringUtils.insertFront(mOverallCardEntity.wxname, "群主微信号：")
-            mOverallPersonalImportTv.visibility = View.GONE
+            mOverallPersonalImportLayout.visibility = View.GONE
             if(mOverallCardEntity.number == 2){
                 mOverallPersonalNoticeTv.visibility = View.VISIBLE
             }
@@ -115,13 +117,23 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
         mOverallPersonalCardTitleTv.text = mOverallCardEntity.wxnickname
         mOverallPersonalContentTv.text = mOverallCardEntity.content
         GlideUtil.displayHead(this, mOverallCardEntity.headimgurl, mOverallPersonalCardPicIv)
-        GlideUtil.displayHead(this, mOverallCardEntity.wx_qr, mOverallPersonalWxQRCodeIv)
+
+
+        GlideApp.with(this)
+                .load(mOverallCardEntity.wx_qr)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .error(R.mipmap.loading)
+                .fallback(R.mipmap.loading)
+                .into(mOverallPersonalWxQRCodeIv)
+//        GlideUtil.display(this, mOverallCardEntity.wx_qr, mOverallPersonalWxQRCodeIv)
     }
 
     /**
      * 保存二维码
      */
-    private fun downloadQRCode() {
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun downloadQRCode() {
         var path = mOverallPersonalSaveQRCodeTv.tag.toString()
         //系统相册目录
         val galleryPath = Environment.getExternalStorageDirectory().toString() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator
@@ -160,7 +172,7 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                     }
 
                     override fun onError(e: ApiException) {
-                        showToast("保存失败！")
+                        showToast("保存失败！-- 请检查一下您的存储权限是否开启" )
                         dismissLoadingDialog()
                     }
                 })
@@ -193,12 +205,12 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
         onRequestPermissionsResult(requestCode, grantResults)
     }
 
-    @OnShowRationale(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
+    @OnShowRationale(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun showRationaleContacts(request: PermissionRequest) {
         request.proceed()
     }
 
-    @OnNeverAskAgain(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
+    @OnNeverAskAgain(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun neverAskAgainContacts() {
         showToast("请授权 [ 微商营销宝 ] 的 [ 通讯录 ] 访问权限")
     }

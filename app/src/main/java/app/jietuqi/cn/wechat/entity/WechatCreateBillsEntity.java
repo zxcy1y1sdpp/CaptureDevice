@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 用途： 微信账单
  */
 public class WechatCreateBillsEntity implements Serializable {
+    private static final long serialVersionUID = 2458858534239570646L;
     public int id;
     /**
      * 类型

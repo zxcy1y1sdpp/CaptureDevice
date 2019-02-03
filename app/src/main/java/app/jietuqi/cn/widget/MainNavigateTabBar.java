@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.jietuqi.cn.R;
-import q.rorbin.badgeview.Badge;
-import q.rorbin.badgeview.QBadgeView;
+import app.jietuqi.cn.widget.badge.Badge;
+import app.jietuqi.cn.widget.badge.QBadgeView;
 
 /**
  * @作者：liuyuanbo
@@ -227,23 +227,23 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         }
     }
     /*public void showLogin() {
-        new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
+        newfun SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("您尚未登录！")
                 .setContentText("请前去登录")
                 .setCancelText("取消")
                 .setConfirmText("确定")
                 .showCancelButton(true)
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                .setCancelClickListener(newfun SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.cancel();
                     }
                 })
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                .setConfirmClickListener(newfun SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        Intent intent = new Intent(mContext, LoginInActivity.class);
+                        Intent intent = newfun Intent(mContext, LoginInActivity.class);
                         intent.putExtra("fromDialog", true);
                         mContext.startActivity(intent);
                     }

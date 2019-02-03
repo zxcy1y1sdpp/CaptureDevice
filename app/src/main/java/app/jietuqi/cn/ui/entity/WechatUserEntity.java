@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.Serializable;
 
+import app.jietuqi.cn.ResourceHelper;
 import app.jietuqi.cn.util.OtherUtil;
 import app.jietuqi.cn.util.TimeUtil;
 
@@ -16,8 +17,10 @@ import app.jietuqi.cn.util.TimeUtil;
  */
 
 public class WechatUserEntity implements Serializable {
-    public WechatUserEntity() {
-    }
+
+    private static final long serialVersionUID = 8232355915974607667L;
+
+    public WechatUserEntity() { }
     public WechatUserEntity(String wechatUserAvatar, int resAvatar, String wechatUserNickName, String msgType, String msg, long lastTime){
         this.wechatUserAvatar = wechatUserAvatar;
         this.resAvatar = resAvatar;
@@ -67,6 +70,10 @@ public class WechatUserEntity implements Serializable {
      */
     public String wechatUserId;
     /**
+     * 微信号
+     */
+    public String wechatNumber;
+    /**
      * 随机产生的头像
      */
     public int resAvatar;
@@ -91,8 +98,20 @@ public class WechatUserEntity implements Serializable {
      * 0 -- 文字
      */
     public String msg;
+    /**
+     * 未读消息数量
+     * 0 -- 没有未读
+     */
+    public String unReadNum = "0";
 
     public long lastTime;
+    /**
+     * 聊天背景
+     */
+    public String chatBg;
+//    /**
+//     * 聊天背景
+//     */
 
     /**
      * 本地头像文件
@@ -102,6 +121,10 @@ public class WechatUserEntity implements Serializable {
     /*模拟器中要用到的*/
     public boolean isComMsg;
     public boolean alreadyRead;
+    /**
+     * 12小时制还是24小时制
+     */
+    public String timeType;
     /**
      * 红包是否被领取过了
      */
@@ -114,14 +137,52 @@ public class WechatUserEntity implements Serializable {
      * 时间数据
      */
     public long time;
+    /**
+     * 是否置顶
+     * 0 -- false
+     * 1 -- true
+     */
+    public boolean top;
+    /**
+     * 是否显示小圆点
+     * 0 -- false
+     * 1 -- true
+     */
+    public boolean showPoint;
     public int position;
-
+    /**
+     * 转账状态
+     * 已收钱
+     * 代收款
+     * 已退款
+     */
+    public String transferType;
+    /**
+     * 转出时间
+     */
+    public String outTime;
+    /**
+     * 收钱时间
+     */
+    public String receiveTime;
+    /**
+     * 收钱还是转出
+     * 0 -- 收钱
+     * 1 -- 转出
+     */
+    public int type;
+    /**
+     * 默认账户余额
+     */
+    public double cash;
 
     public Object getAvatarFile() {
         if (!TextUtils.isEmpty(wechatUserAvatar)){
             return wechatUserAvatar;
         }else if (null != avatarFile){
             return avatarFile;
+        }else if (!TextUtils.isEmpty(resourceName)){
+            return ResourceHelper.getAppIconId(resourceName);
         }else {
             return resAvatar;
         }
@@ -147,6 +208,15 @@ public class WechatUserEntity implements Serializable {
      * 是不是“我”
      */
     public boolean meSelf;
+
+    /**
+     * 在聊天列表中的主键id
+     */
+    public int listId;
+    /**
+     * 资源对应的名称
+     */
+    public String resourceName;
     public WechatUserEntity(int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
         this.resAvatar = avatarInt;
         this.wechatUserAvatar = avatarStr;
@@ -154,9 +224,23 @@ public class WechatUserEntity implements Serializable {
         this.pinyinNickName = pinyinNickName;
         this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
     }
+    public WechatUserEntity(String resourceName, String nickName, String pinyinNickName) {
+        this.resourceName = resourceName;
+        this.wechatUserNickName = nickName;
+        this.pinyinNickName = pinyinNickName;
+        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
+    }
     public WechatUserEntity(String userId, int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
         this.wechatUserId = userId;
         this.resAvatar = avatarInt;
+        this.wechatUserAvatar = avatarStr;
+        this.wechatUserNickName = nickName;
+        this.pinyinNickName = pinyinNickName;
+        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
+    }
+    public WechatUserEntity(String userId, String resourceName, String avatarStr, String nickName, String pinyinNickName) {
+        this.wechatUserId = userId;
+        this.resourceName = resourceName;
         this.wechatUserAvatar = avatarStr;
         this.wechatUserNickName = nickName;
         this.pinyinNickName = pinyinNickName;

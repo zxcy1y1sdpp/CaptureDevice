@@ -1,5 +1,7 @@
 package app.jietuqi.cn.constant;
 
+import app.jietuqi.cn.R;
+
 /**
  * 作者： liuyuanbo on 2018/10/20 16:57.
  * 时间： 2018/10/20 16:57
@@ -11,7 +13,7 @@ package app.jietuqi.cn.constant;
  */
 
 public final class ColorFinal {
-    public static final int wechatPreviewTitleLayout = 0xFFF15E4E;
+    public static final int wechatPreviewTitleLayout = 0xFFf25542;
     public static final int wechatTitleBar = 0xFF303030;
     public static final int wechatMyWallet = 0xFFF2F2F2;
     public static final int WHITE = 0xFFFFFFFF;
@@ -26,8 +28,10 @@ public final class ColorFinal {
     public static final int explore = 0xffE6594b;
     /** 零钱明细的状态栏颜色*/
     public static final int chargeDetail = 0xFFF1F1F1;
-    public static final int NEW_WECHAT_TITLEBAR = 0xFFF7F7F7;
+    public static final int NEW_WECHAT_TITLEBAR = 0xFFF1F1F1;
     public static final int NEW_WECHAT_TITLEBAR_DARK = 0xFFEDEDED;
+
+    public static final int alipayRedPacketRed2 = R.drawable.overall_home_title_bg;
 
 
 }

@@ -44,11 +44,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
      * 选中的Vip
      */
     private var mSelectCardEntity: OverallVipCardEntity = OverallVipCardEntity()
-    private var mUserEntity: OverallUserInfoEntity? = null
-    /**
-     * 默认购买的是季度会员
-     */
-    private var mChoiceVipType = 2
+    private var mUserEntity: OverallUserInfoEntity = OverallUserInfoEntity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +60,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
         registerEventBus()
         refreshUserInfo()
         setFlickerAnimation()
-        mScrollView.setImageView(mOverallPurchaseVipStatusLayout)
+//        mScrollView.setImageView(mOverallPurchaseVipStatusLayout)
     }
 
     override fun initViewsListener() {
@@ -84,8 +80,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
                 finish()
             }
             R.id.mOverallPurchaseVipJDIv ->{
-                mChoiceVipType = 2
-                mOverallPurchaseVipJDIv.borderWidth = 8f
+                mOverallPurchaseVipJDIv.borderWidth = 2f
                 mOverallPurchaseVipNDIv.borderWidth = 0f
                 mOverallPurchaseVipYJIv.borderWidth = 0f
                 mOverallPurchaseVipMarkIv.setImageResource(R.drawable.overall_purchase_vip_jdhy_mark)
@@ -93,18 +88,16 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
 //                pay()
             }
             R.id.mOverallPurchaseVipNDIv ->{
-                mChoiceVipType = 3
                 mOverallPurchaseVipJDIv.borderWidth = 0f
-                mOverallPurchaseVipNDIv.borderWidth = 8f
+                mOverallPurchaseVipNDIv.borderWidth = 2f
                 mOverallPurchaseVipYJIv.borderWidth = 0f
                 mOverallPurchaseVipMarkIv.setImageResource(R.drawable.overall_purchase_vip_ndhy_mark)
                 mSelectCardEntity = mVipCardList[1]
             }
             R.id.mOverallPurchaseVipYJIv ->{
-                mChoiceVipType = 4
                 mOverallPurchaseVipJDIv.borderWidth = 0f
                 mOverallPurchaseVipNDIv.borderWidth = 0f
-                mOverallPurchaseVipYJIv.borderWidth = 8f
+                mOverallPurchaseVipYJIv.borderWidth = 2f
                 mOverallPurchaseVipMarkIv.setImageResource(R.drawable.overall_purchase_vip_yjhy_mark)
                 mSelectCardEntity = mVipCardList[2]
             }
@@ -120,9 +113,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
         mOverallPurchaseVipMarkIv.animation = animation
     }
     private fun getMoney(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.INDEX)
-                .params("way", "price")
-                .params("classify", "vip")
+        var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "price")
         request.execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallVipCardEntity>>, ArrayList<OverallVipCardEntity>>(object : SimpleCallBack<ArrayList<OverallVipCardEntity>>() {
             override fun onSuccess(t: ArrayList<OverallVipCardEntity>) {
                 mVipCardList = t
@@ -144,10 +135,9 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     private fun createOrder(payChannel: String = "微信"){
         var request: PostRequest = EasyHttp.post(HttpConfig.ORDER)
                 .params("way", "add")
-                .params("way", "add")
                 .params("pay", "appalipay")
                 .params("money", mSelectCardEntity.id)
-                .params("uid", mUserEntity?.id?.toString())
+                .params("uid", mUserEntity.id.toString())
                 .params("pay_channel", payChannel)
                 .params("classify", "vip")
                 .params("os", "android")
@@ -176,17 +166,18 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     override fun refreshUser(user: OverallUserInfoEntity) {
         super.refreshUser(user)
         mUserEntity = user
-        if (mUserEntity?.status == 2 || mUserEntity?.status == 3 || mUserEntity?.status == 4){
+        if (mUserEntity.status >= 2){
             GlideUtil.display(this, R.drawable.overall_purchase_renewal_vip, mOverallPurchaseVipTitleIv)
         }
-        GlideUtil.display(this, mUserEntity?.headimgurl, mOverallPurchaseVipAvatarIv)
-        mOverallPurchaseVipNickNameTv.text = mUserEntity?.nickname
-//        mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
+
+        GlideUtil.display(this, mUserEntity.headimgurl, mOverallPurchaseVipAvatarIv)
+        mOverallPurchaseVipNickNameTv.text = mUserEntity.nickname
         when {
             user.status == 1 -> mOverallPurchaseVipValidityTimeTv.text = "您还不是VIP会员"
             user.status == 2 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
             user.status == 3 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
             user.status == 4 -> mOverallPurchaseVipValidityTimeTv.text = "永久会员"
+            user.status == 5 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
         }
     }
 
@@ -201,7 +192,6 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
                 }
                 mOverallPurchaseVipMarqueeTv.startWithList(info)
             }
-
             override fun onError(e: ApiException) {
                 e.message?.let { showToast(it) }
             }

@@ -113,4 +113,28 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ProgressButton">
+        <attr name="progressColor" />
+        <attr name="progressBackColor" />
+        <attr name="buttonColor" format="color" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="progress" />
+        <attr name="minProgress" />
+        <attr name="maxProgress" />
+        <attr name="progressMargin" format="dimension" />
+    </declare-styleable>
+
+    <!-- 授权密码输入框 -->
+    <declare-styleable name="CustomPasswordInputView">
+        <attr name="maxCount" format="integer" />
+        <attr name="pwdcircleColor" format="color" />
+        <attr name="pwdCircleRadius" format="dimension" />
+        <attr name="strokeColor" format="color" />
+        <attr name="devideLineColor" format="color" />
+
+        <attr name="divideLineWidth" format="dimension" />
+        <attr name="divideLineColor" format="color" />
+        <attr name="rectAngle" format="dimension" />
+    </declare-styleable>
+
 </resources>

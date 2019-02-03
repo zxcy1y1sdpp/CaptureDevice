@@ -7,25 +7,26 @@
 
     <ImageView
         android:id="@+id/sUploadTv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/publish_circle"
-        percent:layout_heightPercent="100%w"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:layout_margin="@dimen/normalPadding"/>
+        percent:layout_widthPercent="70%w"
+        percent:layout_heightPercent="70%w"
+        android:scaleType="fitXY"/>
 
     <app.jietuqi.cn.widget.VerticalProgressBar
         android:id="@+id/sUploadProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         percent:layout_heightPercent="100%w"
-        android:layout_margin="@dimen/normalPadding"
+        percent:layout_widthPercent="100%w"
+        android:layout_alignRight="@+id/sUploadTv"
+        android:layout_alignBottom="@+id/sUploadTv"
         android:visibility="gone"/>
     <ImageView
         android:id="@+id/sUploadDeleteIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/shanchu"
-        android:layout_alignParentRight="true"/>
+        android:src="@drawable/shanchu"
+        android:layout_alignRight="@+id/sUploadTv"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

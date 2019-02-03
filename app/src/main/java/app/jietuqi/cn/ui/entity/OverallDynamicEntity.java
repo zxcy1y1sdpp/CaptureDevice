@@ -12,6 +12,7 @@ import app.jietuqi.cn.widget.ninegrid.ImageInfo;
  * 用途：
  */
 public class OverallDynamicEntity implements Serializable{
+    private static final long serialVersionUID = -1582788616858727933L;
     /**
      * id : 56
      * title :
@@ -46,6 +47,10 @@ public class OverallDynamicEntity implements Serializable{
     public int view;
     public long update_time;
     public long create_time;
+    /**
+     * id==1，os = android，android端展示
+     */
+    public String os;
     /**
      * 点赞个数
      */

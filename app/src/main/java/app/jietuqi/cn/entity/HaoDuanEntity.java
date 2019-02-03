@@ -9,5 +9,6 @@ import java.io.Serializable;
  * 用途：
  */
 public class HaoDuanEntity implements Serializable {
+    private static final long serialVersionUID = 4731179707564264470L;
     public String phone;
 }

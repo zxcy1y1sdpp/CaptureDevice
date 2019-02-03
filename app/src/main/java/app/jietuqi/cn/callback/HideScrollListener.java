@@ -9,4 +9,7 @@ package app.jietuqi.cn.callback;
 public interface HideScrollListener {
     void onHide();
     void onShow();
+//
+//    void onShowTitle(int distance);
+//    void onHideTitle(int distance);
 }

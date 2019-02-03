@@ -224,9 +224,9 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK){
             when(requestCode){
-                RequestCode.CROP_IMAGE ->{
-                    mFinalCropFile?.let { luban(it) }
-                    GlideUtil.display(this, mFinalCropFile, mOverallAccountManagementAvatarIv)
+                RequestCode.IMAGE_SELECT ->{
+                    mFiles[0].let { luban(it) }
+                    GlideUtil.display(this, mFiles[0], mOverallAccountManagementAvatarIv)
                 }
             }
         }

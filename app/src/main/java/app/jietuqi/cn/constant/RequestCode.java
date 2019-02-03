@@ -10,9 +10,9 @@ package app.jietuqi.cn.constant;
 public class RequestCode {
     public final static int IMAGE_SELECT = 0x001;
     /**
-     * 适配8.0实现内部更新的跳转
+     * 更换之后的角色
      */
-    public final static int UP_DATE = 0x1002;
+    public final static int CHOICE_PROJECT = 0x002;
     /**
      * 运行时权限的适配
      */
@@ -30,15 +30,31 @@ public class RequestCode {
      */
     public final static int DYNAMIC = 0x1006;
     /**
-     * 我
+     * 微信中的“我”
      */
     public final static int MY_SIDE = 0x1007;
     /**
-     * 对方
+     * 微信中的“对方”
      */
     public final static int OTHER_SIDE = 0x1008;
     /**
-     * 更换之后的角色
+     * QQ中的“我”
      */
-    public final static int ROLE_CHANGE = 0x1009;
+    public final static int QQ_MY_SIDE = 0x1010;
+    /**
+     * QQ中的“对方”
+     */
+    public final static int QQ_OTHER_SIDE = 0x1011;
+    /**
+     * 支付宝中的“我”
+     */
+    public final static int ALIPAY_MY_SIDE = 0x1012;
+    /**
+     * 支付宝中的“对方”
+     */
+    public final static int ALIPAY_OTHER_SIDE = 0x1013;
+    /**
+     * 项目名称
+     */
+    public final static int PROJECT_TITLE = 0x1014;
 }

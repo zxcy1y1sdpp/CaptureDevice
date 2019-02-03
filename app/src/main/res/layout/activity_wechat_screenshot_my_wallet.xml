@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wechatBg"
+    android:gravity="center_vertical">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.14%w">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/mWechatWalletBackTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            app:layout_widthPercent="13.14%w"
+            app:stv_isShowState="true"
+            app:stv_state_drawable="@drawable/wechat_back_black"
+            app:stv_pressBgColor="@color/wechatLightGray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mWechatWalletBackTv"
+            android:layout_alignTop="@+id/mWechatWalletBackTv"
+            android:layout_alignBottom="@+id/mWechatWalletBackTv"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_more_black"
+            android:layout_alignParentRight="true"
+            app:layout_marginRightPercent="6%w"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_below="@+id/titleLayout"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

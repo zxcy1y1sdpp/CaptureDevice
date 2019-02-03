@@ -27,4 +27,18 @@ public class IntentKey {
     public final static String LIST = "list";
     public final static String URL = "url";
     public final static String CAN_DELETE = "canDelete";
+    public final static String IS_SIMULATOR = "isSimulator";
+    public final static String PICTURES_ID = "picturesId";
+    public final static String DESCRIPTION = "description";
+    public final static String INDUSTRY_ID = "industryid";
+    /** 是否需要同时操作数据库*/
+    public final static String NEED_OPERATE_DB = "needDB";
+    /**
+     * 最后一条聊天数据的时间
+     */
+    public final static String LAST_TIME = "lastTime";
+    /**
+     * 聊天数据
+     */
+    public final static String SINGLE_TALK_ENTITY = "singleTalkEntity";
 }

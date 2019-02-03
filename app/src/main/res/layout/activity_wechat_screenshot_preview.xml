@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7">
+    android:background="#EDEDED">
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
         app:layout_heightPercent="15.48%w"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="#F7F7F7">
+        android:background="#f1f1f1">
 
         <TextView
             android:layout_width="match_parent"
@@ -114,7 +114,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/wechat17"
-                android:paddingRight="@dimen/normalPaddingHalf"/>
+                android:paddingRight="@dimen/normalPaddingHalf"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/mWechatScreenShotPreviewContentEt"
@@ -122,18 +123,9 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_edittext"
                 android:gravity="center_vertical"
+                android:textCursorDrawable="@drawable/wechat_cursor_color"
                 android:paddingLeft="@dimen/normalPadding"
                 android:paddingRight="@dimen/normalPadding"/>
-            <!--<EditText
-                android:id="@+id/mWechatScreenShotPreviewContentEt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_edittext"
-                android:layout_centerVertical="true"
-                android:lines="1"
-                android:paddingLeft="@dimen/normalPadding"
-                android:paddingRight="@dimen/normalPadding"
-                android:textCursorDrawable="@drawable/cursor_color"/>-->
         </LinearLayout>
 
         <ImageView

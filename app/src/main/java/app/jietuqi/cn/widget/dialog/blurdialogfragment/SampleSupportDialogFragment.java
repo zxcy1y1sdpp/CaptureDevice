@@ -71,7 +71,7 @@ public class SampleSupportDialogFragment extends SupportBlurDialogFragment {
     private boolean mUseRenderScript;
 
     /**
-     * Retrieve a new instance of the sample fragment.
+     * Retrieve a newfun instance of the sample fragment.
      *
      * @param radius            blur radius.
      * @param downScaleFactor   down scale factor.

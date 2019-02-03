@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout
+<com.zhy.android.percent.support.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -8,6 +8,7 @@
     android:background="@color/wechatBg"
     android:gravity="center_vertical">
     <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_heightPercent="13.14%w">
@@ -47,6 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
-
-</com.zhy.android.percent.support.PercentLinearLayout>
+        android:orientation="vertical"
+        android:layout_below="@+id/titleLayout"/>
+    <include layout="@layout/include_wechat_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

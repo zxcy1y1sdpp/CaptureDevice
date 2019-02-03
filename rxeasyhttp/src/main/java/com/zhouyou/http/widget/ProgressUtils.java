@@ -1,10 +1,12 @@
 package com.zhouyou.http.widget;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zhouyou.http.R;
@@ -23,7 +25,7 @@ public class ProgressUtils {
      * @param message
      * @param context
      */
-    public static void showProgressDialog(String message, Context context, boolean cancel) {
+    public static void showProgressDialog(String message, Activity context, boolean cancel) {
         view = LayoutInflater.from(context).inflate(R.layout.dialog_wechat_loading, null);
         TextView title_view = view.findViewById(R.id.title);
         if (TextUtils.isEmpty(message)){
@@ -38,6 +40,12 @@ public class ProgressUtils {
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(cancel);
         mProgressDialog.show();
+        WindowManager.LayoutParams params = mProgressDialog.getWindow().getAttributes();
+        float width = getWidth(context) / 10 * 7;
+        float height = getWidth(context) / 10 * 2;
+        params.width = (int) width;
+        params.height = (int) height;
+        mProgressDialog.getWindow().setAttributes(params);
     }
     public static void cancleProgressDialog() {
         try {
@@ -53,5 +61,12 @@ public class ProgressUtils {
 
     public static Dialog getDialog(){
         return mProgressDialog;
+    }
+
+    public static int getWidth(Activity context){
+        WindowManager manager = context.getWindowManager();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
     }
 }

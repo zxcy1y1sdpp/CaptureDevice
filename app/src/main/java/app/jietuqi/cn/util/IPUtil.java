@@ -56,7 +56,7 @@ public class IPUtil {
         String ipLine = "";
         HttpURLConnection httpConnection = null;
         try {
-//            infoUrl = new URL("http://ip168.com/");
+//            infoUrl = newfun URL("http://ip168.com/");
             infoUrl = new URL("http://pv.sohu.com/cityjson?ie=utf-8");
             URLConnection connection = infoUrl.openConnection();
             httpConnection = (HttpURLConnection) connection;

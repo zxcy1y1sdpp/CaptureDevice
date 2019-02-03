@@ -18,10 +18,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.xinlan.imageeditlibrary.Constant;
 import com.xinlan.imageeditlibrary.R;
+import com.xinlan.imageeditlibrary.ToastUtils;
 import com.xinlan.imageeditlibrary.editimage.utils.BitmapUtils;
 import com.xinlan.imageeditlibrary.picchooser.SelectPictureActivity;
 
@@ -230,7 +230,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         boolean isImageEdit = data.getBooleanExtra(com.xinlan.imageeditlibrary.editimage.EditImageActivity.IMAGE_IS_EDIT, false);
 
         if (isImageEdit){
-            Toast.makeText(this, getString(R.string.save_path, newFilePath), Toast.LENGTH_LONG).show();
+            ToastUtils.showShort(this, getString(R.string.save_path, newFilePath));
         }else{//未编辑  还是用原来的图片
             newFilePath = data.getStringExtra(com.xinlan.imageeditlibrary.editimage.EditImageActivity.FILE_PATH);;
         }

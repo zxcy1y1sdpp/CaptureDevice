@@ -49,6 +49,7 @@ class WechatVideoActivity : BaseWechatActivity() {
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mEntity.resAvatar = userEntity.resAvatar
+        mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.avatarFile = userEntity.avatarFile
         GlideUtil.displayHead(this, mEntity.getAvatarFile(), mVideoWaitingTalkAvatarIv)
@@ -112,16 +113,17 @@ class WechatVideoActivity : BaseWechatActivity() {
                     val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     mEntity.avatarFile = userEntity.avatarFile
                     mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.resourceName = userEntity.resourceName
                     mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
                     mVideoWaitingTalkNickNameTv.text = mEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mVideoWaitingTalkAvatarIv)
                 }
             }
-            RequestCode.CROP_IMAGE ->{//通话中
+            RequestCode.IMAGE_SELECT ->{//通话中
                 if (mEntity.type == 0){//待接听
-                    GlideUtil.displayAll(this@WechatVideoActivity, mFinalCropFile, mVideoWaitingBgIv)
-                    mEntity.wechatBg = mFinalCropFile
+                    GlideUtil.displayAll(this@WechatVideoActivity, mFiles[0], mVideoWaitingBgIv)
+                    mEntity.wechatBg = mFiles[0]
                     if (null != mEntity.wechatBg && !TextUtils.isEmpty(mEntity.wechatUserNickName) && null != mEntity.getAvatarFile()){
                         OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
                     }else{
@@ -129,11 +131,11 @@ class WechatVideoActivity : BaseWechatActivity() {
                     }
                 }else{//通话中
                     if (mType == 0){//对方视频画面
-                        mEntity.otherFileBg = mFinalCropFile
-                        GlideUtil.displayAll(this@WechatVideoActivity, mFinalCropFile, mVideoBusyNowOtherSideBgIv)
+                        mEntity.otherFileBg = mFiles[0]
+                        GlideUtil.displayAll(this@WechatVideoActivity, mFiles[0], mVideoBusyNowOtherSideBgIv)
                     }else{//我的视频画面
-                        mEntity.myFileBg = mFinalCropFile
-                        GlideUtil.displayAll(this@WechatVideoActivity, mFinalCropFile, mVideoBusyNowMySideBgIv)
+                        mEntity.myFileBg = mFiles[0]
+                        GlideUtil.displayAll(this@WechatVideoActivity, mFiles[0], mVideoBusyNowMySideBgIv)
                     }
                     if (null != mEntity.otherFileBg && mEntity.myFileBg != null){
                         OtherUtil.changeWechatPreviewBtnBg(this, previewBtn, true)
@@ -152,7 +154,7 @@ class WechatVideoActivity : BaseWechatActivity() {
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

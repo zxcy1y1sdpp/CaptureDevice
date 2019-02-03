@@ -20,6 +20,7 @@ import app.jietuqi.cn.util.WechatTimeUtil
 import app.jietuqi.cn.widget.bubble.BubbleLinearLayout
 import app.jietuqi.cn.widget.bubble.BubbleTextView
 import com.makeramen.roundedimageview.RoundedImageView
+import com.xinlan.imageeditlibrary.ToastUtils
 
 /**
  * 作者： liuyuanbo on 2018/10/10 17:50.
@@ -181,10 +182,10 @@ class WechatSingleTalkAdapter(val mList: MutableList<SingleTalkEntity>, val mOth
                         entity.receive = true
                         EventBusUtil.post(entity)
                     }else{
-                        Toast.makeText(itemView.context, "我查看对方的的红包的详细页面", Toast.LENGTH_SHORT).show()
+//                        ToastUtils.showShort(itemView.context, "我查看对方的的红包的详细页面")
                     }
                 }else{
-                    Toast.makeText(itemView.context, "跳转到他的红包的详细页面", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "跳转到他的红包的详细页面")
                 }
             }
         }
@@ -218,13 +219,13 @@ class WechatSingleTalkAdapter(val mList: MutableList<SingleTalkEntity>, val mOth
                 val entity = mList[adapterPosition]
 //                entity.position = adapterPosition//确定条目在列表中的位置
                 if (mSwitchRoles){
-                    Toast.makeText(itemView.context, "我操作我自己的红包", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.showShort(itemView.context, "我操作我自己的红包")
                 }else{
                     if (!entity.receive){//如果红包没有被领取，就领取
                         entity.receive = true
                         EventBusUtil.post(entity)
                     }else{
-                        Toast.makeText(itemView.context, "对方查看我的红包的详情", Toast.LENGTH_SHORT).show()
+//                        ToastUtils.showShort(itemView.context, "对方查看我的红包的详情")
                     }
                 }
             }

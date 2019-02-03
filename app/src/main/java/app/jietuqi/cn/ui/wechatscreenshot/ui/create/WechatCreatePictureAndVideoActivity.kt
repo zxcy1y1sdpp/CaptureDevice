@@ -116,21 +116,22 @@ class WechatCreatePictureAndVideoActivity : BaseCreateActivity() {
     }
     private fun setMsg(entity: WechatUserEntity){
         mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.CROP_IMAGE ->{
-                GlideUtil.displayAll(this, mFinalCropFile, mWechatCreatePictureAndVideoPictureIv)
-                mMsgEntity.filePath = mFinalCropFile?.absolutePath
+            RequestCode.IMAGE_SELECT ->{
+                GlideUtil.displayAll(this, mFiles[0], mWechatCreatePictureAndVideoPictureIv)
+                mMsgEntity.filePath = mFiles[0].absolutePath
             }
         }
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum(needCrop = true)
+        callAlbum()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

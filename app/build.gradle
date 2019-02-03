@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
-/**上线*/
 apply plugin: 'com.dongnao.optimizer'
 /**
  * kotlin使用
@@ -44,16 +43,6 @@ android {
         }
         multiDexEnabled = true
     }
-    // 解决 native libraries 不支持cpu的体系结构。允许模拟器调试
-    //上线 -- 隐藏
-    /*splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'armeabi-v7a','x86_64'
-            universalApk true
-        }
-    }*/
     signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
@@ -164,7 +153,8 @@ dependencies {
 //    implementation rootProject.ext.supportAppcompat
     implementation rootProject.ext.supportDesign
     implementation rootProject.ext.supportCardView
-    implementation 'com.youth.banner:banner:1.4.10'
+//    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.github.wenchaosong:Banner:2.2.9'
     implementation 'com.sunfusheng:marqueeview:1.3.3'
     /*侧滑RecyclerView*/
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
@@ -174,7 +164,6 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     //  implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'//没有使用特殊Header，可以不加这行
     /*--------------------------------------------SmartRefreshLayout刷新控件结束---------------------------------------------*/
-    implementation 'q.rorbin:badgeview:1.1.3'
     implementation 'com.github.chrisbanes:PhotoView:1.3.1'
     implementation 'com.sackcentury:shinebutton:0.2.0'
     /*--------------------------------------------屏幕适配---------------------------------------------*/
@@ -207,6 +196,8 @@ dependencies {
     implementation files('libs/bugly_crash_release.jar')
     implementation('com.github.hotchemi:permissionsdispatcher:3.1.0') { exclude module: 'support-v13' }
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
+//    implementation project(':rollbanner')
+//    implementation 'com.sdsmdg.harjot:materialshadows:1.2.5'
 }
 //apply from: '../MobSDK.gradle'
 MobSDK {

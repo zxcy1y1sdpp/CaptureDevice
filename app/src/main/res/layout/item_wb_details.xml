@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/sTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布名片"
+        android:padding="@dimen/normalPadding"/>
+    <TextView
+        android:id="@+id/sTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-10-0. 22:12:31"
+        android:textColor="#D1D1D1"
+        android:layout_below="@+id/sTitleTv"
+        android:paddingLeft="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"/>
+
+    <TextView
+        android:id="@+id/sPriceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10.00元"
+        android:padding="@dimen/normalPadding"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/sStatusTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="购买成功"
+        android:textColor="#D1D1D1"
+        android:layout_below="@+id/sPriceTv"
+        android:paddingRight="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"
+        android:layout_alignParentRight="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"
+        android:layout_below="@+id/sStatusTv"/>
+</RelativeLayout>

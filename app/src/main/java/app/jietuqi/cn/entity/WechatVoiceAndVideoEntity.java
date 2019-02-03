@@ -12,6 +12,7 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity;
  */
 
 public class WechatVoiceAndVideoEntity extends WechatUserEntity {
+    private static final long serialVersionUID = 2208851803542737504L;
     /**
      * 视频通话的背景
      */

@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
@@ -15,6 +14,7 @@ import app.jietuqi.cn.entity.OverallUserInfoEntity
 import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.util.*
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
@@ -93,7 +93,7 @@ class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListe
             }
             R.id.mOverallRegisterConfirmBtn ->{
                 if (0 >= OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
-                    Toast.makeText(this, "验证码输入有误", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(this, "验证码输入")
                     return
                 }
                 showLoadingDialog("请稍后...")
@@ -116,20 +116,16 @@ class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListe
         }
     }
     private fun canRegister(): Boolean{
-        /*if(TextUtils.isEmpty(OtherUtil.getContent(mOverallRegisterPhoneNumberEt))){
-            Toast.makeText(this, "请填写账号", Toast.LENGTH_SHORT).show()
-            return false
-        }*/
         if(OtherUtil.getContentLength(mOverallRegisterPhoneNumberEt) != 11){
-            Toast.makeText(this, "手机号长度不正确", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(this, "手机号长度不正确")
             return false
         }
         if (6 > OtherUtil.getContentLength(mOverallRegisterPasswordViewEt)){
-            Toast.makeText(this, "密码长度必须大于6位", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(this, "密码长度必须大于6位")
             return false
         }
         if (0 >= OtherUtil.getContentLength(mOverallRegisterVerificationCodeView)){
-            Toast.makeText(this, "验证码输入有误", Toast.LENGTH_SHORT).show()
+            ToastUtils.showShort(this, "验证码输入有误")
             return false
         }
         return true

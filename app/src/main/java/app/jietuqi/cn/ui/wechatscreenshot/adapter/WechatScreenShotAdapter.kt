@@ -12,6 +12,7 @@ import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.WechatTimeUtil
+import com.coorchice.library.SuperTextView
 
 /**
  * 作者： liuyuanbo on 2018/12/1 16:03.
@@ -19,7 +20,7 @@ import app.jietuqi.cn.util.WechatTimeUtil
  * 邮箱： 972383753@qq.com
  * 用途：
  */
-class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>) : RecyclerView.Adapter<WechatScreenShotAdapter.Holder>() {
+class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val mListener: DeleteListener) : RecyclerView.Adapter<WechatScreenShotAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(mList[position])
     }
@@ -28,8 +29,21 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>) : Re
 
 
     override fun getItemCount() = mList.size
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        override fun onClick(v: View?) {
+            when(v?.id){
+                R.id.sWechatScreenShotDeleteTv ->{
+                    var entity = mList[adapterPosition]
+                    mListener.delete(entity, adapterPosition)
+                }
+                else ->{
+                }
+            }
+        }
+        init {
+            itemView.findViewById<SuperTextView>(R.id.sWechatScreenShotDeleteTv).setOnClickListener(this)
+            itemView.setOnClickListener(this)
+        }
         private var contentTv: TextView = itemView.findViewById(R.id.sWechatScreenShotContentTv)
         private var avatarIv: ImageView = itemView.findViewById(R.id.sWechatScreenShotAvatarIv)
 
@@ -45,7 +59,11 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>) : Re
                     contentTv.text = "[图片]"
                 }
                 entity.msgType == 2 -> {//时间
-                    contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChatTime(entity.time), "[时间]")
+                    if ("12" == entity.timeType){
+                        contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChat12Time(entity.time), "[时间]")
+                    }else{
+                        contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChat24Time(entity.time), "[时间]")
+                    }
                 }
                 entity.msgType == 3 -> {
                     contentTv.text = "[发红包]"
@@ -67,5 +85,8 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>) : Re
                 }
             }
         }
+    }
+    interface DeleteListener{
+        fun delete(entity: WechatScreenShotEntity, position: Int)
     }
 }

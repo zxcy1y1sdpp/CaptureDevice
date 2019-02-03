@@ -14,6 +14,7 @@ import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.wechat.db.WechatChargeHelper
 import app.jietuqi.cn.wechat.entity.WechatChargeDetailEntity
+import com.xinlan.imageeditlibrary.ToastUtils
 import kotlinx.android.synthetic.main.activity_wechat_add_charge_detail.*
 import kotlinx.android.synthetic.main.base_wechat_title.*
 import org.greenrobot.eventbus.Subscribe
@@ -98,7 +99,7 @@ class WechatAddChargeDetailActivity : BaseWechatActivity() {
             }
             R.id.sureTv ->{
                 if (TextUtils.isEmpty(mDetailMoneyEt.text.toString())){
-                    Toast.makeText(this, "请填写金额", Toast.LENGTH_SHORT).show()
+                    ToastUtils.showShort(this, "请填写金额")
                     return
                 }
                 mEntity.name = mTypeTv.text.toString()
@@ -108,19 +109,19 @@ class WechatAddChargeDetailActivity : BaseWechatActivity() {
                 if (sureTv.text.toString() == "确定"){
                     id = mHelper.save(mEntity)
                     if (id > 0){
-                        Toast.makeText(this, "添加成功！", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this, "添加成功！")
                         finish()
                     }else{
-                        Toast.makeText(this, "数据添加失败，请稍后失败！", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this, "数据添加失败，请稍后失败！")
                     }
 
                 }else{
                     id = mHelper.update(mEntity)
                     if (id > 0){
-                        Toast.makeText(this, "修改成功！", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this, "修改成功！")
                         finish()
                     }else{
-                        Toast.makeText(this, "数据修改失败，请稍后失败！", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(this, "数据修改失败，请稍后失败！")
                     }
                 }
             }

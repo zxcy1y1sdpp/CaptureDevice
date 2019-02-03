@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bm.zlzq.utils.ScreenUtil;
 import com.github.promeg.pinyinhelper.Pinyin;
@@ -109,7 +108,7 @@ public class OtherUtil {
 //
 //
 //        float distanceValue = Math.round((Double.parseDouble(String.valueOf(price))/10f))/100f;
-//        DecimalFormat decimalFormat =new DecimalFormat("0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+//        DecimalFormat decimalFormat =newfun DecimalFormat("0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
 //        String distanceString = decimalFormat.format(distanceValue) + km;
 //        return distanceString;
     }
@@ -219,7 +218,7 @@ public class OtherUtil {
         ClipData mClipData = ClipData.newPlainText("Label", content);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
-        Toast.makeText(context, "链接已复制，快去分享给好友吧", Toast.LENGTH_SHORT).show();
+        ToastUtils.showShort(context, "链接已复制，快去分享给好友吧");
     }
 
     /**

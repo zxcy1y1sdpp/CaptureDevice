@@ -11,6 +11,7 @@ import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.wechat.entity.WechatMsgEditEntity
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
 import kotlinx.android.synthetic.main.include_choice_role.*
 
@@ -42,7 +43,7 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
         mHelper = WechatSimulatorHelper(this, mOtherSideEntity.wechatUserId)
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
         mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
         mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
         setMsg(mMySideEntity)
@@ -71,8 +72,14 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
                 mMsgEntity.isComMsg = true
             }
             R.id.overallAllRightWithBgTv ->{
-                if (mMsgEntity.msgType != 2) {
+                if(mType == 0){
                     EventBusUtil.post(mMsgEntity)
+//                    mHelper.save(mMsgEntity)
+                }else{
+                    val entity = WechatMsgEditEntity()
+                    entity.editEntity  = mMsgEntity
+                    EventBusUtil.post(entity)
+                    mHelper.update(mMsgEntity, false)
                 }
                 finish()
             }
@@ -80,6 +87,7 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
     }
     private fun setMsg(entity: WechatUserEntity){
         mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
     }

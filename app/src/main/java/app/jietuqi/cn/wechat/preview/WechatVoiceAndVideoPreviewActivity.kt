@@ -7,6 +7,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
 import app.jietuqi.cn.R
+import app.jietuqi.cn.ResourceHelper
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.constant.IntentKey
@@ -51,7 +52,7 @@ class WechatVoiceAndVideoPreviewActivity : BaseWechatActivity() {
         mVideoLayout.visibility = View.GONE
         if (entity.chatType == 0){//语音通话
             mBitmap = if (null == entity.avatarFile){
-                BitmapFactory.decodeResource(resources, entity.resAvatar)
+                BitmapFactory.decodeResource(resources, ResourceHelper.getAppIconId(entity.resourceName))
             }else{
                 var uri: Uri = Uri.fromFile(entity.avatarFile)
                 MediaStore.Images.Media.getBitmap(contentResolver, uri)

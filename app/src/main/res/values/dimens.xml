@@ -17,6 +17,7 @@
     <dimen name="wechatLineHeight">1dp</dimen>
     <!--微信模块之间的线条宽度-->
     <dimen name="wechatLineNarrow">0.5dp</dimen>
+    <dimen name="Line">0.1dp</dimen>
 
 
     <dimen name="media_grid_size">48dp</dimen>
@@ -67,5 +68,7 @@
     <!--正常文字的大小-->
     <dimen name="normalTextSize15">15sp</dimen>
     <dimen name="normalTextSize17">17sp</dimen>
+
+    <dimen name="sticky_height">20dp</dimen>
 
 </resources>

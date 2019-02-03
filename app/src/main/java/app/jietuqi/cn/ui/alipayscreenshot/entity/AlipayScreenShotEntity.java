@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.alipayscreenshot.entity;
 
 import android.text.TextUtils;
 
+import app.jietuqi.cn.ResourceHelper;
 import app.jietuqi.cn.ui.entity.SingleTalkEntity;
 
 /**
@@ -11,6 +12,8 @@ import app.jietuqi.cn.ui.entity.SingleTalkEntity;
  * 用途：
  */
 public class AlipayScreenShotEntity extends SingleTalkEntity {
+    private static final long serialVersionUID = 2788988736909450956L;
+
     public AlipayScreenShotEntity(){}
     /**
      * 文字消息
@@ -102,8 +105,15 @@ public class AlipayScreenShotEntity extends SingleTalkEntity {
     public Object getAvatar(){
         if (!TextUtils.isEmpty(avatarStr)){
             return avatarStr;
+        }else if (!TextUtils.isEmpty(resourceName)){
+            return ResourceHelper.getAppIconId(resourceName);
         }else {
             return avatarInt;
         }
+        /*if (!TextUtils.isEmpty(avatarStr)){
+            return avatarStr;
+        }else {
+            return avatarInt;
+        }*/
     }
 }

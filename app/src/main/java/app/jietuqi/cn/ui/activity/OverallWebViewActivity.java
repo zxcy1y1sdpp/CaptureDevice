@@ -130,7 +130,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
         }
         setContentView(R.layout.activity_overall_web);
         String title = intent.getStringExtra(IntentKey.TITLE);
-        setTopTitle(title, 0, "", R.color.black, R.mipmap.back, R.color.white, R.color.black, -1, true);
+        setTopTitle(title, 0, "", R.color.overallTextColor, R.color.black, R.mipmap.back, R.color.white, R.color.black, -1);
         // init webview
         mWebView = findViewById(R.id.mOverallWebView);
         mWebView.setWebViewClient(new WebViewClient() {

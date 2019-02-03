@@ -21,7 +21,7 @@ package app.jietuqi.cn.pay.util;//package app.jietuqi.cn.pay.util;
 //     */
 //    public static boolean showPayResult(Context context, boolean success) {
 //        hideAll(context);
-//        payResultDialog = new Dialog(context, R.style.Dialog);
+//        payResultDialog = newfun Dialog(context, R.style.Dialog);
 //        payResultDialog.setContentView(R.layout.main_payresult_dialog);
 //        payResultDialog.getWindow().setBackgroundDrawable(null);
 //
@@ -57,7 +57,7 @@ package app.jietuqi.cn.pay.util;//package app.jietuqi.cn.pay.util;
 //     */
 //    public static boolean showLoading(Context context) {
 //        hideAll(context);
-//        loadingDialog = new Dialog(context, R.style.Dialog);
+//        loadingDialog = newfun Dialog(context, R.style.Dialog);
 //        loadingDialog.setContentView(R.layout.loading_dialog);
 //        loadingDialog.setCanceledOnTouchOutside(false);
 //        loadingDialog.setCancelable(false);

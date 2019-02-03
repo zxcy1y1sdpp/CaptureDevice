@@ -35,6 +35,7 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.resAvatar = userEntity.resAvatar
+        mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
 
         GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateRedPacketAvatarIv)
@@ -61,7 +62,7 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
                 LaunchUtil.startAlipayPreviewRedPacketActivity(this, mEntity)
             }
             R.id.mAlipayCreateRedPacketChangeRoleLayout ->{
-                operateRole(mEntity, 1)
+                operateRole(mEntity, 1, 1)
             }
         }
     }
@@ -73,6 +74,7 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
                     mEntity.avatarFile = mOtherSideEntity.avatarFile
                     mEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
                     mEntity.resAvatar = mOtherSideEntity.resAvatar
+                    mEntity.resourceName = mOtherSideEntity.resourceName
                     mEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateRedPacketAvatarIv)
                     mAlipayCreateRedPacketNickNameTv.text = mEntity.wechatUserNickName

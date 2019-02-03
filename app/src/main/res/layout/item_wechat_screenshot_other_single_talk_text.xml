@@ -23,7 +23,7 @@
             android:scaleType="centerCrop"
             app:riv_corner_radius="5dp"/>
 
-        <TextView
+        <app.jietuqi.cn.widget.autolink.AutoLinkTextView
             android:id="@+id/sWechatScreenShotOtherContentTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

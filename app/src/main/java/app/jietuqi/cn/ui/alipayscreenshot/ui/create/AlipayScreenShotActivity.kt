@@ -12,15 +12,11 @@ import app.jietuqi.cn.ui.alipayscreenshot.adapter.AlipayScreenShotAdapter
 import app.jietuqi.cn.ui.alipayscreenshot.db.AlipayScreenShotHelper
 import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.ui.qqscreenshot.db.QQScreenShotHelper
-import app.jietuqi.cn.ui.qqscreenshot.entity.QQScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
-import app.jietuqi.cn.ui.wechatscreenshot.db.WechatScreenShotHelper
-import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.util.UserOperateUtil.getMySelf
+import app.jietuqi.cn.util.UserOperateUtil.getAlipayMySelf
 import app.jietuqi.cn.widget.dialog.ChoiceTalkTypeDialog
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.yanzhenjie.recyclerview.swipe.*
@@ -40,7 +36,13 @@ import java.util.*
  * 邮箱： 972383753@qq.com
  * 用途： 支付宝单聊生成页面
  */
-class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTypeListener {
+class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTypeListener, AlipayScreenShotAdapter.DeleteListener {
+    override fun delete(entity: AlipayScreenShotEntity, position: Int) {
+        mHelper.delete(entity)
+        mList.remove(entity)
+        mAdapter?.notifyItemRemoved(position)
+    }
+
     override fun choiceType(title: String, msgType: String) {
         when(title){
             "时间" ->{
@@ -121,13 +123,13 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         setBlackTitle("支付宝单聊", 2)
         mHelper = AlipayScreenShotHelper(this)
         mRoleHelper = RoleLibraryHelper(this)
-        mOtherSideEntity = UserOperateUtil.getOtherSide()
-        mMySideEntity = getMySelf()
+        mOtherSideEntity = UserOperateUtil.getAlipayOtherSide()
+        mMySideEntity = getAlipayMySelf()
         Log.e("limit -- ", mMySideEntity.wechatUserId + "---------" + mOtherSideEntity.wechatUserId)
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mAlipayScreenShotMySideAvatarIv)
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mAlipayScreenShotOtherSideAvatarIv)
         mHelper.queryAll()?.let { mList.addAll(it) }
-        mAdapter = AlipayScreenShotAdapter(mList)
+        mAdapter = AlipayScreenShotAdapter(mList, this)
         mAlipayScreenShotCreateMenuRecyclerView.setSwipeMenuCreator(swipeMenuCreator)
         mAlipayScreenShotCreateMenuRecyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener)
         mAlipayScreenShotCreateMenuRecyclerView.isLongPressDragEnabled = true // 拖拽排序，默认关闭。
@@ -225,7 +227,23 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         if (meSelfEntity.meSelf){
             mMySideEntity = meSelfEntity
             GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mAlipayScreenShotMySideAvatarIv)
-            changeMyInfo()
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                if (!mList.isNullOrEmpty()){
+                    var alipayEntity: AlipayScreenShotEntity
+                    for (i in 0 until mList.size) {
+                        alipayEntity = mList[i]
+                        if (!alipayEntity.isComMsg){
+                            alipayEntity.resourceName = mMySideEntity.resourceName
+                            alipayEntity.avatarInt = mMySideEntity.resAvatar
+                            alipayEntity.avatarStr = mMySideEntity.wechatUserAvatar
+                            mHelper.update(alipayEntity)
+                        }
+                    }
+                    runOnUiThread {
+                        mAdapter?.notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
     /**
@@ -236,100 +254,20 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         if (!otherSideEntity.meSelf){
             mOtherSideEntity = otherSideEntity
             GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mAlipayScreenShotOtherSideAvatarIv)
-            changeOtherInfo()
-        }
-    }
-    private fun changeMyInfo(){
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            if (!mList.isNullOrEmpty()){
-                var alipayEntity: AlipayScreenShotEntity
-                for (i in 0 until mList.size) {
-                    alipayEntity = mList[i]
-                    if (!alipayEntity.isComMsg){
-                        alipayEntity.avatarInt = mMySideEntity.resAvatar
-                        alipayEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        mHelper.update(alipayEntity)
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                if (!mList.isNullOrEmpty()){
+                    var alipayEntity: AlipayScreenShotEntity
+                    for (i in 0 until mList.size) {
+                        alipayEntity = mList[i]
+                        if (alipayEntity.isComMsg){
+                            alipayEntity.resourceName = mOtherSideEntity.resourceName
+                            alipayEntity.avatarInt = mOtherSideEntity.resAvatar
+                            alipayEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
+                            mHelper.update(alipayEntity)
+                        }
                     }
-                }
-                runOnUiThread {
-                    mAdapter?.notifyDataSetChanged()
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val wechatHelper = WechatScreenShotHelper(this@AlipayScreenShotActivity)
-            val list = wechatHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var wechatEntity: WechatScreenShotEntity
-                for (i in 0 until list.size) {
-                    wechatEntity = list[i]
-                    if (!wechatEntity.isComMsg){
-                        wechatEntity.avatarInt = mMySideEntity.resAvatar
-                        wechatEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        wechatHelper.update(wechatEntity)
-                    }
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val qqHelper = QQScreenShotHelper(this@AlipayScreenShotActivity)
-            val list = qqHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var qqEntity: QQScreenShotEntity
-                for (i in 0 until list.size) {
-                    qqEntity = list[i]
-                    if (!qqEntity.isComMsg){
-                        qqEntity.avatarInt = mMySideEntity.resAvatar
-                        qqEntity.avatarStr = mMySideEntity.wechatUserAvatar
-                        qqHelper.update(qqEntity)
-                    }
-                }
-            }
-        }
-    }
-    private fun changeOtherInfo(){
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            if (!mList.isNullOrEmpty()){
-                var alipayEntity: AlipayScreenShotEntity
-                for (i in 0 until mList.size) {
-                    alipayEntity = mList[i]
-                    if (alipayEntity.isComMsg){
-                        alipayEntity.avatarInt = mOtherSideEntity.resAvatar
-                        alipayEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        mHelper.update(alipayEntity)
-                    }
-                }
-                runOnUiThread {
-                    mAdapter?.notifyDataSetChanged()
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val wechatHelper = WechatScreenShotHelper(this@AlipayScreenShotActivity)
-            val list = wechatHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var wechatEntity: WechatScreenShotEntity
-                for (i in 0 until list.size) {
-                    wechatEntity = list[i]
-                    if (wechatEntity.isComMsg){
-                        wechatEntity.avatarInt = mOtherSideEntity.resAvatar
-                        wechatEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        wechatHelper.update(wechatEntity)
-                    }
-                }
-            }
-        }
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            val qqHelper = QQScreenShotHelper(this@AlipayScreenShotActivity)
-            val list = qqHelper.queryAll()
-            if (!list.isNullOrEmpty()){
-                var qqEntity: QQScreenShotEntity
-                for (i in 0 until list.size) {
-                    qqEntity = list[i]
-                    if (qqEntity.isComMsg){
-                        qqEntity.avatarInt = mOtherSideEntity.resAvatar
-                        qqEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-                        qqHelper.update(qqEntity)
+                    runOnUiThread {
+                        mAdapter?.notifyDataSetChanged()
                     }
                 }
             }

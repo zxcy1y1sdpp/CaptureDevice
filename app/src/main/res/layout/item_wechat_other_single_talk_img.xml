@@ -19,7 +19,6 @@
             app:layout_marginLeftPercent="2.16%w"
             app:layout_marginRightPercent="1.67%w"
             android:src="@drawable/head_default"
-            android:scaleType="centerCrop"
             app:riv_corner_radius="5dp"/>
 
         <com.makeramen.roundedimageview.RoundedImageView

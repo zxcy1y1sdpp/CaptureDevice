@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 用途： 第三方登录返回的实体类
  */
 public class OverallThridLoginEntity implements Serializable {
+    private static final long serialVersionUID = -3002393819678077073L;
     /**
      * 第三方登录授权后返回的用户的昵称
      */

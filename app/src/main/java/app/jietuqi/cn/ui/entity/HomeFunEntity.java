@@ -9,6 +9,8 @@ import java.io.Serializable;
  * 用途：
  */
 public class HomeFunEntity implements Serializable {
+    private static final long serialVersionUID = 6617460827552341733L;
+
     public HomeFunEntity(String funName, int funIcon, boolean needHot){
         this.funName = funName;
         this.funIcon = funIcon;

@@ -47,7 +47,7 @@
                 android:id="@+id/lineView2"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:background="#DFDFDF"
+                android:background="@color/wechatLine"
                 android:layout_alignLeft="@+id/sRoleLibraryNickNameTv"
                 android:layout_alignParentBottom="true"/>
 
@@ -91,7 +91,7 @@
                 android:id="@+id/tagView4"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:background="#DFDFDF"
+                android:background="@color/wechatLine"
                 android:layout_alignLeft="@+id/tagView3"
                 android:layout_alignParentBottom="true"/>
 
@@ -134,7 +134,7 @@
                 android:id="@+id/tagView7"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:background="#DFDFDF"
+                android:background="@color/wechatLine"
                 android:layout_alignLeft="@+id/tagView6"
                 android:layout_alignParentBottom="true"/>
 
@@ -177,7 +177,7 @@
                 android:id="@+id/tagView10"
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:background="#DFDFDF"
+                android:background="@color/wechatLine"
                 android:layout_alignLeft="@+id/tagView9"
                 android:layout_alignParentBottom="true"/>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="gray">#DEDEDE</color>
     <color name="wechatTitleBar">#303030</color>
     <color name="wechat_deep_text_color">#282828</color>
     <color name="wechat_deep2_text_color">#585858</color>
@@ -89,5 +90,17 @@
 
     <color name="waterGray">#e6dedc</color><!---->
     <color name="wechatLine">#DFDFDF</color><!--微信分割线颜色-->
+    <color name="overallLine">#EEEEEE</color><!--分割线颜色-->
+
+
+    <color name="colorRed">#ff1a1a</color>
+    <color name="colorGreen">#80cc33</color>
+    <color name="colorBlue">#33ccff</color>
+    <color name="colorYellow">#ffcc00</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#e0e0e0</color>
+    <color name="transactionRecord">#267afe</color>
+    <color name="wechatAutoColor">#5A6F9D</color>
+    <color name="overallTitleColor">#333333</color>
 
 </resources>

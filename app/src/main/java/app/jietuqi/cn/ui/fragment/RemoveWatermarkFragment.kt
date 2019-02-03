@@ -8,7 +8,6 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseFragment
 import app.jietuqi.cn.http.RemoveWaterMarkEntity
@@ -20,6 +19,7 @@ import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import cn.jzvd.Jzvd
+import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.DownloadProgressCallBack
@@ -138,7 +138,7 @@ class RemoveWatermarkFragment : BaseFragment() {
                         showLoadingDialog("提取中...")
                     }
                     override fun onError(e: ApiException) {
-                        Toast.makeText(activity, "解析失败", Toast.LENGTH_SHORT).show()
+                        ToastUtils.showShort(activity, "解析失败")
                         dismissLoadingDialog()
                     }
 

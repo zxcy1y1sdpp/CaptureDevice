@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import com.bm.zlzq.utils.ScreenUtil;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.io.InputStream;
@@ -43,19 +45,30 @@ public class GlideUtil{
 				.load(id)
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.thumbnail(0.1f)
-				.error(R.drawable.head_default)
-				.fallback(R.drawable.head_default)
-				.placeholder(R.mipmap.loading)
+				.placeholder(R.mipmap.loading).dontAnimate()
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
 				.into(imageView);
 	}
-	public static void display(Context context, String id, ImageView imageView){
+	public static void display(Context context, String path, ImageView imageView){
 		GlideApp.with(context)
-				.load(id)
+				.load(path)
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.thumbnail(0.1f)
 				.error(R.mipmap.loading)
 				.fallback(R.mipmap.loading)
 				.placeholder(R.mipmap.loading)
+				.into(imageView);
+	}
+	public static void displayBannerWithCorner(Context context, String url, ImageView imageView){
+		GlideApp.with(context)
+				.load(url)
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.thumbnail(0.1f)
+				.error(R.mipmap.loading)
+				.fallback(R.mipmap.loading)
+				.placeholder(R.mipmap.loading)
+				.apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
 				.into(imageView);
 	}
 
@@ -72,7 +85,7 @@ public class GlideUtil{
 				.thumbnail(0.1f)
 				.error(R.drawable.head_default)
 				.fallback(R.drawable.head_default)
-				.placeholder(R.mipmap.loading)
+				.placeholder(R.drawable.head_default)
 				.into(imageView);
 	}
 	public static void display2(Context context, int id, ImageView imageView){

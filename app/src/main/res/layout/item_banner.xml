@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.makeramen.roundedimageview.RoundedImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bannerItemIv"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:src="@mipmap/loading"
+    android:scaleType="fitXY"
+    app:riv_oval="false"
+    app:riv_corner_radius="8dp"
+    android:background="@color/white"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+    <!--<com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/bannerItemIv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/loading"
+        app:riv_oval="false"
+        app:riv_corner_radius="10dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>-->
+</com.makeramen.roundedimageview.RoundedImageView>

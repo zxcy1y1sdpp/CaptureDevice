@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -93,22 +93,19 @@ public class EmojiWechatBoard extends LinearLayout {
                 list.add(R.mipmap.input_emoji_delete);
                 adapter.setResList(list);
                 gridView.setAdapter(adapter);
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        if (listener != null) {
-                            String code = "";
-                            if (position == ROW * COLUMN - 1) {
-                                code = "/DEL";
-                            } else {
-                                int pos = viewPager.getCurrentItem() * (ROW * COLUMN - 1) + position;
-                                char[] chars = Character.toChars(EmojiWechatManager.getCode(pos));
-                                for (int i = 0; i < chars.length; i++) {
-                                    code += Character.toString(chars[i]);
-                                }
+                gridView.setOnItemClickListener((parent, view, position, id) -> {
+                    if (listener != null) {
+                        String code = "";
+                        if (position == ROW * COLUMN - 1) {
+                            code = "/DEL";
+                        } else {
+                            int pos = viewPager.getCurrentItem() * (ROW * COLUMN - 1) + position;
+                            char[] chars = Character.toChars(EmojiWechatManager.getCode(pos));
+                            for (int i1 = 0; i1 < chars.length; i1++) {
+                                code += Character.toString(chars[i1]);
                             }
-                            listener.onClick(code);
                         }
+                        listener.onClick(code);
                     }
                 });
                 viewContainer.add(gridView);
@@ -163,11 +160,11 @@ public class EmojiWechatBoard extends LinearLayout {
                 ViewGroup view;
                 if (convertView == null) {
                     view = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.input_emoji_griditem, null);
-                    view.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.INSTANCE.dip2px(getContext(), 40)));
+//                    view.setLayoutParams(newfun GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.INSTANCE.dip2px(getContext(), 40)));
                 } else {
                     view = (ViewGroup) convertView;
                 }
-                ImageView image = view.findViewById(R.id.image);
+                ImageButton image = view.findViewById(R.id.image);
                 image.setImageResource(resList.get(position));
                 return view;
             }

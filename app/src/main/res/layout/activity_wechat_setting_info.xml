@@ -104,32 +104,40 @@
             style="@style/wechatRightArrow"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/mQQOtherStatusLayout"
-        android:gravity="center_vertical"
-        style="@style/wechatItem">
-        <TextView
-            android:text="对方状态"
-            style="@style/wechatLeftTitle"/>
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/mWechatSettingInfoQQLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <RelativeLayout
+            android:id="@+id/mQQOtherStatusLayout"
+            android:gravity="center_vertical"
+            style="@style/wechatItem">
+            <TextView
+                android:text="对方状态"
+                style="@style/wechatLeftTitle"/>
 
-        <TextView
-            android:id="@+id/mQQOtherStatusTv"
-            android:text="手机在线 - WIFI"
-            style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/mQQUnReadNumberLayout"
-        android:gravity="center_vertical"
-        style="@style/wechatItem">
-        <TextView
-            android:text="未读消息数"
-            style="@style/wechatLeftTitle"/>
+            <TextView
+                android:id="@+id/mQQOtherStatusTv"
+                android:text="手机在线 - WIFI"
+                style="@style/wechatRightWithArrow"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/mQQUnReadNumberLayout"
+            android:gravity="center_vertical"
+            style="@style/wechatItem">
+            <TextView
+                android:text="未读消息数"
+                style="@style/wechatLeftTitle"/>
 
-        <TextView
-            android:id="@+id/mQQUnReadNumberTv"
-            android:text="20"
-            style="@style/wechatRightWithArrow"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/mQQUnReadNumberTv"
+                android:text="20"
+                style="@style/wechatRightWithArrow"/>
+        </RelativeLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
 
 
 </com.zhy.android.percent.support.PercentLinearLayout>

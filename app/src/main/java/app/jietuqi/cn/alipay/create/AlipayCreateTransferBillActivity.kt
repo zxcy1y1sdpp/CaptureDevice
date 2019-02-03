@@ -48,6 +48,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.resAvatar = userEntity.resAvatar
+        mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mAlipayCreateTransferBillNickNameTv.text = userEntity.wechatUserNickName
         GlideUtil.displayHead(this, userEntity.getAvatarFile(), mAlipayCreateTransferBillAvatarIv)
@@ -93,7 +94,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
         super.onClick(v)
         when(v.id){
             R.id.mAlipayCreateTransferBillSenderLayout ->{
-                operateRole(mEntity)
+                operateRole(mEntity, type = 1)
             }
             R.id.mAlipayCreateTransferBillReceiveTv ->{
                 mAlipayCreateTransferBillPaymentMethodsTitleTv.text = "收款方式"
@@ -169,6 +170,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
                     val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     mEntity.avatarFile = userEntity.avatarFile
                     mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.resourceName = userEntity.resourceName
                     mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mAlipayCreateTransferBillNickNameTv.text = mEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateTransferBillAvatarIv)

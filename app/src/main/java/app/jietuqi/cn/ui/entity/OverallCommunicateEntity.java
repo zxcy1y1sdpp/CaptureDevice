@@ -13,6 +13,7 @@ import app.jietuqi.cn.widget.ninegrid.ImageInfo;
  */
 
 public class OverallCommunicateEntity implements Serializable {
+    private static final long serialVersionUID = -1597631736958768756L;
     public int id;
     /**
      * 头像

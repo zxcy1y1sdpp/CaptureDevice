@@ -23,5 +23,5 @@
         android:text="收钱时间："
         android:textSize="14sp"
         android:textColor="@color/wechatLightGray"
-        app:layout_marginBottomPercent="4%w"/>
+        app:layout_marginBottomPercent="5.69%w"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

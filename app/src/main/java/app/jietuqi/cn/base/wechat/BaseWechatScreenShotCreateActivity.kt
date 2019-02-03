@@ -82,6 +82,7 @@ abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
     }
     private fun setMsg(entity: WechatUserEntity){
         mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
     }

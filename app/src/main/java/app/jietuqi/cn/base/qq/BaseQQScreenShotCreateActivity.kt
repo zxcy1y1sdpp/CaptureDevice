@@ -42,7 +42,7 @@ abstract class BaseQQScreenShotCreateActivity : BaseWechatActivity(){
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
         mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        mMySideEntity = UserOperateUtil.getMySelf()
+        mMySideEntity = UserOperateUtil.getQQMySelf()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
         mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
         setMsg(mMySideEntity)
@@ -82,6 +82,7 @@ abstract class BaseQQScreenShotCreateActivity : BaseWechatActivity(){
     }
     private fun setMsg(entity: WechatUserEntity){
         mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
     }

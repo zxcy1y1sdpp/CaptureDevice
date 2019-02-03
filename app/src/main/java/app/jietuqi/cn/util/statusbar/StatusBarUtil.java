@@ -50,7 +50,7 @@
 ////        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 ////            //使用SystemBarTintManager,需要先将状态栏设置为透明
 ////            setTranslucentStatus(activity);
-////            SystemBarTintManager systemBarTintManager = new SystemBarTintManager(activity);
+////            SystemBarTintManager systemBarTintManager = newfun SystemBarTintManager(activity);
 ////            systemBarTintManager.setStatusBarTintEnabled(true);//显示状态栏
 ////            systemBarTintManager.setStatusBarTintColor(colorId);//设置状态栏颜色
 ////        }

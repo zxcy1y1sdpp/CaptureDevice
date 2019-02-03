@@ -14,11 +14,11 @@ import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.widget.badge.Badge
+import app.jietuqi.cn.widget.badge.QBadgeView
 import app.jietuqi.cn.widget.dialog.BadgeDialog
 import com.bm.zlzq.utils.ScreenUtil
 import kotlinx.android.synthetic.main.activity_alipay_preview_my.*
-import q.rorbin.badgeview.Badge
-import q.rorbin.badgeview.QBadgeView
 
 /**
  * 作者： liuyuanbo on 2018/11/5 10:48.
@@ -82,21 +82,27 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
     }
 
     override fun onChoice(entity: EditDialogEntity) {
-        if (entity.position == 0){
-            mBadgeView0?.setGravityOffset(13f, -1f, true)
-            mBadgeView0?.badgeNumber = entity.content.toInt()
-        }else if (entity.position == 1){
-            mBadgeView1?.setGravityOffset(13f, -1f, true)
-            mBadgeView1?.badgeNumber = entity.content.toInt()
-        }else if (entity.position == 2){
-            mBadgeView2?.setGravityOffset(13f, -1f, true)
-            mBadgeView2?.badgeNumber = entity.content.toInt()
-        }else if (entity.position == 3){
-            mBadgeView3?.setGravityOffset(13f, -1f, true)
-            mBadgeView3?.badgeNumber = entity.content.toInt()
-        }else if (entity.position == 4){
-            mBadgeView4?.setGravityOffset(13f, -1f, true)
-            mBadgeView4?.badgeNumber = entity.content.toInt()
+        when {
+            entity.position == 0 -> {
+                mBadgeView0?.setGravityOffset(13f, -1f, true)
+                mBadgeView0?.badgeNumber = entity.content.toInt()
+            }
+            entity.position == 1 -> {
+                mBadgeView1?.setGravityOffset(13f, -1f, true)
+                mBadgeView1?.badgeNumber = entity.content.toInt()
+            }
+            entity.position == 2 -> {
+                mBadgeView2?.setGravityOffset(13f, -1f, true)
+                mBadgeView2?.badgeNumber = entity.content.toInt()
+            }
+            entity.position == 3 -> {
+                mBadgeView3?.setGravityOffset(13f, -1f, true)
+                mBadgeView3?.badgeNumber = entity.content.toInt()
+            }
+            entity.position == 4 -> {
+                mBadgeView4?.setGravityOffset(13f, -1f, true)
+                mBadgeView4?.badgeNumber = entity.content.toInt()
+            }
         }
     }
 
@@ -132,7 +138,7 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         val entity: AlipayCreateMyEntity = intent.getSerializableExtra(IntentKey.ENTITY) as AlipayCreateMyEntity
-        GlideUtil.display(this, entity.avatarFile, mAlipayPreviewMyAvatarIv)
+        GlideUtil.displayHead(this, entity.getAvatarFile(), mAlipayPreviewMyAvatarIv)
         mAlipayPreviewMyNickNameTv.text = entity.wechatUserNickName
         mAlipayPreviewMyAntTv.text = StringUtils.insertBack(entity.ant, " 积分")
         if (entity.showMerchant){
@@ -179,7 +185,7 @@ class AlipayPreviewMyActivity : BaseAlipayActivity(), EditDialogChoiceListener, 
 
     override fun onResume() {
         super.onResume()
-//        needVip()
+        needVip()
         mBadgePadding = (ScreenUtil.getScreenWidth(this) * 0.05 / 4) .toFloat()
     }
 }
