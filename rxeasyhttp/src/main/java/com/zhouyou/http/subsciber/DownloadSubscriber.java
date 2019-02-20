@@ -196,8 +196,8 @@ public class DownloadSubscriber<ResponseBody extends okhttp3.ResponseBody> exten
 
                         }
                     });
-                    HttpLog.i("file downloaded: " + fileSizeDownloaded + " of " + fileSize);
-                    HttpLog.i("file downloaded: is sucess");
+//                    HttpLog.i("file downloaded: " + fileSizeDownloaded + " of " + fileSize);
+//                    HttpLog.i("file downloaded: is sucess");
                 }
 
                 return true;

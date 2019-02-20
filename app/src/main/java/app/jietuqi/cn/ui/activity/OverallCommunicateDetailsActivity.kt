@@ -119,7 +119,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 .params("id", entity.id.toString())
                 .execute(object : SimpleCallBack<String>() {
                     override fun onError(e: ApiException) {
-                        e?.message?.let { showToast(it) }
+                        e.message.let { showToast(it) }
                     }
                     override fun onSuccess(t: String) {
                         showToast("删除成功")

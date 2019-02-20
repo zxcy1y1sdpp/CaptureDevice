@@ -224,9 +224,8 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK){
             when(requestCode){
-                RequestCode.IMAGE_SELECT ->{
-                    mFiles[0].let { luban(it) }
-                    GlideUtil.display(this, mFiles[0], mOverallAccountManagementAvatarIv)
+                RequestCode.CROP_IMAGE ->{
+                    mFinalCropFile?.let { luban(it) }
                 }
             }
         }
@@ -245,6 +244,7 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
                         showToast("上传成功")
                         mUserEntity?.localHead = mFinalCropFile
                         UserOperateUtil.saveUser(mUserEntity)
+                        mUserEntity?.localHead?.let { GlideUtil.displayHead(this@OverallAccountManagementActivity, it, mOverallAccountManagementAvatarIv) }
                     }
                     override fun onStart() {
                         super.onStart()

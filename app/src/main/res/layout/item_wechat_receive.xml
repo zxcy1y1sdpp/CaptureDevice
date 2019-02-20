@@ -37,5 +37,14 @@
             android:textColor="@color/wechat_redpacket_bg"
             android:textSize="@dimen/wechatLittleTextSize"
             android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/wechatReceiveRedPacketLastContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="，你的红包已被领完"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatLittleTextSize"
+            android:gravity="center_vertical"
+            android:visibility="gone"/>
     </LinearLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

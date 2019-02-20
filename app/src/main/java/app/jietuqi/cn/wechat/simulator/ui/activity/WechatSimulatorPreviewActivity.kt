@@ -325,7 +325,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
             mOtherSideEntity.listId = WechatSimulatorListHelper(this@WechatSimulatorPreviewActivity).queryByWechatUserId(mOtherSideEntity.wechatUserId)
         }
-        mHelper = WechatSimulatorHelper(this, mOtherSideEntity.wechatUserId)
+        mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
         mWechatSimulatorPreviewNickNameTv.text = mOtherSideEntity.wechatUserNickName
         val list = mHelper.queryAll()//获取和对方聊天的记录
         if (null != list){
@@ -578,11 +578,11 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
                 msgEntity.needEventBus = false
                 if (!mComMsg){//自己的红包被领取
                     msgEntity.resourceName = mOtherSideEntity.resourceName
-                    msgEntity.avatarInt = mOtherSideEntity.resAvatar
+                    msgEntity.avatarInt = mOtherSideEntity.avatarInt
                     msgEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mOtherSideEntity.wechatUserId
                 }else{//领取对方的红包
-                    msgEntity.avatarInt = mMySideEntity.resAvatar
+                    msgEntity.avatarInt = mMySideEntity.avatarInt
                     msgEntity.resourceName = mMySideEntity.resourceName
                     msgEntity.avatarStr = mMySideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mMySideEntity.wechatUserId
@@ -659,12 +659,12 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
     private fun setRole(msgEntity: WechatScreenShotEntity){
         if (!mComMsg){//如果是自己说话
             if (mFunType == 4){
-                msgEntity.avatarInt = mOtherSideEntity.resAvatar
+                msgEntity.avatarInt = mOtherSideEntity.avatarInt
                 msgEntity.resourceName = mOtherSideEntity.resourceName
                 msgEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                 msgEntity.wechatUserId = mOtherSideEntity.wechatUserId
             }else{
-                msgEntity.avatarInt = mMySideEntity.resAvatar
+                msgEntity.avatarInt = mMySideEntity.avatarInt
                 msgEntity.resourceName = mMySideEntity.resourceName
                 msgEntity.avatarStr = mMySideEntity.wechatUserAvatar
                 msgEntity.wechatUserId = mMySideEntity.wechatUserId
@@ -672,11 +672,11 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         }else{//对方说话
             if (mFunType == 4){
                 msgEntity.resourceName = mMySideEntity.resourceName
-                msgEntity.avatarInt = mMySideEntity.resAvatar
+                msgEntity.avatarInt = mMySideEntity.avatarInt
                 msgEntity.avatarStr = mMySideEntity.wechatUserAvatar
                 msgEntity.wechatUserId = mMySideEntity.wechatUserId
             }else{
-                msgEntity.avatarInt = mOtherSideEntity.resAvatar
+                msgEntity.avatarInt = mOtherSideEntity.avatarInt
                 msgEntity.resourceName = mOtherSideEntity.resourceName
                 msgEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                 msgEntity.wechatUserId = mOtherSideEntity.wechatUserId
@@ -741,14 +741,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
     fun onNeverAskAgain() {
         showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
-        if (timeEntity.tag == "创建"){
-            mFunType = 2
-            mWechatSimulatorPreviewMoreIv.tag = timeEntity.timeLong
-            saveMsg()
-        }
-    }*/
+
     override fun finish() {
         EventBusUtil.unRegister(this)
         val lastEntity = mHelper.queryLastMsg()
@@ -757,7 +750,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
             val userEntity = WechatUserEntity()
             userEntity.id = mOtherSideEntity.listId
             userEntity.wechatUserId = mOtherSideEntity.wechatUserId
-            userEntity.resAvatar = mOtherSideEntity.resAvatar
+            userEntity.avatarInt = mOtherSideEntity.avatarInt
             userEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
             userEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
             userEntity.avatarFile = mOtherSideEntity.avatarFile
@@ -790,7 +783,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
             val userEntity = WechatUserEntity()
             userEntity.id = mOtherSideEntity.listId
             userEntity.wechatUserId = mOtherSideEntity.wechatUserId
-            userEntity.resAvatar = mOtherSideEntity.resAvatar
+            userEntity.avatarInt = mOtherSideEntity.avatarInt
             userEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
             userEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
             userEntity.avatarFile = mOtherSideEntity.avatarFile

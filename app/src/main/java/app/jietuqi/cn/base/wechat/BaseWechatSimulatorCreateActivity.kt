@@ -40,7 +40,7 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        mHelper = WechatSimulatorHelper(this, mOtherSideEntity.wechatUserId)
+        mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
         mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
         mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
@@ -86,7 +86,7 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
         }
     }
     private fun setMsg(entity: WechatUserEntity){
-        mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.avatarInt = entity.avatarInt
         mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId

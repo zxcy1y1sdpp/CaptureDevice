@@ -218,7 +218,7 @@ public class OtherUtil {
         ClipData mClipData = ClipData.newPlainText("Label", content);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
-        ToastUtils.showShort(context, "链接已复制，快去分享给好友吧");
+        ToastUtils.showShort(context, "复制成功");
     }
 
     /**

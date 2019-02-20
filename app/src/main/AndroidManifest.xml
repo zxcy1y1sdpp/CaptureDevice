@@ -328,6 +328,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             android:resizeableActivity="false"/>
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 群聊页面 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorPreviewGroupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 个人信息页面 -->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatSimulatorMyInfoActivity"
@@ -338,6 +346,12 @@
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateVoiceActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 修改群信息 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorEditGroupInfoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
@@ -353,9 +367,15 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
-        <!-- 微信模拟器 == 创建语音 -->
+        <!-- 微信模拟器 == 创建单聊红包 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建群红包 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
@@ -365,9 +385,21 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
-        <!-- 微信模拟器 == 创建语音 -->
+        <!-- 微信模拟器 == 创建系统消息 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateSystemMessageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建群聊 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupChatActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 群聊添加联系人 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateAddRoleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
@@ -381,6 +413,34 @@
         <!-- 设置页面 -->
         <activity
             android:name=".ui.activity.SettingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 无打扰清理死粉 -->
+        <activity
+            android:name=".ui.activity.OverallCleanFansActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 清理死粉下单页面 -->
+        <activity
+            android:name=".ui.activity.OverallCleanFansConfirmOrderActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 清理死粉购买记录页面 -->
+        <activity
+            android:name=".ui.activity.OverallCleanFansOrderActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 激活码列表页面 -->
+        <activity
+            android:name=".ui.activity.OverallCdkListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
@@ -794,6 +854,12 @@
         <!--微信模拟器 - 收红包页面-->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatSimulatorReceiveRedPacketActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--微信模拟器 - 收群红包页面-->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatSimulatorGroupRedPacketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

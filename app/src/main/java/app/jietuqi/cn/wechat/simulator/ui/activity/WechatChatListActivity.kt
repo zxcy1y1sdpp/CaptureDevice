@@ -122,4 +122,5 @@ class WechatChatListActivity : BaseWechatActivity() {
         }
         setLightStatusBarForM(this, true)
     }
+
 }

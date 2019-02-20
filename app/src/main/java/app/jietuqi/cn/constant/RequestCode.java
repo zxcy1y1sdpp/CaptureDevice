@@ -57,4 +57,8 @@ public class RequestCode {
      * 项目名称
      */
     public final static int PROJECT_TITLE = 0x1014;
+    /**
+     * 添加群聊成员
+     */
+    public final static int ADD_GROUP_ROLE = 0x1015;
 }

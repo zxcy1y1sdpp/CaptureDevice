@@ -14,6 +14,7 @@ import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LikeListener
 import app.jietuqi.cn.entity.BannerEntity
+import app.jietuqi.cn.ui.activity.OverallCleanFansActivity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
@@ -130,7 +131,7 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
         }
     }
 
-    internal inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView){
         private var banner: Banner = itemView.findViewById(R.id.mBanner)
         private var funRecyclerView: RecyclerView = itemView.findViewById(R.id.sFunRecyclerView)
         private var indicatorImages: ArrayList<ImageView>  = arrayListOf()
@@ -149,7 +150,10 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
                     LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
                 }
             }
-
+            itemView.findViewById<ImageView>(R.id.sCleanFansIv).setOnClickListener {
+                LaunchUtil.launch(itemView.context, OverallCleanFansActivity::class.java)
+            }
+            itemView.findViewById<ImageView>(R.id.sWeMediaIv).setOnClickListener {  }
 
         }
         fun bind() {

@@ -272,7 +272,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                         qqEntity = mList[i]
                         if (!qqEntity.isComMsg) {
                             qqEntity.resourceName = mMySideEntity.resourceName
-                            qqEntity.avatarInt = mMySideEntity.resAvatar
+                            qqEntity.avatarInt = mMySideEntity.avatarInt
                             qqEntity.avatarStr = mMySideEntity.wechatUserAvatar
                             mHelper.update(qqEntity)
                         }
@@ -300,7 +300,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                         qqyEntity = mList[i]
                         if (qqyEntity.isComMsg) {
                             qqyEntity.resourceName = mOtherSideEntity.resourceName
-                            qqyEntity.avatarInt = mOtherSideEntity.resAvatar
+                            qqyEntity.avatarInt = mOtherSideEntity.avatarInt
                             qqyEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                             mHelper.update(qqyEntity)
                         }
@@ -321,7 +321,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until mList.size) {
                     qqEntity = mList[i]
                     if (!qqEntity.isComMsg) {
-                        qqEntity.avatarInt = mMySideEntity.resAvatar
+                        qqEntity.avatarInt = mMySideEntity.avatarInt
                         qqEntity.avatarStr = mMySideEntity.wechatUserAvatar
                         mHelper.update(qqEntity)
                     }
@@ -340,7 +340,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until list.size) {
                     wechatEntity = list[i]
                     if (!wechatEntity.isComMsg) {
-                        wechatEntity.avatarInt = mMySideEntity.resAvatar
+                        wechatEntity.avatarInt = mMySideEntity.avatarInt
                         wechatEntity.avatarStr = mMySideEntity.wechatUserAvatar
                         wechatHelper.update(wechatEntity)
                     }
@@ -356,7 +356,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until list.size) {
                     alipayEntity = list[i]
                     if (!alipayEntity.isComMsg) {
-                        alipayEntity.avatarInt = mMySideEntity.resAvatar
+                        alipayEntity.avatarInt = mMySideEntity.avatarInt
                         alipayEntity.avatarStr = mMySideEntity.wechatUserAvatar
                         alipayHelper.update(alipayEntity)
                     }
@@ -373,7 +373,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until mList.size) {
                     qqyEntity = mList[i]
                     if (qqyEntity.isComMsg) {
-                        qqyEntity.avatarInt = mOtherSideEntity.resAvatar
+                        qqyEntity.avatarInt = mOtherSideEntity.avatarInt
                         qqyEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                         mHelper.update(qqyEntity)
                     }
@@ -392,7 +392,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until list.size) {
                     wechatEntity = list[i]
                     if (wechatEntity.isComMsg) {
-                        wechatEntity.avatarInt = mOtherSideEntity.resAvatar
+                        wechatEntity.avatarInt = mOtherSideEntity.avatarInt
                         wechatEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                         wechatHelper.update(wechatEntity)
                     }
@@ -408,7 +408,7 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
                 for (i in 0 until list.size) {
                     alipayEntity = list[i]
                     if (alipayEntity.isComMsg) {
-                        alipayEntity.avatarInt = mOtherSideEntity.resAvatar
+                        alipayEntity.avatarInt = mOtherSideEntity.avatarInt
                         alipayEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                         alipayHelper.update(alipayEntity)
                     }

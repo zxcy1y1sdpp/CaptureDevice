@@ -41,8 +41,7 @@
             android:textSize="@dimen/overall32px"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:textColor="#777777"
-            android:textStyle="bold"/>
+            android:textColor="#777777"/>
         <ImageView
             android:id="@+id/overAllRightIv"
             android:layout_width="wrap_content"

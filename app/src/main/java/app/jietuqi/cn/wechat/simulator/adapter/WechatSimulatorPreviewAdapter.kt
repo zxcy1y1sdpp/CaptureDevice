@@ -310,7 +310,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         senderEntity.avatarFile = mOtherEntity.avatarFile
                         senderEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
                         senderEntity.resourceName = mOtherEntity.resourceName
-                        senderEntity.resAvatar = mOtherEntity.resAvatar
+                        senderEntity.avatarInt = mOtherEntity.avatarInt
                         senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         LaunchUtil.startWechatSimulatorReceiveRedPacketActivity(itemView.context, senderEntity)
                     }else{//“对方操作“对方”未被领取的红包”
@@ -325,7 +325,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         senderEntity.avatarFile = mOtherEntity.avatarFile
                         senderEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
                         senderEntity.resourceName = mOtherEntity.resourceName
-                        senderEntity.resAvatar = mOtherEntity.resAvatar
+                        senderEntity.avatarInt = mOtherEntity.avatarInt
                         senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         LaunchUtil.startWechatSimulatorReceiveRedPacketActivity(itemView.context, senderEntity)
                     }else{//“我操作”“我未被领取的红包”
@@ -370,7 +370,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         senderEntity.wechatUserNickName = mMyEntity.wechatUserNickName
                         senderEntity.avatarFile = mMyEntity.avatarFile
                         senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
-                        senderEntity.resAvatar = mMyEntity.resAvatar
+                        senderEntity.avatarInt = mMyEntity.avatarInt
                         senderEntity.resourceName = mMyEntity.resourceName
                         senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         receiveEntity.money = entity.money
@@ -378,7 +378,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         receiveEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
                         receiveEntity.avatarFile = mOtherEntity.avatarFile
                         receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
-                        receiveEntity.resAvatar = mOtherEntity.resAvatar
+                        receiveEntity.avatarInt = mOtherEntity.avatarInt
                         receiveEntity.resourceName = mOtherEntity.resourceName
                         receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
@@ -393,7 +393,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         senderEntity.avatarFile = mMyEntity.avatarFile
                         senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
                         senderEntity.resourceName = mMyEntity.resourceName
-                        senderEntity.resAvatar = mMyEntity.resAvatar
+                        senderEntity.avatarInt = mMyEntity.avatarInt
                         senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         receiveEntity.money = entity.money
                         receiveEntity.wechatUserId = entity.wechatUserId
@@ -401,7 +401,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
                         receiveEntity.avatarFile = mOtherEntity.avatarFile
                         receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
                         receiveEntity.resourceName = mOtherEntity.resourceName
-                        receiveEntity.resAvatar = mOtherEntity.resAvatar
+                        receiveEntity.avatarInt = mOtherEntity.avatarInt
                         receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
                         LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
                     }else{//“我操作”“我未被领取的红包”

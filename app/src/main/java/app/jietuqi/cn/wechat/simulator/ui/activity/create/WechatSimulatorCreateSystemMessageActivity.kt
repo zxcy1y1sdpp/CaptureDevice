@@ -46,7 +46,7 @@ class WechatSimulatorCreateSystemMessageActivity : BaseCreateActivity() {
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        mHelper = WechatSimulatorHelper(this, mOtherSideEntity.wechatUserId)
+        mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
         mScreenType = intent.getStringExtra(IntentKey.SCREEN_TYPE)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mMsgEntity.msgType = 8

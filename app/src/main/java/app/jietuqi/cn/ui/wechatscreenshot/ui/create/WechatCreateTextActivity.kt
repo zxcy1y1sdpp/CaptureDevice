@@ -136,7 +136,7 @@ class WechatCreateTextActivity: BaseCreateActivity() {
     }
     private fun setMsg(entity: WechatUserEntity){
         mMsgEntity.resourceName = entity.resourceName
-        mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.avatarInt = entity.avatarInt
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
     }

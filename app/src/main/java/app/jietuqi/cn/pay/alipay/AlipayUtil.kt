@@ -27,6 +27,7 @@ class AlipayUtil {
     /**
      * 0 -- 购买会员卡
      * 1 -- 微币充值
+     * 2 -- 购买清粉激活码
      */
     private var mType = 0
     @SuppressLint("HandlerLeak")
@@ -52,7 +53,7 @@ class AlipayUtil {
                                         it.dismissWithAnimation()
                                     }.show()
                             EventBusUtil.postSticky("购买会员卡成功")
-                        }else{
+                        }else if (mType == 1){
                             SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("提示")
                                     .setContentText("充值成功")
@@ -61,6 +62,15 @@ class AlipayUtil {
                                         it.dismissWithAnimation()
                                     }.show()
                             EventBusUtil.postSticky("微币充值成功")
+                        }else if (mType == 2){
+                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("提示")
+                                    .setContentText("激活码购买成功")
+                                    .setConfirmText("朕知道了")
+                                    .setConfirmClickListener {
+                                        it.dismissWithAnimation()
+                                    }.show()
+                            EventBusUtil.postSticky("激活码购买成功")
                         }
 
                     } else {

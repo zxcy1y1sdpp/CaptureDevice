@@ -37,13 +37,12 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
-        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)
         mAlipayCreateMyNickNameTv.text = mEntity.wechatUserNickName
-
-        setCreateTitle("支付宝我的")
+        setBlackTitle("支付宝我的")
         mEntity.levelEntity = AlipayVipLevelEntity("大众会员", R.drawable.alipay_vip_level1)
         onlyThreeEditTextNeedTextWatcher(mAlipayCreateMyAccountTv, mAlipayCreateMyAntTv, mAlipayCreateMyBalanceTv)
         mAlipayCreateMyAccountTv.setText(RandomUtil.getRandomAccounts())
@@ -106,7 +105,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     mEntity.avatarFile = mMySideEntity.avatarFile
                     mEntity.wechatUserAvatar = mMySideEntity.wechatUserAvatar
-                    mEntity.resAvatar = mMySideEntity.resAvatar
+                    mEntity.avatarInt = mMySideEntity.avatarInt
                     mEntity.resourceName = mMySideEntity.resourceName
                     mEntity.wechatUserNickName = mMySideEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateMyAvatarIv)

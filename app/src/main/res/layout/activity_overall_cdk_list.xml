@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <include
+        layout="@layout/include_base_overall_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding"
+        android:background="@color/overallBg">
+        <TextView
+            android:id="@+id/mCdkListTv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/titleTv"
+            android:background="@drawable/cdk_list1"
+            android:gravity="center"
+            android:text="激活码列表"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/mHowToUseTv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/mRecivePacketTv"
+            android:background="@drawable/cdk_list2"
+            android:gravity="center"
+            android:text="使用说明"
+            android:textColor="@color/overallRed"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mCdkVp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击每一条复制激活码"
+        android:background="@drawable/cdk_msg"
+        android:textColor="#FC615A"
+        android:gravity="center"
+        android:layout_margin="@dimen/normalPadding"/>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mCdkListSrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mCdkListRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:padding="@dimen/normalPadding"
+            android:clipToPadding="false"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

@@ -72,11 +72,6 @@ class OverallJoinGroupsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 else -> //置顶24小时
                     title.setTextColor(ContextCompat.getColor(itemView.context, R.color.inviteRed))
             }
-            /*if (entity.vip > 1){
-                isVipIv.visibility = View.VISIBLE
-            }else{
-                isVipIv.visibility = View.GONE
-            }*/
             var color = Color.parseColor(StringUtils.insertFront(entity.industry.background, "#"))
             titleBg.setBgColor(color)
             titleBg.text = entity.industry.name

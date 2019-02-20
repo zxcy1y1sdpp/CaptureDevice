@@ -53,11 +53,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mQQScreenShotCreateChangeRoleLayout"
-        android:layout_above="@+id/include"
+        android:layout_above="@+id/tagView1"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/normalPadding"
         android:clipToPadding="false"/>
+    <TextView
+        android:id="@+id/tagView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="长按对话可拖动对话顺序"
+        android:layout_above="@+id/include"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/wechatLightGray"/>
     <include
         android:id="@+id/include"
         android:layout_width="match_parent"

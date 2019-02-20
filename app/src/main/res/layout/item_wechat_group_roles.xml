@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/normalPadding"
+    android:layout_gravity="center"
+    android:background="@color/red_btn_bg_color">
+
+    <ImageView
+        android:id="@+id/sWechatGroupRolesAvatarIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/head_default"/>
+    <TextView
+        android:id="@+id/sWechatGroupRolesNickNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="小明"
+        android:layout_below="@+id/sWechatGroupRolesAvatarIv"
+        android:layout_alignLeft="@+id/sWechatGroupRolesAvatarIv"
+        android:layout_alignRight="@+id/sWechatGroupRolesAvatarIv"
+        android:lines="1"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:textColor="@color/wechatLightGray"/>
+</RelativeLayout>

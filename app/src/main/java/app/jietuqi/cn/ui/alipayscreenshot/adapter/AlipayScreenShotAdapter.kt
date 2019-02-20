@@ -59,6 +59,7 @@ class AlipayScreenShotAdapter(val mList: ArrayList<AlipayScreenShotEntity>, val 
                     contentTv.text = "[图片]"
                 }
                 entity.msgType == 2 -> {//时间
+                    GlideUtil.displayHead(itemView.context, R.drawable.message_time, avatarIv)
                     contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChatTime(entity.time), "[时间]")
                 }
                 entity.msgType == 3 -> {
@@ -78,7 +79,7 @@ class AlipayScreenShotAdapter(val mList: ArrayList<AlipayScreenShotEntity>, val 
                 }
                 entity.msgType == 8 -> {
                     contentTv.text = StringUtils.insertFront(entity.msg, "[系统提示]")
-                    GlideUtil.displayAll(itemView.context, R.drawable.dialog_system, avatarIv)
+                    GlideUtil.displayAll(itemView.context, R.drawable.message_system, avatarIv)
                 }
             }
         }

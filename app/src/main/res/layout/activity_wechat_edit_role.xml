@@ -45,7 +45,6 @@
 
         <TextView
             android:id="@+id/mWechatEditRoleNickNameTv"
-            android:text="nihaoa"
             style="@style/wechatRightWithArrow"/>
     </RelativeLayout>
 

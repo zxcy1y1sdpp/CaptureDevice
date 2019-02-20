@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/mWechatScreenShotSendRedPacketReceiverAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_marginLeftPercent="4.21%w"
+            app:layout_widthPercent="13.3%w"
+            app:layout_heightPercent="13.3%w"
+            app:layout_marginTopPercent="3.2%w"
+            app:layout_marginBottomPercent="3.2%w"
+            app:layout_marginRightPercent="3.2%w"
+            app:riv_corner_radius="5dp"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/mWechatScreenShotSendRedPacketReceiverAvatarIv"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/mWechatScreenShotSendRedPacketReceiverNickNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="微商营销宝客服"
+                android:includeFontPadding="false"
+                app:layout_marginBottomPercent="1.18%w"
+                android:layout_toLeftOf="@+id/mWechatScreenShotSendRedPacketMoney2Tv"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="17sp"/>
+
+            <app.jietuqi.cn.wechat.wechatfont.WechatChar7TextView
+                android:id="@+id/mWechatScreenShotSendRedPacketMoney2Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.01元"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/mWechatScreenShotSendRedPacketReceiverNickNameTv"
+                android:layout_alignBottom="@+id/mWechatScreenShotSendRedPacketReceiverNickNameTv"
+                app:layout_marginRightPercent="4.21%w"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/mWechatScreenShotSendRedPacketReceiveTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16:35"
+                android:includeFontPadding="false"
+                android:layout_toRightOf="@+id/mWechatScreenShotSendRedPacketReceiverAvatarIv"
+                android:layout_below="@+id/mWechatScreenShotSendRedPacketReceiverNickNameTv"
+                android:textColor="@color/wechatLightGray"/>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/sBestLuckLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/mWechatScreenShotSendRedPacketReceiveTimeTv"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wechat_group_best_luck"
+                    app:layout_marginRightPercent="1.22%w"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手气最佳"
+                    android:textColor="#EFAE51"
+                    app:layout_marginRightPercent="4.21%w"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"
+            android:layout_below="@+id/mWechatScreenShotSendRedPacketReceiverAvatarIv"
+            android:layout_alignLeft="@+id/layout3"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

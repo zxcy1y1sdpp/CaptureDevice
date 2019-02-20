@@ -20,8 +20,7 @@
             android:textSize="@dimen/overall32px"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/overallTextColor"
-            android:textStyle="bold"/>
+            android:textColor="@color/overallTextColor"/>
 
     </com.zhy.android.percent.support.PercentRelativeLayout>
 

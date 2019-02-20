@@ -47,7 +47,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
     override fun initAllViews() {
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.avatarFile = userEntity.avatarFile
-        mEntity.resAvatar = userEntity.resAvatar
+//        mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mAlipayCreateTransferBillNickNameTv.text = userEntity.wechatUserNickName
@@ -169,7 +169,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     mEntity.avatarFile = userEntity.avatarFile
-                    mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.avatarInt = userEntity.avatarInt
                     mEntity.resourceName = userEntity.resourceName
                     mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mAlipayCreateTransferBillNickNameTv.text = mEntity.wechatUserNickName

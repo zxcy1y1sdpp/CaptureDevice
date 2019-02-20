@@ -35,7 +35,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
      */
     private var mRootView: View? = null
     var mPageSize = 1
-    var mLimitSize = 10
+    var mLimitSize = 30
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         /**
@@ -95,8 +95,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
      * 接收到的从其他地方传递过来的参数
      * @param arguments
      */
-    private fun getArguments(arguments: Bundle?) {}
-
+    protected open fun getArguments(arguments: Bundle?) {}
     open fun loadFromDb() {
 
     }

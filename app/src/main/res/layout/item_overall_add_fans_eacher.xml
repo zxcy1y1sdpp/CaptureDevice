@@ -16,11 +16,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/head_default"
-            app:layout_heightPercent="12%w"
-            app:layout_widthPercent="12%w"
+            app:layout_heightPercent="14%w"
+            app:layout_widthPercent="14%w"
             app:layout_marginLeftPercent="3.46%w"
-            app:layout_marginTopPercent="2.8%w"
-            app:layout_marginBottomPercent="2.8%w"
+            app:layout_marginTopPercent="4.5%w"
+            app:layout_marginBottomPercent="4.5%w"
             app:riv_border_color="@color/wechatPreviewTitle"
             app:riv_corner_radius="5dp"
             android:scaleType="centerCrop"
@@ -33,7 +33,8 @@
             android:orientation="vertical"
             android:layout_toRightOf="@+id/sOverallAddFansEachOtherAvatarIv"
             android:layout_toLeftOf="@+id/sOverallMakeFriendsBgView"
-            android:layout_centerVertical="true">
+            android:layout_alignTop="@+id/sOverallAddFansEachOtherAvatarIv"
+            android:layout_alignBottom="@+id/sOverallAddFansEachOtherAvatarIv">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
                     android:text="世纪东方"
                     android:lines="1"
                     android:ellipsize="end"
-                    android:textSize="@dimen/overall16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
             <TextView
@@ -69,8 +70,9 @@
                 android:lines="1"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:textColor="@color/overallGray"
-                android:textSize="@dimen/overall26px"/>
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/overallGray"/>
         </LinearLayout>
 
 
@@ -93,9 +95,9 @@
             android:layout_alignParentRight="true"/>
 
     </com.zhy.android.percent.support.PercentRelativeLayout>
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wechatLineNarrow"
-        android:background="@color/overallBg"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"
         android:layout_below="@+id/layout1"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

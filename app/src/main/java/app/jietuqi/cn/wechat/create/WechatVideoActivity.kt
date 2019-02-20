@@ -48,7 +48,7 @@ class WechatVideoActivity : BaseWechatActivity() {
         mEntity.type = 0
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
-        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.avatarFile = userEntity.avatarFile
@@ -112,7 +112,7 @@ class WechatVideoActivity : BaseWechatActivity() {
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     val userEntity = data.getSerializableExtra(IntentKey.ENTITY) as WechatUserEntity
                     mEntity.avatarFile = userEntity.avatarFile
-                    mEntity.resAvatar = userEntity.resAvatar
+                    mEntity.avatarInt = userEntity.avatarInt
                     mEntity.resourceName = userEntity.resourceName
                     mEntity.wechatUserNickName = userEntity.wechatUserNickName
                     mEntity.wechatUserAvatar = userEntity.wechatUserAvatar

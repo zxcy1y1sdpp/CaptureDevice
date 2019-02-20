@@ -234,7 +234,7 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                         alipayEntity = mList[i]
                         if (!alipayEntity.isComMsg){
                             alipayEntity.resourceName = mMySideEntity.resourceName
-                            alipayEntity.avatarInt = mMySideEntity.resAvatar
+                            alipayEntity.avatarInt = mMySideEntity.avatarInt
                             alipayEntity.avatarStr = mMySideEntity.wechatUserAvatar
                             mHelper.update(alipayEntity)
                         }
@@ -261,7 +261,7 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                         alipayEntity = mList[i]
                         if (alipayEntity.isComMsg){
                             alipayEntity.resourceName = mOtherSideEntity.resourceName
-                            alipayEntity.avatarInt = mOtherSideEntity.resAvatar
+                            alipayEntity.avatarInt = mOtherSideEntity.avatarInt
                             alipayEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                             mHelper.update(alipayEntity)
                         }

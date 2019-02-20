@@ -115,15 +115,18 @@
                 android:tag="微信号"
                 app:layout_marginTopPercent="5.3%w">
                 <TextView
+                    android:id="@+id/layout1"
                     android:text="微信号"
                     style="@style/wechatLeftTitle"/>
 
                 <TextView
                     android:id="@+id/mProjectWXNumberTv"
+                    android:layout_toRightOf="@+id/layout1"
                     android:hint="请填写"
                     style="@style/wechatRightWithArrow"
                     android:textColor="@color/wechat_deep3_text_color"
                     android:inputType="number"
+                    android:gravity="right|center_vertical"
                     android:maxLength="11"/>
             </RelativeLayout>
             <RelativeLayout
@@ -132,6 +135,7 @@
                 style="@style/wechatItem"
                 android:tag="手机号">
                 <TextView
+                    android:id="@+id/layout2"
                     android:text="手机号"
                     style="@style/wechatLeftTitle"/>
 
@@ -141,7 +145,9 @@
                     style="@style/wechatRightWithArrow"
                     android:textColor="@color/wechat_deep3_text_color"
                     android:inputType="number"
-                    android:maxLength="11"/>
+                    android:maxLength="11"
+                    android:layout_toRightOf="@+id/layout2"
+                    android:gravity="right|center_vertical"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/mProjectQQNumberLayout"
@@ -149,6 +155,7 @@
                 style="@style/wechatItem"
                 android:tag="QQ号">
                 <TextView
+                    android:id="@+id/tagView1"
                     android:text="QQ号"
                     style="@style/wechatLeftTitle"/>
 
@@ -158,7 +165,9 @@
                     style="@style/wechatRightWithArrow"
                     android:textColor="@color/wechat_deep3_text_color"
                     android:inputType="number"
-                    android:maxLength="11"/>
+                    android:maxLength="11"
+                    android:layout_toRightOf="@+id/tagView1"
+                    android:gravity="right|center_vertical"/>
             </RelativeLayout>
 
             <com.coorchice.library.SuperTextView

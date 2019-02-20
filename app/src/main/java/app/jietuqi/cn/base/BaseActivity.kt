@@ -114,6 +114,9 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         super.onCreate(savedInstanceState)
         setNavigationBarBg()
         setLightNavigationBar(this, true)
+
+        setLightStatusBarForM(this, true)
+        setStatusBarColor(ColorFinal.WHITE)
         beforeSetContentView()
 
         if (0 != setLayoutResourceId()){
@@ -133,7 +136,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     /**
      * 设置状态栏的颜色
      */
-    fun setStatusBarColor(color: Int = ColorFinal.wechatTitleBar, alpha: Int = 0){
+    fun setStatusBarColor(color: Int = ColorFinal.WHITE, alpha: Int = 0){
         StatusBarUtil.setColor(this, color, alpha)
     }
     /**
@@ -256,8 +259,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      *        2 -- 包含右侧标题
      */
     protected fun setTopTitle(title: String, type: Int = 0, rightTitle: String = "", rightTvColor: Int = R.color.overallTextColor
-                              , leftColor: Int = R.color.black
-                              , leftIv: Int = R.mipmap.back, bgColor: Int = R.color.white
+                              , leftColor: Int = R.color.black, leftIv: Int = R.mipmap.back, bgColor: Int = R.color.white
                               , contentColor: Int = R.color.overallTitleColor, rightIv: Int = -1) {
         overAllBackTv.setTextColor(ContextCompat.getColor(this, leftColor))
         overAllBackLayout.setOnClickListener(this)
@@ -690,7 +692,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     // 返回时关闭软键盘
     fun closeKeyboard(v: View) {
         if (v != null) {
-            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)?.hideSoftInputFromWindow(v.windowToken, 0)
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(v.windowToken, 0)
         }
     }
 

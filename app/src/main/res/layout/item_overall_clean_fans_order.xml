@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/sGoodsOrderTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding"
+        android:text="订单编号：66666666666666" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已发货"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/normalPadding"
+        android:textColor="#FC615A" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"
+        app:layout_constraintTop_toBottomOf="@+id/sGoodsOrderTv" />
+
+    <ImageView
+        android:id="@+id/sGoodsIconIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/clean_fans_wechat"
+        app:layout_constraintBottom_toTopOf="@+id/line2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view8" />
+
+    <TextView
+        android:id="@+id/sGoodsTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="熊猫清粉-周卡 非VIP12.9，VIP6.9"
+        app:layout_constraintStart_toEndOf="@+id/sGoodsIconIv"
+        app:layout_constraintTop_toTopOf="@+id/sGoodsIconIv" />
+
+    <TextView
+        android:id="@+id/sGoodsPriceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¥12.90"
+        app:layout_constraintBottom_toBottomOf="@+id/sGoodsIconIv"
+        app:layout_constraintStart_toStartOf="@+id/sGoodsTitleTv" />
+
+    <TextView
+        android:id="@+id/sGoodsCountTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="X1"
+        android:textColor="@color/wechatLightGray"
+        app:layout_constraintBottom_toBottomOf="@+id/sGoodsPriceTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sGoodsPriceTv" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:layout_marginTop="8dp"
+        android:background="@color/wechatLine"
+        app:layout_constraintTop_toBottomOf="@+id/sGoodsIconIv" />
+
+    <TextView
+        android:id="@+id/sGoodsTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="2019-08-12"
+        android:textColor="@color/wechatLightGray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+    <TextView
+        android:id="@+id/tagView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="合计："
+        app:layout_constraintEnd_toStartOf="@+id/sGoodsTotalPriceTv"
+        app:layout_constraintTop_toTopOf="@+id/sGoodsTotalPriceTv" />
+
+    <TextView
+        android:id="@+id/sGoodsTotalPriceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="¥12.90"
+        android:textColor="#FC615A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sGoodsTimeTv" />
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/sGoodsCheckCDKTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="查看激活码"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sGoodsTotalPriceTv"
+        app:layout_constraintTop_toBottomOf="@+id/sGoodsTotalPriceTv"
+        app:stv_corner="20dp"
+        app:stv_solid="@color/white"
+        app:stv_stroke_color="@color/wechatLightGray"
+        app:stv_stroke_width="1dp" />
+</android.support.constraint.ConstraintLayout>

@@ -21,6 +21,8 @@ import app.jietuqi.cn.alipay.preview.AlipayPreviewWithdrawDepositBillActivity;
 import app.jietuqi.cn.constant.IntentKey;
 import app.jietuqi.cn.constant.RequestCode;
 import app.jietuqi.cn.entity.WechatVoiceAndVideoEntity;
+import app.jietuqi.cn.ui.activity.OverallCdkListActivity;
+import app.jietuqi.cn.ui.activity.OverallCleanFansConfirmOrderActivity;
 import app.jietuqi.cn.ui.activity.OverallCommunicateDetailsActivity;
 import app.jietuqi.cn.ui.activity.OverallEditActivity;
 import app.jietuqi.cn.ui.activity.OverallJoinGroupsActivity;
@@ -46,6 +48,7 @@ import app.jietuqi.cn.ui.alipayscreenshot.ui.preview.AlipayScreenShotPreviewActi
 import app.jietuqi.cn.ui.entity.OverallCardEntity;
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity;
 import app.jietuqi.cn.ui.entity.OverallPublishEntity;
+import app.jietuqi.cn.ui.entity.OverallVipCardEntity;
 import app.jietuqi.cn.ui.entity.ProjectMarketEntity;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
 import app.jietuqi.cn.ui.qqscreenshot.entity.QQScreenShotEntity;
@@ -86,10 +89,13 @@ import app.jietuqi.cn.wechat.screenshot.WechatScreenShotReceiveRedPacketActivity
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotSendRedPacketActivity;
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotTransferDetailActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatEditOtherActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorGroupRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorPreviewActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorPreviewGroupActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorReceiveRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorRechargeSuccessActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorSendRedPacketActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreatePictureActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateSystemMessageActivity;
@@ -97,6 +103,7 @@ import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateT
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateTimeActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateTransferActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateVoiceActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorEditGroupInfoActivity;
 
 /**
  * 作者： liuyuanbo on 2018/10/2 20:37.
@@ -184,6 +191,14 @@ public class LaunchUtil {
         Intent intent = new Intent(context, WechatSimulatorSendRedPacketActivity.class);
         intent.putExtra(IntentKey.ENTITY_SENDER, sender);
         intent.putExtra(IntentKey.ENTITY_RECEIVER, receiver);
+        context.startActivity(intent);
+    }
+    /**
+     * 微信模拟器跳转到预览红包的页面(发红包)
+     */
+    public static void startWechatSimulatorGroupRedPacketActivity(Context context, WechatScreenShotEntity entity){
+        Intent intent = new Intent(context, WechatSimulatorGroupRedPacketActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
         context.startActivity(intent);
     }
     /**
@@ -726,6 +741,14 @@ public class LaunchUtil {
         context.startActivity(intent);
     }
     /**
+     * 微信模拟器
+     */
+    public static void startWechatSimulatorPreviewGroupActivity(Context context, WechatUserEntity otherSide){
+        Intent intent = new Intent(context, WechatSimulatorPreviewGroupActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, otherSide);
+        context.startActivity(intent);
+    }
+    /**
      * 说说列表
      */
     public static void startOverallMyPublishActivity(Context context, String userId, String nickName){
@@ -759,6 +782,20 @@ public class LaunchUtil {
         context.startActivity(intent);
     }
     /**
+     * 发送群红包
+     * @param entity: 发送人
+     * @param roleCount: 群人数
+     * @param isComMsg: true -- 对方发送红包
+     *                  false -- 我发送红包
+     */
+    public static void startWechatSimulatorCreateGroupRedPacketActivity(Context context, WechatUserEntity entity, int roleCount, boolean isComMsg){
+        Intent intent = new Intent(context, WechatSimulatorCreateGroupRedPacketActivity.class);
+        intent.putExtra(IntentKey.ENTITY_SENDER, entity);
+        intent.putExtra(IntentKey.COUNT, roleCount);
+        intent.putExtra(IntentKey.COMMSG, isComMsg);
+        context.startActivity(intent);
+    }
+    /**
      * 创建转账的页面
      * type 0 -- 发布
      * type 1 -- 修改
@@ -782,6 +819,14 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.ENTITY, msgEntity);
         intent.putExtra(IntentKey.SCREEN_TYPE, screenType);
         intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 编辑群信息页面
+     */
+    public static void startWechatSimulatorEditGroupInfoActivity(Context context, WechatUserEntity entity){
+        Intent intent = new Intent(context, WechatSimulatorEditGroupInfoActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
         context.startActivity(intent);
     }
     /**
@@ -908,6 +953,23 @@ public class LaunchUtil {
     public static void startOverallStickActivity(Context context, int type){
         Intent intent = new Intent(context, OverallStickActivity.class);
         intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 清理死粉下单页面
+     */
+    public static void startOverallCleanFansConfirmOrderActivity(Context context, OverallVipCardEntity vipEntity, OverallVipCardEntity notVipEntity){
+        Intent intent = new Intent(context, OverallCleanFansConfirmOrderActivity.class);
+        intent.putExtra(IntentKey.VIP_Entity, vipEntity);
+        intent.putExtra(IntentKey.NOT_VIP_Entity, notVipEntity);
+        context.startActivity(intent);
+    }
+    /**
+     * 激活码列表页面
+     */
+    public static void startOverallCdkListActivity(Context context, String orderId){
+        Intent intent = new Intent(context, OverallCdkListActivity.class);
+        intent.putExtra(IntentKey.ID, orderId);
         context.startActivity(intent);
     }
 }

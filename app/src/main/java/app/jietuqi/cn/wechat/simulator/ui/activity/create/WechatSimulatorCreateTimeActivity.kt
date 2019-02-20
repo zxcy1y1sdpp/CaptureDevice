@@ -58,7 +58,7 @@ class WechatSimulatorCreateTimeActivity : BaseCreateActivity() {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        mHelper = WechatSimulatorHelper(this, mOtherSideEntity.wechatUserId)
+        mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
         if (mType == 1){
             mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
             if ("12" == mMsgEntity.timeType){

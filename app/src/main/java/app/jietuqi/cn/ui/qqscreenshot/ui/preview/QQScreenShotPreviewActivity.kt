@@ -123,13 +123,13 @@ class QQScreenShotPreviewActivity : BaseWechatActivity() {
         if (entity.wechatUserId == mOtherSideEntity.wechatUserId){
             receiveEntity.wechatUserId = mMySideEntity.wechatUserId
             receiveEntity.avatarStr = mMySideEntity.wechatUserAvatar
-            receiveEntity.avatarInt = mMySideEntity.resAvatar
+            receiveEntity.avatarInt = mMySideEntity.avatarInt
             receiveEntity.resourceName = mMySideEntity.resourceName
 
         }else{
             receiveEntity.wechatUserId = mOtherSideEntity.wechatUserId
             receiveEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-            receiveEntity.avatarInt = mOtherSideEntity.resAvatar
+            receiveEntity.avatarInt = mOtherSideEntity.avatarInt
             receiveEntity.resourceName = mOtherSideEntity.resourceName
         }
         if (entity.msgType == 3){//领红包

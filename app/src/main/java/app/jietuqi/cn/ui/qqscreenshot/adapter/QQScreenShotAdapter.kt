@@ -60,6 +60,7 @@ class QQScreenShotAdapter(val mList: ArrayList<QQScreenShotEntity>, val mListene
                     contentTv.text = "[图片]"
                 }
                 entity.msgType == 2 -> {//时间
+                    GlideUtil.displayHead(itemView.context, R.drawable.message_time, avatarIv)
                     contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChatTime(entity.time), "[时间]")
                 }
                 entity.msgType == 3 -> {
@@ -78,6 +79,7 @@ class QQScreenShotAdapter(val mList: ArrayList<QQScreenShotEntity>, val mListene
                     contentTv.text = StringUtils.insertFrontAndBack(entity.voiceLength, "[语音]", "\"")
                 }
                 entity.msgType == 8 -> {
+                    GlideUtil.displayHead(itemView.context, R.drawable.message_system, avatarIv)
                     contentTv.text = StringUtils.insertFront(entity.msg, "[系统提示]")
                 }
             }

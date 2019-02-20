@@ -3,7 +3,6 @@ package app.jietuqi.cn.util;
 import android.annotation.SuppressLint;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -179,32 +178,16 @@ public class TimeUtil {
         return simpleDateFormat.format(date);
     }
 
-    /**
-     * 判断是否是同一天
-     * @param date
-     * @param sameDate
-     * @return
-     */
     @SuppressLint("SimpleDateFormat")
-    public static boolean isSameDay(Date date, Date sameDate) {
-        if (null == date || null == sameDate) {
-            return false;
+    public static String getAllSpecTime(long timesamp) {
+        if (String.valueOf(timesamp).length() <= 10){//秒
+            timesamp = timesamp * 1000;
         }
-        Calendar nowCalendar = Calendar.getInstance();
-        nowCalendar.setTime(sameDate);
-        Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTime(date);
-        if (nowCalendar.get(Calendar.YEAR) == dateCalendar.get(Calendar.YEAR)
-                && nowCalendar.get(Calendar.MONTH) == dateCalendar.get(Calendar.MONTH)
-                && nowCalendar.get(Calendar.DATE) == dateCalendar.get(Calendar.DATE)) {
-            return true;
-        }
-        // if (date.getYear() == sameDate.getYear() && date.getMonth() == sameDate.getMonth()
-        // && date.getDate() == sameDate.getDate()) {
-        // return true;
-        // }
-        return false;
-
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(timesamp);
+        res = simpleDateFormat.format(date);
+        return res;
     }
 
 

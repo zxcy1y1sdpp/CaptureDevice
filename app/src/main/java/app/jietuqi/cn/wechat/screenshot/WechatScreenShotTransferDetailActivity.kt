@@ -65,7 +65,7 @@ class WechatScreenShotTransferDetailActivity : BaseWechatActivity(), EditDialogC
                     mReceiveTimeTv.text = StringUtils.insertFront(mEntity.receiveTime, "收钱时间：")
                     mReceiveTimeTv.visibility = View.VISIBLE
                     showToast("成功存入零钱")
-                    mTransferLqtLayout.visibility = View.VISIBLE
+//                    mTransferLqtLayout.visibility = View.VISIBLE
                 }
                 "待收款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_receiving)

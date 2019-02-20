@@ -26,11 +26,6 @@ import permissions.dispatcher.*
 @RuntimePermissions
 class WechatAddTalkObjectActivity : BaseWechatActivity(){
     /**
-     * 是随机的头像 -- true
-     * 相册选择的头像 -- false
-     */
-//    var mRandomType = true
-    /**
      * 最后需要保存的对象
      */
     private var mUserEntity: WechatUserEntity = WechatUserEntity()
@@ -47,7 +42,7 @@ class WechatAddTalkObjectActivity : BaseWechatActivity(){
     override fun initViewsListener() {
         mSelectAvatarLayout.setOnClickListener(this)
         mWechatAddObject.setOnClickListener(this)
-//
+
     }
 
     override fun onClick(v: View) {
@@ -55,13 +50,7 @@ class WechatAddTalkObjectActivity : BaseWechatActivity(){
         when(v.id){
             R.id.mSelectAvatarLayout ->{
                 openAlbumWithPermissionCheck()
-                /*var dialog = BottomDialog()
-                dialog.setItemSelectionListener(this)
-                dialog.show(supportFragmentManager, "Dialog")*/
             }
-            /*R.id.mRefreshIv ->{
-                mNickNameEt.setText(getRandomNickName())
-            }*/
             R.id.mWechatAddObject ->{
                 mUserEntity.wechatUserNickName = mNickNameEt.text.toString()
                 mUserEntity.pinyinNickName = OtherUtil.transformPinYin(mUserEntity.wechatUserNickName)
@@ -78,23 +67,13 @@ class WechatAddTalkObjectActivity : BaseWechatActivity(){
             }
         }
     }
-    /*override fun firstClick() {
-//        mRandomType = true
-        mUserEntity.resAvatar = RandomUtil.getRandomAvatar()
-        mUserEntity.wechatUserAvatar = ""//清除其他的头像存储数据
-        mUserEntity.getAvatarFile()?.let { GlideUtil.displayHead(this, it, mUserAvatarIv) }
-    }*/
-    /*override fun secondClick() {
-        mRandomType = false
-
-    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK){
             when(requestCode){
                 RequestCode.CROP_IMAGE ->{
-                    mUserEntity.resAvatar = -1
+                    mUserEntity.avatarInt = -1
                     mUserEntity.wechatUserAvatar = mFinalPicUri.toString()
                     GlideUtil.display(this, mFinalCropFile, mUserAvatarIv)
                 }

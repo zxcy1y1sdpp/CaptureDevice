@@ -36,7 +36,6 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         ArrayList<String> tableNameList = new ArrayList<>();
-        ArrayList<String> allNameList = new ArrayList<>();
         Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
         while(cursor.moveToNext()){
             //遍历出表名
@@ -74,15 +73,24 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
                 db.execSQL(sqlWechatSimulatorList2);
                 String sqlWechatSimulatorList3 = "Alter table " + "wechatSimulatorList" + " add column " + "timeType text";
                 db.execSQL(sqlWechatSimulatorList3);
+                /**
+                 * 增加的东西
+                 * wechatSimulatorList -- "groupHeader BLOB, chatType text, groupRoles text, groupName text, groupTableName text, recentRoles text"
+                 */
             }else if (tableName.contains("wechatSimulator")){
                 //修改用户聊天的表
                 String sql = "Alter table " + tableName + " add column " + "resourceName text";
                 db.execSQL(sql);
                 String sq1 = "Alter table " + tableName + " add column " + "timeType text";
                 db.execSQL(sq1);
+                /**
+                 * 增加的东西
+                 * wechatSimulator -- redPacketCount integer
+                 * wechatSimulator -- receiveCompleteTime string
+                 */
             }
         }
-        Log.e("onUpgrade", "RoleLibraryHelper --- 》   oldversion:  " + oldVersion + "    newVersion: " + newVersion);
+
     }
     /**
      * 创建微信好友关系表
@@ -112,7 +120,7 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
 //        values.put("id", entity.userId);
         values.put("nickName", entity.wechatUserNickName);
         values.put("avatarStr", entity.wechatUserAvatar);
-        values.put("avatarInt", entity.resAvatar);
+        values.put("avatarInt", entity.avatarInt);
         values.put("pinyinNickName", entity.pinyinNickName);
         values.put("resourceName", entity.resourceName);
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
@@ -133,11 +141,39 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
             String userId = cursor.getString(cursor.getColumnIndex("id"));
             String nickName = cursor.getString(cursor.getColumnIndex("nickName"));
             String avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
-            int avatarInt = cursor.getInt(cursor.getColumnIndex("avatarInt"));
             String pinyinNickName = cursor.getString(cursor.getColumnIndex("pinyinNickName"));
             String resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
             entity = new WechatUserEntity(userId, resourceName, avatarStr, nickName, pinyinNickName);
-//            entity = new WechatUserEntity(userId, avatarInt, avatarStr, nickName, pinyinNickName);
+            list.add(entity);
+        }
+        //关闭游标
+        cursor.close();
+        return list;
+    }
+
+    /**
+     * 查询剔除“自己”的用户集合
+     * @return
+     */
+    public ArrayList<WechatUserEntity> queryWithoutMe(){
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<WechatUserEntity> list = new ArrayList<>();
+        //如果该表不存在数据库中，则不需要进行操作
+        if (!isTableExists(TABLE_NAME)) {
+            return null;
+        }
+        WechatUserEntity entity;
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            String userId = cursor.getString(cursor.getColumnIndex("id"));
+            if (userId.equals(UserOperateUtil.getWechatSimulatorMySelf().wechatUserId)){
+                continue;
+            }
+            String nickName = cursor.getString(cursor.getColumnIndex("nickName"));
+            String avatarStr = cursor.getString(cursor.getColumnIndex("avatarStr"));
+            String pinyinNickName = cursor.getString(cursor.getColumnIndex("pinyinNickName"));
+            String resourceName = cursor.getString(cursor.getColumnIndex("resourceName"));
+            entity = new WechatUserEntity(userId, resourceName, avatarStr, nickName, pinyinNickName);
             list.add(entity);
         }
         //关闭游标
@@ -221,7 +257,7 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("avatarStr" , entity.wechatUserAvatar);
         cv.put("nickName" , entity.wechatUserNickName);
-        cv.put("avatarInt", entity.resAvatar);
+        cv.put("avatarInt", entity.avatarInt);
         cv.put("pinyinNickName", entity.pinyinNickName);
         cv.put("resourceName", entity.resourceName);
         int result = 0;
@@ -240,7 +276,7 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
         if (null != entityInList){
             entityInList.wechatUserNickName = entity.wechatUserNickName;
             entityInList.wechatUserAvatar = entity.wechatUserAvatar;
-            entityInList.resAvatar = entity.resAvatar;
+            entityInList.avatarInt = entity.avatarInt;
             entityInList.pinyinNickName = entity.pinyinNickName;
             entityInList.resourceName = entity.resourceName;
             listHelper.update(entityInList);

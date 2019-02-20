@@ -2,8 +2,11 @@ package app.jietuqi.cn.ui.wechatscreenshot.entity;
 
 import android.text.TextUtils;
 
+import java.util.ArrayList;
+
 import app.jietuqi.cn.ResourceHelper;
 import app.jietuqi.cn.ui.entity.SingleTalkEntity;
+import app.jietuqi.cn.ui.entity.WechatUserEntity;
 
 /**
  * 作者： liuyuanbo on 2018/12/3 11:28.
@@ -28,9 +31,8 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
             this.lastTime = lastTime;
         }
     }
-    public int avatarInt;
-    public String avatarStr;
-
+//    public int avatarInt;
+//    public String avatarStr;
     /**
      * 转账状态
      * 已收钱
@@ -58,7 +60,35 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
      * 是否需要eventbus发送消息
      */
     public boolean needEventBus = true;
+    /**
+     * 群红包个数
+     */
+    public int redPacketCount;
+    /**
+     * 红包领取完成时间
+     */
+    public String receiveCompleteTime;
+    /**
+     * “我”是否参与领红包
+     */
+    public boolean joinReceiveRedPacket = true;
+    /**
+     * 红包发送人的昵称
+     */
+    public String redPacketSenderNickName;
 
+    /**
+     * 是不是最后一个领红包的人
+     */
+    public boolean lastReceive;
+    /**
+     * 红包的信息
+     */
+    public WechatScreenShotEntity groupRedPacketInfo;
+    /**
+     * 每一条红包信息对应的领取人的信息集合
+     */
+    public ArrayList<WechatUserEntity> receiveRedPacketRoleList;
     public Object getAvatar(){
         if (!TextUtils.isEmpty(avatarStr)){
             return avatarStr;
@@ -67,10 +97,5 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
         }else {
             return avatarInt;
         }
-        /*if (!TextUtils.isEmpty(avatarStr)){
-            return avatarStr;
-        }else {
-            return avatarInt;
-        }*/
     }
 }

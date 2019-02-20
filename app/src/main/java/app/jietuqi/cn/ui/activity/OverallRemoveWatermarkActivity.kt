@@ -1,5 +1,6 @@
 package app.jietuqi.cn.ui.activity
 
+import android.Manifest
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
@@ -24,6 +25,7 @@ import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_remove_watermark.*
+import permissions.dispatcher.*
 import java.io.File
 
 /**
@@ -32,6 +34,7 @@ import java.io.File
  * 邮箱： 972383753@qq.com
  * 用途： 视频去水印
  */
+@RuntimePermissions
 class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
     /** iiiLab分配的客户ID  */
     private val client = "87a735c046ac30a1"
@@ -86,7 +89,9 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
         super.onClick(v)
         when(v.id){
             R.id.mRemoveWaterMarkBtn ->{
-                canAnalysis()
+                if (UserOperateUtil.isCurrentLogin(this)){
+                    canAnalysis()
+                }
             }
             R.id.mRemoveWaterMarkCopyVideoPathBtn ->{
                 if (TextUtils.isEmpty(mRemoveWaterMarkUrlEt.text.toString())){
@@ -103,7 +108,7 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                             .setConfirmText("保存")
                             .setCancelText("取消")
                             .setConfirmClickListener {
-                                downLoadVideo()
+                                downLoadVideoWithPermissionCheck()
                             }.setCancelClickListener {
                                 it.dismissWithAnimation()
                             }
@@ -148,8 +153,8 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                     }
                 }) {})
     }
-
-    private fun downLoadVideo() {
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun downLoadVideo() {
         var videoRealPath = mRemoveWaterMarkCopyVideoPathBtn.tag.toString()
         //系统相册目录
         val galleryPath = Environment.getExternalStorageDirectory().toString() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator
@@ -158,6 +163,7 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                 .saveName(FileUtil.getFileName(videoRealPath))
                 .execute(object : DownloadProgressCallBack<String>() {
                     override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
+                        Log.e("RxEasyHttp-----下载", bytesRead.toString())
                     }
 
                     override fun onStart() {
@@ -229,5 +235,20 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
         mWaitDialog?.dismissWithAnimation()
         registerClipEvents()
         Jzvd.releaseAllVideos()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onShowRationale(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain() {
+        showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
 }

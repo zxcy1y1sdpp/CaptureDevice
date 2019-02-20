@@ -135,10 +135,5 @@ public class SingleTalkEntity implements Serializable {
         }else {
             return avatarInt;
         }
-        /*if (!TextUtils.isEmpty(avatarStr)){
-            return avatarStr;
-        }else {
-            return avatarInt;
-        }*/
     }
 }

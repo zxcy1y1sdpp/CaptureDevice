@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
+import android.util.Log
 import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
@@ -31,6 +32,7 @@ import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.utils.HttpLog
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -46,9 +48,23 @@ import java.io.File
  */
 
 open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
+    /**
+     * 是否正在更新
+     */
+    private var mDownloading = false
+    /**
+     * 是否不更新
+     */
+    private var mDisposable: Disposable? = null
     override fun update(update: Boolean, url: String, btn: ProgressButton) {
         if (update){//去更新
-            updataApk(url, btn)
+            if (!mDownloading){
+                updataApk(url, btn)
+            }else{
+                showToast("正在更新，请稍后...")
+            }
+        }else{
+            EasyHttp.cancelSubscription(mDisposable)
         }
     }
 
@@ -56,21 +72,8 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
     override fun needLoadingView(): Boolean {
         return false
     }
-
-    /*override fun beforeSetContentView() {
-        super.beforeSetContentView()
-        setNavigationBarBg(ColorFinal.WHITE)
-        setLightNavigationBar(this, false)
-    }*/
     override fun initAllViews() {
-        /*GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            var entity = UserOperateUtil.getWechatSimulatorMySelf()
-            if (null != entity){
-                if (entity.cash == -1){
-                    SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE, entity)
-                }
-            }
-        }*/
+        Log.e("分辨率", resources.displayMetrics.toString())
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
             var bankList = UserOperateUtil.getWechatSimulatorBank()
             if (null ==  bankList || bankList.size == 0){
@@ -117,7 +120,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
                     var i = 0
                     val size = message.size
                     while (i < size) {
-                        builder.append(message[i])/*.append("\n")*/
+                        builder.append(message[i]).append("\n")
                         i++
                     }
                 }
@@ -131,10 +134,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
 
     private fun updataApk(apkUrl: String, progressButton: ProgressButton) {//下载回调是在异步里处理的
         FileUtil.RecursionDeleteFile(Constant.APK_PATH)
-        EasyHttp.downLoad(apkUrl)
-                //EasyHttp.downLoad("http://crfiles2.he1ju.com/0/925096f8-f720-4aa5-86ae-ef30548d2fdc.txt")
-//                .savePath(Constant.APK_PATH)//默认在：/storage/emulated/0/Android/data/包名/files/1494647767055
-                .saveName("wxyxb.apk")//默认名字是时间戳生成的
+        mDisposable = EasyHttp.downLoad(apkUrl).saveName("wxyxb.apk")//默认名字是时间戳生成的
                 .execute(object : DownloadProgressCallBack<String>() {
                     override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
                         val progress = (bytesRead * 100 / contentLength).toInt()
@@ -145,6 +145,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
                     }
 
                     override fun onStart() {
+                        mDownloading = true
                         HttpLog.i("======" + Thread.currentThread().name)
                     }
 
@@ -156,7 +157,6 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
 
                     override fun onError(e: ApiException) {
                         HttpLog.i("======" + Thread.currentThread().name)
-                        ToastUtils.showShort(this@HomeActivity, e.message)
                     }
                 })
     }

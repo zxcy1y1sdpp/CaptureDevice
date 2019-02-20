@@ -1,7 +1,6 @@
 package app.jietuqi.cn.base
 
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -14,8 +13,6 @@ import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.OtherUtil
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
-import com.zhy.android.percent.support.PercentRelativeLayout
-import kotlinx.android.synthetic.main.base_create_title.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -52,7 +49,7 @@ abstract class BaseCreateActivity : BaseActivity(){
                 thirdPoint.setOnClickListener(this)
             }
         }
-        mBaseCreateFinishIv.setOnClickListener(this)
+//        mBaseCreateFinishIv.setOnClickListener(this)
         titleTv.setOnClickListener(this)
         titleTv.text = title
     }
@@ -61,7 +58,7 @@ abstract class BaseCreateActivity : BaseActivity(){
      * 微信收发红包预览中标题上的颜色
      * @param title
      */
-    protected fun setWechatViewTitle(title: String, showRight: Boolean) {
+    /*protected fun setWechatViewTitle(title: String, showRight: Boolean) {
         val sLeftIv = findViewById<ImageView>(R.id.mBaseCreateFinishIv)
         val titleTv = findViewById<TextView>(R.id.mBaseCreateTitleTv)
         sLeftIv.setOnClickListener(this)
@@ -75,7 +72,7 @@ abstract class BaseCreateActivity : BaseActivity(){
             sRightContentTv.setTextColor(ContextCompat.getColor(this, R.color.wechatPreviewTitle))
             sRightContentTv.visibility = View.VISIBLE
         }
-    }
+    }*/
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mBaseCreateFinishIv -> {

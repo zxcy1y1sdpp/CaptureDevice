@@ -43,8 +43,6 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
 
     override fun initAllViews() {
         EventBusUtil.register(this)
-//        mAdapter = HomeAdapter(mList, mBannerList, this /*,this*/)
-//        mRecyclerView.adapter = mAdapter
         setRefreshLayout(mOverallHomeRefreshLayout)
         (mRecyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         if (UserOperateUtil.needColseByChannel()) {
@@ -52,6 +50,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
                 mOverallPublishBtn.visibility = View.GONE
             }
         }
+        getBannerData()
     }
 
     override fun initViewsListener() {
@@ -74,7 +73,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
     override fun loadFromServer() {
         super.loadFromServer()
         getData()
-        getBannerData()
+//        getBannerData()
     }
     private fun getData(){
         EasyHttp.post(HttpConfig.INFO)
@@ -112,6 +111,8 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
                                 entity.infoList.add(info)
                             }
                         }
+//                        mAdapter = HomeAdapter(mList, mBannerList, this@HomeFragment /*,this*/)
+//                        mRecyclerView.adapter = mAdapter
                         mAdapter?.notifyDataSetChanged()
                     }
                     override fun onError(e: ApiException) {

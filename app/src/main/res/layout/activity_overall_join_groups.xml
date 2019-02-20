@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="地区不限"
                 android:gravity="center"
-                android:textSize="@dimen/overall26px"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:tag=""/>
             <ImageView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="全部类型"
                 android:gravity="center"
-                android:textSize="@dimen/overall26px"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:tag=""/>
             <ImageView
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="人数不限"
                 android:gravity="center"
-                android:textSize="@dimen/overall26px"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:tag=""/>
             <ImageView
@@ -150,7 +150,8 @@
                 android:id="@+id/mOverallJoinGroupsPublishCardTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发布群名片"/>
+                android:text="发布群名片"
+                android:textSize="17sp"/>
         </LinearLayout>
         <View
             android:layout_width="@dimen/Line"
@@ -171,7 +172,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="置顶服务"/>
+                android:text="置顶服务"
+                android:textSize="17sp"/>
         </LinearLayout>
     </com.zhy.android.percent.support.PercentLinearLayout>
     <!--<LinearLayout

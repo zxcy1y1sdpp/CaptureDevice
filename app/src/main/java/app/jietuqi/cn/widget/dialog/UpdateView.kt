@@ -41,6 +41,11 @@ class UpdateView : DialogFragment(), View.OnClickListener{
         updateContentTv.text = mContent
         updateBtn.setOnClickListener(this)
         cancelBtn.setOnClickListener(this)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setOnKeyListener { _, keyCode, _ ->
+            keyCode == KeyEvent.KEYCODE_BACK
+        }
     }
     fun setData(content: String, url: String, listener: UpdateListener){
         mContent = content
@@ -53,6 +58,7 @@ class UpdateView : DialogFragment(), View.OnClickListener{
                 mListener.update(true, url, updateBtn)
             }
             R.id.cancelBtn -> {
+                mListener.update(false, url, updateBtn)
                 dismiss()
             }
         }

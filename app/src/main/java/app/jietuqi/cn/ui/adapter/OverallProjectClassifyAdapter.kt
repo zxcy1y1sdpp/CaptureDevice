@@ -84,15 +84,21 @@ class OverallProjectClassifyAdapter(val mList: ArrayList<ProjectMarketEntity>, v
             if (mType == 0){
                 checkTv.visibility = View.VISIBLE
                 rightView.visibility = View.GONE
+                nickName.visibility = View.VISIBLE
+                avatar.visibility = View.VISIBLE
             }else if (mType == 1){//我发布的
                 myLayout.visibility = View.VISIBLE
                 statusTv.visibility = View.VISIBLE
                 checkTv.visibility = View.GONE
                 rightView.visibility = View.VISIBLE
+                nickName.visibility = View.GONE
+                avatar.visibility = View.INVISIBLE
             }else if (mType == 2){
                 collecBtn.visibility = View.VISIBLE
                 checkTv.visibility = View.GONE
                 rightView.visibility = View.VISIBLE
+                nickName.visibility = View.VISIBLE
+                avatar.visibility = View.VISIBLE
                 collecBtn.setChecked(true, false)
             }
         }

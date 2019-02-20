@@ -122,12 +122,12 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
                 msgEntity.msg = msg
                 if (mComMsg){//如果是自己说话
                     msgEntity.resourceName = mMySideEntity.resourceName
-                    msgEntity.avatarInt = mMySideEntity.resAvatar
+                    msgEntity.avatarInt = mMySideEntity.avatarInt
                     msgEntity.avatarStr = mMySideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mMySideEntity.wechatUserId
                 }else{//对方说话
                     msgEntity.resourceName = mOtherSideEntity.resourceName
-                    msgEntity.avatarInt = mOtherSideEntity.resAvatar
+                    msgEntity.avatarInt = mOtherSideEntity.avatarInt
                     msgEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                     msgEntity.wechatUserId = mOtherSideEntity.wechatUserId
                 }
@@ -148,13 +148,13 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
         if (entity.wechatUserId == mOtherSideEntity.wechatUserId){
             receiveEntity.wechatUserId = mMySideEntity.wechatUserId
             receiveEntity.avatarStr = mMySideEntity.wechatUserAvatar
-            receiveEntity.avatarInt = mMySideEntity.resAvatar
+            receiveEntity.avatarInt = mMySideEntity.avatarInt
             receiveEntity.resourceName = mMySideEntity.resourceName
 
         }else{
             receiveEntity.wechatUserId = mOtherSideEntity.wechatUserId
             receiveEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
-            receiveEntity.avatarInt = mOtherSideEntity.resAvatar
+            receiveEntity.avatarInt = mOtherSideEntity.avatarInt
             receiveEntity.resourceName = mOtherSideEntity.resourceName
         }
         if (entity.msgType == 3){//领红包

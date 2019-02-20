@@ -59,6 +59,7 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val 
                     contentTv.text = "[图片]"
                 }
                 entity.msgType == 2 -> {//时间
+                    GlideUtil.displayHead(itemView.context, R.drawable.message_time, avatarIv)
                     if ("12" == entity.timeType){
                         contentTv.text = StringUtils.insertFront(WechatTimeUtil.getNewChat12Time(entity.time), "[时间]")
                     }else{
@@ -81,6 +82,7 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val 
                     contentTv.text = StringUtils.insertFrontAndBack(entity.voiceLength, "[语音]", "\"")
                 }
                 entity.msgType == 8 -> {
+                    GlideUtil.displayHead(itemView.context, R.drawable.message_system, avatarIv)
                     contentTv.text = StringUtils.insertFront(entity.msg, "[系统提示]")
                 }
             }

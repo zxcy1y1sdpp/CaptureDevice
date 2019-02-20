@@ -236,7 +236,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                         wechatEntity = mList[i]
                         if (!wechatEntity.isComMsg){
                             wechatEntity.resourceName = mMySideEntity.resourceName
-                            wechatEntity.avatarInt = mMySideEntity.resAvatar
+                            wechatEntity.avatarInt = mMySideEntity.avatarInt
                             wechatEntity.avatarStr = mMySideEntity.wechatUserAvatar
                             mHelper.update(wechatEntity)
                         }
@@ -263,7 +263,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                         wechatEntity = mList[i]
                         if (wechatEntity.isComMsg){
                             wechatEntity.resourceName = mOtherSideEntity.resourceName
-                            wechatEntity.avatarInt = mOtherSideEntity.resAvatar
+                            wechatEntity.avatarInt = mOtherSideEntity.avatarInt
                             wechatEntity.avatarStr = mOtherSideEntity.wechatUserAvatar
                             mHelper.update(wechatEntity)
                         }

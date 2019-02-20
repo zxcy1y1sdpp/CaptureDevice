@@ -102,5 +102,6 @@
     <color name="transactionRecord">#267afe</color>
     <color name="wechatAutoColor">#5A6F9D</color>
     <color name="overallTitleColor">#333333</color>
+    <color name="overallRed">#FC615A</color>
 
 </resources>

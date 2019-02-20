@@ -106,7 +106,7 @@ class WechatSimulatorCreatePictureActivity : BaseWechatSimulatorCreateActivity()
         unChoiceIv.setImageResource(R.drawable.un_choice)
     }
     private fun setMsg(entity: WechatUserEntity){
-        mMsgEntity.avatarInt = entity.resAvatar
+        mMsgEntity.avatarInt = entity.avatarInt
         mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId

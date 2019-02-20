@@ -34,7 +34,7 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
         val userEntity = RoleLibraryHelper(this).queryRandom1Item()
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
-        mEntity.resAvatar = userEntity.resAvatar
+        mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
 
@@ -73,7 +73,7 @@ class AlipayCreateRedPacketActivity : BaseCreateActivity() {
                 if (data?.extras?.containsKey(IntentKey.ENTITY) == true){
                     mEntity.avatarFile = mOtherSideEntity.avatarFile
                     mEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
-                    mEntity.resAvatar = mOtherSideEntity.resAvatar
+                    mEntity.avatarInt = mOtherSideEntity.avatarInt
                     mEntity.resourceName = mOtherSideEntity.resourceName
                     mEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
                     GlideUtil.displayHead(this, mEntity.getAvatarFile(), mAlipayCreateRedPacketAvatarIv)

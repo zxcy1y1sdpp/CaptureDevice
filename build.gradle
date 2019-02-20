@@ -41,8 +41,8 @@ ext {
      * Version相关
      */
     /******************************** 上线前需要修改的地方 Begin *****************************************/
-    versionCode = 13
-    versionName = "1.9.3"
+    versionCode = 14
+    versionName = "1.9.4"
     /**
      * Sdk and tools
      */

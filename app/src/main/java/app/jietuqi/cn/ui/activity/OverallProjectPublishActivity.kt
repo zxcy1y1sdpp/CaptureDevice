@@ -60,9 +60,9 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
         mProjectClassifyLayout.setOnClickListener(this)
         mProjectTitleLayout.setOnClickListener(this)
         mProjectDescriptionLayout.setOnClickListener(this)
-        mProjectWXNumberLayout.setOnClickListener(this)
-        mProjectPhoneNumberLayout.setOnClickListener(this)
-        mProjectQQNumberLayout.setOnClickListener(this)
+        mProjectWXNumberTv.setOnClickListener(this)
+        mProjectPhoneNumberTv.setOnClickListener(this)
+        mProjectQQNumberTv.setOnClickListener(this)
         mProjectBtn.setOnClickListener(this)
     }
 
@@ -102,7 +102,7 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
             R.id.mProjectDescriptionLayout ->{//项目详情
                 LaunchUtil.startOverallProjectPublishDetailsActivity(this, mType, mImageList, mContent)
             }
-            R.id.mProjectWXNumberLayout ->{//微信号
+            R.id.mProjectWXNumberTv ->{//微信号
                 val dialog = EditDialog()
                 dialog.setData(this, EditDialogEntity(2, "", mProjectWXNumberLayout.tag.toString()))
                 dialog.show(supportFragmentManager, "publishProject")
@@ -110,12 +110,12 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
             R.id.mProjectPicLayout ->{
                 openAlbumWithPermissionCheck()
             }
-            R.id.mProjectPhoneNumberLayout ->{//手机号
+            R.id.mProjectPhoneNumberTv ->{//手机号
                 val dialog = EditDialog()
                 dialog.setData(this, EditDialogEntity(3, "", mProjectPhoneNumberLayout.tag.toString(), true))
                 dialog.show(supportFragmentManager, "publishProject")
             }
-            R.id.mProjectQQNumberLayout ->{//QQ号
+            R.id.mProjectQQNumberTv ->{//QQ号
                 val dialog = EditDialog()
                 dialog.setData(this, EditDialogEntity(4, "", mProjectQQNumberLayout.tag.toString(), true))
                 dialog.show(supportFragmentManager, "publishProject")
@@ -158,10 +158,18 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            RequestCode.IMAGE_SELECT ->{
+            /*RequestCode.IMAGE_SELECT ->{
                 if (null != data){
                     mPicBgFile = mFiles[0]
                     GlideUtil.display(this, mFiles[0], mProjectPicIv)
+                    mFiles.clear()
+                }
+            }*/
+            RequestCode.CROP_IMAGE ->{
+                if (null != data){
+                    mPicBgFile = mFinalCropFile
+                    GlideUtil.display(this,mFinalCropFile, mProjectPicIv)
+                    mFinalCropFile = File("")
                 }
             }
             RequestCode.PROJECT_TITLE ->{
@@ -242,9 +250,10 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
             override fun onError(e: ApiException) {}
             override fun onSuccess(t: String) {
                 if (mType == 0){
-                    showToast("发布成功")
+                    showToast("已发布，请等待审核")
                 }else{
-                    showToast("修改成功")
+                    showToast("已修改，请等待审核" +
+                            "")
                 }
                 EventBusUtil.post("")
                 finish()
@@ -258,7 +267,7 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
-        callAlbum()
+        callAlbum(needCrop = true)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

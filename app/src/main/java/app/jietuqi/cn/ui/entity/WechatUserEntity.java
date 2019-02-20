@@ -1,11 +1,14 @@
 package app.jietuqi.cn.ui.entity;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import app.jietuqi.cn.ResourceHelper;
+import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity;
 import app.jietuqi.cn.util.OtherUtil;
 import app.jietuqi.cn.util.TimeUtil;
 
@@ -23,7 +26,7 @@ public class WechatUserEntity implements Serializable {
     public WechatUserEntity() { }
     public WechatUserEntity(String wechatUserAvatar, int resAvatar, String wechatUserNickName, String msgType, String msg, long lastTime){
         this.wechatUserAvatar = wechatUserAvatar;
-        this.resAvatar = resAvatar;
+        this.avatarInt = resAvatar;
         this.wechatUserNickName = wechatUserNickName;
         if (TextUtils.isEmpty(msgType)){
             this.msgType = "0";
@@ -58,7 +61,7 @@ public class WechatUserEntity implements Serializable {
      * @param wechatUserNickName
      */
     public WechatUserEntity(int resAvatar, String wechatUserNickName){
-        this.resAvatar = resAvatar;
+        this.avatarInt = resAvatar;
         this.wechatUserNickName = wechatUserNickName;
         this.msgType = "0";
         this.msg = "";
@@ -76,7 +79,7 @@ public class WechatUserEntity implements Serializable {
     /**
      * 随机产生的头像
      */
-    public int resAvatar;
+    public int avatarInt;
     /**
      * 用户头像
      */
@@ -109,9 +112,6 @@ public class WechatUserEntity implements Serializable {
      * 聊天背景
      */
     public String chatBg;
-//    /**
-//     * 聊天背景
-//     */
 
     /**
      * 本地头像文件
@@ -176,6 +176,77 @@ public class WechatUserEntity implements Serializable {
      */
     public double cash;
 
+    /**
+     * 0 -- 单聊
+     * 1 -- 群聊
+     */
+    public int chatType;
+    /** ----------------------------------------- 群聊相关 -----------------------------------------*/
+    /**
+     * 群聊头像
+     */
+    public Bitmap groupHeader;
+    /**
+     * 群聊里面的人
+     */
+    public ArrayList<WechatUserEntity> groupRoles;
+    /**
+     * 最近的聊天对象
+     */
+    public WechatUserEntity recentRoles;
+    /**
+     * 群聊名称
+     */
+    public String groupName;
+
+    /**
+     * 群聊的表名
+     */
+    public String groupTableName;
+    /**
+     * 群聊人数
+     */
+    public int groupRoleCount;
+    /**
+     * 是否显示群成员昵称
+     */
+    public boolean groupShowNickName;
+    /**
+     * 是否是最近的聊天对象
+     */
+    public boolean isRecentRole;
+    /**
+     * 是否手气最佳
+     */
+    public boolean isBestLuck;
+    /**
+     * 红包的信息
+     */
+    public WechatScreenShotEntity groupRedPacketInfo;
+    /**
+     * 获取聊天列表展示的头像
+     * @return
+     */
+    public Object getListAvatarFile() {
+        if (0 == chatType){
+            if (!TextUtils.isEmpty(wechatUserAvatar)){
+                return wechatUserAvatar;
+            }else if (null != avatarFile){
+                return avatarFile;
+            }else if (!TextUtils.isEmpty(resourceName)){
+                return ResourceHelper.getAppIconId(resourceName);
+            }else {
+                return avatarInt;
+            }
+        }else {
+            return groupHeader;
+        }
+    }
+
+    /**
+     * 用户头像
+     * @return
+     */
     public Object getAvatarFile() {
         if (!TextUtils.isEmpty(wechatUserAvatar)){
             return wechatUserAvatar;
@@ -184,7 +255,7 @@ public class WechatUserEntity implements Serializable {
         }else if (!TextUtils.isEmpty(resourceName)){
             return ResourceHelper.getAppIconId(resourceName);
         }else {
-            return resAvatar;
+            return avatarInt;
         }
     }
 
@@ -213,12 +284,20 @@ public class WechatUserEntity implements Serializable {
      * 在聊天列表中的主键id
      */
     public int listId;
+
+    /**
+     * 是否被选中
+     * 在选择群聊对象的时候会用到
+     */
+    public boolean isChecked;
+
+
     /**
      * 资源对应的名称
      */
     public String resourceName;
     public WechatUserEntity(int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
-        this.resAvatar = avatarInt;
+        this.avatarInt = avatarInt;
         this.wechatUserAvatar = avatarStr;
         this.wechatUserNickName = nickName;
         this.pinyinNickName = pinyinNickName;
@@ -232,7 +311,7 @@ public class WechatUserEntity implements Serializable {
     }
     public WechatUserEntity(String userId, int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
         this.wechatUserId = userId;
-        this.resAvatar = avatarInt;
+        this.avatarInt = avatarInt;
         this.wechatUserAvatar = avatarStr;
         this.wechatUserNickName = nickName;
         this.pinyinNickName = pinyinNickName;

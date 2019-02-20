@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/wechatBg">
 
-    <include layout="@layout/base_create_title"
+    <include android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <app.jietuqi.cn.widget.OverScrollView

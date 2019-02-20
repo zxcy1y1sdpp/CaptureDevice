@@ -1,6 +1,7 @@
 package app.jietuqi.cn.ui.activity
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
@@ -11,6 +12,7 @@ import app.jietuqi.cn.ui.adapter.OverallProjectMarketAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.ProjectMarketEntity
 import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_overall_project_market.*
  * 用途： 项目市场
  */
 class OverallProjectMarketActivity : BaseOverallInternetActivity() {
-    private lateinit var mAdapter: OverallProjectMarketAdapter
+    private var mAdapter: OverallProjectMarketAdapter? = null
     private var mList = arrayListOf<ProjectMarketEntity>()
     private var mBannerList = arrayListOf<BannerEntity>()
     override fun setLayoutResourceId() = R.layout.activity_overall_project_market
@@ -37,7 +39,6 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
     override fun initAllViews() {
         setTopTitle("项目市场")
         setRefreshLayout(mProjectMarketSrl)
-
     }
 
     override fun initViewsListener() {
@@ -75,13 +76,19 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
     }
 
     private fun getData(){
+        Log.e("时间： " , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
         EasyHttp.post(HttpConfig.STORE)
                 .params("way", "lists")
                 .params("mid", UserOperateUtil.getUserId())
                 .params("limit", mLimit)
                 .params("page", mPage.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<ProjectMarketEntity>>, ArrayList<ProjectMarketEntity>>(object : SimpleCallBack<ArrayList<ProjectMarketEntity>>() {
+                    override fun onStart() {
+                        super.onStart()
+                        Log.e("时间： -   onStart" , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
+                    }
                     override fun onSuccess(t: ArrayList<ProjectMarketEntity>) {
+                        Log.e("时间： -   onSuccess" , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
                         if (mPage == 1){
                             if (mList.size != 0){
                                 mList.clear()
@@ -90,13 +97,15 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
                         mProjectMarketSrl.finishRefresh(true)
                         mProjectMarketSrl.finishLoadMore(true)
                         mList.addAll(t)
-                        mAdapter.notifyDataSetChanged()
+                        Log.e("时间：-  onSuccess 开始刷新" , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
+                        mAdapter?.notifyDataSetChanged()
+                        Log.e("时间： -  onSuccess 结束刷新" , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
                     }
                     override fun onError(e: ApiException) {
                         mProjectMarketSrl.finishRefresh(true)
                         if (mPage == 1){
                             mList.clear()
-                            mAdapter.notifyDataSetChanged()
+                            mAdapter?.notifyDataSetChanged()
                         }else{
                             mProjectMarketSrl.finishLoadMoreWithNoMoreData()
                         }
@@ -112,9 +121,10 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
                             mBannerList.clear()
                         }
                         t?.let { mBannerList.addAll(it) }
-//                        mAdapter?.notifyItemChanged(0)
-                        mAdapter = OverallProjectMarketAdapter(mList, mBannerList)
-                        mProjectMarketRv.adapter = mAdapter
+                        if (null == mAdapter){
+                            mAdapter = OverallProjectMarketAdapter(mList, mBannerList)
+                            mProjectMarketRv.adapter = mAdapter
+                        }
                         getData()
                     }
 

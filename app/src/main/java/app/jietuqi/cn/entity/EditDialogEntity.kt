@@ -21,6 +21,6 @@ class EditDialogEntity (
          */
         var title: String,
         /**
-         * dialog中输入框的内容
+         * 是否必须是数字
          */
         var inputNumber: Boolean = false)

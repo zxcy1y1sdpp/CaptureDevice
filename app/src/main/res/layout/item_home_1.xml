@@ -27,12 +27,6 @@
         android:background="@color/white"
         android:layout_below="@+id/mBanner"
         />
-    <!--<LinearLayout
-        android:id="@+id/indicator2"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/mBanner"/>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sFunRecyclerView"
@@ -44,13 +38,42 @@
         android:background="@color/white"
         android:layout_below="@+id/indicator2"
         android:paddingBottom="20dp"/>
-    <com.zhy.android.percent.support.PercentLinearLayout
+
+    <LinearLayout
+        android:id="@+id/tagView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sFunRecyclerView"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:layout_marginTop="7dp">
+        android:paddingTop="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding">
+        <ImageView
+            android:id="@+id/sCleanFansIv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clean_fans"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"/>
+        <ImageView
+            android:id="@+id/sWeMediaIv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/we_media"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:adjustViewBounds="true"/>
+    </LinearLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tagView1"
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <com.coorchice.library.SuperTextView
             android:layout_width="wrap_content"

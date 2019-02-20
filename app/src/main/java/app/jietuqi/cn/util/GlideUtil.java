@@ -75,12 +75,12 @@ public class GlideUtil{
 	/**
 	 * 展示头像相关
 	 * @param context
-	 * @param id
+	 * @param object
 	 * @param imageView
 	 */
-	public static void displayHead(Context context, Object id, ImageView imageView){
+	public static void displayHead(Context context, Object object, ImageView imageView){
 		GlideApp.with(context)
-				.load(id)
+				.load(object)
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.thumbnail(0.1f)
 				.error(R.drawable.head_default)
@@ -210,10 +210,10 @@ public class GlideUtil{
 	 * @param imageView
 	 */
 	public static void display(Context context, WechatUserEntity entity, ImageView imageView){
-		if (entity.resAvatar <= 0){
+		if (entity.avatarInt <= 0){
 			display(context, entity.avatarFile, imageView);
 		}else {
-			display(context, entity.resAvatar, imageView);
+			display(context, entity.avatarInt, imageView);
 		}
 	}
 	/**－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ 删除Glide图片缓存 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/

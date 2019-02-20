@@ -20,7 +20,7 @@ abstract class BaseOverallInternetActivity : BaseOverallActivity() {
     /**
      * 每页展示的数据量
      */
-    var mLimit = "10"
+    var mLimit = "30"
     var mDisposable: Disposable? = null
 
     /**
@@ -38,6 +38,7 @@ abstract class BaseOverallInternetActivity : BaseOverallActivity() {
         super.onDestroy()
     }
     fun setRefreshLayout(refreshLayout: RefreshLayout){
+        refreshLayout.autoRefresh()
         refreshLayout.setOnRefreshListener{
             mPage = 1
             loadFromServer()

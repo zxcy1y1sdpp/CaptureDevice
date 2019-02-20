@@ -58,7 +58,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColor(ColorFinal.wechatTitleBar)
+        setStatusBarColor(ColorFinal.WHITE)
         setLightStatusBarForM(this, false)
     }
     override fun initAllViews() {}

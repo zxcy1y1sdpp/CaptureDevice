@@ -64,9 +64,6 @@ class EditDialog : DialogFragment(), View.OnClickListener {
 
     /**
      * 设置dialog中的数据
-     * @param title: dialog标题
-     * @param content: 输入框中的内容
-     * @param position: 是第几个点击显示的dialog，方便返回数据的时候进行区分
      */
     fun setData(listener: EditDialogChoiceListener?, entity: EditDialogEntity){
         mEntity = entity

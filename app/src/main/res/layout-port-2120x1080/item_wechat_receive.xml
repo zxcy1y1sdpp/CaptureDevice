@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:id="@+id/receiveRedPacketLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_round_cornor"
+        android:orientation="horizontal"
+        app:layout_marginTopPercent="1.51%w"
+        app:layout_marginBottomPercent="1.51%w">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/wechat_receive_redpacket_system"
+            android:layout_marginRight="@dimen/normalPaddingHalf"/>
+        <TextView
+            android:id="@+id/wechatReceiveRedPacketContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="李凌轩领取了你的"
+            android:textColor="@color/white"
+            android:textSize="@dimen/wechatLittleTextSize"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="红包"
+            android:textColor="@color/wechat_redpacket_bg"
+            android:textSize="@dimen/wechatLittleTextSize"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>

@@ -33,12 +33,11 @@ public class IntentKey {
     public final static String INDUSTRY_ID = "industryid";
     /** 是否需要同时操作数据库*/
     public final static String NEED_OPERATE_DB = "needDB";
-    /**
-     * 最后一条聊天数据的时间
-     */
-    public final static String LAST_TIME = "lastTime";
-    /**
-     * 聊天数据
-     */
-    public final static String SINGLE_TALK_ENTITY = "singleTalkEntity";
+
+    public final static String COUNT = "count";
+    public final static String COMMSG = "isComMsg";
+    public final static String VIP_Entity = "vipEntity";
+    public final static String NOT_VIP_Entity = "notVipEntity";
+
+    public final static String ID = "id";
 }

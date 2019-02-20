@@ -10,8 +10,8 @@
         android:id="@+id/sOverallJoinGroupBgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_widthPercent="13.86%w"
-        app:layout_heightPercent="13.86%w"
+        app:layout_heightPercent="14%w"
+        app:layout_widthPercent="14%w"
         android:text="兼职"
         android:gravity="center"
         android:textColor="#ffffff"
@@ -45,7 +45,7 @@
             android:text="萨洛克的福建省拉科技的福利卡世纪东方"
             android:lines="1"
             android:ellipsize="end"
-            android:textSize="@dimen/overall16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"/>
     </LinearLayout>
     <TextView
@@ -61,7 +61,8 @@
         android:layout_toLeftOf="@+id/sOverallJoinGroupApplyView"
         app:layout_marginRightPercent="8.77%w"
         android:gravity="center_vertical"
-        android:textSize="@dimen/overall26px"/>
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
     <app.jietuqi.cn.widget.ShapeCornerBgView
         android:id="@+id/sOverallJoinGroupApplyView"
         android:layout_width="wrap_content"
@@ -79,9 +80,9 @@
         android:gravity="center"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"/>
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wechatLineNarrow"
-        android:background="@color/overallBg"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"
         android:layout_below="@+id/sOverallJoinGroupBgView"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>
