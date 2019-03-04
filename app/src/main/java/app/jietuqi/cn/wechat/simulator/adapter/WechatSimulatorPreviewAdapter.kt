@@ -1,9 +1,13 @@
 package app.jietuqi.cn.wechat.simulator.adapter
+import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +33,7 @@ import java.io.File
  * 用途：
  */
 
-class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntity>, val mListener: WechatOperateListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WechatSimulatorPreviewAdapter(val mList: ArrayList<WechatScreenShotEntity>, val mListener: WechatOperateListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * 默认是本人操作
      */
@@ -299,7 +303,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
         private val statusTv: TextView = itemView.findViewById(R.id.wechatRedPackageStatusTv)//红包状态
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 val senderEntity = WechatUserEntity()//发送人
                 if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取红包，就领取，如果已经领取就是查看对方红包详情
@@ -359,7 +363,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
         private val statusTv: TextView = itemView.findViewById(R.id.wechatRedPackageStatusTv)//红包状态
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 val senderEntity = WechatUserEntity()//发送人
                 val receiveEntity = WechatUserEntity()//接收人
@@ -435,7 +439,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
         private val moneyTv: TextView = itemView.findViewById(R.id.wechatOtherTransferMoneyTv)//红包状态
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 entity.itemPosition = adapterPosition
                 if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，就领取，如果已经领取就是查看对方转账详情
@@ -581,7 +585,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
         private val bubbleLayout: PercentRelativeLayout = itemView.findViewById(R.id.wechatOtherTransferReceivedLayout)//红包状态
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 entity.itemPosition = adapterPosition
                 if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，
@@ -612,7 +616,7 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
         private val bubbleLayout: PercentRelativeLayout = itemView.findViewById(R.id.wechatMyTransferReceivedLayout)//红包状态
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 entity.itemPosition = adapterPosition
                 if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取转账，
@@ -684,19 +688,20 @@ class WechatSimulatorPreviewAdapter(val mList: MutableList<WechatScreenShotEntit
 
     inner class SystemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val systemContent: TextView = itemView.findViewById(R.id.wechatSystemTv)
-        private val systemContent2: TextView = itemView.findViewById(R.id.wechatSystemTv2)
+        //        private val systemContent2: TextView = itemView.findViewById(R.id.wechatSystemTv2)
         fun bind(entity: WechatScreenShotEntity){
             if (mShowChatBg){
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
             }else{
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
             }
+            val spannableString: SpannableStringBuilder
             if (entity.msg.contains("重新编辑")){
-                systemContent.text = "你撤回了一条消息"
-                systemContent2.visibility = View.VISIBLE
+                spannableString = SpannableStringBuilder(entity.msg)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), spannableString.length - 4, spannableString.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                systemContent.text = spannableString
             }else{
                 systemContent.text = entity.msg
-                systemContent2.visibility = View.GONE
             }
         }
     }

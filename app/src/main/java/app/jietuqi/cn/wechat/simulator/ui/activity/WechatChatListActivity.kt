@@ -1,6 +1,7 @@
 package app.jietuqi.cn.wechat.simulator.ui.activity
 
 import android.graphics.Color
+import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
@@ -13,8 +14,6 @@ import app.jietuqi.cn.wechat.simulator.ui.fragment.WechatFriendsFragment
 import app.jietuqi.cn.wechat.simulator.ui.fragment.WechatListFragment
 import app.jietuqi.cn.wechat.simulator.ui.fragment.WechatMyFragment
 import app.jietuqi.cn.widget.MainNavigateTabBar
-import app.jietuqi.cn.widget.badge.Badge
-import app.jietuqi.cn.widget.badge.QBadgeView
 import kotlinx.android.synthetic.main.activity_wechat_chatlist.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,13 +30,9 @@ import org.greenrobot.eventbus.ThreadMode
 
 class WechatChatListActivity : BaseWechatActivity() {
     override fun setLayoutResourceId() = R.layout.activity_wechat_chatlist
-    var mBadgeView0: Badge? = null
-    var mBadgeView2: Badge? = null
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        mBadgeView0 = QBadgeView(this).bindTarget(mWechatBadgeView0).setBadgeTextSize(10f, true)
-        mBadgeView2 = QBadgeView(this).bindTarget(mWechatBadgeView2).setBadgeTextSize(10f, true)
         registerEventBus()
         setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
         setLightStatusBarForM(this, true)
@@ -45,15 +40,6 @@ class WechatChatListActivity : BaseWechatActivity() {
         mMainTabBar.addTab(this, WechatFriendsFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_address_book, R.drawable.wechat_select_address_book, "通讯录"))
         mMainTabBar.addTab(this, WechatDiscoverFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_discover, R.drawable.wechat_select_discover, "发现"))
         mMainTabBar.addTab(this, WechatMyFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_my, R.drawable.wechat_select_my, "我"))
-        mBadgeView0?.setGravityOffset(15f, 4f, true)
-        mBadgeView0?.moreThan99(1)
-        mBadgeView0?.setBadgeTextSize(35f, false)
-        mBadgeView0?.isShowShadow = false
-
-        mBadgeView2?.setGravityOffset(28f, 6f, true)
-        mBadgeView2?.moreThan99(1)
-        mBadgeView2?.setBadgeTextSize(35f, false)
-        mBadgeView2?.isShowShadow = false
 
         var list = WechatSimulatorListHelper(this).queryAll()
         if (null != list){
@@ -65,14 +51,14 @@ class WechatChatListActivity : BaseWechatActivity() {
                     unReadNumber += entity.unReadNum.toInt()
                 }
                 runOnUiThread {
-                    mBadgeView0?.badgeNumber = unReadNumber
+                    mWechatBadgeView0.setText(unReadNumber.toString())
                 }
             }
         }
         if (UserOperateUtil.hasUnReadFriendCircle()){
-            mBadgeView2?.badgeNumber = -1
+            mWechatBadgeView1.visibility = View.VISIBLE
         }else{
-            mBadgeView2?.badgeNumber = 0
+            mWechatBadgeView1.visibility = View.GONE
         }
     }
 
@@ -96,10 +82,14 @@ class WechatChatListActivity : BaseWechatActivity() {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun showOnReadNumbers(entity: WechatSimulatorUnReadEntity) {
-        if (entity.tag == 0){
-            mBadgeView0?.badgeNumber = entity.unRead
+        if (entity.tag == 0) {
+            mWechatBadgeView0.setText(entity.unRead.toString())
         }else if (entity.tag == 1){
-            mBadgeView2?.badgeNumber = entity.unRead
+            if (entity.unRead == 0){
+                mWechatBadgeView1.visibility = View.GONE
+            }else{
+                mWechatBadgeView1.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -122,5 +112,4 @@ class WechatChatListActivity : BaseWechatActivity() {
         }
         setLightStatusBarForM(this, true)
     }
-
 }

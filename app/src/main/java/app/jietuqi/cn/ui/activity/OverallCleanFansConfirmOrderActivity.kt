@@ -23,6 +23,8 @@ import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import com.zhouyou.http.request.PostRequest
 import kotlinx.android.synthetic.main.activity_overall_clean_fans_confirm_order.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 作者： liuyuanbo on 2019/2/19 13:40.
@@ -76,10 +78,12 @@ class OverallCleanFansConfirmOrderActivity : BaseOverallInternetActivity() {
         val vipEntity = intent.getSerializableExtra(IntentKey.VIP_Entity) as OverallVipCardEntity
         val notVipEntity = intent.getSerializableExtra(IntentKey.NOT_VIP_Entity) as OverallVipCardEntity
         mCleanFansTitleTv.text = "无打扰清粉 - 周卡 非VIP${notVipEntity.price},VIP${vipEntity.price}"
-        mCurrentUseEntity = if (UserOperateUtil.isVip()){
-            vipEntity
+        if (UserOperateUtil.isVip()){
+            mCurrentUseEntity = vipEntity
+            mVipTagTv.visibility = View.VISIBLE
         }else{
-            notVipEntity
+            mCurrentUseEntity = notVipEntity
+            mVipTagTv.visibility = View.GONE
         }
         mSinglePriceTv.text = StringUtils.insertFront(BigDecimalUtil.mul(mCurrentUseEntity.price.toDouble(), mCount.toDouble()), "¥")
         mTotalCountTv.text = StringUtils.insertFrontAndBack(mCount, "共", "件 小计")
@@ -112,7 +116,7 @@ class OverallCleanFansConfirmOrderActivity : BaseOverallInternetActivity() {
      * 创建订单的接口
      */
     private fun createOrder(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.ORDER)
+        var request: PostRequest = EasyHttp.post(HttpConfig.ORDER, false)
                 .params("way", "add")
                 .params("pay", "appalipay")
                 .params("money", mCurrentUseEntity.id)
@@ -134,5 +138,11 @@ class OverallCleanFansConfirmOrderActivity : BaseOverallInternetActivity() {
                 e.message?.let { showToast(it) }
             }
         }) {})
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPaySuccess(result: String) {
+        if (result == "激活码购买成功"){
+            finish()
+        }
     }
 }

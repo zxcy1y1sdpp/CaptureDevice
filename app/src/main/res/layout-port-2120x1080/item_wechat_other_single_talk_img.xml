@@ -7,8 +7,8 @@
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_marginTopPercent="1.51%w"
-        app:layout_marginBottomPercent="1.51%w">
+        app:layout_marginTopPercent="1.73%w"
+        app:layout_marginBottomPercent="1.73%w">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/wechatOtherAvatar"
@@ -16,21 +16,38 @@
             android:layout_height="wrap_content"
             app:layout_heightPercent="10.12%w"
             app:layout_widthPercent="10.12%w"
-            app:layout_marginLeftPercent="2.16%w"
-            app:layout_marginRightPercent="1.67%w"
+            app:layout_marginLeftPercent="1.99%w"
+            app:layout_marginRightPercent="1.24%w"
             android:src="@drawable/head_default"
             app:riv_corner_radius="5dp"/>
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/wechatOtherIv"
+        <com.zhy.android.percent.support.PercentLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitStart"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/timg"
             android:layout_toEndOf="@+id/wechatOtherAvatar"
             android:layout_alignTop="@+id/wechatOtherAvatar"
-            app:riv_corner_radius="5dip"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sWechatNickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="啦啦啦"
+                android:textSize="13sp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:textColor="@color/wechatLightGray"
+                android:visibility="gone"/>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/wechatOtherIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/timg"
+                app:riv_corner_radius="5dip"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
+
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
 </com.zhy.android.percent.support.PercentRelativeLayout>

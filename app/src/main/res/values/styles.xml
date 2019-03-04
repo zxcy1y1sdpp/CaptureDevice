@@ -81,7 +81,7 @@
         <item name="android:textSize">@dimen/normalTextSize15</item>
         <item name="android:textColor">@color/wechat_deep2_text_color</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:drawableRight">@mipmap/right_arrow</item>
+        <item name="android:drawableRight">@drawable/right_arrow</item>
         <item name="android:drawablePadding">@dimen/normalPadding</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/normalPadding</item>
@@ -113,7 +113,7 @@
         <item name="android:layout_marginLeft">@dimen/normalPadding</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:src">@mipmap/right_arrow</item>
+        <item name="android:src">@drawable/right_arrow</item>
         <item name="android:padding">@dimen/normalPadding</item>
     </style>
     <!--生成微信之前的输入框-->
@@ -169,7 +169,7 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:drawablePadding">@dimen/normalPadding</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:drawableRight">@mipmap/right_arrow</item>
+        <item name="android:drawableRight">@drawable/right_arrow</item>
         <item name="layout_marginRightPercent">4.64%w</item>
     </style>
     <style name="MyEditText" parent="Theme.AppCompat.Light">
@@ -229,5 +229,15 @@
         <item name="android:windowBackground">@drawable/dialog_custom_bg</item><!--背景透明-->
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
         <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="MultipleStatusView"/>
+    <style name="MultipleStatusView.Content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">#a9b7b7</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

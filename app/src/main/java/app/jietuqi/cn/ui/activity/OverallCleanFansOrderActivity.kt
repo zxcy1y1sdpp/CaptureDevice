@@ -27,9 +27,7 @@ class OverallCleanFansOrderActivity : BaseOverallInternetActivity() {
     private var mAdapter: OverallCleanFansOrderAdapter? = null
     override fun setLayoutResourceId() = R.layout.activity_overall_clean_fans_order
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
         setTopTitle("购买记录")
@@ -52,11 +50,11 @@ class OverallCleanFansOrderActivity : BaseOverallInternetActivity() {
         getOrders()
     }
     private fun getOrders(){
-        EasyHttp.post(HttpConfig.ORDER)
+        EasyHttp.post(HttpConfig.ORDER, true)
                 .params("way", "lists")
                 .params("classify", "qingfen")
                 .params("users_id", UserOperateUtil.getUserId())
-                .params("limit", mLimit)
+                .params("limit", mLimit)//添加了
                 .params("page", mPage.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallCleanFansListEntity>>, ArrayList<OverallCleanFansListEntity>>(object : SimpleCallBack<ArrayList<OverallCleanFansListEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallCleanFansListEntity>) {
@@ -75,6 +73,7 @@ class OverallCleanFansOrderActivity : BaseOverallInternetActivity() {
                         if (mPage == 1){
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
+                            showEmptyView()
                         }else{
                             mCleanFansOrderSrl.finishLoadMoreWithNoMoreData()
                         }

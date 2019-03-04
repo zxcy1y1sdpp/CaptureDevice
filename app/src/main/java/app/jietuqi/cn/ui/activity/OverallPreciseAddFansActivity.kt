@@ -127,7 +127,7 @@ class OverallPreciseAddFansActivity : BaseOverallInternetActivity(), OnOptionsSe
     }
     @NeedsPermission(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
     fun getCardsData() {
-        val postRequest = EasyHttp.post(HttpConfig.INFORMATION)
+        val postRequest = EasyHttp.post(HttpConfig.INFORMATION, true)
         postRequest.params("way", "lists")//way 必传add
                 . params("limit", mLimit)
                 . params("page", mPage.toString())

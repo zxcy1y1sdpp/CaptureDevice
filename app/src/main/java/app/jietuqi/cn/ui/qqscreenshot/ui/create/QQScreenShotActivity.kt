@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.qqscreenshot.ui.create
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -186,6 +187,18 @@ class QQScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.ChoiceTy
 
             }
         })
+        mQQScreenShotCreateMenuRecyclerView.setOnItemStateChangedListener { _, actionState ->
+            if (actionState === ACTION_STATE_IDLE) {
+                showQQWaitDialog("请稍后")
+                mHelper.deleteAll()
+
+                if (mHelper.saveAll(mList)){
+                    dismissQQDialog()
+                }else{
+                    showToast("排序失败")
+                }
+            }
+        }
         mQQScreenShotCreateMenuRecyclerView.adapter = mAdapter
     }
 

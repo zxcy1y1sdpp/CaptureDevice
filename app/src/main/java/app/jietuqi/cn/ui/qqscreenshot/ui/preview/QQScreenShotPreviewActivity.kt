@@ -13,9 +13,9 @@ import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.qqscreenshot.adapter.QQScreenShotPreviewAdapter
 import app.jietuqi.cn.ui.qqscreenshot.db.QQScreenShotHelper
 import app.jietuqi.cn.ui.qqscreenshot.entity.QQScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.UserOperateUtil
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_qq_screenshot_preview.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

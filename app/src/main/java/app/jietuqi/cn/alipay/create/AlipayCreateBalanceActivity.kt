@@ -1,5 +1,6 @@
 package app.jietuqi.cn.alipay.create
 
+import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.alipay.entity.AlipayPreviewBalanceEntity
@@ -70,6 +71,10 @@ class AlipayCreateBalanceActivity : BaseCreateActivity() {
             }
             R.id.previewBtn ->{//预览
                 mEntity.balanceMoney = mAlipayCreateBalanceMoneyEt.text.toString()
+                if (!TextUtils.isEmpty(OtherUtil.getContent(mAlipayCreateBalanceShiftToMoneyEt))){
+                    showToast("请输入今日转入余额宝金额")
+                    return
+                }
                 mEntity.todayMoney = mAlipayCreateBalanceShiftToMoneyEt.text.toString()
                 LaunchUtil.startAlipayPreviewBalanceActivity(this, mEntity)
             }

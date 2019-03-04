@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/normalPadding"
-    android:layout_gravity="center"
-    android:background="@color/red_btn_bg_color">
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/sWechatGroupRolesAvatarIv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/head_default"/>
+        android:src="@drawable/head_default"
+        android:adjustViewBounds="true"/>
     <TextView
         android:id="@+id/sWechatGroupRolesNickNameTv"
         android:layout_width="wrap_content"
@@ -22,6 +23,8 @@
         android:layout_alignRight="@+id/sWechatGroupRolesAvatarIv"
         android:lines="1"
         android:ellipsize="end"
+        android:textSize="13sp"
         android:gravity="center_horizontal"
-        android:textColor="@color/wechatLightGray"/>
-</RelativeLayout>
+        android:textColor="@color/wechatLightGray"
+        android:layout_marginTop="@dimen/normalPaddingHalf"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

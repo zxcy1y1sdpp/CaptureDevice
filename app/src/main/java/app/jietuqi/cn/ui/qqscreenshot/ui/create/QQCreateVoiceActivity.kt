@@ -38,11 +38,9 @@ class QQCreateVoiceActivity : BaseQQScreenShotCreateActivity() {
                 mQQCreateVoiceSecondsTv.text = StringUtils.insertBack(StringUtils.insertZeroFont(progress), "秒")
             }
 
-            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {
-            }
+            override fun getProgressOnActionUp(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float) {}
 
-            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {
-            }
+            override fun getProgressOnFinally(bubbleSeekBar: BubbleSeekBar?, progress: Int, progressFloat: Float, fromUser: Boolean) {}
         }
     }
 
@@ -92,9 +90,6 @@ class QQCreateVoiceActivity : BaseQQScreenShotCreateActivity() {
                 mMsgEntity.alreadyRead = mQQCreateVoiceSecondsAlreadyReadIv.tag.toString().toBoolean()
                 mMsgEntity.voiceLength = voiceLength
                 mMsgEntity.voiceToText = mQQCreateVoiceSecondsTransferTextEv.text.toString()
-                /*if (mQQCreateVoiceSecondsTransferIv.tag.toString().toBoolean()){
-                    mMsgEntity.voiceToText = mQQCreateVoiceSecondsTransferTextEv.text.toString()
-                }*/
             }
         }
         super.onClick(v)

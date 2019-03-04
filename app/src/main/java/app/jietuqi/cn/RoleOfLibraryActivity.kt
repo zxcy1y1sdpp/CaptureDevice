@@ -27,6 +27,7 @@ class RoleOfLibraryActivity : BaseWechatWithDbActivity() {
     private val mList: ArrayList<WechatUserEntity> = arrayListOf()
     private lateinit var mAdapter: RoleLibraryAdapter
     private var mRequestCode = -1
+//    private var mNeedChangeSharedPreference = true
     override fun setLayoutResourceId() = R.layout.activity_roleoflibrary
 
     override fun needLoadingView() = false
@@ -52,14 +53,16 @@ class RoleOfLibraryActivity : BaseWechatWithDbActivity() {
                 val entity = mList[vh.adapterPosition]
                 intent.putExtra(IntentKey.ENTITY, entity)
                 setResult(mRequestCode, intent)
-                when (mRequestCode) {
-                    RequestCode.MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
-                    RequestCode.OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
-                    RequestCode.QQ_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_ME_SELF)
-                    RequestCode.QQ_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_OTHER_SIDE)
-                    RequestCode.ALIPAY_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_ME_SELF)
-                    RequestCode.ALIPAY_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
-                }
+//                if (mNeedChangeSharedPreference){
+                    when (mRequestCode) {
+                        RequestCode.MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
+                        RequestCode.OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.OTHER_SIDE)
+                        RequestCode.QQ_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_ME_SELF)
+                        RequestCode.QQ_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.QQ_OTHER_SIDE)
+                        RequestCode.ALIPAY_MY_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_ME_SELF)
+                        RequestCode.ALIPAY_OTHER_SIDE -> SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
+                    }
+//                }
                 finish()
             }
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
@@ -82,5 +85,6 @@ class RoleOfLibraryActivity : BaseWechatWithDbActivity() {
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mRequestCode = intent.getIntExtra(IntentKey.REQUEST_CODE, -1)
+//        mNeedChangeSharedPreference = intent.getBooleanExtra(IntentKey.CHANGE_SHAREDPREFERENCE, true)
     }
 }

@@ -3,6 +3,7 @@ package app.jietuqi.cn.widget.dialog
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import android.view.inputmethod.EditorInfo
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.EditDialogChoiceListener
 import app.jietuqi.cn.entity.EditDialogEntity
+import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.ToastUtils
 import kotlinx.android.synthetic.main.dialog_change_role.*
 
 
@@ -28,8 +31,12 @@ class EditDialog : DialogFragment(), View.OnClickListener {
         when(v?.id){
             R.id.cancelTv ->{}
             R.id.okTv ->{
-                mEntity?.content = contentEt.text.toString()
-                mListener?.onChoice(mEntity)
+                if (!TextUtils.isEmpty(OtherUtil.getContent(contentEt))){
+                    mEntity?.content = contentEt.text.toString()
+                    mListener?.onChoice(mEntity)
+                }else{
+                    ToastUtils.showShort(activity, "内容不能为空")
+                }
             }
         }
         dismiss()

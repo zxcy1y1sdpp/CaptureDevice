@@ -33,7 +33,7 @@ class WechatVoiceActivity : BaseWechatActivity() {
     override fun initAllViews() {
         setWechatViewTitle("微信语音聊天", 0)
         registerEventBus()
-        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        val userEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName

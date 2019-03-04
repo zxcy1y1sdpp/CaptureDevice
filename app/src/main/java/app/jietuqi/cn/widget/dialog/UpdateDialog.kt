@@ -39,7 +39,7 @@ class UpdateDialog : SupportBlurDialogFragment(){
         var version: TextView = view.findViewById(R.id.upgrade_version)
         val cancelIv: ImageView = view.findViewById(R.id.downloadCancleIv)
         version.text = StringUtils.insertFront(BuildConfig.VERSION_NAME, "v")
-        if (message != null && message.isNotEmpty()) {
+        if (message.isNotEmpty()) {
             val builder = StringBuilder()
             var i = 0
             val size = message.size

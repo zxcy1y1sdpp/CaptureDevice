@@ -58,3 +58,6 @@
 -keep class com.mob.**{*;}
 -dontwarn com.mob.**
 
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
+

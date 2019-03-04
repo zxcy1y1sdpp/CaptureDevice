@@ -5,9 +5,13 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.entity.BankEntity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.wechat.entity.WechatWithdrawDepositEntity
 import app.jietuqi.cn.widget.dialog.ChoiceBankDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_change_withdraw_deposit.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import org.greenrobot.eventbus.Subscribe

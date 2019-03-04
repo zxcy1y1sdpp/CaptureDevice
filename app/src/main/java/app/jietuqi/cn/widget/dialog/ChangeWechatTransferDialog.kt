@@ -18,6 +18,11 @@ import kotlinx.android.synthetic.main.dialog_change_wechat_transfer.*
 
 class ChangeWechatTransferDialog : BottomSheetDialogFragment(), View.OnClickListener {
     private var mItemSelectionListener: OnItemSelectListener? = null
+    /**
+     * 0 -- 微信转账状态
+     * 1 -- 微信截图的语音\视频的通话状态
+     */
+    private var mType = 0
     override fun onClick(v: View) {
         mItemSelectionListener?.click(v.tag.toString())
         dismiss()
@@ -25,6 +30,9 @@ class ChangeWechatTransferDialog : BottomSheetDialogFragment(), View.OnClickList
 
     fun setOnItemSelectListener(itemSelection: OnItemSelectListener){
         mItemSelectionListener = itemSelection
+    }
+    fun setType(type: Int){
+        mType = type
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_change_wechat_transfer, container, false)
@@ -36,6 +44,14 @@ class ChangeWechatTransferDialog : BottomSheetDialogFragment(), View.OnClickList
         notGetMoney.setOnClickListener(this)
         giveMoneyBack.setOnClickListener(this)
         cancel.setOnClickListener(this)
+        if (mType == 1){
+            getMoney.text = "已接通"
+            getMoney.tag = "已接通"
+            notGetMoney.text = "已取消"
+            notGetMoney.tag = "已取消"
+            giveMoneyBack.text = "已拒绝"
+            giveMoneyBack.tag = "已拒绝"
+        }
     }
 
     interface OnItemSelectListener{

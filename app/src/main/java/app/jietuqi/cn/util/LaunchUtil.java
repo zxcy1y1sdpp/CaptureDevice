@@ -35,6 +35,8 @@ import app.jietuqi.cn.ui.activity.OverallProjectShowActivity;
 import app.jietuqi.cn.ui.activity.OverallPublishCardActivity;
 import app.jietuqi.cn.ui.activity.OverallRegisterActivity;
 import app.jietuqi.cn.ui.activity.OverallStickActivity;
+import app.jietuqi.cn.ui.activity.OverallWeMediaClassifyActivity;
+import app.jietuqi.cn.ui.activity.OverallWeMediaDetailsActivity;
 import app.jietuqi.cn.ui.activity.OverallWebViewActivity;
 import app.jietuqi.cn.ui.activity.ProjectPopularizeActivity;
 import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity;
@@ -49,6 +51,7 @@ import app.jietuqi.cn.ui.entity.OverallCardEntity;
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity;
 import app.jietuqi.cn.ui.entity.OverallPublishEntity;
 import app.jietuqi.cn.ui.entity.OverallVipCardEntity;
+import app.jietuqi.cn.ui.entity.OverallWeMediaClassifyEntity;
 import app.jietuqi.cn.ui.entity.ProjectMarketEntity;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
 import app.jietuqi.cn.ui.qqscreenshot.entity.QQScreenShotEntity;
@@ -60,14 +63,19 @@ import app.jietuqi.cn.ui.qqscreenshot.ui.create.QQCreateTransferActivity;
 import app.jietuqi.cn.ui.qqscreenshot.ui.create.QQCreateVoiceActivity;
 import app.jietuqi.cn.ui.qqscreenshot.ui.preview.QQScreenShotPreviewActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity;
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateCardActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateEditRoleActivity;
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateEmojiActivity;
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateInviteJoinGroupActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreatePictureAndVideoActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateRedPacketActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateSettingInfoActivity;
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateShareActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateSystemMessageActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateTextActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateTimeActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateTransferActivity;
+import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateVideoActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatCreateVoiceActivity;
 import app.jietuqi.cn.ui.wechatscreenshot.ui.preview.WechatScreenShotPreviewActivity;
 import app.jietuqi.cn.wechat.create.WechatAddChargeDetailActivity;
@@ -96,6 +104,7 @@ import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorReceiveRedPack
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorRechargeSuccessActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorSendRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupRedPacketActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupSystemMessageActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreatePictureActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateSystemMessageActivity;
@@ -104,6 +113,9 @@ import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateT
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateTransferActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateVoiceActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorEditGroupInfoActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorEditGroupRolesActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorEditRoleActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorSortActivity;
 
 /**
  * 作者： liuyuanbo on 2018/10/2 20:37.
@@ -131,28 +143,6 @@ public class LaunchUtil {
         context.startActivityForResult(new Intent(context, cls), requestCode);
     }
 
-//    /**
-//     * 跳转到预览红包的页面(发红包)
-//     * @param sender 发送人
-//     * @param receiver 领取人
-//     */
-//    public static void startWechatScreenShotRedPacketPreviewActivity(Context context, WechatUserEntity sender, WechatUserEntity receiver){
-//        Intent intent = new Intent(context, WechatScreenShotRedPacketPreviewActivity.class);
-//        intent.putExtra(IntentKey.TYPE, 1);
-//        intent.putExtra(IntentKey.ENTITY_SENDER, sender);
-//        intent.putExtra(IntentKey.ENTITY_RECEIVER, receiver);
-//        context.startActivity(intent);
-//    }
-//    /**
-//     * 跳转到预览红包的页面(收红包)
-//     * @param sender 发送人
-//     */
-//    public static void startWechatScreenShotRedPacketPreviewActivity(Context context, WechatUserEntity sender){
-//        Intent intent = new Intent(context, WechatScreenShotRedPacketPreviewActivity.class);
-//        intent.putExtra(IntentKey.TYPE, 0);
-//        intent.putExtra(IntentKey.ENTITY_SENDER, sender);
-//        context.startActivity(intent);
-//    }
     /**
      * 跳转到预览红包的页面(收红包)
      * @param sender 发送人
@@ -441,9 +431,10 @@ public class LaunchUtil {
     /**
      * 跳转到选择角色页面
      */
-    public static void startForResultRoleOfLibraryActivity(Activity activity, int requestCode){
+    public static void startForResultRoleOfLibraryActivity(Activity activity, int requestCode, boolean needChangeShared){
         Intent intent = new Intent(activity, RoleOfLibraryActivity.class);
         intent.putExtra(IntentKey.REQUEST_CODE, requestCode);
+        intent.putExtra(IntentKey.CHANGE_SHAREDPREFERENCE, needChangeShared);
         activity.startActivityForResult(intent, requestCode);
     }
     /**
@@ -588,7 +579,6 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
-
     /**
      * 发送或接受红包的页面
      * type 0 -- 发布
@@ -613,6 +603,7 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
+
     /**
      * 创建系统提示的页面
      * type 0 -- 发布
@@ -635,7 +626,6 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.LIST, list);
         context.startActivity(intent);
     }
-
     /**
      * 创微信账单的页面
      * type 0 -- 创建
@@ -647,7 +637,6 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
-
     /**
      * 发送文本的页面
      * type 0 -- 发布
@@ -660,6 +649,7 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
+
     /**
      * 发送图片或视频的页面
      * type 0 -- 发布
@@ -672,6 +662,7 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
+
     /**
      * 发送或接受红包的页面
      * type 0 -- 发布
@@ -807,7 +798,6 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
-
     /**
      * 创建系统提示的页面
      * type 0 -- 发布
@@ -821,6 +811,19 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
+    /**
+     * 创建群系统提示的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatSimulatorCreateGroupSystemMessageActivity(Context context, int type, WechatUserEntity userEntity, WechatScreenShotEntity msgEntity){
+        Intent intent = new Intent(context, WechatSimulatorCreateGroupSystemMessageActivity.class);
+        intent.putExtra(IntentKey.ROLE_ENTITY, userEntity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+
     /**
      * 编辑群信息页面
      */
@@ -898,7 +901,6 @@ public class LaunchUtil {
         }
         context.startActivity(intent);
     }
-
     /**
      * 充值成功
      */
@@ -926,7 +928,6 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
-
     /**
      * 发送图片或视频的页面
      * type 0 -- 发布
@@ -939,6 +940,7 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
+
     /**
      * 项目推广
      */
@@ -947,6 +949,7 @@ public class LaunchUtil {
         intent.putExtra(IntentKey.ENTITY, entity);
         context.startActivity(intent);
     }
+
     /**
      * 加粉加群置顶服务
      */
@@ -970,6 +973,113 @@ public class LaunchUtil {
     public static void startOverallCdkListActivity(Context context, String orderId){
         Intent intent = new Intent(context, OverallCdkListActivity.class);
         intent.putExtra(IntentKey.ID, orderId);
+        context.startActivity(intent);
+    }
+    /**
+     * 自媒体分类页面
+     */
+    public static void startOverallWeMediaClassifyActivity(Context context, int type){
+        Intent intent = new Intent(context, OverallWeMediaClassifyActivity.class);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 自媒体分类详情页面
+     */
+    public static void startOverallWeMediaDetailsActivity(Context context, int type, OverallWeMediaClassifyEntity entity){
+        Intent intent = new Intent(context, OverallWeMediaDetailsActivity.class);
+        intent.putExtra(IntentKey.TYPE, type);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 增加或减少群成员
+     */
+    public static void startWechatSimulatorEditGroupRolesActivity(Context context, int type, WechatUserEntity entity){
+        Intent intent = new Intent(context, WechatSimulatorEditGroupRolesActivity.class);
+        intent.putExtra(IntentKey.TYPE, type);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 跳转到修改角色页面
+     */
+    public static void startWechatSimulatorEditRoleActivity(Activity activity, WechatUserEntity entity){
+        Intent intent = new Intent(activity, WechatSimulatorEditRoleActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        activity.startActivity(intent);
+    }
+    /**
+     * 对话排序
+     * @param type 0 -- 单聊
+     *             1 -- 群聊
+     */
+    public static void startWechatSimulatorSortActivity(Activity activity, ArrayList<WechatScreenShotEntity> conversation, WechatUserEntity otherEntity, String groupTableName, int type){
+        Intent intent = new Intent(activity, WechatSimulatorSortActivity.class);
+        intent.putExtra(IntentKey.LIST, conversation);
+        intent.putExtra(IntentKey.TYPE, type);
+        intent.putExtra(IntentKey.ENTITY, otherEntity);
+        intent.putExtra(IntentKey.GROUP_TABLE_NAME, groupTableName);
+        activity.startActivity(intent);
+    }
+    /**
+     * 创建视频和语音聊天的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatCreateVideoActivity(Context context, WechatUserEntity entity, WechatScreenShotEntity msgEntity, int type){
+        Intent intent = new Intent(context, WechatCreateVideoActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, entity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 创建转发的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatCreateShareActivity(Context context, WechatUserEntity entity, WechatScreenShotEntity msgEntity, int type){
+        Intent intent = new Intent(context, WechatCreateShareActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, entity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 创建个人名片的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatCreateCardActivity(Context context, WechatUserEntity entity, WechatScreenShotEntity msgEntity, int type){
+        Intent intent = new Intent(context, WechatCreateCardActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, entity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 创建个人名片的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatCreateInviteJoinGroupActivity(Context context, WechatUserEntity entity, WechatScreenShotEntity msgEntity, int type){
+        Intent intent = new Intent(context, WechatCreateInviteJoinGroupActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, entity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
+        context.startActivity(intent);
+    }
+    /**
+     * 创建表情的页面
+     * type 0 -- 发布
+     * type 1 -- 修改
+     */
+    public static void startWechatCreateEmojiActivity(Context context, WechatUserEntity entity, WechatScreenShotEntity msgEntity, int type){
+        Intent intent = new Intent(context, WechatCreateEmojiActivity.class);
+        intent.putExtra(IntentKey.OTHER_SIDE, entity);
+        intent.putExtra(IntentKey.ENTITY, msgEntity);
+        intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
     }
 }

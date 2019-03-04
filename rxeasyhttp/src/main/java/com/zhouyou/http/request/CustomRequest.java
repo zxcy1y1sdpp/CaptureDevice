@@ -82,7 +82,7 @@ public class CustomRequest extends BaseRequest<CustomRequest> {
     }
 
     public <T> void call(Observable<T> observable, CallBack<T> callBack) {
-        call(observable, new CallBackSubsciber(context, callBack));
+        call(observable, new CallBackSubsciber(context, callBack, false));
     }
 
     public <R> void call(Observable observable, Observer<R> subscriber) {
@@ -117,9 +117,9 @@ public class CustomRequest extends BaseRequest<CustomRequest> {
                 public ObservableSource<T> apply(@NonNull Observable<CacheResult<T>> upstream) {
                     return upstream.map(new CacheResultFunc<T>());
                 }
-            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack()));
+            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack(), false));
         } else {
-            return cacheobservable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack()));
+            return cacheobservable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack(), false));
         }
     }
 

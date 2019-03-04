@@ -53,11 +53,11 @@ class WechatCreateTransferActivity : BaseWechatScreenShotCreateActivity() {
             if (TextUtils.isEmpty(mMsgEntity.msg) || mMsgEntity.msg.startsWith("转账给")){
                 mMsgEntity.msg = ""
             }
-            mWechatCreatesTransferMsgEt.visibility = View.GONE
+//            mWechatCreatesTransferMsgEt.visibility = View.GONE
             OtherUtil.changeWechatTwoBtnBg(this, mWechatCreatesTransferReceiveTv, mWechatCreatesTransferSendTv)
         }
+        mWechatCreatesTransferMsgEt.setText(mMsgEntity.msg)
         mWechatCreatesTransferMoneyEt.setText(if (mMsgEntity.money.toFloat() > 0) mMsgEntity.money else "")
-
         mWechatCreatesTransferSendTimeTv.text = if (mMsgEntity.transferOutTime > 0) TimeUtil.stampToDateWithYMDHM(mMsgEntity.transferOutTime) else ""
         mWechatCreatesTransferReceiveTimeTv.text = if (mMsgEntity.transferReceiveTime > 0) TimeUtil.stampToDateWithYMDHM(mMsgEntity.transferReceiveTime) else ""
     }
@@ -102,7 +102,6 @@ class WechatCreateTransferActivity : BaseWechatScreenShotCreateActivity() {
                         receiveEntity.transferOutTime = mMsgEntity.transferOutTime
                         receiveEntity.money = mMsgEntity.money
                         mHelper.update(receiveEntity)
-//123                        EventBusUtil.post(receiveEntity)
                     }
                 }
             }

@@ -304,7 +304,7 @@ public class UserOperateUtil {
     }
 
     public static PostRequest getChannelParams(Context context){
-        PostRequest request = EasyHttp.post(HttpConfig.INDEX)
+        PostRequest request = EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "init")
                 .params("place", SystemInfoUtils.getChannel(context))
                 .params("appversion", AppUtils.getVersionName(context))

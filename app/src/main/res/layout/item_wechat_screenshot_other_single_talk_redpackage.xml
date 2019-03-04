@@ -22,22 +22,20 @@
             android:src="@drawable/head_default"
             android:scaleType="centerCrop"
             app:riv_corner_radius="5dp"/>
-        <com.zhy.android.percent.support.PercentLinearLayout
+        <!--<com.zhy.android.percent.support.PercentLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/wechatOtherAvatar"
-            android:layout_alignTop="@+id/wechatOtherAvatar"
-            android:orientation="vertical">
+            android:orientation="vertical">-->
             <TextView
                 android:id="@+id/sWechatNickNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="啦啦啦"
-                android:textSize="13sp"
-                android:paddingTop="2dp"
+                android:textSize="12sp"
+                android:textColor="@color/wechatLightGray"
+                android:layout_alignLeft="@+id/wechatBubbleLayout"
                 android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
-                android:textColor="@color/wechatLightGray"
                 android:visibility="gone"/>
             <com.zhy.android.percent.support.PercentRelativeLayout
                 android:id="@+id/wechatBubbleLayout"
@@ -45,7 +43,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_hongbao_b"
                 app:layout_heightPercent="23.28%w"
-                app:layout_widthPercent="61%w" >
+                app:layout_widthPercent="61%w"
+                android:layout_toRightOf="@+id/wechatOtherAvatar"
+                android:layout_below="@+id/sWechatNickNameTv">
 
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                     app:layout_marginLeftPercent="4.31%w"
                     android:layout_alignParentBottom="true"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
-        </com.zhy.android.percent.support.PercentLinearLayout>
+        <!--</com.zhy.android.percent.support.PercentLinearLayout>-->
 
         <LinearLayout
             android:id="@+id/receiveRedPacketLayout"

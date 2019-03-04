@@ -60,7 +60,7 @@ class QQCreateTransferActivity : BaseQQScreenShotCreateActivity() {
                         mQQCreateTransferMsgEt.setText("")
                     }
                 }
-                if (mType == 1){//修改
+                /*if (mType == 1){//修改
                     val receiveEntity = mHelper.query(mMsgEntity.id)//与被修改的数据关联在一起的收钱的数据
                     if (null != receiveEntity){
                         receiveEntity.transferReceiveTime = mMsgEntity.transferReceiveTime
@@ -68,7 +68,7 @@ class QQCreateTransferActivity : BaseQQScreenShotCreateActivity() {
                         receiveEntity.money = mMsgEntity.money
                         mHelper.update(receiveEntity)
                     }
-                }
+                }*/
             }
         }
         super.onClick(v)

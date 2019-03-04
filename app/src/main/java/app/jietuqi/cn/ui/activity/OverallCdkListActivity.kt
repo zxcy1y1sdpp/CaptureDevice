@@ -117,7 +117,7 @@ class OverallCdkListActivity : BaseOverallInternetActivity() {
         getOrders()
     }
     private fun getOrders(){
-        EasyHttp.post(HttpConfig.ORDER)
+        EasyHttp.post(HttpConfig.ORDER, true)
                 .params("way", "qingfen")
                 .params("order_id", mOrderId)
                 .params("limit", mLimit)

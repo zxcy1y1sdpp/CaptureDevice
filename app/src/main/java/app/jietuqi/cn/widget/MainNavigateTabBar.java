@@ -181,12 +181,12 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         if (mMainContentLayoutId == 0) {
             throw new RuntimeException("mFrameLayoutId Cannot be 0");
         }
-        if (mViewHolderList.size() == 0) {
+        /*if (mViewHolderList.size() == 0) {
             throw new RuntimeException("mViewHolderList.size Cannot be 0, Please call addTab()");
         }
         if (!(getContext() instanceof FragmentActivity)) {
             throw new RuntimeException("parent activity must is extends FragmentActivity");
-        }
+        }*/
         mFragmentActivity = (FragmentActivity) getContext();
 
         ViewHolder defaultHolder = null;

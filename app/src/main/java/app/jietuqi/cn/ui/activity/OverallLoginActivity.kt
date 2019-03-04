@@ -163,7 +163,7 @@ class OverallLoginActivity : BaseOverallInternetActivity(), PlatformActionListen
         return true
     }
     private fun login(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.REGISTER_AND_LOGIN)
+        var request: PostRequest = EasyHttp.post(HttpConfig.REGISTER_AND_LOGIN, false)
         if (mLoginType == 0){//账号密码登录
             request.params("password", OtherUtil.getContent(mOverallLoginPasswordEt))
                     .params("mobile", OtherUtil.getContent(mOverallLoginAccountEt))

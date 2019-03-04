@@ -68,9 +68,13 @@ public class TimeUtil {
      * 将时间戳转换为时间
      */
     public static String stampToDate(Object time){
+        long timesamp = Long.parseLong(time.toString());
+        if (String.valueOf(timesamp).length() <= 10){
+            timesamp = timesamp * 1000;
+        }
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy—MM—dd");
-        Date date = new Date(Long.parseLong(time.toString()) * 1000);
+        Date date = new Date(timesamp);
         res = simpleDateFormat.format(date);
         return res;
     }

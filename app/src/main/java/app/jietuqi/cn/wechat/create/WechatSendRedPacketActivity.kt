@@ -9,7 +9,11 @@ import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.TimeUtil
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_send_redpacket.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -41,8 +45,8 @@ class WechatSendRedPacketActivity : BaseWechatActivity() {
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        mSendEntity = RoleLibraryHelper(this).queryRandom1Item()
-        mReceiveEntity = RoleLibraryHelper(this).queryRandom1Item()
+        mSendEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
+        mReceiveEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
         mSenderNameTv.text = mSendEntity.wechatUserNickName
         GlideUtil.displayHead(this, mSendEntity.getAvatarFile(), mSendHeadIv)
         mReceiveNameTv.text = mReceiveEntity.wechatUserNickName

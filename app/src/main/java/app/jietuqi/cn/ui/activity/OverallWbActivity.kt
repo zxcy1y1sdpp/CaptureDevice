@@ -50,8 +50,9 @@ class OverallWbActivity : BaseOverallInternetActivity() {
 
     override fun initViewsListener() {
         mWb100Layout.setOnClickListener(this)
+        mWb400Layout.setOnClickListener(this)
         mWb1000Layout.setOnClickListener(this)
-        mWb6000Layout.setOnClickListener(this)
+        mWb3000Layout.setOnClickListener(this)
         mBuyTv.setOnClickListener(this)
     }
 
@@ -64,55 +65,95 @@ class OverallWbActivity : BaseOverallInternetActivity() {
             R.id.mWb100Layout ->{
                 mSelectCardEntity = mWbList[0]
                 mWb100Layout.setBackgroundResource(R.drawable.wb_select)
+                mWb400Layout.setBackgroundResource(R.drawable.wb_normal)
                 mWb1000Layout.setBackgroundResource(R.drawable.wb_normal)
-                mWb6000Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb3000Layout.setBackgroundResource(R.drawable.wb_normal)
 
                 mWb100CountTitleTv.setTextColor(Color.parseColor("#F85A59"))
                 mWb100CountTailTv.setTextColor(Color.parseColor("#F85A59"))
                 mWb100CountPriceTv.setTextColor(Color.parseColor("#F85A59"))
 
+                mWb400CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountPriceTv.setTextColor(Color.parseColor("#212121"))
+
                 mWb1000CountTitleTv.setTextColor(Color.parseColor("#212121"))
                 mWb1000CountTailTv.setTextColor(Color.parseColor("#212121"))
                 mWb1000CountPriceTv.setTextColor(Color.parseColor("#212121"))
 
-                mWb6000CountTitleTv.setTextColor(Color.parseColor("#212121"))
-                mWb6000CountTailTv.setTextColor(Color.parseColor("#212121"))
-                mWb6000CountPriceTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountPriceTv.setTextColor(Color.parseColor("#212121"))
+            }
+            R.id.mWb400Layout ->{
+                mSelectCardEntity = mWbList[1]
+                mWb400Layout.setBackgroundResource(R.drawable.wb_select)
+                mWb100Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb1000Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb3000Layout.setBackgroundResource(R.drawable.wb_normal)
+
+
+                mWb400CountTitleTv.setTextColor(Color.parseColor("#F85A59"))
+                mWb400CountTailTv.setTextColor(Color.parseColor("#F85A59"))
+                mWb400CountPriceTv.setTextColor(Color.parseColor("#F85A59"))
+
+                mWb100CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb100CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb100CountPriceTv.setTextColor(Color.parseColor("#212121"))
+
+                mWb1000CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb1000CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb1000CountPriceTv.setTextColor(Color.parseColor("#212121"))
+
+                mWb3000CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountPriceTv.setTextColor(Color.parseColor("#212121"))
             }
             R.id.mWb1000Layout ->{
+                mSelectCardEntity = mWbList[2]
                 mWb1000Layout.setBackgroundResource(R.drawable.wb_select)
                 mWb100Layout.setBackgroundResource(R.drawable.wb_normal)
-                mWb6000Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb400Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb3000Layout.setBackgroundResource(R.drawable.wb_normal)
 
-                mSelectCardEntity = mWbList[1]
                 mWb1000CountTitleTv.setTextColor(Color.parseColor("#F85A59"))
                 mWb1000CountTailTv.setTextColor(Color.parseColor("#F85A59"))
                 mWb1000CountPriceTv.setTextColor(Color.parseColor("#F85A59"))
 
+                mWb400CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountPriceTv.setTextColor(Color.parseColor("#212121"))
+
                 mWb100CountTitleTv.setTextColor(Color.parseColor("#212121"))
                 mWb100CountTailTv.setTextColor(Color.parseColor("#212121"))
                 mWb100CountPriceTv.setTextColor(Color.parseColor("#212121"))
 
-                mWb6000CountTitleTv.setTextColor(Color.parseColor("#212121"))
-                mWb6000CountTailTv.setTextColor(Color.parseColor("#212121"))
-                mWb6000CountPriceTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb3000CountPriceTv.setTextColor(Color.parseColor("#212121"))
             }
-            R.id.mWb6000Layout ->{
-                mWb6000Layout.setBackgroundResource(R.drawable.wb_select)
-                mWb1000Layout.setBackgroundResource(R.drawable.wb_normal)
-                mWb100Layout.setBackgroundResource(R.drawable.wb_normal)
+            R.id.mWb3000Layout ->{
                 mSelectCardEntity = mWbList[2]
-                mWb6000CountTitleTv.setTextColor(Color.parseColor("#F85A59"))
-                mWb6000CountTailTv.setTextColor(Color.parseColor("#F85A59"))
-                mWb6000CountPriceTv.setTextColor(Color.parseColor("#F85A59"))
+                mWb3000Layout.setBackgroundResource(R.drawable.wb_select)
+                mWb100Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb400Layout.setBackgroundResource(R.drawable.wb_normal)
+                mWb1000Layout.setBackgroundResource(R.drawable.wb_normal)
+
+                mWb3000CountTitleTv.setTextColor(Color.parseColor("#F85A59"))
+                mWb3000CountTailTv.setTextColor(Color.parseColor("#F85A59"))
+                mWb3000CountPriceTv.setTextColor(Color.parseColor("#F85A59"))
+
+                mWb400CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb400CountPriceTv.setTextColor(Color.parseColor("#212121"))
+
+                mWb100CountTitleTv.setTextColor(Color.parseColor("#212121"))
+                mWb100CountTailTv.setTextColor(Color.parseColor("#212121"))
+                mWb100CountPriceTv.setTextColor(Color.parseColor("#212121"))
 
                 mWb1000CountTitleTv.setTextColor(Color.parseColor("#212121"))
                 mWb1000CountTailTv.setTextColor(Color.parseColor("#212121"))
                 mWb1000CountPriceTv.setTextColor(Color.parseColor("#212121"))
-
-                mWb100CountTitleTv.setTextColor(Color.parseColor("#212121"))
-                mWb100CountTailTv.setTextColor(Color.parseColor("#212121"))
-                mWb100CountPriceTv.setTextColor(Color.parseColor("#212121"))
             }
             R.id.mBuyTv ->{
                 if (canBuy()){
@@ -134,16 +175,21 @@ class OverallWbActivity : BaseOverallInternetActivity() {
         getMoney()
     }
     private fun getMoney(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.GOLD).params("way", "goldprice")
+        var request: PostRequest = EasyHttp.post(HttpConfig.GOLD, false).params("way", "goldprice")
         request.execute(object : CallBackProxy<OverallApiEntity<ArrayList<WbEntity>>, ArrayList<WbEntity>>(object : SimpleCallBack<ArrayList<WbEntity>>() {
             override fun onSuccess(t: ArrayList<WbEntity>) {
                 mWbList = t
                 mWb100CountTitleTv.text = mWbList[0].title
                 mWb100CountPriceTv.text =  StringUtils.insertFront(mWbList[0].price, "¥")
-                mWb1000CountTitleTv.text = mWbList[1].title
-                mWb1000CountPriceTv.text = StringUtils.insertFront(mWbList[1].price, "¥")
-                mWb6000CountTitleTv.text = mWbList[2].title
-                mWb6000CountPriceTv.text = StringUtils.insertFront(mWbList[2].price, "¥")
+
+                mWb400CountTitleTv.text = mWbList[1].title
+                mWb400CountPriceTv.text = StringUtils.insertFront(mWbList[1].price, "¥")
+
+                mWb1000CountTitleTv.text = mWbList[2].title
+                mWb1000CountPriceTv.text = StringUtils.insertFront(mWbList[2].price, "¥")
+
+                mWb3000CountTitleTv.text = mWbList[3].title
+                mWb3000CountPriceTv.text = StringUtils.insertFront(mWbList[3].price, "¥")
 
             }
             override fun onError(e: ApiException) {
@@ -155,7 +201,7 @@ class OverallWbActivity : BaseOverallInternetActivity() {
      * 创建订单的接口
      */
     private fun createOrder(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.GOLD)
+        var request: PostRequest = EasyHttp.post(HttpConfig.GOLD, false)
                 .params("way", "add")
                 .params("pay", "appalipay")
                 .params("money", mSelectCardEntity?.id.toString())

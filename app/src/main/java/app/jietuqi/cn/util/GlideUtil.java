@@ -1,17 +1,16 @@
 package app.jietuqi.cn.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bm.zlzq.utils.ScreenUtil;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.util.Util;
 
 import java.io.File;
-import java.io.InputStream;
 
 import app.jietuqi.cn.App;
 import app.jietuqi.cn.GlideApp;
@@ -80,6 +79,16 @@ public class GlideUtil{
 	 */
 	public static void displayHead(Context context, Object object, ImageView imageView){
 		GlideApp.with(context)
+				.load(object)
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.thumbnail(0.1f)
+				.error(R.drawable.head_default)
+				.fallback(R.drawable.head_default)
+				.placeholder(R.drawable.head_default)
+				.into(imageView);
+	}
+	public static void displayGif(Context context, Object object, ImageView imageView){
+		GlideApp.with(context).asGif()
 				.load(object)
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.thumbnail(0.1f)
@@ -172,38 +181,6 @@ public class GlideUtil{
 	}
 
 	/**
-	 * 以最省内存的方式读取本地资源的图片
-	 * @param context 设备上下文
-	 * @param resId 资源ID
-	 * @return
-	 */
-	public static Bitmap decodeBitmap(Context context, int resId){
-		BitmapFactory.Options opt = new BitmapFactory.Options();
-		opt.inPreferredConfig = Bitmap.Config.RGB_565;
-		opt.inPurgeable = true;
-		opt.inInputShareable = true;
-		//获取资源图片
-		InputStream is = context.getResources().openRawResource(resId);
-		return BitmapFactory.decodeStream(is,null,opt);
-	}
-
-	/**
-	 * 加载二进制图片
-	 * @param context
-	 * @param resource：二进制图片
-	 * @param imageView
-	 */
-	public static void display(Context context, byte resource, ImageView imageView){
-		GlideApp.with(context)
-				.load(resource)
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.thumbnail(0.1f)
-				.error(R.mipmap.loading)
-				.fallback(R.mipmap.loading)
-				.into(imageView);
-	}
-
-	/**
 	 * 区分是资源文件图片加载还是sdcard中的图片加载
 	 * @param context
 	 * @param entity
@@ -218,7 +195,14 @@ public class GlideUtil{
 	}
 	/**－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ 删除Glide图片缓存 －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
 	public static void clearViews(Context context, ImageView view){
-		GlideApp.with(context).clear(view);
+		try{
+			if (Util.isOnMainThread()){
+				GlideApp.with(context).clear(view);
+			}
+		}catch (Exception e){
+			Log.e("Glide clear", e.getMessage());
+		}
+
 	}
 	/** * 清除内存缓存. */
 	public static void clearMemoryCache(Context context){

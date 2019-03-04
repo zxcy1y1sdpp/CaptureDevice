@@ -87,9 +87,9 @@ public class GetRequest extends BaseRequest<GetRequest> {
                 public ObservableSource<T> apply(@NonNull Observable<CacheResult<T>> upstream) {
                     return upstream.map(new CacheResultFunc<T>());
                 }
-            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack()));
+            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack(), false));
         } else {
-            return observable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack()));
+            return observable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack(), false));
         }
     }
 

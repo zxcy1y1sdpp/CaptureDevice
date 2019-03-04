@@ -76,7 +76,7 @@
         android:id="@+id/mWechatSimulatorPreviewBottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F1F1F1"
+        android:background="#f7f7f7"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
         <com.zhy.android.percent.support.PercentRelativeLayout
@@ -191,7 +191,7 @@
                     app:layout_heightPercent="53.69%w"
                     android:layout_gravity="center"
                     android:layout_centerVertical="true"
-                    android:background="#F1F1F1"/>
+                    android:background="#f7f7f7"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
             <LinearLayout
                 android:id="@+id/mWechatSimulatorPreviewIndicatorLayout"

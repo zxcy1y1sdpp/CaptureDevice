@@ -18,6 +18,7 @@ package com.zhouyou.http.subsciber;
 
 import android.content.Context;
 
+import com.zhouyou.http.EventBusUtil;
 import com.zhouyou.http.callback.CallBack;
 import com.zhouyou.http.callback.ProgressDialogCallBack;
 import com.zhouyou.http.exception.ApiException;
@@ -35,11 +36,13 @@ import io.reactivex.annotations.NonNull;
  */
 public class CallBackSubsciber<T> extends BaseSubscriber<T> {
     public CallBack<T> mCallBack;
+    public boolean mControllLoading;
 
 
-    public CallBackSubsciber(Context context, CallBack<T> callBack) {
+    public CallBackSubsciber(Context context, CallBack<T> callBack, boolean controlLoading) {
         super(context);
         mCallBack = callBack;
+        mControllLoading = controlLoading;
         if (callBack instanceof ProgressDialogCallBack) {
             ((ProgressDialogCallBack) callBack).subscription(this);
         }
@@ -65,7 +68,11 @@ public class CallBackSubsciber<T> extends BaseSubscriber<T> {
     @Override
     public void onNext(@NonNull T t) {
         super.onNext(t);
+        ProgressUtils.cancleProgressDialog();
         if (mCallBack != null) {
+            if (mControllLoading){
+                EventBusUtil.post("LoadingSuccess");
+            }
             mCallBack.onSuccess(t);
         }
     }
@@ -73,7 +80,6 @@ public class CallBackSubsciber<T> extends BaseSubscriber<T> {
     @Override
     public void onComplete() {
         super.onComplete();
-        ProgressUtils.cancleProgressDialog();
         if (mCallBack != null) {
             mCallBack.onCompleted();
         }

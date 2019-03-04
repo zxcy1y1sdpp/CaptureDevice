@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.view.View;
 
 import app.jietuqi.cn.wechat.wechatfont.FontCache;
 
@@ -64,7 +65,7 @@ public class RedPointTextView extends AppCompatTextView {
         //获取控件高度
         height = MeasureSpec.getSize(heightMeasureSpec);
         //定义字体大小，自测了一下，与高度相差6dp的字体大小看着还是挺舒服的
-        textSize = height - 22;
+        textSize = 30;
         textPaint.setTextSize(textSize);
         //获取文本宽度
         int textWidth = (int) textPaint.measureText(text);
@@ -95,7 +96,19 @@ public class RedPointTextView extends AppCompatTextView {
     }
 
     public void setText(String text) {
-        this.text = text;
+        if ("0".equals(text)){
+            setVisibility(View.GONE);
+        }else {
+            setVisibility(View.VISIBLE);
+        }
+        if (Integer.parseInt(text) > 99){
+            this.text = "···";
+            textPaint.setTextSize(50);
+        }else {
+            this.text = text;
+            textPaint.setTextSize(30);
+        }
+        invalidate();
         //重走onMeasure
         requestLayout();
     }

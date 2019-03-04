@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.alipayscreenshot.ui.create
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -181,11 +182,21 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 mAdapter?.notifyItemMoved(fromPosition, toPosition)
                 return true
             }
-
-            override fun onItemDismiss(srcHolder: RecyclerView.ViewHolder) {
-
-            }
+            override fun onItemDismiss(srcHolder: RecyclerView.ViewHolder) {}
         })
+
+        mAlipayScreenShotCreateMenuRecyclerView.setOnItemStateChangedListener { _, actionState ->
+            if (actionState === ACTION_STATE_IDLE) {
+                showQQWaitDialog("请稍后")
+                mHelper.deleteAll()
+
+                if (mHelper.saveAll(mList)){
+                    dismissQQDialog()
+                }else{
+                    showToast("排序失败")
+                }
+            }
+        }
         mAlipayScreenShotCreateMenuRecyclerView.adapter = mAdapter
     }
 

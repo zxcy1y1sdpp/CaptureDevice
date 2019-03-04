@@ -77,5 +77,10 @@
                 android:text="我的项目"/>
         </LinearLayout>
     </com.zhy.android.percent.support.PercentLinearLayout>
+    <include layout="@layout/include_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout"
+        android:layout_above="@+id/line"/>
 
 </com.zhy.android.percent.support.PercentRelativeLayout>

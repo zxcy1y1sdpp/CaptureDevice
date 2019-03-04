@@ -70,5 +70,5 @@
     <dimen name="normalTextSize17">17sp</dimen>
 
     <dimen name="sticky_height">20dp</dimen>
-
+    <dimen name="custom_avloading_height">64dp</dimen>
 </resources>

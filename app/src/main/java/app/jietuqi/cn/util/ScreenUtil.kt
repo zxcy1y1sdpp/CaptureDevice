@@ -44,17 +44,6 @@ object ScreenUtil {
         }
 
     /**
-     * 获取屏幕宽度用float作为单位
-     * @return
-     */
-    val screenWidthWithFloat: Float
-        get() {
-            val manager = App.instance.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val display = manager.defaultDisplay
-            return display.width.toFloat()
-        }
-
-    /**
      * 获取屏幕的高度
      *
      * @param context

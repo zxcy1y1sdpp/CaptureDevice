@@ -13,7 +13,6 @@ import app.jietuqi.cn.base.wechat.BaseWechatSimulatorCreateActivity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import kotlinx.android.synthetic.main.activity_wechat_create_text.*
-import kotlinx.android.synthetic.main.include_choice_role.*
 
 /**
  * 作者： liuyuanbo on 2018/12/4 09:51.
@@ -35,6 +34,7 @@ class WechatSimulatorCreateTextActivity: BaseWechatSimulatorCreateActivity() {
     }
 
     override fun initViewsListener() {
+        super.initViewsListener()
         mEmojiBoard.setItemClickListener { code ->
             //emoji点击事件
             if (code == "/DEL") {//点击了删除图标
@@ -44,8 +44,6 @@ class WechatSimulatorCreateTextActivity: BaseWechatSimulatorCreateActivity() {
             }
         }
         mEmojiEt.addTextChangedListener(textWatcher)
-        mWechatCreateChoiceMySideLayout.setOnClickListener(this)
-        mWechatCreateChoiceOtherSideLayout.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
@@ -60,16 +58,6 @@ class WechatSimulatorCreateTextActivity: BaseWechatSimulatorCreateActivity() {
     override fun onClick(v: View) {
 
         when(v.id){
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-                mMsgEntity.isComMsg = false
-            }
-            R.id.mWechatCreateChoiceOtherSideLayout ->{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-                mMsgEntity.isComMsg = true
-            }
             R.id.overallAllRightWithBgTv ->{
                 if(TextUtils.isEmpty(mEmojiEt.text.toString().trim())){
                     showToast("请输入聊天内容")

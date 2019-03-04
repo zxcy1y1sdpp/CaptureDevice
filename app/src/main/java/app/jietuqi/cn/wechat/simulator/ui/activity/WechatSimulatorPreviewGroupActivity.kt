@@ -4,6 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.os.Vibrator
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
@@ -35,6 +40,7 @@ import app.jietuqi.cn.wechat.simulator.util.WechatGroupRedPacket
 import app.jietuqi.cn.widget.menu.FloatMenu
 import com.bm.zlzq.utils.ScreenUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.zhouyou.http.EventBusUtil
 import com.zhy.android.percent.support.PercentLinearLayout
 import kotlinx.android.synthetic.main.activity_wechat_simulator_preview_group.*
 import kotlinx.coroutines.GlobalScope
@@ -55,18 +61,20 @@ import kotlin.collections.ArrayList
  */
 @RuntimePermissions
 class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulatorPreviewGroupAdapter.WechatOperateListener {
+
     /**
      * 群聊里面的人
      */
-    private var mGroupRoles = arrayListOf<WechatUserEntity>()
+    private var mGroupRolesList = arrayListOf<WechatUserEntity>()
     /**
      * 在列表中的数据
      */
     private var mListEntity = WechatUserEntity()
 
     private lateinit var mHelper: WechatSimulatorHelper
-    private val mList: MutableList<WechatScreenShotEntity> = mutableListOf()
+    private val mList: ArrayList<WechatScreenShotEntity> = arrayListOf()
     private lateinit var mAdapter:  WechatSimulatorPreviewGroupAdapter
+    private lateinit var mRoleAdapter: WechatGroupRolesAdapter
     /**
      * 0 -- 文本
      * 1-- 图片
@@ -94,14 +102,60 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
      */
     private var mLastMsgTime = 0L
     /**
-     * true -- 修改聊天背景
-     * false -- 发送图片
-     */
-    private var mChangeChatBg = false
-    /**
      * 准备编辑的消息的位置
      */
     private var mEditPosition = 0
+
+
+    private lateinit var sensorManager: SensorManager
+    private lateinit var sensor: Sensor
+    private lateinit var vibrator: Vibrator
+    private val UPTATE_INTERVAL_TIME = 50
+    private val SPEED_SHRESHOLD = 100//这个值调节灵敏度
+    private var lastUpdateTime: Long = 0
+    private var lastX: Float = 0f
+    private var lastY: Float = 0f
+    private var lastZ: Float = 0f
+    private var mCanShake = true
+    private val sensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+            val currentUpdateTime = System.currentTimeMillis()
+            val timeInterval = currentUpdateTime - lastUpdateTime
+            if (timeInterval < UPTATE_INTERVAL_TIME) {
+                return
+            }
+            lastUpdateTime = currentUpdateTime
+            // 传感器信息改变时执行该方法
+            val values = event.values
+            val x = values[0] // x轴方向的重力加速度，向右为正
+            val y = values[1] // y轴方向的重力加速度，向前为正
+            val z = values[2] // z轴方向的重力加速度，向上为正
+            val deltaX = x - lastX
+            val deltaY = y - lastY
+            val deltaZ = z - lastZ
+            lastX = x
+            lastY = y
+            lastZ = z
+            val speed = Math.sqrt((deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ).toDouble()) / timeInterval * 100
+            if (speed >= SPEED_SHRESHOLD) {
+                if (mCanShake){
+                    mCanShake = false
+                    if (!isFinishing){
+                        changeRole()
+                    }
+                    GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                        delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                        mCanShake = true
+                    }
+                }
+            }
+        }
+
+
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+
+        }
+    }
 
     override fun needLoadingView() = false
 
@@ -110,8 +164,8 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         if (hideCover){
             mWechatSimulatorPreviewCoverLayout.visibility = View.GONE
         }
-//        vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-//        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         registerEventBus()
         setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
         setLightStatusBarForM(this, true)
@@ -121,18 +175,20 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         initPointer()
     }
     private fun changeRole(){
-//        vibrator.vibrate(300)
-//        mComMsg = !mComMsg
-        /* var builder = QMUITipDialog.Builder(this).setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
-         if (mComMsg){//对方说话
-             builder.setTipWord("切换为对方说话")
-         }else{
-             builder.setTipWord("切换为自己说话")
-         }
-         mChangeRoleDialog = builder.create()
-         mChangeRoleDialog.show()
-         mWechatSimulatorPreviewBackTv.postDelayed({ mChangeRoleDialog.dismiss() }, 1500)*/
-//        mAdapter.changeRole(mComMsg)
+        vibrator.vibrate(300)
+        mComMsg = !mComMsg
+        mWechatBubbleLayout.visibility = View.GONE
+        mAdapter.changeRole(mComMsg)
+        var builder = QMUITipDialog.Builder(this).setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
+        if (mComMsg){//对方说话
+            builder.setTipWord("切换为 [最近发言人 ]说话")
+        }else{
+            builder.setTipWord("切换为 [ 自己 ]说话")
+        }
+        mChangeRoleDialog = builder.create()
+        mChangeRoleDialog.show()
+        mWechatSimulatorPreviewBackTv.postDelayed({ mChangeRoleDialog.dismiss() }, 1500)
+        mAdapter.setOtherSide(mOtherSideEntity)
     }
     override fun initViewsListener() {
         mMyLayout.setOnClickListener(this)
@@ -222,7 +278,8 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
     private fun initMenu(adapterPosition: Int){
         val floatMenu = FloatMenu(this@WechatSimulatorPreviewGroupActivity)
-        floatMenu.items("删除", "编辑", "撤回")
+//        floatMenu.items("删除", "编辑")
+        floatMenu.items("删除", "编辑", "撤回", "排序")
         floatMenu.show(mPoint)
         floatMenu.setOnItemClickListener { _, position ->
             when(position){
@@ -266,17 +323,25 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                             LaunchUtil.startWechatSimulatorCreateVoiceActivity(this, mOtherSideEntity, entity, 1)
                         }
                         8 ->{
-                            LaunchUtil.startWechatSimulatorCreateSystemMessageActivity(this, mOtherSideEntity, entity, 1, "微信")
+                            LaunchUtil.startWechatSimulatorCreateGroupSystemMessageActivity(this, 1, mListEntity, entity)
                         }
                     }
                 }
                 2 ->{
                     var entity = mList[adapterPosition]
                     entity.msgType = 8
-                    entity.msg = "你撤回了一条消息"
                     entity.needEventBus = false
+                    if (mComMsg){
+                        entity.msg = StringUtils.insertFrontAndBack(entity.wechatUserNickName, "“", "”撤回了一条消息")
+                    }else{
+                        entity.msg = "你撤回了一条消息"
+                    }
                     mHelper.update(entity, true)
                     mAdapter.notifyItemChanged(adapterPosition)
+                    saveLastMsg()
+                }
+                3 ->{
+                    LaunchUtil.startWechatSimulatorSortActivity(this, mList, null, mListEntity.groupTableName, 1)
                 }
             }
         }
@@ -317,11 +382,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             if (i == 1) {
                 //表示当前图片
                 imageViews[i].setBackgroundResource(R.drawable.wechat_simulator_select)
-                /**
-                 * 在java代码中动态生成ImageView的时候
-                 * 要设置其BackgroundResource属性才有效
-                 * 设置ImageResource属性无效
-                 */
             } else {
                 imageViews[i].setBackgroundResource(R.drawable.wechat_simulator_unselect)
             }
@@ -333,10 +393,10 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         super.getAttribute(intent)
         mListEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity//获取对方信息
         mLastMsgTime = mListEntity.lastTime
-        mGroupRoles.addAll(mListEntity.groupRoles)//获取聊天对象
+        mGroupRolesList.addAll(mListEntity.groupRoles)//获取聊天对象
         var recentRoles: WechatUserEntity
-        for (i in mGroupRoles.indices){
-            recentRoles = mGroupRoles[i]
+        for (i in mGroupRolesList.indices){
+            recentRoles = mGroupRolesList[i]
             if (recentRoles.isRecentRole){
                 mOtherSideEntity = recentRoles//找到最近的聊天对象
             }
@@ -346,14 +406,14 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mMyAvatarIv)
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mOtherAvatarIv)
 
-        val rolesAdapter = WechatGroupRolesAdapter(mGroupRoles)
-        mWechatGroupRolesRv.adapter = rolesAdapter
+        mRoleAdapter = WechatGroupRolesAdapter(mGroupRolesList)
+        mWechatGroupRolesRv.adapter = mRoleAdapter
         mWechatGroupRolesRv.addOnItemTouchListener(object : OnRecyclerItemClickListener(mWechatGroupRolesRv) {
             override fun onItemClick(vh: RecyclerView.ViewHolder) {
-                for (i in mGroupRoles.indices){
-                    mGroupRoles[i].isRecentRole = i == vh.adapterPosition
+                for (i in mGroupRolesList.indices){
+                    mGroupRolesList[i].isRecentRole = i == vh.adapterPosition
                 }
-                mOtherSideEntity = mGroupRoles[vh.adapterPosition]
+                mOtherSideEntity = mGroupRolesList[vh.adapterPosition]
                 GlideUtil.displayHead(this@WechatSimulatorPreviewGroupActivity, mOtherSideEntity.getAvatarFile(), mOtherAvatarIv)
                 mComMsg = true
                 mWechatBubbleLayout.visibility = View.GONE
@@ -364,7 +424,12 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
         })
         mHelper = WechatSimulatorHelper(this, mListEntity.groupTableName)
-        mWechatSimulatorPreviewNickNameTv.text = mOtherSideEntity.wechatUserNickName
+        if (TextUtils.isEmpty(mListEntity.groupName)){
+            mWechatSimulatorPreviewNickNameTv.text = StringUtils.insertFrontAndBack(mListEntity.groupRoleCount, "群聊(", ")")
+        }else{
+            mWechatSimulatorPreviewNickNameTv.text = mListEntity.groupName
+        }
+
         val list = mHelper.queryAll()//获取和对方聊天的记录
         if (null != list){
             mList.addAll(list)
@@ -498,9 +563,9 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             }
             R.id.wechatSimulatorFunRedPacketLayout ->{//发送红包
                 if (mComMsg){
-                    LaunchUtil.startWechatSimulatorCreateGroupRedPacketActivity(this, mOtherSideEntity, mGroupRoles.size, mComMsg)
+                    LaunchUtil.startWechatSimulatorCreateGroupRedPacketActivity(this, mOtherSideEntity, mGroupRolesList.size, mComMsg)
                 }else{
-                    LaunchUtil.startWechatSimulatorCreateGroupRedPacketActivity(this, mMySideEntity, mGroupRoles.size, mComMsg)
+                    LaunchUtil.startWechatSimulatorCreateGroupRedPacketActivity(this, mMySideEntity, mGroupRolesList.size, mComMsg)
                 }
             }
             R.id.wechatSimulatorFunTransferLayout ->{//发送转账
@@ -513,7 +578,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                 showToast("开发中")
             }
             R.id.wechatSimulatorFunSystemLayout ->{//发送系统消息
-                LaunchUtil.startWechatSimulatorCreateSystemMessageActivity(this, mOtherSideEntity, null, 0, "微信")
+                LaunchUtil.startWechatSimulatorCreateGroupSystemMessageActivity(this, 0, mListEntity, null)
             }
         }
     }
@@ -522,8 +587,8 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
          * 对于这几个想要动态载入的page页面，使用LayoutInflater.inflate()来找到其布局文件，并实例化为View对象
          */
         val inflater = LayoutInflater.from(this)
-        val page1 = inflater.inflate(R.layout.item_wechat_simulator_1, null)
-        val page2 = inflater.inflate(R.layout.item_wechat_simulator_2, null)
+        val page1 = inflater.inflate(R.layout.item_wechat_simulator_group1, null)
+        val page2 = inflater.inflate(R.layout.item_wechat_simulator_group2, null)
         page2.findViewById<PercentLinearLayout>(R.id.wechatSimulatorFunTimeLayout).setOnClickListener(this)
         page2.findViewById<PercentLinearLayout>(R.id.wechatSimulatorFunPictureLayout).setOnClickListener(this)
         page2.findViewById<PercentLinearLayout>(R.id.wechatSimulatorFunVideoLayout).setOnClickListener(this)
@@ -566,18 +631,13 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             RequestCode.IMAGE_SELECT ->{
-                if (mChangeChatBg){
-                    mListEntity.chatBg = mFiles[0].absolutePath
-//                    mOtherSideEntity.chatBg = mFiles[0].absolutePath
-                    GlideUtil.displayAll(this, File(mListEntity.chatBg), mWechatSimulatorPreviewRecyclerViewBgIv)
-                    mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.VISIBLE
-                    mAdapter.showChatBg(true)
-                    mAdapter.notifyDataSetChanged()
-                }else{
+                if (null != data){
                     if (mFiles.size >= 1){
                         mFunType = 1
                         saveMsg()
                     }
+                }else{
+                    mFiles.clear()
                 }
             }
         }
@@ -704,7 +764,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
     private fun saveLastMsg(){
-        EventBusUtil.unRegister(this)
+
         val lastEntity = mHelper.queryLastMsg()
         var listHelper = WechatSimulatorListHelper(this)
         if (null != lastEntity){
@@ -722,90 +782,17 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             userEntity.lastTime = mLastMsgTime
             listHelper.update(mListEntity)
             EventBusUtil.post(mListEntity)
-        }/*else{
-            val userEntity = WechatUserEntity()
-            userEntity.id = mOtherSideEntity.listId
-            userEntity.wechatUserId = mOtherSideEntity.wechatUserId
-            userEntity.avatarInt = mOtherSideEntity.avatarInt
-            userEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
-            userEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
-            userEntity.avatarFile = mOtherSideEntity.avatarFile
-            userEntity.pinyinNickName = mOtherSideEntity.pinyinNickName
-            userEntity.firstChar = mOtherSideEntity.firstChar
-            userEntity.isFirst = mOtherSideEntity.isFirst
-            userEntity.isLast = mOtherSideEntity.isLast
-            userEntity.meSelf = mOtherSideEntity.meSelf
-            userEntity.top = mOtherSideEntity.top
-            userEntity.resourceName = mOtherSideEntity.resourceName
-            userEntity.unReadNum = "0"
-            userEntity.showPoint = false
-
-            userEntity.msgType = null
-            userEntity.timeType = "24"
-            userEntity.msg = ""
-            userEntity.lastTime = mLastMsgTime
-            if (null == listHelper.query(userEntity.wechatUserId)){//没有该数据，说明没有保存到聊天列表中
-                listHelper.save(userEntity)
-            }else{
-                listHelper.update(userEntity)
-            }
-        }*/
+        }
     }
 
-    //    private lateinit var sensorManager: SensorManager
-//    private lateinit var sensor: Sensor
-//    private lateinit var vibrator: Vibrator
-//    private val UPTATE_INTERVAL_TIME = 50
-//    private val SPEED_SHRESHOLD = 100//这个值调节灵敏度
-//    private var lastUpdateTime: Long = 0
-//    private var lastX: Float = 0f
-//    private var lastY: Float = 0f
-//    private var lastZ: Float = 0f
-//    private var mCanShake = true
     override fun onResume() {
         // TODO Auto-generated method stub
         super.onResume()
         needVipForCover()
-//        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-//        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_GAME)//这里选择感应频率
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_GAME)//这里选择感应频率
     }
-    //    private val sensorEventListener = object : SensorEventListener {
-//        override fun onSensorChanged(event: SensorEvent) {
-//            val currentUpdateTime = System.currentTimeMillis()
-//            val timeInterval = currentUpdateTime - lastUpdateTime
-//            if (timeInterval < UPTATE_INTERVAL_TIME) {
-//                return
-//            }
-//            lastUpdateTime = currentUpdateTime
-//            // 传感器信息改变时执行该方法
-//            val values = event.values
-//            val x = values[0] // x轴方向的重力加速度，向右为正
-//            val y = values[1] // y轴方向的重力加速度，向前为正
-//            val z = values[2] // z轴方向的重力加速度，向上为正
-//            val deltaX = x - lastX
-//            val deltaY = y - lastY
-//            val deltaZ = z - lastZ
-//            lastX = x
-//            lastY = y
-//            lastZ = z
-//            val speed = Math.sqrt((deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ).toDouble()) / timeInterval * 100
-//            if (speed >= SPEED_SHRESHOLD) {
-//                if (mCanShake){
-//                    mCanShake = false
-//                    changeRole()
-//                    GlobalScope.launch { // 在一个公共线程池中创建一个协程
-//                        delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
-//                        mCanShake = true
-//                    }
-//                }
-//            }
-//        }
-//
-//
-//        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-//
-//        }
-//    }
+
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action === MotionEvent.ACTION_DOWN) {
             mPoint.x = ev.rawX.toInt()
@@ -845,7 +832,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     override fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int) {
 //        mAdapter.setRedPacketEntity(entity)
         //所有可能领红包的人
-        val allRolesList = mGroupRoles
+        val allRolesList = mGroupRolesList
         val redPacket = WechatGroupRedPacket()
         var receiveRedPacketRoleList: ArrayList<WechatUserEntity>
         //领红包的随机金额
@@ -939,7 +926,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     override fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int) {
 //        mAdapter.setRedPacketEntity(entity)
         //所有可能领红包的人
-        val allRolesList = mGroupRoles
+        val allRolesList = mGroupRolesList
         val redPacket = WechatGroupRedPacket()
         var receiveRedPacketRoleList: ArrayList<WechatUserEntity>
         //领红包的随机金额
@@ -1029,6 +1016,16 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         mWechatBubbleLayout.visibility = View.GONE
         mWechatSimulatorPreviewEmojiLayout.visibility = View.GONE
     }
+    override fun changeUserInfo(entity: WechatScreenShotEntity) {
+        val editEntity = WechatUserEntity()
+        editEntity.wechatUserNickName = entity.wechatUserNickName
+        editEntity.wechatUserId = entity.wechatUserId
+        editEntity.avatarInt = entity.avatarInt
+        editEntity.wechatUserAvatar = entity.avatarStr
+        editEntity.resourceName = entity.resourceName
+        editEntity.pinyinNickName = OtherUtil.transformPinYin(entity.wechatUserNickName)
+        LaunchUtil.startWechatSimulatorEditRoleActivity(this, editEntity)
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(entity: WechatScreenShotEntity) {
         mFunType = entity.msgType
@@ -1046,28 +1043,63 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onChangeUserInfo(entity: WechatUserEntity) {
-        mWechatSimulatorPreviewNickNameTv.text = entity.groupName
-        mOtherSideEntity.chatBg = entity.chatBg
-//        mOtherSideEntity = entity
-        mAdapter.setOtherSide(mOtherSideEntity)
-        mAdapter.showNickName(entity.groupShowNickName)
-        if (TextUtils.isEmpty(mOtherSideEntity.chatBg)){//没有聊天背景
-            mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.GONE
-            mAdapter.showChatBg(false)
-        }else{
-            GlideUtil.displayAll(this, File(mOtherSideEntity.chatBg), mWechatSimulatorPreviewRecyclerViewBgIv)
-            mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.VISIBLE
-            mAdapter.showChatBg(true)
+        if ("编辑" == entity.eventBusTag){
+            mGroupRolesList.clear()
+            mGroupRolesList.addAll(entity.groupRoles)
+            mListEntity.groupRoles.clear()
+            mListEntity.groupRoles.addAll(entity.groupRoles)
+            mRoleAdapter.notifyDataSetChanged()
+            if (TextUtils.isEmpty(entity.groupName)){
+                mWechatSimulatorPreviewNickNameTv.text = StringUtils.insertFrontAndBack(entity.groupRoleCount, "群聊(", ")")
+            }else{
+                mWechatSimulatorPreviewNickNameTv.text = entity.groupName
+            }
+            var roleEntity: WechatUserEntity
+            for (i in entity.groupRoles.indices){
+                roleEntity = entity.groupRoles[i]
+                if (roleEntity.isRecentRole){
+                    if (roleEntity.wechatUserId != mOtherSideEntity.wechatUserId){
+                        mOtherSideEntity = roleEntity
+                        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mOtherAvatarIv)
+                    }
+                }
+            }
+            mOtherSideEntity.chatBg = entity.chatBg
+            mAdapter.setOtherSide(mOtherSideEntity)
+            mAdapter.showNickName(entity.groupShowNickName)
+            if (TextUtils.isEmpty(mOtherSideEntity.chatBg)){//没有聊天背景
+                mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.GONE
+                mAdapter.showChatBg(false)
+            }else{
+                GlideUtil.displayAll(this, File(mOtherSideEntity.chatBg), mWechatSimulatorPreviewRecyclerViewBgIv)
+                mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.VISIBLE
+                mAdapter.showChatBg(true)
+            }
+            mAdapter.notifyDataSetChanged()
         }
-        mAdapter.notifyDataSetChanged()
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onClean(clean: String) {
-        if ("清除" == clean){
+    fun onOperateEvent(operate: String) {
+        if ("清除" == operate){
             mHelper.deleteAll()
             mLastMsgTime = mList[mList.size - 1].lastTime
             mList.clear()
             mAdapter.notifyDataSetChanged()
+        }
+        if ("排序" == operate){
+            val list = mHelper.queryAll()//获取和对方聊天的记录
+            if (null != list){
+                mList.clear()
+            }
+            mList.addAll(list)
+            mAdapter.notifyDataSetChanged()
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+//                delay(150L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                saveLastMsg()
+                runOnUiThread{
+                    mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
+                }
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
 import app.jietuqi.cn.widget.menu.FloatMenu
 import com.bm.zlzq.utils.ScreenUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.zhouyou.http.EventBusUtil
 import com.zhy.android.percent.support.PercentLinearLayout
 import kotlinx.android.synthetic.main.activity_wechat_simulator_preview.*
 import kotlinx.coroutines.GlobalScope
@@ -58,7 +59,7 @@ import java.io.File
 class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPreviewAdapter.WechatOperateListener {
 
     private lateinit var mHelper: WechatSimulatorHelper
-    private val mList: MutableList<WechatScreenShotEntity> = mutableListOf()
+    private val mList: ArrayList<WechatScreenShotEntity> = arrayListOf()
     private lateinit var mAdapter: WechatSimulatorPreviewAdapter
     /**
      * 0 -- 文本
@@ -87,11 +88,6 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
      */
     private var mLastMsgTime = 0L
     /**
-     * true -- 修改聊天背景
-     * false -- 发送图片
-     */
-    private var mChangeChatBg = false
-    /**
      * 准备编辑的消息的位置
      */
     private var mEditPosition = 0
@@ -108,6 +104,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         mOtherSideEntity = WechatUserEntity()
         registerEventBus()
         setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
+        setNavigationBarBg(ColorFinal.NEW_WECHAT_TITLEBAR)
         setLightStatusBarForM(this, true)
         mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
         mWechatSimulatorPreviewVoiceAndKeyBoardIv.tag = "0"
@@ -115,18 +112,22 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         initPointer()
     }
     private fun changeRole(){
-        vibrator.vibrate(300)
-        mComMsg = !mComMsg
-        var builder = QMUITipDialog.Builder(this).setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
-        if (mComMsg){//对方说话
-            builder.setTipWord("切换为对方说话")
-        }else{
-            builder.setTipWord("切换为自己说话")
+        try {
+            vibrator.vibrate(300)
+            mComMsg = !mComMsg
+            var builder = QMUITipDialog.Builder(this).setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
+            if (mComMsg){//对方说话
+                builder.setTipWord("切换为对方说话")
+            }else{
+                builder.setTipWord("切换为自己说话")
+            }
+            mChangeRoleDialog = builder.create()
+            mChangeRoleDialog.show()
+            mWechatSimulatorPreviewBackTv.postDelayed({ mChangeRoleDialog.dismiss() }, 1500)
+            mAdapter.changeRole(mComMsg)
+        }catch (e: Exception){
+            showToast("切换失败，请重试")
         }
-        mChangeRoleDialog = builder.create()
-        mChangeRoleDialog.show()
-        mWechatSimulatorPreviewBackTv.postDelayed({ mChangeRoleDialog.dismiss() }, 1500)
-        mAdapter.changeRole(mComMsg)
     }
     override fun initViewsListener() {
         mWechatSimulatorPreviewCoverDontShowBtn.setOnClickListener(this)
@@ -211,7 +212,7 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
     }
     private fun initMenu(adapterPosition: Int){
         val floatMenu = FloatMenu(this@WechatSimulatorPreviewActivity)
-        floatMenu.items("删除", "编辑", "撤回")
+        floatMenu.items("删除", "编辑", "撤回", "排序")
         floatMenu.show(mPoint)
         floatMenu.setOnItemClickListener { _, position ->
             when(position){
@@ -266,6 +267,9 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
                     entity.needEventBus = false
                     mHelper.update(entity, true)
                     mAdapter.notifyItemChanged(adapterPosition)
+                }
+                3 ->{
+                    LaunchUtil.startWechatSimulatorSortActivity(this, mList, mOtherSideEntity, "", 0)
                 }
             }
         }
@@ -505,17 +509,13 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             RequestCode.IMAGE_SELECT ->{
-                if (mChangeChatBg){
-                    mOtherSideEntity.chatBg = mFiles[0].absolutePath
-                    GlideUtil.displayAll(this, File(mOtherSideEntity.chatBg), mWechatSimulatorPreviewRecyclerViewBgIv)
-                    mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.VISIBLE
-                    mAdapter.showChatBg(true)
-                    mAdapter.notifyDataSetChanged()
-                }else{
+                if (null != data){
                     if (mFiles.size >= 1){
                         mFunType = 1
                         saveMsg()
                     }
+                }else{
+                    mFiles.clear()
                 }
             }
         }
@@ -714,12 +714,26 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         mAdapter.notifyDataSetChanged()
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onClean(clean: String) {
-        if ("清除" == clean){
+    fun onOperateEvent(operate: String) {
+        if ("清除" == operate){
             mHelper.deleteAll()
             mLastMsgTime = mList[mList.size - 1].lastTime
             mList.clear()
             mAdapter.notifyDataSetChanged()
+        }
+        if ("排序" == operate){
+            val list = mHelper.queryAll()//获取和对方聊天的记录
+            if (null != list){
+                mList.clear()
+            }
+            mList.addAll(list)
+            mAdapter.notifyDataSetChanged()
+            GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                delay(150L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                runOnUiThread{
+                    mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
+                }
+            }
         }
     }
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -824,12 +838,8 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         // TODO Auto-generated method stub
         super.onResume()
         needVipForCover()
-        if (sensorManager != null) {
-            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        }
-        if (sensor != null) {
-            sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_GAME)//这里选择感应频率
-        }
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_GAME)//这里选择感应频率
     }
     private val sensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {

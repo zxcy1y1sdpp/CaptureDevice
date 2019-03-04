@@ -4,8 +4,12 @@ import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatFragment
 import app.jietuqi.cn.constant.ColorFinal
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorMyInfoActivity
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.fragment_wechat_my.*
 
 /**
@@ -16,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_wechat_my.*
  */
 
 class WechatMyFragment : BaseWechatFragment() {
+    override fun needLoading() = false
+
     override fun setLayoutResouceId() = R.layout.fragment_wechat_my
 
     override fun initAllViews() {
@@ -61,6 +67,6 @@ class WechatMyFragment : BaseWechatFragment() {
         val mySelf = UserOperateUtil.getWechatSimulatorMySelf()
         GlideUtil.displayHead(activity, mySelf.getAvatarFile(), sWechatMyAvatarIv)
         sWechatMyNickNameTv.text = mySelf.wechatUserNickName
-        sWechatMyWxNumberTv.text = StringUtils.insertFront(mySelf.wechatNumber, "微信号：")
+        sWechatMyWxNumberTv.text = StringUtils.insertFront(mySelf.wxNumber, "微信号：")
     }
 }

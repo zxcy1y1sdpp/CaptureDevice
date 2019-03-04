@@ -32,9 +32,7 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
     private var mBannerList = arrayListOf<BannerEntity>()
     override fun setLayoutResourceId() = R.layout.activity_overall_project_market
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
         setTopTitle("项目市场")
@@ -76,13 +74,13 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
     }
 
     private fun getData(){
-        Log.e("时间： " , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, true)
                 .params("way", "lists")
                 .params("mid", UserOperateUtil.getUserId())
-                .params("limit", mLimit)
+                .params("limit", mLimit)//添加了
                 .params("page", mPage.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<ProjectMarketEntity>>, ArrayList<ProjectMarketEntity>>(object : SimpleCallBack<ArrayList<ProjectMarketEntity>>() {
+
                     override fun onStart() {
                         super.onStart()
                         Log.e("时间： -   onStart" , TimeUtil.getAllSpecTime(TimeUtil.getCurrentTimeEndMs()))
@@ -106,6 +104,7 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
                         if (mPage == 1){
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
+                            showEmptyView()
                         }else{
                             mProjectMarketSrl.finishLoadMoreWithNoMoreData()
                         }
@@ -113,7 +112,7 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
                 }) {})
     }
     private fun getBannerData(){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "swipe")
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<BannerEntity>>, ArrayList<BannerEntity>>(object : SimpleCallBack<ArrayList<BannerEntity>>() {
                     override fun onSuccess(t: ArrayList<BannerEntity>?) {

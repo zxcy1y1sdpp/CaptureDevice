@@ -34,6 +34,8 @@ import kotlinx.android.synthetic.main.fragment_my.*
  */
 
 class MyFragment : BaseFragment(), RefreshListener {
+    override fun needLoading() = false
+
     private var mUserEntity: OverallUserInfoEntity? = null
     override fun setLayoutResouceId() = R.layout.fragment_my
     override fun initAllViews() {
@@ -156,7 +158,7 @@ class MyFragment : BaseFragment(), RefreshListener {
     override fun loadFromServer() {
         super.loadFromServer()
         if (UserOperateUtil.isCurrentLoginNoDialog()){
-            var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "id").params("id", UserOperateUtil.getUserId())
+            var request: PostRequest = EasyHttp.post(HttpConfig.USERS, false).params("way", "id").params("id", UserOperateUtil.getUserId())
             request.execute(object : CallBackProxy<OverallApiEntity<OverallUserInfoEntity>, OverallUserInfoEntity>(object : SimpleCallBack<OverallUserInfoEntity>() {
                 override fun onError(e: ApiException) {
                     e.message?.let { showToast(it) }

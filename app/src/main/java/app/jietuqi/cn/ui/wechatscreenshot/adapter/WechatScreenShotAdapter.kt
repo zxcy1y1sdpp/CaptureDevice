@@ -1,6 +1,7 @@
 package app.jietuqi.cn.ui.wechatscreenshot.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,12 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val 
         override fun onClick(v: View?) {
             when(v?.id){
                 R.id.sWechatScreenShotDeleteTv ->{
-                    var entity = mList[adapterPosition]
-                    mListener.delete(entity, adapterPosition)
+                    try {
+                        var entity = mList[adapterPosition]
+                        mListener.delete(entity, adapterPosition)
+                    }catch (e: Exception){
+                        Log.e("下标越界了", "ArrayIndexOutOfBoundsException")
+                    }
                 }
                 else ->{
                 }
@@ -84,6 +89,21 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val 
                 entity.msgType == 8 -> {
                     GlideUtil.displayHead(itemView.context, R.drawable.message_system, avatarIv)
                     contentTv.text = StringUtils.insertFront(entity.msg, "[系统提示]")
+                }
+                entity.msgType == 9 -> {
+                    contentTv.text = StringUtils.insertFront(entity.msg, "[视频聊天]")
+                }
+                entity.msgType == 10 -> {
+                    contentTv.text = StringUtils.insertFront(entity.msg, "[语音聊天]")
+                }
+                entity.msgType == 11 -> {
+                    contentTv.text = "[转发]"
+                }
+                entity.msgType == 12 -> {
+                    contentTv.text = "[名片]"
+                }
+                entity.msgType == 13 -> {
+                    contentTv.text = "[加群]"
                 }
             }
         }

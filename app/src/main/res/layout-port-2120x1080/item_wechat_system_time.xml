@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gray_round_cornor"
-        app:layout_marginTopPercent="3.44%w"
-        app:layout_marginBottomPercent="3.44%w">
+        app:layout_marginTopPercent="1.73%w"
+        app:layout_marginBottomPercent="1.73%w">
         <TextView
             android:id="@+id/wechatSystemTv"
             android:layout_width="wrap_content"
@@ -21,13 +21,6 @@
             android:textColor="@color/wechatLightGray"
             android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/wechatSystemTv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 重新编辑"
-            android:textColor="#576b95"
-            android:textSize="14sp"/>
     </LinearLayout>
 
 </com.zhy.android.percent.support.PercentLinearLayout>

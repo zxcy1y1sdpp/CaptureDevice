@@ -30,7 +30,7 @@ public class TopRightMenu {
     private TRMenuAdapter mAdapter;
     private List<MenuItem> menuItemList;
 
-    private static final int DEFAULT_HEIGHT = 240;
+    private static final int DEFAULT_HEIGHT = 360;
     private int popHeight = DEFAULT_HEIGHT;
     private int popWidth = RecyclerView.LayoutParams.WRAP_CONTENT;
     private boolean showIcon = true;
@@ -69,12 +69,9 @@ public class TopRightMenu {
         mPopupWindow.setFocusable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable());
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                if (dimBackground) {
-                    setBackgroundAlpha(alpha, 1f, 300);
-                }
+        mPopupWindow.setOnDismissListener(() -> {
+            if (dimBackground) {
+                setBackgroundAlpha(alpha, 1f, 300);
             }
         });
 

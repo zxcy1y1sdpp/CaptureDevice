@@ -14,11 +14,11 @@ import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_alipay_create_transfer_bill.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import org.greenrobot.eventbus.Subscribe
@@ -45,7 +45,7 @@ class AlipayCreateTransferBillActivity : BaseCreateActivity(), EditDialogChoiceL
     }
 
     override fun initAllViews() {
-        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        val userEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
         mEntity.avatarFile = userEntity.avatarFile
 //        mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName

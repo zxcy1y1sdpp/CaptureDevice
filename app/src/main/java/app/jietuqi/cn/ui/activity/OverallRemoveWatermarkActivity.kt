@@ -130,7 +130,7 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
         val link =  OtherUtil.readRealPath(mRemoveWaterMarkUrlEt.text.toString())
         val timestamp = System.currentTimeMillis().toString()
         val sign = MD5.string2MD5(link + timestamp + clientSecretKey)
-        EasyHttp.post("/video/download")
+        EasyHttp.post("/video/download", false)
                 .baseUrl("http://service.iiilab.com")
                 .params("link", link)
                 .params("timestamp", timestamp)
@@ -195,7 +195,7 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
     }
 
     private fun canAnalysis(){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "watermark")
                 .params("uid", UserOperateUtil.getUserId())
                 .execute(object : SimpleCallBack<String>() {

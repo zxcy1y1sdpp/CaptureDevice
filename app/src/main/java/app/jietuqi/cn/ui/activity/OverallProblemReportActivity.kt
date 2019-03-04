@@ -154,7 +154,7 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
                 mAdapter?.notifyItemChanged(entity.position)
             }
         }
-        EasyHttp.post(HttpConfig.UPLOAD)
+        EasyHttp.post(HttpConfig.UPLOAD, false)
                 .params("way", "picture")
                 .params("file", entity.pic, entity.pic.name, mUIProgressResponseCallBack)
                 .execute(object : CallBackProxy<OverallApiEntity<ProblemReportEntity>, ProblemReportEntity>(object : SimpleCallBack<ProblemReportEntity>() {
@@ -189,7 +189,7 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
             }
             coverId = sb.deleteCharAt(sb.length - 1).toString()
         }
-        val post = EasyHttp.post(HttpConfig.INDEX)
+        val post = EasyHttp.post(HttpConfig.INDEX, false)
 
         post.params("way", "guestbook")
                 .params("content", mOverallReportProblemEt.text.toString())

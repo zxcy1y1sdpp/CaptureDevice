@@ -11,9 +11,9 @@ import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.alipayscreenshot.adapter.AlipayScreenShotPreviewAdapter
 import app.jietuqi.cn.ui.alipayscreenshot.db.AlipayScreenShotHelper
 import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.UserOperateUtil
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_alipay_screenshot_preview.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

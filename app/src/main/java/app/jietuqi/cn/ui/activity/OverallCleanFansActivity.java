@@ -220,7 +220,7 @@ public class OverallCleanFansActivity extends BaseOverallInternetActivity {
     }
 
     private void getVipMoney(){
-        PostRequest request  = EasyHttp.post(HttpConfig.USERS).params("way", "price");
+        PostRequest request  = EasyHttp.post(HttpConfig.USERS, false).params("way", "price");
         request.params("classify", "vipqingfen");
         request.execute(new CallBackProxy<OverallApiEntity<ArrayList<OverallVipCardEntity>>, ArrayList<OverallVipCardEntity>>(new SimpleCallBack<ArrayList<OverallVipCardEntity>> () {
             @Override
@@ -235,7 +235,7 @@ public class OverallCleanFansActivity extends BaseOverallInternetActivity {
         }) {});
     }
     private void getMoney(){
-        PostRequest request  = EasyHttp.post(HttpConfig.USERS).params("way", "price").params("classify", "qingfen");
+        PostRequest request  = EasyHttp.post(HttpConfig.USERS, false).params("way", "price").params("classify", "qingfen");
         request.execute(new CallBackProxy<OverallApiEntity<ArrayList<OverallVipCardEntity>>, ArrayList<OverallVipCardEntity>>(new SimpleCallBack<ArrayList<OverallVipCardEntity>> () {
             @Override
             public void onError(ApiException e) {}

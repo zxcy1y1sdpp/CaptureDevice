@@ -558,8 +558,8 @@ public final class EasyHttp {
     /**
      * post请求
      */
-    public static PostRequest post(String url) {
-        return new PostRequest(url);
+    public static PostRequest post(String url, boolean controlLoading) {
+        return new PostRequest(url, controlLoading);
     }
 
 

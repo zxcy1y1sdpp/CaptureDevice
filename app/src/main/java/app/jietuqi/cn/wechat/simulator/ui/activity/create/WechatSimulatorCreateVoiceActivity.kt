@@ -61,10 +61,10 @@ class WechatSimulatorCreateVoiceActivity : BaseWechatSimulatorCreateActivity() {
 
     override fun onClick(v: View) {
         when(v.id){
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                OtherUtil.onOrOff(true, mWechatSimulatorCreateVoiceSecondsAlreadyReadIv)
-                mWechatSimulatorCreateVoiceSecondsTransferIv.tag = false
-            }
+//            R.id.mWechatCreateChoiceMySideLayout ->{
+//                OtherUtil.onOrOff(true, mWechatSimulatorCreateVoiceSecondsAlreadyReadIv)
+//                mWechatSimulatorCreateVoiceSecondsTransferIv.tag = false
+//            }
             R.id.mWechatSimulatorCreateVoiceSecondsAlreadyReadIv ->{
                 if (!mMsgEntity.isComMsg){//自己发送的语音消息，不可以选择未读
                     showToast("自己发送的语音消息不可以选择未读")

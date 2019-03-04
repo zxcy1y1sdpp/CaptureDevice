@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+
+    <include layout="@layout/include_base_overall_top"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:paddingTop="@dimen/normalPadding"
+        android:paddingBottom="@dimen/normalPadding"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/mOverallDouyinIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/we_media_douyin"/>
+            <ImageView
+                android:id="@+id/mOverallKuaiShowIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/we_media_kuais"
+                android:layout_marginTop="@dimen/normalPadding"/>
+            <ImageView
+                android:id="@+id/mOverallWeMediaIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/we_media_zimeit"
+                android:layout_marginTop="@dimen/normalPadding"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

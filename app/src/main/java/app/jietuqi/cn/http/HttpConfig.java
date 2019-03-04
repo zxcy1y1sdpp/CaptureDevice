@@ -54,4 +54,5 @@ public class HttpConfig {
     public final static String INFORMATION = "/api/information";
     public final static String STORE = "/api/store";
     public final static String GOLD = "/api/gold";
+    public final static String GOODS = "/api/goods";
 }

@@ -138,7 +138,7 @@ class OverallProjectShowActivity : BaseOverallInternetActivity(), OverallProject
      * 点赞/取消点赞
      */
     private fun likeAndUnLike(entity: ProjectMarketEntity){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("info_id", entity.id.toString())

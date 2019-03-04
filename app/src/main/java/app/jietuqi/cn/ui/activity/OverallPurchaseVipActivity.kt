@@ -113,7 +113,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
         mOverallPurchaseVipMarkIv.animation = animation
     }
     private fun getMoney(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "price")
+        var request: PostRequest = EasyHttp.post(HttpConfig.USERS, false).params("way", "price")
         request.execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallVipCardEntity>>, ArrayList<OverallVipCardEntity>>(object : SimpleCallBack<ArrayList<OverallVipCardEntity>>() {
             override fun onSuccess(t: ArrayList<OverallVipCardEntity>) {
                 mVipCardList = t
@@ -133,7 +133,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
      * 创建订单的接口
      */
     private fun createOrder(payChannel: String = "微信"){
-        var request: PostRequest = EasyHttp.post(HttpConfig.ORDER)
+        var request: PostRequest = EasyHttp.post(HttpConfig.ORDER, false)
                 .params("way", "add")
                 .params("pay", "appalipay")
                 .params("money", mSelectCardEntity.id)
@@ -182,7 +182,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     }
 
     private fun getRecentlyVip(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.INDEX)
+        var request: PostRequest = EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "carousel")
         request.execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallRecentlyVipEntity>>, ArrayList<OverallRecentlyVipEntity>>(object : SimpleCallBack<ArrayList<OverallRecentlyVipEntity>>() {
             override fun onSuccess(t: ArrayList<OverallRecentlyVipEntity>) {

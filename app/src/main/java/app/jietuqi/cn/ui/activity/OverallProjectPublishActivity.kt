@@ -3,6 +3,7 @@ package app.jietuqi.cn.ui.activity
 import android.Manifest
 import android.content.Intent
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
@@ -17,11 +18,14 @@ import app.jietuqi.cn.ui.entity.ProjectMarketEntity
 import app.jietuqi.cn.util.*
 import app.jietuqi.cn.widget.dialog.EditDialog
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.body.UIProgressResponseCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_publish_project.*
 import permissions.dispatcher.*
+import top.zibin.luban.Luban
+import top.zibin.luban.OnCompressListener
 import java.io.File
 /**
  * 作者： liuyuanbo on 2018/11/12 10:26.
@@ -158,18 +162,9 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            /*RequestCode.IMAGE_SELECT ->{
-                if (null != data){
-                    mPicBgFile = mFiles[0]
-                    GlideUtil.display(this, mFiles[0], mProjectPicIv)
-                    mFiles.clear()
-                }
-            }*/
             RequestCode.CROP_IMAGE ->{
                 if (null != data){
-                    mPicBgFile = mFinalCropFile
-                    GlideUtil.display(this,mFinalCropFile, mProjectPicIv)
-                    mFinalCropFile = File("")
+                    mFinalCropFile?.let { luban(it) }
                 }
             }
             RequestCode.PROJECT_TITLE ->{
@@ -189,6 +184,24 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
                 }
             }
         }
+    }
+    private fun luban(file: File){
+        Luban.with(this)
+                .load(file)//原图
+                .ignoreBy(100)//多大不压缩
+                .setTargetDir(cacheDir.path)//缓存压缩图片路径
+                .setCompressListener(object : OnCompressListener {
+                    override fun onStart() {}
+
+                    override fun onSuccess(file: File) {
+                        mPicBgFile = file
+                        GlideUtil.display(this@OverallProjectPublishActivity, file, mProjectPicIv)
+                        mFinalCropFile = File("")
+                        Log.e("luban --- hou", FileUtil.getFileOrFilesSize(file.absolutePath, FileUtil.SIZETYPE_KB).toString())
+                    }
+                    override fun onError(e: Throwable) {
+                    }
+                }).launch()
     }
     /**
      * 是否可以发布
@@ -226,7 +239,7 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
         val mUIProgressResponseCallBack = object : UIProgressResponseCallBack() {
             override fun onUIResponseProgress(bytesRead: Long, contentLength: Long, done: Boolean) {}
         }
-        var request = EasyHttp.post(HttpConfig.STORE).params("way", "edit")//way 必传add
+        var request = EasyHttp.post(HttpConfig.STORE, false).params("way", "edit")//way 必传add
 
         if (mType == 0){//发布
             request.params("users_id", UserOperateUtil.getUserId())

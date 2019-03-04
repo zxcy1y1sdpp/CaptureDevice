@@ -47,6 +47,50 @@ public class ResourceHelper {
         appIconIdMap.put("R.drawable.wechat_huaxiayinhang", R.drawable.wechat_huaxiayinhang);
         appIconIdMap.put("R.drawable.wechat_gongshangyinhang", R.drawable.wechat_gongshangyinhang);
         appIconIdMap.put("R.drawable.wechat_youzhengyinhang", R.drawable.wechat_youzhengyinhang);
+
+
+
+        appIconIdMap.put("R.drawable.wechat_big_gif1", R.drawable.wechat_big_gif1);
+        appIconIdMap.put("R.drawable.wechat_big_gif2", R.drawable.wechat_big_gif2);
+        appIconIdMap.put("R.drawable.wechat_big_gif3", R.drawable.wechat_big_gif3);
+        appIconIdMap.put("R.drawable.wechat_big_gif4", R.drawable.wechat_big_gif4);
+        appIconIdMap.put("R.drawable.wechat_big_gif5", R.drawable.wechat_big_gif5);
+        appIconIdMap.put("R.drawable.wechat_big_gif6", R.drawable.wechat_big_gif6);
+        appIconIdMap.put("R.drawable.wechat_big_gif7", R.drawable.wechat_big_gif7);
+        appIconIdMap.put("R.drawable.wechat_big_gif8", R.drawable.wechat_big_gif8);
+        appIconIdMap.put("R.drawable.wechat_big_gif9", R.drawable.wechat_big_gif9);
+        appIconIdMap.put("R.drawable.wechat_big_gif10", R.drawable.wechat_big_gif10);
+        appIconIdMap.put("R.drawable.wechat_big_gif11", R.drawable.wechat_big_gif11);
+        appIconIdMap.put("R.drawable.wechat_big_gif12", R.drawable.wechat_big_gif12);
+        appIconIdMap.put("R.drawable.wechat_big_gif13", R.drawable.wechat_big_gif13);
+        appIconIdMap.put("R.drawable.wechat_big_gif14", R.drawable.wechat_big_gif14);
+        appIconIdMap.put("R.drawable.wechat_big_gif15", R.drawable.wechat_big_gif15);
+        appIconIdMap.put("R.drawable.wechat_big_gif16", R.drawable.wechat_big_gif16);
+        appIconIdMap.put("R.drawable.wechat_big_gif17", R.drawable.wechat_big_gif17);
+        appIconIdMap.put("R.drawable.wechat_big_gif18", R.drawable.wechat_big_gif18);
+        appIconIdMap.put("R.drawable.wechat_big_gif19", R.drawable.wechat_big_gif19);
+        appIconIdMap.put("R.drawable.wechat_big_gif20", R.drawable.wechat_big_gif20);
+        appIconIdMap.put("R.drawable.wechat_big_gif21", R.drawable.wechat_big_gif21);
+        appIconIdMap.put("R.drawable.wechat_big_gif22", R.drawable.wechat_big_gif22);
+        appIconIdMap.put("R.drawable.wechat_big_gif23", R.drawable.wechat_big_gif23);
+        appIconIdMap.put("R.drawable.wechat_big_gif24", R.drawable.wechat_big_gif24);
+        appIconIdMap.put("R.drawable.wechat_big_gif25", R.drawable.wechat_big_gif25);
+        appIconIdMap.put("R.drawable.wechat_big_gif26", R.drawable.wechat_big_gif26);
+        appIconIdMap.put("R.drawable.wechat_big_gif27", R.drawable.wechat_big_gif27);
+        appIconIdMap.put("R.drawable.wechat_big_gif28", R.drawable.wechat_big_gif28);
+        appIconIdMap.put("R.drawable.wechat_big_gif29", R.drawable.wechat_big_gif29);
+        appIconIdMap.put("R.drawable.wechat_big_gif30", R.drawable.wechat_big_gif30);
+        appIconIdMap.put("R.drawable.wechat_big_gif31", R.drawable.wechat_big_gif31);
+        appIconIdMap.put("R.drawable.wechat_big_gif32", R.drawable.wechat_big_gif32);
+        appIconIdMap.put("R.drawable.wechat_big_gif33", R.drawable.wechat_big_gif33);
+        appIconIdMap.put("R.drawable.wechat_big_gif34", R.drawable.wechat_big_gif34);
+        appIconIdMap.put("R.drawable.wechat_big_gif35", R.drawable.wechat_big_gif35);
+        appIconIdMap.put("R.drawable.wechat_big_gif36", R.drawable.wechat_big_gif36);
+        appIconIdMap.put("R.drawable.wechat_big_gif37", R.drawable.wechat_big_gif37);
+        appIconIdMap.put("R.drawable.wechat_big_gif38", R.drawable.wechat_big_gif38);
+        appIconIdMap.put("R.drawable.wechat_big_gif39", R.drawable.wechat_big_gif39);
+        appIconIdMap.put("R.drawable.wechat_big_gif40", R.drawable.wechat_big_gif40);
+
     }
     /**
      * 我的应用

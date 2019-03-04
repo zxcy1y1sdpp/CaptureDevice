@@ -50,29 +50,8 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
         setTopTitle("选择群成员")
         var list = mHelper.queryWithoutMe()
         mList.addAll(list)
-        /*var entity: WechatUserEntity
-        for (i in mList.indices){
-            entity = mList[i]
-            if (entity.wechatUserId == mMyEntity.wechatUserId){//自己
-                mList.remove(entity)
-                i--
-            }
-        }*/
         mAdapter = WechatSimulatorCreateGroupAdapter(mList, mMyEntity)
         mGroupRv.adapter = mAdapter
-        /*mGroupRv.addOnItemTouchListener(object : OnRecyclerItemClickListener(mGroupRv) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder) {
-                val position = vh.adapterPosition
-                val entity: WechatUserEntity = mList[position]
-                if(entity.wechatUserId == mMyEntity.wechatUserId){//选中的事“自己”
-                    showToast("不可以选择【 自己 】")
-                    return
-                }
-                mList[position].isChecked = !mList[position].isChecked
-                mAdapter?.notifyItemChanged(position)
-            }
-            override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
-        })*/
     }
 
     override fun initViewsListener() {
@@ -96,8 +75,8 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
                         roleList.add(entity)
                     }
                 }
-                if (roleList.size < 3){
-                    showToast("最少选择三人")
+                if (roleList.size < 2){
+                    showToast("最少选择两个人")
                     return
                 }
                 initWechatSimulatorData5()
@@ -123,26 +102,27 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
         msgEntity.groupTableName = "wechatGroup$mNowTime"//时间戳
         msgEntity.chatType = 1
         msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+
         val roleList = arrayListOf<WechatUserEntity>()
+        val roleWithCreateHeader = arrayListOf<WechatUserEntity>()//参与创建群聊的人
+        roleWithCreateHeader.add(mMyEntity)
         var entity: WechatUserEntity
-        val groupName = StringBuilder()
+//        val groupName = StringBuilder()
         for (i in mList.indices){
             entity = mList[i]
             if (entity.isChecked){
-                if (roleList.size < 9){
-                    roleList.add(entity)
-                    groupName.append(entity.wechatUserNickName).append("、")
+                if (roleWithCreateHeader.size < 9){
+                    roleWithCreateHeader.add(entity)
                 }
+                roleList.add(entity)
             }
         }
-        groupName.deleteCharAt(groupName.length - 1)
-        msgEntity.groupName = groupName.toString()
-        val bitmap = arrayOfNulls<Bitmap>(roleList.size)
-        for (i in roleList.indices){
-            entity = roleList[i]
-            if (i == 0){
-                entity.isRecentRole = true
-            }
+        roleList.shuffle()
+        roleList[0].isRecentRole = true
+        roleWithCreateHeader.shuffle()
+        val bitmap = arrayOfNulls<Bitmap>(roleWithCreateHeader.size)
+        for (i in roleWithCreateHeader.indices){
+            entity = roleWithCreateHeader[i]
             if (!TextUtils.isEmpty(entity.wechatUserAvatar)){//选择的
                 val file = File(entity.wechatUserAvatar)
                 val uri = Uri.fromFile(file)
@@ -153,6 +133,7 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
             }
         }
         msgEntity.groupRoles = roleList
+        msgEntity.groupRoleCount = roleList.size + 1
         var listHelper = WechatSimulatorListHelper(this)
         CombineBitmap.init(this)
                 .setLayoutManager(WechatLayoutManager()) // 必选， 设置图片的组合形式，支持WechatLayoutManager、DingLayoutManager

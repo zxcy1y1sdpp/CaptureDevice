@@ -5,16 +5,12 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import app.jietuqi.cn.R
-import app.jietuqi.cn.base.BaseCreateActivity
-import app.jietuqi.cn.constant.IntentKey
+import app.jietuqi.cn.base.alipay.BaseAlipayScreenShotCreateActivity
 import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.ui.alipayscreenshot.db.AlipayScreenShotHelper
-import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.GlideUtil
-import app.jietuqi.cn.util.UserOperateUtil
 import kotlinx.android.synthetic.main.activity_alipay_create_picture.*
-import kotlinx.android.synthetic.main.include_choice_role.*
 import permissions.dispatcher.*
 
 /**
@@ -24,31 +20,23 @@ import permissions.dispatcher.*
  * 用途： 创建图片和视频的页面
  */
 @RuntimePermissions
-class AlipayCreatePictureActivity : BaseCreateActivity() {
-    private lateinit var mHelper: AlipayScreenShotHelper
-    private var mMsgEntity: AlipayScreenShotEntity = AlipayScreenShotEntity()
-    /**
-     * 0 -- 发布新的图片
-     * 1 -- 编辑图片
-     */
-    private var mType = 0
+class AlipayCreatePictureActivity : BaseAlipayScreenShotCreateActivity() {
     override fun setLayoutResourceId() = R.layout.activity_alipay_create_picture
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = false
 
     override fun initAllViews() {
+        super.initAllViews()
+        mMsgEntity.msgType = 1
         setBlackTitle("图片", 1)
         mHelper = AlipayScreenShotHelper(this)
     }
 
     override fun initViewsListener() {
-        mWechatCreateChoiceMySideLayout.setOnClickListener(this)
-        mWechatCreateChoiceOtherSideLayout.setOnClickListener(this)
+        super.initViewsListener()
         mAlipayCreatePictureLayout.setOnClickListener(this)
     }
-    override fun getAttribute(intent: Intent) {
+    /*override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mMsgEntity.msgType = 1
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
@@ -70,32 +58,32 @@ class AlipayCreatePictureActivity : BaseCreateActivity() {
             }
             GlideUtil.display(this, mMsgEntity.filePath, mAlipayCreatePictureIv)
         }
-    }
+    }*/
     override fun onClick(v: View) {
-        super.onClick(v)
         when(v.id){
             R.id.mAlipayCreatePictureLayout ->{
                 openAlbumWithPermissionCheck()
             }
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-                mMsgEntity.isComMsg = false
-            }
-            R.id.mWechatCreateChoiceOtherSideLayout ->{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-                mMsgEntity.isComMsg = true
-            }
-            R.id.overallAllRightWithBgTv ->{
+//            R.id.mWechatCreateChoiceMySideLayout ->{
+//                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
+//                setMsg(mMySideEntity)
+//                mMsgEntity.isComMsg = false
+//            }
+//            R.id.mWechatCreateChoiceOtherSideLayout ->{
+//                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
+//                setMsg(mOtherSideEntity)
+//                mMsgEntity.isComMsg = true
+//            }
+            /*R.id.overallAllRightWithBgTv ->{
                 if(mType == 0){
                     mHelper.save(mMsgEntity)
                 }else{
                     mHelper.update(mMsgEntity)
                 }
                 finish()
-            }
+            }*/
         }
+        super.onClick(v)
     }
     private fun setChoice(choiceIv: ImageView, unChoiceIv: ImageView){
         choiceIv.setImageResource(R.drawable.choice)

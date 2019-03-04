@@ -18,9 +18,7 @@ import kotlinx.android.synthetic.main.include_base_overall_top_black.*
 class WechatSimulatorCreateRedPacketActivity : BaseWechatSimulatorCreateActivity() {
     override fun setLayoutResourceId() = R.layout.activity_simloator_wechat_create_redpacket
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = false
     override fun initAllViews() {
         super.initAllViews()
         mMsgEntity.msgType = 3

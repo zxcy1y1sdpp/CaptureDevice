@@ -12,9 +12,9 @@ import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.wechatscreenshot.adapter.WechatScreenShotPreviewAdapter
 import app.jietuqi.cn.ui.wechatscreenshot.db.WechatScreenShotHelper
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.UserOperateUtil
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_screenshot_preview.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -58,7 +58,7 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
         val otherEntity = UserOperateUtil.getOtherSide()
         mWechatScreenShotPreviewNickNameTv.text = otherEntity.wechatUserNickName
         registerEventBus()
-        mWechatScreenShotPreviewRecyclerView.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        mWechatScreenShotPreviewRecyclerView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
             if (bottom < oldBottom) {
                 mWechatScreenShotPreviewRecyclerView.postDelayed({ mWechatScreenShotPreviewRecyclerView.scrollToPosition(mList.size - 1) }, 0)
             }

@@ -25,6 +25,8 @@ public class OverallIndustryEntity implements IPickerViewData, Serializable {
     public int pid;
     public int classify;
     public String background;
+
+    public long create_time;
     /**
      * 分类的图标
      */

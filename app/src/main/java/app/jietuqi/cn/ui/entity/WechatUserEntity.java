@@ -72,10 +72,7 @@ public class WechatUserEntity implements Serializable {
      * 用户id
      */
     public String wechatUserId;
-    /**
-     * 微信号
-     */
-    public String wechatNumber;
+
     /**
      * 随机产生的头像
      */
@@ -175,6 +172,10 @@ public class WechatUserEntity implements Serializable {
      * 默认账户余额
      */
     public double cash;
+    /**
+     * 微信号
+     */
+    public String wxNumber;
 
     /**
      * 0 -- 单聊
@@ -187,13 +188,13 @@ public class WechatUserEntity implements Serializable {
      */
     public Bitmap groupHeader;
     /**
+     * 数据存储和传递的时候用这个
+     */
+    public byte[] groupHeaderByte;
+    /**
      * 群聊里面的人
      */
     public ArrayList<WechatUserEntity> groupRoles;
-    /**
-     * 最近的聊天对象
-     */
-    public WechatUserEntity recentRoles;
     /**
      * 群聊名称
      */
@@ -279,7 +280,6 @@ public class WechatUserEntity implements Serializable {
      * 是不是“我”
      */
     public boolean meSelf;
-
     /**
      * 在聊天列表中的主键id
      */
@@ -296,33 +296,43 @@ public class WechatUserEntity implements Serializable {
      * 资源对应的名称
      */
     public String resourceName;
-    public WechatUserEntity(int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
-        this.avatarInt = avatarInt;
-        this.wechatUserAvatar = avatarStr;
-        this.wechatUserNickName = nickName;
-        this.pinyinNickName = pinyinNickName;
-        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
-    }
     public WechatUserEntity(String resourceName, String nickName, String pinyinNickName) {
         this.resourceName = resourceName;
         this.wechatUserNickName = nickName;
         this.pinyinNickName = pinyinNickName;
         this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
     }
-    public WechatUserEntity(String userId, int avatarInt, String avatarStr, String nickName, String pinyinNickName) {
-        this.wechatUserId = userId;
-        this.avatarInt = avatarInt;
-        this.wechatUserAvatar = avatarStr;
-        this.wechatUserNickName = nickName;
-        this.pinyinNickName = pinyinNickName;
-        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
-    }
-    public WechatUserEntity(String userId, String resourceName, String avatarStr, String nickName, String pinyinNickName) {
+    public WechatUserEntity(String userId, String resourceName, String avatarStr, String nickName, String pinyinNickName, String wxNumber) {
         this.wechatUserId = userId;
         this.resourceName = resourceName;
         this.wechatUserAvatar = avatarStr;
         this.wechatUserNickName = nickName;
         this.pinyinNickName = pinyinNickName;
         this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
+        if (TextUtils.isEmpty(wxNumber)){
+            wxNumber = "";
+        }
+        this.wxNumber = wxNumber;
+        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
+    }
+
+    /**
+     * eventbus中使用的tag
+     */
+    public String eventBusTag;
+    /**
+     * 重写 equals方法
+     * @param object
+     * @return
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof WechatUserEntity) {
+            WechatUserEntity otherUser = (WechatUserEntity) object;
+            if (this.wechatUserId.equals(otherUser.wechatUserId)){
+                return true;
+            }
+        }
+        return false;
     }
 }

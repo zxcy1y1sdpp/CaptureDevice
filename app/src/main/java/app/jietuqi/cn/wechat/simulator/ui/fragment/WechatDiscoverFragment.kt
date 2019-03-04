@@ -5,11 +5,11 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatFragment
 import app.jietuqi.cn.constant.RandomUtil
 import app.jietuqi.cn.constant.SharedPreferenceKey
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.simulator.WechatSimulatorUnReadEntity
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.fragment_wechat_discover.*
 
 /**
@@ -20,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_wechat_discover.*
  */
 
 class WechatDiscoverFragment : BaseWechatFragment() {
+    override fun needLoading() = false
+
     override fun setLayoutResouceId(): Int {
         return R.layout.fragment_wechat_discover
     }

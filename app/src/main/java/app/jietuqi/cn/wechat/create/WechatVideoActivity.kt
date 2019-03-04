@@ -46,7 +46,7 @@ class WechatVideoActivity : BaseWechatActivity() {
         registerEventBus()
         mEntity.chatType = 1
         mEntity.type = 0
-        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        val userEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
         mEntity.wechatUserNickName = userEntity.wechatUserNickName
         mEntity.avatarInt = userEntity.avatarInt
         mEntity.resourceName = userEntity.resourceName

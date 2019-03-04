@@ -36,10 +36,9 @@ class OverallMyPublishActivity : BaseOverallInternetActivity(), LikeListener {
     private var mNickName = ""
     override fun setLayoutResourceId() = R.layout.activity_overall_my_publish
 
-    override fun needLoadingView() = false
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
-        mOverallMyPublishRefreshLayout.autoRefresh()
         setRefreshLayout(mOverallMyPublishRefreshLayout)
     }
 
@@ -67,11 +66,11 @@ class OverallMyPublishActivity : BaseOverallInternetActivity(), LikeListener {
     }
 
     private fun getData(){
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, true)
                 .params("way", "article")
                 .params("mid", if (mType == 0) UserOperateUtil.getUserId() else "0")
                 .params("uid", mUserId)
-                .params("limit", mLimit)
+                .params("limit", mLimit)//添加了
                 .params("page", mPage.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallDynamicEntity>>, ArrayList<OverallDynamicEntity>>(object : SimpleCallBack<ArrayList<OverallDynamicEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallDynamicEntity>) {
@@ -110,6 +109,7 @@ class OverallMyPublishActivity : BaseOverallInternetActivity(), LikeListener {
                         if (mPage == 1){
                             mList.clear()
                             mAdapter.notifyDataSetChanged()
+                            showEmptyView()
                         }else{
                             mOverallMyPublishRefreshLayout.finishLoadMoreWithNoMoreData()
                         }
@@ -120,7 +120,7 @@ class OverallMyPublishActivity : BaseOverallInternetActivity(), LikeListener {
      * 点赞/取消点赞
      */
     private fun likeAndUnLike(entity: OverallDynamicEntity){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("classify", "article")

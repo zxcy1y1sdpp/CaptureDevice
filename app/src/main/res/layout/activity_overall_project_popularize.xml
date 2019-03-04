@@ -97,7 +97,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="990微币/天"
+            android:text="800微币/天"
             android:gravity="center_vertical"
             app:layout_marginLeftPercent="4.27%w"
             android:textColor="#F85A59"/>

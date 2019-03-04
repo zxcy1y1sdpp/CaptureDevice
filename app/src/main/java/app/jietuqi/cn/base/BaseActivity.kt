@@ -17,7 +17,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.constant.*
 import app.jietuqi.cn.entity.JsonBean
@@ -41,7 +40,9 @@ import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
+import com.zhouyou.http.AppManager
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
@@ -127,7 +128,6 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         initAllViews()
         setWithSavedInstanceState(savedInstanceState)
         initViewsListener()
-        //        initLoadingView();
         getAttribute(intent)
         //        onLoad();
         //        onLoadWithResume();
@@ -159,7 +159,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     /**
      * 设置状态栏的颜色
      */
-    private fun setNavigationBarBg(color: Int = Color.parseColor("#F7F7F7")){
+    fun setNavigationBarBg(color: Int = Color.parseColor("#F7F7F7")){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.navigationBarColor = color
         }
@@ -266,6 +266,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         overallTitleBgLayout.setBackgroundColor(ContextCompat.getColor(this, bgColor))
         overAllTitleTv.setTextColor(ContextCompat.getColor(this, contentColor))
         overAllBackIv.setImageResource(leftIv)
+        overAllBackIv.setOnClickListener { finish() }
 
         if (!TextUtils.isEmpty(rightTitle)){
             overAllRightTitleTv.text = rightTitle
@@ -288,8 +289,8 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     }
 
     /**
-     * type -- 1 -- 确定按钮
-     * 2 -- 删除按钮
+     * type : 1 -- 确定按钮
+     *        2 -- 删除按钮
      */
     protected fun setBlackTitle(title: String, type: Int = 0) {
         overAllBackBlackLayout.setOnClickListener {
@@ -639,7 +640,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         ToastUtils.showShort(this, msg)
     }
     fun refreshUserInfo(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "id").params("id", UserOperateUtil.getUserId())
+        var request: PostRequest = EasyHttp.post(HttpConfig.USERS, false).params("way", "id").params("id", UserOperateUtil.getUserId())
         request.execute(object : CallBackProxy<OverallApiEntity<OverallUserInfoEntity>, OverallUserInfoEntity>(object : SimpleCallBack<OverallUserInfoEntity>() {
             override fun onError(e: ApiException) {
                 e.message?.let { showToast(it) }
@@ -709,7 +710,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      * type 1 -- 支付宝
      * type 2 -- QQ
      */
-    fun operateRole(roleEntity: WechatUserEntity, side: Int = 0, type: Int = 0){
+    fun operateRole(roleEntity: WechatUserEntity, side: Int = 0, type: Int = 0, needChangeSharedPreference: Boolean = true){
         val dialog = ChoiceRoleDialog()
         if (side == 0){
             dialog.setRequestCode(RequestCode.MY_SIDE, roleEntity, type, false)

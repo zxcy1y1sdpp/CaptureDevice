@@ -92,6 +92,7 @@ public class OverallDynamicEntity implements Serializable{
     public int position = -1;
 
     public static class Cover implements Serializable {
+        private static final long serialVersionUID = 393236795234330474L;
         /**
          * id : 455
          * path : /uploads/picture/20181120/48aaa650f4ad45492f1a83232de759be.jpeg
@@ -114,26 +115,7 @@ public class OverallDynamicEntity implements Serializable{
     }
 
     public static class Comment implements Serializable {
-        /**
-         * id : 25
-         * title :
-         * uid : 13
-         * cover_id : null
-         * description : null
-         * content : 222222
-         * status : 1
-         * is_top : 0
-         * view : 0
-         * update_time : 1542705736
-         * create_time : 1542705736
-         * article_id : 56
-         * pid : 0
-         * favour : 1
-         * nickname : 139*****206
-         * headimgurl : null
-         * is_favour : 0
-         * _child : []
-         */
+        private static final long serialVersionUID = 877080012757004493L;
 
         public int id;
         public String title;

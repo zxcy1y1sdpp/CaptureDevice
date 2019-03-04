@@ -9,31 +9,48 @@
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_marginTopPercent="1.51%w"
-        app:layout_marginBottomPercent="1.51%w">
+        app:layout_marginTopPercent="1.73%w"
+        app:layout_marginBottomPercent="1.73%w">
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/sWechatScreenShotOtherAvatarIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_heightPercent="10.12%w"
             app:layout_widthPercent="10.12%w"
-            app:layout_marginLeftPercent="2.16%w"
-            app:layout_marginRightPercent="1.67%w"
+            app:layout_marginLeftPercent="1.99%w"
+            app:layout_marginRightPercent="1.24%w"
             android:src="@drawable/head_default"
             android:scaleType="centerCrop"
             app:riv_corner_radius="5dp"/>
 
-        <app.jietuqi.cn.widget.autolink.AutoLinkTextView
-            android:id="@+id/sWechatScreenShotOtherContentTv"
+        <com.zhy.android.percent.support.PercentLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/wechat17"
-            android:background="@drawable/wechat_text_other"
-            app:layout_marginRightPercent="12.28%w"
-            android:textColor="@color/black"
             android:layout_toRightOf="@+id/sWechatScreenShotOtherAvatarIv"
             android:layout_alignTop="@+id/sWechatScreenShotOtherAvatarIv"
-            android:gravity="center_vertical"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sWechatNickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="啦啦啦"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:textColor="@color/wechatLightGray"
+                android:visibility="gone"/>
+            <app.jietuqi.cn.widget.autolink.AutoLinkTextView
+                android:id="@+id/sWechatScreenShotOtherContentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/wechat17"
+                android:background="@drawable/wechat_text_other"
+                app:layout_marginRightPercent="19.59%w"
+                android:textColor="@color/black"
+                android:text=""
+                android:gravity="center_vertical"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
 

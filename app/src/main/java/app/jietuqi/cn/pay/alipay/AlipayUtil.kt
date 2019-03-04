@@ -7,10 +7,10 @@ import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import app.jietuqi.cn.constant.AppPayConfig
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.alipay.sdk.app.PayTask
 import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhouyou.http.EventBusUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

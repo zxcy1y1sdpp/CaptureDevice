@@ -1,6 +1,5 @@
 package app.jietuqi.cn.ui.activity
 
-import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.entity.WbDetailsEntity
@@ -23,16 +22,9 @@ import kotlinx.android.synthetic.main.activity_overall_wb_details.*
 class OverallWbDetailsActivity : BaseOverallInternetActivity() {
     private var mList = arrayListOf<WbDetailsEntity>()
     private lateinit var mAdapter: WbDetailAdapter
-    /**
-     * 0 -- 消费记录
-     * 1 -- 充值记录
-     */
-    private var mType = "0"
     override fun setLayoutResourceId() = R.layout.activity_overall_wb_details
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
         setTopTitle("微币明细")
@@ -41,44 +33,16 @@ class OverallWbDetailsActivity : BaseOverallInternetActivity() {
         mWbRecordRv.adapter = mAdapter
     }
 
-    override fun initViewsListener() {
-        /*mReduceLayout.setOnClickListener(this)
-        mBuyLayout.setOnClickListener(this)*/
-    }
+    override fun initViewsListener() {}
 
-    override fun onClick(v: View) {
-        super.onClick(v)
-        when(v.id){
-//            R.id.mReduceLayout ->{
-//                mType = "0"
-//                mPage = 1
-//                showLoadingDialog("请稍后")
-//                getData()
-//                mWbExpenseRecordTv.setTextColor(Color.parseColor("#111111"))
-//                mWbExpenseRecordLineView.visibility = View.VISIBLE
-//                mWbRechargeRecordTv.setTextColor(ContextCompat.getColor(this, R.color.wechatLightGray))
-//                mWbRechargeRecordLineView.visibility = View.GONE
-//            }
-//            R.id.mBuyLayout ->{
-//                mType = "1"
-//                mPage = 1
-//                showLoadingDialog("请稍后")
-//                getData()
-//                mWbRechargeRecordTv.setTextColor(Color.parseColor("#111111"))
-//                mWbRechargeRecordLineView.visibility = View.VISIBLE
-//                mWbExpenseRecordTv.setTextColor(ContextCompat.getColor(this, R.color.wechatLightGray))
-//                mWbExpenseRecordLineView.visibility = View.GONE
-//            }
-        }
-    }
     override fun loadFromServer() {
         super.loadFromServer()
         getData()
     }
     private fun getData(){
-        val request = EasyHttp.post(HttpConfig.GOLD)
+        val request = EasyHttp.post(HttpConfig.GOLD, true)
         request.params("way", "lists")
-                .params("limit", mLimit)
+                .params("limit", mLimit)//添加了
                 .params("page", mPage.toString())
                 .params("users_id", UserOperateUtil.getUserId())
 //                .params("type", mType)
@@ -100,6 +64,7 @@ class OverallWbDetailsActivity : BaseOverallInternetActivity() {
                 if (mPage == 1){
                     mList.clear()
                     mAdapter?.notifyDataSetChanged()
+                    showEmptyView()
                 }else{
                     mWbRecordSrl.finishLoadMoreWithNoMoreData()
                 }

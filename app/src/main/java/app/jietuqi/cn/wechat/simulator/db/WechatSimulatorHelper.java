@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zhouyou.http.EventBusUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,7 +22,6 @@ import app.jietuqi.cn.database.IOpenHelper;
 import app.jietuqi.cn.database.MyOpenHelper;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity;
-import app.jietuqi.cn.util.EventBusUtil;
 
 /**
  * 作者： liuyuanbo on 2019/1/9 10:25.
@@ -60,6 +60,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                     "transferReceiveTime integer, receiveTransferId integer, receive text, money text, " +
                     "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
                     "lastTime integer, resourceName text, timeType text, " +
+
                     "redPacketCount integer, receiveCompleteTime text, joinReceiveRedPacket text, receiveRedPacketRoleList text, redPacketSenderNickName text, " +
                     "wechatUserNickName text, groupRedPacketInfo BLOB");
             builder.append(")");
@@ -97,6 +98,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             values.put("redPacketCount", wechatScreenShotEntity.redPacketCount);
             values.put("joinReceiveRedPacket", wechatScreenShotEntity.joinReceiveRedPacket);
             values.put("wechatUserNickName", wechatScreenShotEntity.wechatUserNickName);
+            values.put("redPacketSenderNickName", wechatScreenShotEntity.redPacketSenderNickName);
 
             if (null != wechatScreenShotEntity.receiveRedPacketRoleList){
                 Gson gson = new Gson();
@@ -162,6 +164,116 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
         }
         return (int) l;
     }
+    public boolean saveAll(ArrayList<WechatScreenShotEntity> list){
+        create();
+        SQLiteDatabase db = getWritableDatabase();
+        //开启事物
+        db.beginTransaction();
+        try{
+            ContentValues values;
+            WechatScreenShotEntity entity;
+            for (int i = 0, size = list.size(); i < size; i++) {
+                values = new ContentValues();
+                entity = list.get(i);
+                //开始添加第一条数据
+                values.put("wechatUserId", entity.wechatUserId);
+                values.put("avatarInt", entity.avatarInt);
+                values.put("avatarStr", entity.avatarStr);
+                values.put("resourceName", entity.resourceName);
+                values.put("timeType", entity.timeType);
+                values.put("msgType", entity.msgType);
+                values.put("wechatUserNickName", entity.wechatUserNickName);
+                if (entity.msgType == 0){
+                    values.put("msg", entity.msg);
+                }else if (entity.msgType == 1){
+                    values.put("img", entity.img);
+                    values.put("filePath", entity.filePath);
+                    values.put("msg", "图片");
+                }else if (entity.msgType == 2){
+                    values.put("time", entity.time);
+                }else if (entity.msgType == 3){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("msg", entity.msg);
+                    values.put("receiveCompleteTime", entity.receiveCompleteTime);
+                    values.put("redPacketCount", entity.redPacketCount);
+                    values.put("joinReceiveRedPacket", entity.joinReceiveRedPacket);
+                    values.put("wechatUserNickName", entity.wechatUserNickName);
+                    values.put("redPacketSenderNickName", entity.redPacketSenderNickName);
+
+                    if (null != entity.receiveRedPacketRoleList){
+                        Gson gson = new Gson();
+                        String inputString= gson.toJson(entity.receiveRedPacketRoleList);
+                        values.put("receiveRedPacketRoleList", inputString);
+                    }
+                }else if (entity.msgType == 4){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("receiveTransferId", entity.receiveTransferId);
+                    values.put("redPacketSenderNickName", entity.redPacketSenderNickName);
+
+                    ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+                    try {
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                        objectOutputStream.writeObject(entity.groupRedPacketInfo);
+                        objectOutputStream.flush();
+                        byte data[] = arrayOutputStream.toByteArray();
+                        values.put("groupRedPacketInfo", data);
+                        objectOutputStream.close();
+                        arrayOutputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }else if (entity.msgType == 5){
+                    values.put("msg", entity.msg);
+                    values.put("transferOutTime", entity.transferOutTime);
+                    values.put("transferReceiveTime", entity.transferReceiveTime);
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                }else if (entity.msgType == 6){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("transferOutTime", entity.transferOutTime);
+                    values.put("transferReceiveTime", entity.transferReceiveTime);
+                    values.put("receiveTransferId", entity.receiveTransferId);
+                }else if (entity.msgType == 7){
+                    if (entity.voiceLength <= 0){
+                        values.put("voiceLength", 1);
+                    }else {
+                        values.put("voiceLength", entity.voiceLength);
+                    }
+
+                    values.put("msg", entity.msg);
+                    values.put("alreadyRead", entity.alreadyRead);
+                    values.put("voiceToText", entity.voiceToText);
+
+                }else if (entity.msgType == 8){
+                    values.put("msg", entity.msg);
+                }
+                values.put("isComMsg", entity.isComMsg);
+                values.put("lastTime",entity.lastTime);
+                int position = allCaseNum(TABLE_NAME);
+                values.put("position", position);
+                entity.position = position;
+                long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+                Log.e("insert " , l+"");
+                entity.id = (int) l;
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            //事务已经执行成功
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            return true;
+        }
+    }
+
     /**
      * 查询微信聊天与某人的单聊消息
      * @return
@@ -199,6 +311,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                 entity.receive = "1".equals(cursor.getString(cursor.getColumnIndex("receive")));
                 entity.money = cursor.getString(cursor.getColumnIndex("money"));
                 entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
+                entity.redPacketSenderNickName = cursor.getString(cursor.getColumnIndex("redPacketSenderNickName"));
                 if (TextUtils.isEmpty(entity.msg)){
                     entity.msg = "恭喜发财，大吉大利";
                 }
@@ -378,6 +491,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             cv.put("receiveCompleteTime" , wechatScreenShotEntity.receiveCompleteTime);
             cv.put("joinReceiveRedPacket", wechatScreenShotEntity.joinReceiveRedPacket);
             cv.put("wechatUserNickName", wechatScreenShotEntity.wechatUserNickName);
+            cv.put("redPacketSenderNickName", wechatScreenShotEntity.redPacketSenderNickName);
 
 
             if (null != wechatScreenShotEntity.receiveRedPacketRoleList){

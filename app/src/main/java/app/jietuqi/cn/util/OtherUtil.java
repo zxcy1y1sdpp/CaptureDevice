@@ -274,8 +274,15 @@ public class OtherUtil {
      * @return
      */
     public static String getFirstLetter(String pinyin) {
-        String firstPinYin = pinyin.substring(0, 1);
-        return firstPinYin;
+        try {
+            if (!TextUtils.isEmpty(pinyin)){
+                String firstPinYin = pinyin.substring(0, 1);
+                return firstPinYin;
+            }
+        }catch (Exception e){
+            return "";
+        }
+        return "";
     }
 
     public static class PinyinComparator implements Comparator<WechatUserEntity> {

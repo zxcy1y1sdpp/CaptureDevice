@@ -8,11 +8,11 @@ import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.entity.WechatMsgEditEntity
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.include_choice_role.*
 
 /**
@@ -29,52 +29,59 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
      * 1 -- 编辑修改文本
      */
     var mType = 0
+    /**
+     * 是不是自己
+     */
+    var mMe = true
 
     override fun initAllViews() {}
 
     override fun initViewsListener() {
-        mWechatCreateChoiceMySideLayout.setOnClickListener(this)
-        mWechatCreateChoiceOtherSideLayout.setOnClickListener(this)
+        mChangeRoleLayout.setOnClickListener(this)
     }
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
-        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
-        mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
         mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
-        GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
-        mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
         setMsg(mMySideEntity)
         if (mType == 1){
             mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
             if (mMsgEntity.wechatUserId == mMySideEntity.wechatUserId){
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
+                mMe = true
+                changeRole()
             }else{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
+                mMe = false
+                changeRole()
             }
+        }
+    }
+    private fun changeRole(){
+        if (mMe){
+            mSenderTitleTv.text = "发送人 -- 自己"
+            mSenderNickNameTv.text = mMySideEntity.wechatUserNickName
+            GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mAvatarIv)
+            setMsg(mMySideEntity)
+            mMsgEntity.isComMsg = false
+        }else{
+            mSenderTitleTv.text = "发送人 -- 对方"
+            mSenderNickNameTv.text = mOtherSideEntity.wechatUserNickName
+            GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mAvatarIv)
+            setMsg(mOtherSideEntity)
+            mMsgEntity.isComMsg = true
         }
     }
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-                mMsgEntity.isComMsg = false
-            }
-            R.id.mWechatCreateChoiceOtherSideLayout ->{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-                mMsgEntity.isComMsg = true
+            R.id.mChangeRoleLayout ->{
+                mMe = !mMe
+                changeRole()
             }
             R.id.overallAllRightWithBgTv ->{
                 if(mType == 0){
                     EventBusUtil.post(mMsgEntity)
-//                    mHelper.save(mMsgEntity)
                 }else{
                     val entity = WechatMsgEditEntity()
                     entity.editEntity  = mMsgEntity

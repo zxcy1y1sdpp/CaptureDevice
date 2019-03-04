@@ -15,11 +15,11 @@ import app.jietuqi.cn.ui.adapter.HomeAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.ui.entity.ProductFlavorsEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.ninegrid.ImageInfo
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
@@ -34,7 +34,8 @@ import org.greenrobot.eventbus.ThreadMode
  * 用途：
  */
 
-class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAdapter.StatusBarListener*/ {
+class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
+    override fun needLoading() = true
 
     private var mAdapter: HomeAdapter? = null
     override fun setLayoutResouceId() = R.layout.fragment_home
@@ -54,7 +55,6 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
     }
 
     override fun initViewsListener() {
-        mOverallHomeRefreshLayout.autoRefresh()
         mOverallPublishBtn.setOnClickListener(this)
         mRecyclerView.addOnScrollListener(FabScrollListener(this))
     }
@@ -70,16 +70,23 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
         }
     }
 
+    override fun visiableForUser() {
+        super.visiableForUser()
+        registerEventBus()
+    }
+    override fun invisiableForUser() {
+        super.invisiableForUser()
+        EventBusUtil.unRegister(this)
+    }
     override fun loadFromServer() {
         super.loadFromServer()
         getData()
-//        getBannerData()
     }
     private fun getData(){
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, true)
                 .params("way", "article")
                 .params("mid", UserOperateUtil.getUserId())
-                .params("limit", mLimitSize.toString())
+                .params("limit", mLimitSize.toString())//添加了
                 .params("page", mPageSize.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallDynamicEntity>>, ArrayList<OverallDynamicEntity>>(object : SimpleCallBack<ArrayList<OverallDynamicEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallDynamicEntity>) {
@@ -88,7 +95,6 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
                                 mList.clear()
                             }
                         }
-
                         mOverallHomeRefreshLayout.finishRefresh(true)
                         mOverallHomeRefreshLayout.finishLoadMore(true)
                         mList.addAll(t)
@@ -111,14 +117,13 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
                                 entity.infoList.add(info)
                             }
                         }
-//                        mAdapter = HomeAdapter(mList, mBannerList, this@HomeFragment /*,this*/)
-//                        mRecyclerView.adapter = mAdapter
                         mAdapter?.notifyDataSetChanged()
                     }
                     override fun onError(e: ApiException) {
                         if (mPageSize == 1){
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
+                            showEmptyView()
                         }else{
                             mOverallHomeRefreshLayout.finishLoadMoreWithNoMoreData()
                         }
@@ -130,7 +135,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
      * 点赞/取消点赞
      */
     private fun likeAndUnLike(entity: OverallDynamicEntity){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("classify", "article")
@@ -154,7 +159,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener/*, HomeAda
                 })
     }
     private fun getBannerData(){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "swipe")
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<BannerEntity>>, ArrayList<BannerEntity>>(object : SimpleCallBack<ArrayList<BannerEntity>>() {
                     override fun onSuccess(t: ArrayList<BannerEntity>?) {

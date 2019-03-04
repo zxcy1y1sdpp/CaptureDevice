@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gray_round_cornor"
-        app:layout_marginTopPercent="3.44%w"
-        app:layout_marginBottomPercent="3.44%w">
+        app:layout_marginTopPercent="3.22%w"
+        app:layout_marginBottomPercent="3.22%w">
         <TextView
             android:id="@+id/wechatSingleTalkTimeTv"
             android:layout_width="wrap_content"

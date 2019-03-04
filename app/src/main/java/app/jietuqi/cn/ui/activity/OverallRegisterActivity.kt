@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
-import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.constant.IntentKey
@@ -15,6 +14,7 @@ import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.util.*
 import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhouyou.http.AppManager
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
@@ -161,7 +161,7 @@ class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListe
         }
     }
     private fun registerAndReset(){
-        EasyHttp.post(HttpConfig.REGISTER_AND_LOGIN)
+        EasyHttp.post(HttpConfig.REGISTER_AND_LOGIN, false)
                 .params("mobile", OtherUtil.getContent(mOverallRegisterPhoneNumberEt))
                 .params("password", OtherUtil.getContent(mOverallRegisterPasswordViewEt))
                 .params("way", "mobile")
@@ -196,7 +196,7 @@ class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListe
     }
     private fun binding(){
         val mobile = mOverallRegisterPhoneNumberEt.text.toString()
-        EasyHttp.post(HttpConfig.USERS)
+        EasyHttp.post(HttpConfig.USERS, false)
                 .params("way", "edit")
                 .params("id", UserOperateUtil.getUserId())
                 .params("mobile", mobile)
@@ -217,7 +217,7 @@ class OverallRegisterActivity : BaseOverallInternetActivity()/*, MobSmsCodeListe
                 })
     }
     private fun sendSmsCode(){
-        val postRequest = EasyHttp.post(HttpConfig.USERS).params("mobile", OtherUtil.getContent(mOverallRegisterPhoneNumberEt)).params("way", "sms")
+        val postRequest = EasyHttp.post(HttpConfig.USERS, false).params("mobile", OtherUtil.getContent(mOverallRegisterPhoneNumberEt)).params("way", "sms")
         when (mType) {
             0 -> //注册
                 postRequest.params("classify", "register")

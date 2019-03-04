@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zhouyou.http.EventBusUtil;
+
 import java.util.ArrayList;
 
 import app.jietuqi.cn.database.IOpenHelper;
 import app.jietuqi.cn.database.MyOpenHelper;
 import app.jietuqi.cn.ui.alipayscreenshot.entity.AlipayScreenShotEntity;
-import app.jietuqi.cn.util.EventBusUtil;
 
 /**
  * Created by 刘远博 on 2017/2/15.
@@ -111,6 +112,88 @@ public class AlipayScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             EventBusUtil.post(alipayScreenShotEntity);
         }
         return (int) l;
+    }
+    /**
+     * 批量插入
+     * @param list
+     * @return
+     */
+    public boolean saveAll(ArrayList<AlipayScreenShotEntity> list){
+        createSingleTalkTable();
+        SQLiteDatabase db = getWritableDatabase();
+        //开启事物
+        db.beginTransaction();
+        try{
+            ContentValues values;
+            AlipayScreenShotEntity entity;
+            for (int i = 0, size = list.size(); i < size; i++) {
+                values = new ContentValues();
+                entity = list.get(i);
+                //开始添加第一条数据
+                values.put("wechatUserId", entity.wechatUserId);
+                values.put("avatarInt", entity.avatarInt);
+                values.put("avatarStr", entity.avatarStr);
+                values.put("resourceName", entity.resourceName);
+                values.put("timeType", entity.timeType);
+                values.put("msgType", entity.msgType);
+                if (entity.msgType == 0){
+                    values.put("msg", entity.msg);
+                }else if (entity.msgType == 1){
+                    values.put("img", entity.img);
+                    values.put("filePath", entity.filePath);
+                    values.put("msg", "图片");
+                }else if (entity.msgType == 2){
+                    values.put("time", entity.time);
+                }else if (entity.msgType == 3){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("msg", entity.msg);
+                }else if (entity.msgType == 4){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("receiveTransferId", entity.receiveTransferId);
+                }else if (entity.msgType == 5){
+                    values.put("msg", entity.msg);
+                    values.put("transferOutTime", entity.transferOutTime);
+                    values.put("transferReceiveTime", entity.transferReceiveTime);
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                }else if (entity.msgType == 6){
+                    values.put("receive", entity.receive);
+                    values.put("money", entity.money);
+                    values.put("receiveTransferId", entity.receiveTransferId);
+                }else if (entity.msgType == 7){
+                    if (entity.voiceLength <= 0){
+                        values.put("voiceLength", 1);
+                    }else {
+                        values.put("voiceLength", entity.voiceLength);
+                    }
+
+                    values.put("msg", entity.msg);
+                    values.put("alreadyRead", entity.alreadyRead);
+                    values.put("voiceToText", entity.voiceToText);
+
+                }else if (entity.msgType == 8){
+                    values.put("msg", entity.msg);
+                }
+                values.put("isComMsg", entity.isComMsg);
+                values.put("lastTime",entity.lastTime);
+                int position = allCaseNum(TABLE_NAME);
+                values.put("position", position);
+                entity.position = position;
+                long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
+                entity.id = (int) l;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            //事务已经执行成功
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            return true;
+        }
     }
     /**
      * 查询微信聊天与某人的单聊消息

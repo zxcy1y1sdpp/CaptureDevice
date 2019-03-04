@@ -51,9 +51,7 @@ class OverallProjectClassifyActivity : BaseOverallInternetActivity(), OverallPro
     private var mUsersId = ""
     override fun setLayoutResourceId() = R.layout.activity_overall_project_classify
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
         setRefreshLayout(mOverallProjectClassifySrl)
@@ -81,7 +79,7 @@ class OverallProjectClassifyActivity : BaseOverallInternetActivity(), OverallPro
     }
 
     private fun getData(){
-        val request = EasyHttp.post(HttpConfig.STORE)
+        val request = EasyHttp.post(HttpConfig.STORE, true)
 
         request.params("limit", mLimit).params("mid", UserOperateUtil.getUserId()).params("page", mPage.toString())
         when (mType) {
@@ -116,7 +114,8 @@ class OverallProjectClassifyActivity : BaseOverallInternetActivity(), OverallPro
                 mOverallProjectClassifySrl.finishRefresh(true)
                 if (mPage == 1){
                     mList.clear()
-                    mAdapter?.notifyDataSetChanged()
+                    mAdapter.notifyDataSetChanged()
+                    showEmptyView()
                 }else{
                     mOverallProjectClassifySrl.finishLoadMoreWithNoMoreData()
                 }
@@ -127,7 +126,7 @@ class OverallProjectClassifyActivity : BaseOverallInternetActivity(), OverallPro
      * 点赞/取消点赞
      */
     private fun unLike(entity: ProjectMarketEntity, position: Int){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("info_id", entity.id.toString())
@@ -146,7 +145,7 @@ class OverallProjectClassifyActivity : BaseOverallInternetActivity(), OverallPro
      * 点赞/取消点赞
      */
     private fun deleteData(entity: ProjectMarketEntity, position: Int){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "delete")
                 .params("id", entity.id.toString())
                 .execute(object : SimpleCallBack<String>() {

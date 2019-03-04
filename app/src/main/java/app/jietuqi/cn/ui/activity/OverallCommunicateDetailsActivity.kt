@@ -12,11 +12,11 @@ import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.adapter.OverallCommunicateDetailsAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
@@ -114,7 +114,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
         }
     }
     private fun del(entity: OverallDynamicEntity){
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, false)
                 .params("way", "article_del")
                 .params("id", entity.id.toString())
                 .execute(object : SimpleCallBack<String>() {
@@ -128,7 +128,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 })
     }
     private fun pingLun(content: String){
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, false)
                 .params("way", "comment_add")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("content",content)
@@ -155,7 +155,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
      * 点赞/取消点赞
      */
     private fun likeAndUnLike(entity: OverallDynamicEntity){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("classify", "article")
@@ -179,7 +179,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
      * 点赞/取消点赞
      */
     private fun likeAndUnLike(comment: OverallDynamicEntity.Comment){
-        EasyHttp.post(HttpConfig.INDEX)
+        EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "favour")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("classify", "comment")
@@ -206,7 +206,7 @@ class OverallCommunicateDetailsActivity : BaseOverallInternetActivity(), LikeLis
                 })
     }
     private fun getData(){
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, true)
                 .params("way", "article")
                 .params("id", mEntity.id.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<OverallDynamicEntity>, OverallDynamicEntity>(object : SimpleCallBack<OverallDynamicEntity>() {

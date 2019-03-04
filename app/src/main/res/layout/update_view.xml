@@ -28,8 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normalPadding"
-        android:layout_marginBottom="@dimen/normalPadding"
-        android:text=""/>
+        android:layout_marginBottom="@dimen/normalPadding"/>
 
     <app.jietuqi.cn.widget.ProgressButton
         android:id="@+id/updateBtn"

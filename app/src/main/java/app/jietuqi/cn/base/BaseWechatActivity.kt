@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.widget.dialog.ChoicePaySheetDialog
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
+import com.zhouyou.http.EventBusUtil
 import com.zhy.android.percent.support.PercentRelativeLayout
 import kotlinx.android.synthetic.main.base_wechat_preview_title.*
 import java.text.DateFormat
@@ -74,7 +74,6 @@ abstract class BaseWechatActivity : BaseActivity(), ChoicePaySheetDialog.OnItemC
             }
         }
         mBaseCreateFinishIv.setOnClickListener(this)
-        mBaseCreateTitleTv.setOnClickListener(this)
         mBaseCreateTitleTv.text = title
     }
     /**

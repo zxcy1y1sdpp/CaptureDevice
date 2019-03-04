@@ -11,14 +11,17 @@ import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.wechat.simulator.adapter.WechatSimulatorEditGroupInfoAdapter
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_simulator_edit_group_info.*
 import kotlinx.android.synthetic.main.include_base_overall_top.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import permissions.dispatcher.*
 import java.io.File
 
@@ -29,7 +32,14 @@ import java.io.File
  * 用途： 群信息编辑
  */
 @RuntimePermissions
-class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogChoiceListener {
+class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogChoiceListener, WechatSimulatorEditGroupInfoAdapter.OperateListener {
+    override fun reduceRoles() {
+        LaunchUtil.startWechatSimulatorEditGroupRolesActivity(this, 1, mEntity)
+    }
+    override fun addRoles() {
+        LaunchUtil.startWechatSimulatorEditGroupRolesActivity(this, 0, mEntity)
+    }
+
     private var mAdapter: WechatSimulatorEditGroupInfoAdapter?= null
     private var mList = arrayListOf<WechatUserEntity>()
     private lateinit var mEntity: WechatUserEntity
@@ -40,8 +50,9 @@ class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogCh
     }
 
     override fun initAllViews() {
+        registerEventBus()
         setTopTitle("群信息编辑", rightTitle = "完成")
-        mAdapter = WechatSimulatorEditGroupInfoAdapter(mList)
+        mAdapter = WechatSimulatorEditGroupInfoAdapter(mList, this)
         mEditGroupRolesRv.adapter = mAdapter
     }
 
@@ -61,7 +72,20 @@ class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogCh
         mAdapter?.notifyDataSetChanged()
         OtherUtil.onOrOff(mEntity.groupShowNickName, mSimulatorWechatCreateGroupRedPacketJoinReceiveIv)
         mSimulatorWechatCreateGroupRedPacketJoinReceiveIv.tag = mEntity.groupShowNickName
-        mEditGroupNameTv.text = mEntity.groupName
+
+        if (TextUtils.isEmpty(mEntity.groupName)){
+            val groupName = StringBuilder()
+            var entity2: WechatUserEntity
+            for (i in mEntity.groupRoles.indices){
+                entity2 = mEntity.groupRoles[i]
+                groupName.append(entity2.wechatUserNickName).append("、")
+            }
+            groupName.deleteCharAt(groupName.length - 1)
+            mEditGroupNameTv.text = groupName.toString()
+        }else{
+            mEditGroupNameTv.text = mEntity.groupName
+        }
+
         mEditGroupCountTv.text = mEntity.groupRoleCount.toString()
         if (!TextUtils.isEmpty(mEntity.chatBg)){
             GlideUtil.display(this, File(mEntity.chatBg), mBgIv)
@@ -73,6 +97,7 @@ class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogCh
         when(v.id){
             R.id.overAllRightTitleTv ->{
                 mEntity.groupShowNickName = mSimulatorWechatCreateGroupRedPacketJoinReceiveIv.tag.toString().toBoolean()
+                mEntity.eventBusTag = "编辑"
                 WechatSimulatorListHelper(this).update(mEntity)
                 EventBusUtil.post(mEntity)
                 finish()
@@ -142,8 +167,15 @@ class WechatSimulatorEditGroupInfoActivity : BaseOverallActivity(), EditDialogCh
             1 ->{
                 mEditGroupCountTv.text = entity.content
                 mEntity.groupRoleCount = entity.content.toInt()
-
             }
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onChangeUserInfo(entity: WechatUserEntity) {
+        mList.clear()
+        mList.addAll(entity.groupRoles)
+        mAdapter?.notifyDataSetChanged()
+        mEntity.groupRoles.clear()
+        mEntity.groupRoles.addAll(entity.groupRoles)
     }
 }

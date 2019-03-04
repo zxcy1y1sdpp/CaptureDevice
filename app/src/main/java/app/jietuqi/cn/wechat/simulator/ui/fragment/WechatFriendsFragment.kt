@@ -23,6 +23,7 @@ import java.util.*
  */
 
 class WechatFriendsFragment : BaseWechatFragment() {
+    override fun needLoading(): Boolean = false
 
     private lateinit var mHelper: RoleLibraryHelper
     private val mList: ArrayList<WechatUserEntity> = arrayListOf()

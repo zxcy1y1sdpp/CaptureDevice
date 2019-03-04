@@ -40,13 +40,13 @@
         android:paddingBottom="20dp"/>
 
     <LinearLayout
-        android:id="@+id/tagView1"
+        android:id="@+id/sCleanFansAndWeMediaLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sFunRecyclerView"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
-        android:paddingTop="@dimen/normalPadding"
+        android:paddingTop="12dp"
         android:paddingBottom="@dimen/normalPadding">
         <ImageView
             android:id="@+id/sCleanFansIv"
@@ -55,7 +55,7 @@
             android:src="@drawable/clean_fans"
             android:layout_weight="1"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="10dp"
             android:adjustViewBounds="true"/>
         <ImageView
             android:id="@+id/sWeMediaIv"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/we_media"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="16dp"
             android:adjustViewBounds="true"/>
     </LinearLayout>
@@ -71,7 +71,7 @@
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tagView1"
+        android:layout_below="@+id/sCleanFansAndWeMediaLayout"
         android:orientation="horizontal"
         android:background="@color/white">
 

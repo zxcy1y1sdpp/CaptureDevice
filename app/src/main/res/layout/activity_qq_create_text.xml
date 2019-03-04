@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         app:layout_heightPercent="20%w"
         android:background="@color/white"
-        android:layout_marginTop="@dimen/normalPadding"
         android:padding="@dimen/normalPadding"/>
 
     <app.jietuqi.cn.ui.qqscreenshot.widget.EmojiQQBoard

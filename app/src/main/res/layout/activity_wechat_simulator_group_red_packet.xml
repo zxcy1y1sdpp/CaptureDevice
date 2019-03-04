@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:layout_heightPercent="13.36%w"
         android:gravity="center_vertical"
-        android:background="#F05748">
+        android:background="#f35543">
         <ImageButton
             android:id="@+id/mWechatPreviewRedPacketFinishIv"
             android:layout_width="wrap_content"

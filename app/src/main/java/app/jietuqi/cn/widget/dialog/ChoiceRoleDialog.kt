@@ -27,6 +27,7 @@ class ChoiceRoleDialog : BottomSheetDialogFragment(), View.OnClickListener{
      */
     private var mType = 0
     private lateinit var mUserEntity: WechatUserEntity
+    private var mNeedChangeShared = true
     /**
      * 是否需要同时操作数据库
      */
@@ -34,7 +35,7 @@ class ChoiceRoleDialog : BottomSheetDialogFragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.dialogChangeRoleView ->{
-                LaunchUtil.startForResultRoleOfLibraryActivity(activity, mRequestCode)
+                LaunchUtil.startForResultRoleOfLibraryActivity(activity, mRequestCode, mNeedChangeShared)
             }
             R.id.dialogEditRoleView ->{
                 LaunchUtil.startForResultWechatCreateEditRoleActivity(activity, mUserEntity, mRequestCode, mType, mNeedOperateDb)
@@ -58,6 +59,13 @@ class ChoiceRoleDialog : BottomSheetDialogFragment(), View.OnClickListener{
     }
     fun setRequestCode(requestCode: Int, entity: WechatUserEntity, type: Int, needdB: Boolean){
         mRequestCode = requestCode
+        mUserEntity = entity
+        mNeedOperateDb = needdB
+        mType = type
+    }
+    fun setRequestCode(requestCode: Int, entity: WechatUserEntity, type: Int, needdB: Boolean, needChangeSharedPreference: Boolean){
+        mRequestCode = requestCode
+        mNeedChangeShared = needChangeSharedPreference
         mUserEntity = entity
         mNeedOperateDb = needdB
         mType = type

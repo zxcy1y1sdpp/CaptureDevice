@@ -12,10 +12,10 @@ import app.jietuqi.cn.ui.adapter.OverallJoinGroupsAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallCardEntity
 import app.jietuqi.cn.ui.entity.OverallIndustryEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
@@ -96,7 +96,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
     }
     override fun setLayoutResourceId() = R.layout.activity_overall_join_groups
 
-    override fun needLoadingView() = false
+    override fun needLoadingView() = true
 
     override fun initAllViews() {
         setRefreshLayout(mOverallJoinGroupsRefreshLayout)
@@ -190,12 +190,6 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
                         LaunchUtil.startOverallPublishCardActivity(this, 2, mCardEntity)
                     }
                 }
-                /*val tag = mOverallJoinGroupsPublishCardTv.text.toString()
-                if ("修改我的名片" == tag){
-                    LaunchUtil.startOverallStickActivity(this, mType)
-                }else if ("修改群名片" == tag){
-                    LaunchUtil.startOverallStickActivity(this, mType)
-                }*/
             }
         }
     }
@@ -209,7 +203,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
      * 获取我的名片
      */
     private fun getCard(){
-        val postRequest = EasyHttp.post(HttpConfig.INFORMATION)
+        val postRequest = EasyHttp.post(HttpConfig.INFORMATION, false)
         postRequest.params("way", "id").params("uid", UserOperateUtil.getUserId())
         if (mType == 1){
             postRequest.params("classify", "group")
@@ -234,9 +228,9 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
     }
 
     private fun getCardsData(){
-        val postRequest = EasyHttp.post(HttpConfig.INFORMATION)
+        val postRequest = EasyHttp.post(HttpConfig.INFORMATION, true)
         postRequest.params("way", "lists")//way 必传add
-                . params("limit", mLimit)
+                . params("limit", mLimit)//添加了
                 . params("uid", UserOperateUtil.getUserId())
                 . params("page", mPage.toString())
                 .params("order", "update_time desc")
@@ -276,6 +270,7 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
                 if (mPage == 1){
                     mList.clear()
                     mAdapter?.notifyDataSetChanged()
+                    showEmptyView()
                 }else{
                     mOverallJoinGroupsRefreshLayout.finishLoadMoreWithNoMoreData()
                 }
@@ -284,7 +279,6 @@ class OverallJoinGroupsActivity : BaseOverallInternetActivity(){
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNeedLoadMyCardData(operate: String) {
-        mOverallJoinGroupsRefreshLayout.autoRefresh()
         getCard()
     }
     override fun onDestroy() {

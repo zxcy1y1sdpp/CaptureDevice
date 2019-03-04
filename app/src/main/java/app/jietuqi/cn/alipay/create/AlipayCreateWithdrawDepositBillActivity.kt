@@ -8,9 +8,13 @@ import app.jietuqi.cn.callback.EditDialogChoiceListener
 import app.jietuqi.cn.entity.BankEntity
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.entity.eventbusentity.EventBusTimeEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.widget.dialog.ChoiceBankDialog
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_alipay_create_withdraw_deposit_bill.*
 import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import org.greenrobot.eventbus.Subscribe

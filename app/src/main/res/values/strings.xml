@@ -55,4 +55,8 @@
 ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
 
     <string name="clean_fans">不群发\n不打扰\n安全 不封号\n速度最快的清粉码\n周卡\n性价比最高</string>
+
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
 </resources>

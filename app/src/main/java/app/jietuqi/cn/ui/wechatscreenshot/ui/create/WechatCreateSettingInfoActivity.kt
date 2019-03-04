@@ -13,13 +13,13 @@ import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.ChangeSingleTaklBgEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.dialog.ChoiceRoleDialog
 import app.jietuqi.cn.widget.dialog.ChoiceWechatBackgroundDialog
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_setting_info.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

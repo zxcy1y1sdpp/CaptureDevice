@@ -67,7 +67,6 @@ class App : Application() {
     }
     override fun onCreate() {
         super.onCreate()
-
         initBugly()
         // 通过代码注册你的AppKey和AppSecret
         MobSDK.init(this)
@@ -114,7 +113,7 @@ class App : Application() {
                     entity.wechatUserId = userId.toString()
                     helper.update(this@App, entity)
                     if (i == 0){//微信截图中的“我”
-                        entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                        entity.wxNumber = "WEIXINHAO_"//设置默认的微信号
                         SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
                     }
                     if (i == 1){//微信截图中的“对方”
@@ -133,7 +132,7 @@ class App : Application() {
                         SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
                     }
                     if (i == 6){//微信模拟器中的“我”
-                        entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                        entity.wxNumber = "WEIXINHAO_"//设置默认的微信号
                         SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE)
                     }
                     if (i == 7){//微信模拟器中的“对方”,新手引导用的
@@ -170,7 +169,7 @@ class App : Application() {
                         entity.wechatUserId = userId.toString()
                         helper.update(this@App, entity)
                         if (i == 0) {//微信截图中的“我”
-                            entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                            entity.wxNumber = "WEIXINHAO_"//设置默认的微信号
                             SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.MY_SELF)
                         }
                         if (i == 1) {//微信截图中的“对方”
@@ -189,7 +188,7 @@ class App : Application() {
                             SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.ALIPAY_OTHER_SIDE)
                         }
                         if (i == 6) {//微信模拟器中的“我”
-                            entity.wechatNumber = "WEIXINHAO_"//设置默认的微信号
+                            entity.wxNumber = "WEIXINHAO_"//设置默认的微信号
                             SharedPreferencesUtils.saveBean2Sp(entity, SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE)
                         }
                         if (i == 7) {//微信模拟器中的“对方”,新手引导用的
@@ -638,6 +637,7 @@ class App : Application() {
                 .setCacheDiskConverter(SerializableDiskConverter())//默认缓存使用序列化转化
                 .setCacheMaxSize((50 * 1024 * 1024).toLong())//设置缓存大小为50M
                 .setCacheVersion(1)//缓存版本为1
+//                .setCacheMode(CacheMode.CACHEANDREMOTE)
                 .setHostnameVerifier(UnSafeHostnameVerifier(HttpConfig.BASE_URL))//全局访问规则
                 .setCertificates()//信任所有证书
                 //.addConverterFactory(GsonConverterFactory.create(gson))//本框架没有采用Retrofit的Gson转化，所以不用配置

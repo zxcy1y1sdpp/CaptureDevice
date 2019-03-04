@@ -34,7 +34,7 @@ class AlipayCreateMyActivity : BaseCreateActivity(), ChoiceAlipayLevelDialog.OnI
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        val userEntity = RoleLibraryHelper(this).queryRandom1Item()
+        val userEntity = RoleLibraryHelper(this).queryRandomItem(1)[0]
         mEntity.avatarFile = userEntity.avatarFile
         mEntity.wechatUserAvatar = userEntity.wechatUserAvatar
         mEntity.avatarInt = userEntity.avatarInt

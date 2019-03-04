@@ -171,7 +171,7 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
     }
 
     private fun binding(){
-        var request: PostRequest = EasyHttp.post(HttpConfig.USERS).params("way", "edit").params("id", UserOperateUtil.getUserId())
+        var request: PostRequest = EasyHttp.post(HttpConfig.USERS, false).params("way", "edit").params("id", UserOperateUtil.getUserId())
         when (mType) {
             0 -> { //绑定手机号
                 request.params("mobile", mOpenId)
@@ -234,7 +234,7 @@ class OverallAccountManagementActivity : BaseOverallInternetActivity(), Platform
         val mUIProgressResponseCallBack = object : UIProgressResponseCallBack() {
             override fun onUIResponseProgress(bytesRead: Long, contentLength: Long, done: Boolean) {}
         }
-        EasyHttp.post(HttpConfig.USERS)
+        EasyHttp.post(HttpConfig.USERS, false)
                 .params("way", "edit")
                 .params("headimgurl", file, file.name, mUIProgressResponseCallBack)
                 .params("id", UserOperateUtil.getUserId())

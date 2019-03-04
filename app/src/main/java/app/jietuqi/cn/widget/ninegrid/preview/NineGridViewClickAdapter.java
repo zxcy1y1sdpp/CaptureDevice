@@ -24,6 +24,7 @@ import app.jietuqi.cn.widget.ninegrid.NineGridViewAdapter;
  */
 public class NineGridViewClickAdapter extends NineGridViewAdapter {
 
+    private static final long serialVersionUID = 3624218023938067969L;
     private int statusHeight;
 
     public NineGridViewClickAdapter(Context context, List<ImageInfo> imageInfo) {

@@ -1,9 +1,13 @@
 package app.jietuqi.cn.wechat.simulator.adapter
+import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -193,6 +197,12 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         private val otherText: AutoLinkTextView = itemView.findViewById(R.id.sWechatScreenShotOtherContentTv)
         private val nickName: TextView = itemView.findViewById(R.id.sWechatNickNameTv)
 
+        init {
+            otherAvatar.setOnClickListener{
+                val entity = mList[adapterPosition]
+                mListener.changeUserInfo(entity)
+            }
+        }
         fun bind(entity: WechatScreenShotEntity){
             otherText.addAutoLinkMode(
                     AutoLinkMode.MODE_HASHTAG,
@@ -292,7 +302,7 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         private val nickName: TextView = itemView.findViewById(R.id.sWechatNickNameTv)
         init {
             bubbleLayout.setOnClickListener{
-                mListener?.closeBottomMenu()
+                mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 if (entity.receive){//如果被领取了，就是查看详情
                     LaunchUtil.startWechatSimulatorGroupRedPacketActivity(itemView.context, entity)
@@ -338,61 +348,12 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
             bubbleLayout.setOnClickListener{
                 mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
-                val senderEntity = WechatUserEntity()//发送人
-                val receiveEntity = WechatUserEntity()//接收人
                 if (entity.receive) {//如果被领取了，就是查看详情
                     LaunchUtil.startWechatSimulatorGroupRedPacketActivity(itemView.context, entity)
                 }else{
                     entity.receive = true
                     mListener.otherTakeMyRedPacket(entity, adapterPosition)
                 }
-                /*if (!mIsComMsg){//如果当前操作对象是“我”，如果没有领取红包，就领取，如果已经领取就是查看详情
-                    if (entity.receive){//如果被领取了，就是查看详情
-                        senderEntity.money = entity.money
-                        senderEntity.wechatUserId = entity.wechatUserId
-                        senderEntity.wechatUserNickName = mMyEntity.wechatUserNickName
-                        senderEntity.avatarFile = mMyEntity.avatarFile
-                        senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
-                        senderEntity.avatarInt = mMyEntity.avatarInt
-                        senderEntity.resourceName = mMyEntity.resourceName
-                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-
-                        receiveEntity.money = entity.money
-                        receiveEntity.wechatUserId = entity.wechatUserId
-                        receiveEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
-                        receiveEntity.avatarFile = mOtherEntity.avatarFile
-                        receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
-                        receiveEntity.avatarInt = mOtherEntity.avatarInt
-                        receiveEntity.resourceName = mOtherEntity.resourceName
-                        receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-                        LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
-                    }else{//“我操作”“我未被领取的红包”
-                        ToastUtils.showShort(itemView.context, "请切换到 [对方] 进行红包领取")
-                    }
-                }else{//如果当前操作对象是“对方”，查看详情
-                    if (entity.receive){//如果被领取了，就是查看详情
-                        senderEntity.money = entity.money
-                        senderEntity.wechatUserId = entity.wechatUserId
-                        senderEntity.wechatUserNickName = mMyEntity.wechatUserNickName
-                        senderEntity.avatarFile = mMyEntity.avatarFile
-                        senderEntity.wechatUserAvatar = mMyEntity.wechatUserAvatar
-                        senderEntity.resourceName = mMyEntity.resourceName
-                        senderEntity.avatarInt = mMyEntity.avatarInt
-                        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-                        receiveEntity.money = entity.money
-                        receiveEntity.wechatUserId = entity.wechatUserId
-                        receiveEntity.wechatUserNickName = mOtherEntity.wechatUserNickName
-                        receiveEntity.avatarFile = mOtherEntity.avatarFile
-                        receiveEntity.wechatUserAvatar = mOtherEntity.wechatUserAvatar
-                        receiveEntity.resourceName = mOtherEntity.resourceName
-                        receiveEntity.avatarInt = mOtherEntity.avatarInt
-                        receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-                        LaunchUtil.startWechatSimulatorSendRedPacketActivity(itemView.context, senderEntity, receiveEntity)
-                    }else{//“我操作”“我未被领取的红包”
-                        entity.receive = true
-                        mListener.otherTakeMyRedPacket(entity, adapterPosition)
-                    }
-                }*/
             }
         }
         fun bind(entity: WechatScreenShotEntity){
@@ -496,19 +457,24 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
 
     inner class SystemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val systemContent: TextView = itemView.findViewById(R.id.wechatSystemTv)
-        private val systemContent2: TextView = itemView.findViewById(R.id.wechatSystemTv2)
         fun bind(entity: WechatScreenShotEntity){
             if (mShowChatBg){
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
             }else{
                 systemContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
             }
-            if (entity.msg.contains("重新编辑")){
-                systemContent.text = "你撤回了一条消息"
-                systemContent2.visibility = View.VISIBLE
+            val spannableString: SpannableStringBuilder
+            if (entity.msg.contains("撤销")){
+                spannableString = SpannableStringBuilder(entity.msg)
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), spannableString.length - 2, spannableString.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                systemContent.text = spannableString
+            }else if (!entity.msg.startsWith("“") && entity.msg.contains("撤回")){
+                spannableString = SpannableStringBuilder(entity.msg)
+                spannableString.append(" 重新编辑")
+                spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), spannableString.length - 4, spannableString.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                systemContent.text = spannableString
             }else{
                 systemContent.text = entity.msg
-                systemContent2.visibility = View.GONE
             }
         }
     }
@@ -518,5 +484,6 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
         fun myTransferWasReceive(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
         fun closeBottomMenu()//关闭底部菜单
+        fun changeUserInfo(entity: WechatScreenShotEntity)
     }
 }

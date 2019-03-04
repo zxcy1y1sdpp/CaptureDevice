@@ -16,11 +16,15 @@ import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.entity.OverallCardEntity
 import app.jietuqi.cn.ui.entity.OverallIndustryEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.OtherUtil
+import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.dialog.EditDialog
 import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.body.UIProgressResponseCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
@@ -361,7 +365,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
         val mUIProgressResponseCallBack = object : UIProgressResponseCallBack() {
             override fun onUIResponseProgress(bytesRead: Long, contentLength: Long, done: Boolean) {}
         }
-        var request = EasyHttp.post(HttpConfig.INFORMATION).params("way", "add")//way 必传add
+        var request = EasyHttp.post(HttpConfig.INFORMATION, false).params("way", "add")//way 必传add
         if (mCardType < 2){//发布我的名片/修改我的名片
             if (mCardType == 0){//发布我的名片
                 request.params("uid", UserOperateUtil.getUserId())
@@ -427,7 +431,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
      * 删除名片
      */
     private fun deleteCard(){
-        EasyHttp.post(HttpConfig.INFORMATION).params("way", "del")//way 必传add
+        EasyHttp.post(HttpConfig.INFORMATION, false).params("way", "del")//way 必传add
                 .params("id", mOverallPublishCardBtn.tag.toString())
                 .params("uid", UserOperateUtil.getUserId())
                 .execute(object : SimpleCallBack<String>() {

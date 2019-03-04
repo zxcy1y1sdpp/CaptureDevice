@@ -176,20 +176,8 @@
                 android:textSize="17sp"/>
         </LinearLayout>
     </com.zhy.android.percent.support.PercentLinearLayout>
-    <!--<LinearLayout
-        android:id="@+id/mOverallJoinGroupsPublishCardLayout"
+    <include layout="@layout/include_loading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        app:layout_heightPercent="13.78%w">
-        <TextView
-            android:id="@+id/mOverallJoinGroupsPublishCardTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发布群名片"
-            android:textColor="@color/black"
-            android:textSize="@dimen/overall16sp"/>
-    </LinearLayout>-->
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view1"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

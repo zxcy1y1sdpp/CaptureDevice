@@ -286,6 +286,48 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:resizeableActivity="false" />
+        <!-- 微信 == 创建分享 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateShareActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 邀请加群 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateInviteJoinGroupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 添加表情 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateEmojiActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 选择表情 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatChoiceEmojiActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 选择群聊头像 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatChoiceGroupHeaderActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微信 == 创建个人名片 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateCardActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 系统消息 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateSystemMessageActivity"
@@ -314,6 +356,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:resizeableActivity="false" />
+        <!-- 微信 == 视频 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
 
         <!-- 微信 == 微信聊天截图的预览页面 -->
         <activity
@@ -327,7 +376,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            android:resizeableActivity="false"/>
             android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 群聊页面 -->
         <activity
@@ -391,9 +439,33 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建群系统消息 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupSystemMessageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建群聊 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupChatActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 增加或减少群成员 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorEditGroupRolesActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 修改角色 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorEditRoleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 对话排序 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorSortActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
@@ -441,6 +513,27 @@
         <!-- 激活码列表页面 -->
         <activity
             android:name=".ui.activity.OverallCdkListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 自媒体服务 -->
+        <activity
+            android:name=".ui.activity.OverallWeMediaActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 自媒体服务分类页面 -->
+        <activity
+            android:name=".ui.activity.OverallWeMediaClassifyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 自媒体服务分类详情 -->
+        <activity
+            android:name=".ui.activity.OverallWeMediaDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"

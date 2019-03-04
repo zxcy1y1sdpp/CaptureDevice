@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/overallBg">
+    <include layout="@layout/include_base_overall_top"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击头像可自定义"
+        android:padding="@dimen/normalPadding"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mGroupHeaderRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="5"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/normalPadding"
+        android:paddingTop="@dimen/normalPadding"/>
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/mGroupHeaderRandomTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/normalPadding2"
+        android:text="随机一组"
+        android:textColor="@color/white"
+        app:stv_corner="3dp"
+        app:stv_solid="@color/overallBlue"
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/normalPadding"
+        android:layout_marginLeft="@dimen/normalPadding"/>
+
+</LinearLayout>

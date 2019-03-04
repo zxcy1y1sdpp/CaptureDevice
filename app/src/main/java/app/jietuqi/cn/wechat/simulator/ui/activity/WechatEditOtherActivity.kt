@@ -12,11 +12,11 @@ import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.db.RoleLibraryHelper
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.widget.dialog.ChoiceWechatBackgroundDialog
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_simulator_edit_other.*
 import permissions.dispatcher.*
 import java.io.File

@@ -40,4 +40,7 @@ public class IntentKey {
     public final static String NOT_VIP_Entity = "notVipEntity";
 
     public final static String ID = "id";
+    public final static String ROLE_ENTITY = "roleEntity";
+    public final static String GROUP_TABLE_NAME = "groupTableName";
+    public final static String CHANGE_SHAREDPREFERENCE = "changeSharedPreference";
 }

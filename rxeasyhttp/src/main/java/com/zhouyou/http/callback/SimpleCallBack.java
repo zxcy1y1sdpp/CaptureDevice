@@ -33,9 +33,4 @@ public abstract class SimpleCallBack<T> extends CallBack<T> {
     public void onCompleted() {
 
     }
-
-//    @Override
-//    public void onEmpty() {
-//
-//    }
 }

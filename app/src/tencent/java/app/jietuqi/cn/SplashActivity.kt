@@ -8,10 +8,10 @@ import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.ui.HomeActivity
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.ProductFlavorsEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException

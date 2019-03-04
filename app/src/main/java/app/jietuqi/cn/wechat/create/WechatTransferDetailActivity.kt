@@ -13,10 +13,10 @@ import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.widget.dialog.EditDialog
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_transfer_detail.*
 import kotlinx.android.synthetic.main.base_wechat_preview_transfer.*
 import kotlinx.android.synthetic.main.base_wechat_preview_transfer_time.*

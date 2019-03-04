@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <FrameLayout
+        android:id="@+id/mWechatFragments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/mMainTabBar"
+        android:layout_below="@+id/titleLayout"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/wechatLine"
+        android:layout_above="@+id/mMainTabBar"/>
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="15.35%w"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+    </LinearLayout>
+    <app.jietuqi.cn.widget.MainNavigateTabBar
+        android:id="@+id/mMainTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="15.35%w"
+        android:layout_alignParentBottom="true"
+        android:background="#F7F7F7"
+        app:containerId="@+id/mWechatFragments"
+        app:navigateTabSelectedTextColor="@color/wechatListGreen"
+        app:navigateTabTextColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="10.57%w"
+        app:layout_heightPercent="5.2%w"
+        app:layout_marginLeftPercent="14%w"
+        android:layout_alignTop="@+id/mMainTabBar"
+        app:layout_marginTopPercent="1.49%w">
+
+        <app.jietuqi.cn.wechat.simulator.widget.RedPointTextView
+            android:id="@+id/mWechatBadgeView0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/layout1"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/mWechatBadgeView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/red_point"
+        app:layout_marginLeftPercent="64.2%w"
+        app:layout_marginTopPercent="1.49%w"
+        android:layout_alignTop="@+id/mMainTabBar"/>
+    <TextView
+        android:id="@+id/mWechatBadgeView2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_marginLeftPercent="64.43%w"
+        app:layout_widthPercent="5%w"
+        app:layout_marginTopPercent="1.83%w"
+        android:layout_alignTop="@+id/mMainTabBar"/>
+    <include layout="@layout/include_wechat_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

@@ -55,7 +55,6 @@ class QQCreateSystemMessageActivity : BaseCreateActivity() {
                     mQQCreateSystemMessageEt.setText("你撤回了一条消息")
             }
             R.id.mQQCreateSystemMessageOtherRecallTv ->{
-                val nickName = mOtherSideEntity.wechatUserNickName
                 mQQCreateSystemMessageEt.setText("对方撤回了一条消息")
             }
             R.id.mQQCreateSystemMessageHiTv ->{

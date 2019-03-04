@@ -150,7 +150,7 @@ class OverallProjectPublishDetailsActivity : BaseOverallInternetActivity(), Dele
                 mAdapter.notifyItemChanged(entity.position)
             }
         }
-        EasyHttp.post(HttpConfig.UPLOAD)
+        EasyHttp.post(HttpConfig.UPLOAD, false)
                 .params("way", "picture")
                 .params("file", entity.pic, entity.pic.name, mUIProgressResponseCallBack)
                 .execute(object : CallBackProxy<OverallApiEntity<OverallPublishEntity>, OverallPublishEntity>(object : SimpleCallBack<OverallPublishEntity>() {

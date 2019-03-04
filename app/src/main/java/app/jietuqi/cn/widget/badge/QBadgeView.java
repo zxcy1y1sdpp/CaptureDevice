@@ -131,10 +131,10 @@ public class QBadgeView extends View implements Badge {
         mBadgeBackgroundBorderPaint.setStyle(Paint.Style.STROKE);
         mColorBackground = 0xFFE84E40;
         mColorBadgeText = 0xFFFFFFFF;
-        mBadgeTextSize = DisplayUtil.dp2px(getContext(), 18);
+        mBadgeTextSize = DisplayUtil.dp2px(getContext(), 15);
         mBadgePadding = DisplayUtil.dp2px(getContext(), 5);
         mBadgeNumber = 0;
-        mBadgeGravity = Gravity.END | Gravity.TOP;
+        mBadgeGravity = Gravity.START | Gravity.TOP;
         mGravityOffsetX = DisplayUtil.dp2px(getContext(), 1);
         mGravityOffsetY = DisplayUtil.dp2px(getContext(), 1);
         mFinalDragDistance = DisplayUtil.dp2px(getContext(), 90);
@@ -628,7 +628,11 @@ public class QBadgeView extends View implements Badge {
             if (mMoreThan99 == 0){
                 mBadgeText = mExact ? String.valueOf(mBadgeNumber) : "99+";
             }else {
-                mBadgeText = mExact ? String.valueOf(mBadgeNumber) : "···";
+                if (mBadgeText.equals(" ··· ")){
+                    mBadgeText = mExact ? String.valueOf(mBadgeNumber) : "···" ;
+                }else {
+                    mBadgeText = mExact ? String.valueOf(mBadgeNumber) : " ··· ";
+                }
             }
         } else if (mBadgeNumber > 0 && mBadgeNumber <= 99) {
             mBadgeText = String.valueOf(mBadgeNumber);

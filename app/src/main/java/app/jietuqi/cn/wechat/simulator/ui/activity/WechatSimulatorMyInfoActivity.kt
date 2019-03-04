@@ -32,7 +32,7 @@ class WechatSimulatorMyInfoActivity : BaseCreateActivity(), EditDialogChoiceList
             mMySideEntity.wechatUserNickName = entity.content
         }else{
             mWechatSimulatorMyInfoWechatNumberTv.text = entity.content
-            mMySideEntity.wechatNumber = entity.content
+            mMySideEntity.wxNumber = entity.content
         }
     }
 
@@ -46,7 +46,7 @@ class WechatSimulatorMyInfoActivity : BaseCreateActivity(), EditDialogChoiceList
         mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
         GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatSimulatorMyInfoAvatarIv)
         mWechatSimulatorMyInfoNickNameTv.text = mMySideEntity.wechatUserNickName
-        mWechatSimulatorMyInfoWechatNumberTv.text = mMySideEntity.wechatNumber
+        mWechatSimulatorMyInfoWechatNumberTv.text = mMySideEntity.wxNumber
 
     }
     override fun initViewsListener() {
@@ -79,9 +79,9 @@ class WechatSimulatorMyInfoActivity : BaseCreateActivity(), EditDialogChoiceList
     }
     override fun finish() {
         super.finish()
-        mMySideEntity.wechatNumber = mWechatSimulatorMyInfoWechatNumberTv.text.toString()
-        mMySideEntity?.pinyinNickName = OtherUtil.transformPinYin(mMySideEntity?.wechatUserNickName)
-        mMySideEntity?.firstChar = OtherUtil.getFirstLetter(mMySideEntity?.pinyinNickName)
+        mMySideEntity.wxNumber = mWechatSimulatorMyInfoWechatNumberTv.text.toString()
+        mMySideEntity.pinyinNickName = OtherUtil.transformPinYin(mMySideEntity.wechatUserNickName)
+        mMySideEntity.firstChar = OtherUtil.getFirstLetter(mMySideEntity.pinyinNickName)
         SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

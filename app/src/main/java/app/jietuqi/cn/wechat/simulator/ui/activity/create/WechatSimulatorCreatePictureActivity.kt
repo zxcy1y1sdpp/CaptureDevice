@@ -11,7 +11,6 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.OtherUtil
 import kotlinx.android.synthetic.main.activity_wechat_create_picture_and_video.*
-import kotlinx.android.synthetic.main.include_choice_role.*
 import permissions.dispatcher.*
 
 /**
@@ -24,19 +23,16 @@ import permissions.dispatcher.*
 class WechatSimulatorCreatePictureActivity : BaseWechatSimulatorCreateActivity() {
     override fun setLayoutResourceId() = R.layout.activity_wechat_create_picture_and_video
 
-    override fun needLoadingView(): Boolean {
-        return false
-    }
+    override fun needLoadingView() = false
 
     override fun initAllViews() {
         setBlackTitle("图片", 1)
     }
 
     override fun initViewsListener() {
+        super.initViewsListener()
         mWechatCreatePictureAndVideoPictureTypeTv.setOnClickListener(this)
         mWechatCreatePictureAndVideoVideoTypeTv.setOnClickListener(this)
-        mWechatCreateChoiceMySideLayout.setOnClickListener(this)
-        mWechatCreateChoiceOtherSideLayout.setOnClickListener(this)
         mWechatCreatePictureAndVideoPictureLayout.setOnClickListener(this)
     }
     override fun getAttribute(intent: Intent) {
@@ -45,25 +41,6 @@ class WechatSimulatorCreatePictureActivity : BaseWechatSimulatorCreateActivity()
         if (mType == 1){
             GlideUtil.display(this, mMsgEntity.filePath, mWechatCreatePictureAndVideoPictureIv)
         }
-        /*mType = intent.getIntExtra(IntentKey.TYPE, 0)
-        mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
-        mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        mMySideEntity = UserOperateUtil.getMySelf()
-        GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
-        mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
-        setMsg(mMySideEntity)
-        if (mType == 1){
-            mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
-            if (mMsgEntity.wechatUserId == mMySideEntity.wechatUserId){
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-            }else{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-            }
-            GlideUtil.display(this, mMsgEntity.filePath, mWechatCreatePictureAndVideoPictureIv)
-        }*/
     }
     override fun onClick(v: View) {
         super.onClick(v)
@@ -80,16 +57,6 @@ class WechatSimulatorCreatePictureActivity : BaseWechatSimulatorCreateActivity()
             }
             R.id.mWechatCreatePictureAndVideoPictureLayout ->{
                 openAlbumWithPermissionCheck()
-            }
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-                mMsgEntity.isComMsg = false
-            }
-            R.id.mWechatCreateChoiceOtherSideLayout ->{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-                mMsgEntity.isComMsg = true
             }
             R.id.overallAllRightWithBgTv ->{
                 if(mType == 0){

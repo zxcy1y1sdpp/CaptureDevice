@@ -9,120 +9,101 @@
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_marginTopPercent="1.51%w"
-        app:layout_marginBottomPercent="1.51%w">
+        app:layout_marginTopPercent="1.73%w"
+        app:layout_marginBottomPercent="1.73%w">
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/wechatOtherAvatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_heightPercent="10.12%w"
             app:layout_widthPercent="10.12%w"
-            app:layout_marginLeftPercent="2.16%w"
-            app:layout_marginRightPercent="1.67%w"
+            app:layout_marginLeftPercent="1.24%w"
+            app:layout_marginRightPercent="1.99%w"
             android:src="@drawable/head_default"
             android:scaleType="centerCrop"
             app:riv_corner_radius="5dp"/>
-        <com.zhy.android.percent.support.PercentRelativeLayout
-            android:id="@+id/wechatBubbleLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_hongbao_b"
-            android:layout_toRightOf="@+id/wechatOtherAvatar"
-            android:layout_alignTop="@+id/wechatOtherAvatar"
-            app:layout_heightPercent="23.28%w"
-            app:layout_widthPercent="61%w" >
-
-            <com.zhy.android.percent.support.PercentRelativeLayout
+            <TextView
+                android:id="@+id/sWechatNickNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_marginTopPercent="3.44%w"
-                app:layout_marginLeftPercent="4.31%w"
-                app:layout_heightPercent="17.68%w">
-                <ImageView
-                    android:id="@+id/tagIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/wechat_redpacket_send"
-                    android:adjustViewBounds="true"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tagIv"
-                    android:layout_alignBottom="@+id/tagIv"
-                    android:layout_toRightOf="@+id/tagIv"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:id="@+id/wechatLeaveMessage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/tagIv"
-                        android:text="啥来的快放假电饭锅的的的啥来的"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/wechatNormalTextSize2"
-                        android:layout_marginLeft="@dimen/normalPadding"
-                        android:layout_centerVertical="true"/>
+                android:text="啦啦啦"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:textColor="@color/wechatLightGray"
+                android:layout_alignTop="@+id/wechatOtherAvatar"
+                android:layout_toRightOf="@+id/wechatOtherAvatar"
+                android:visibility="gone"/>
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:id="@+id/wechatBubbleLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_hongbao_b"
+                app:layout_heightPercent="21.29%w"
+                app:layout_widthPercent="55.94%w"
+                android:layout_toRightOf="@+id/wechatOtherAvatar"
+                android:layout_below="@+id/sWechatNickNameTv">
 
-                    <TextView
-                        android:id="@+id/wechatRedPackageStatusTv"
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_marginTopPercent="3.44%w"
+                    app:layout_marginLeftPercent="4.31%w"
+                    app:layout_heightPercent="17.68%w">
+                    <ImageView
+                        android:id="@+id/tagIv"
                         android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/wechat_redpacket_send"
+                        android:adjustViewBounds="true"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tagIv"
                         android:layout_alignBottom="@+id/tagIv"
                         android:layout_toRightOf="@+id/tagIv"
-                        android:text="领取红包"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/wechatLittleTextSize"
-                        android:layout_alignLeft="@+id/wechatLeaveMessage"
-                        android:layout_marginLeft="@dimen/normalPadding"
-                        android:visibility="gone"/>
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:id="@+id/wechatLeaveMessage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/tagIv"
+                            android:text="啥来的快放假电饭锅的的的啥来的"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textSize="@dimen/wechatNormalTextSize2"
+                            android:layout_marginLeft="@dimen/normalPadding"
+                            android:layout_centerVertical="true"/>
 
+                        <TextView
+                            android:id="@+id/wechatRedPackageStatusTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/tagIv"
+                            android:layout_toRightOf="@+id/tagIv"
+                            android:text="领取红包"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/wechatLittleTextSize"
+                            android:layout_alignLeft="@+id/wechatLeaveMessage"
+                            android:layout_marginLeft="@dimen/normalPadding"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tagIv"
+                    android:layout_toRightOf="@+id/tagIv"
+                    android:text="微信红包"
+                    android:textColor="@color/wechatLightGray"
+                    android:textSize="@dimen/wechatLittle2TextSize"
+                    android:layout_alignLeft="@+id/wechatLeaveMessage"
+                    app:layout_marginLeftPercent="4.31%w"
+                    android:layout_alignParentBottom="true"/>
             </com.zhy.android.percent.support.PercentRelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tagIv"
-                android:layout_toRightOf="@+id/tagIv"
-                android:text="微信红包"
-                android:textColor="@color/wechatLightGray"
-                android:textSize="@dimen/wechatLittle2TextSize"
-                android:layout_alignLeft="@+id/wechatLeaveMessage"
-                app:layout_marginLeftPercent="4.31%w"
-                android:layout_alignParentBottom="true"/>
-        </com.zhy.android.percent.support.PercentRelativeLayout>
-        <LinearLayout
-            android:id="@+id/receiveRedPacketLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gray_round_cornor"
-            android:orientation="horizontal"
-            android:layout_below="@+id/wechatBubbleLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/normalPadding"
-            android:gravity="center_vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/wechat_receive_redpacket_system"/>
-            <TextView
-                android:id="@+id/wechatReceiveRedPacket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="李凌轩领取了你的"
-                android:textColor="@color/white"
-                android:textSize="@dimen/wechatLittleTextSize"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="红包"
-                android:textColor="@color/wechat_redpacket_bg"
-                android:textSize="@dimen/wechatLittleTextSize"/>
-        </LinearLayout>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 </com.zhy.android.percent.support.PercentRelativeLayout>

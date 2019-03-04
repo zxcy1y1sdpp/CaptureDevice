@@ -2,6 +2,8 @@ package app.jietuqi.cn.ui.alipayscreenshot;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * 作者： liuyuanbo on 2018/12/10 17:56.
@@ -20,6 +22,9 @@ public class test extends Activity {
          * 返回0 表示：o1和o2相等，
          * 返回正数表示：o1大于o2。
          */
+
+
+
 
     }
 

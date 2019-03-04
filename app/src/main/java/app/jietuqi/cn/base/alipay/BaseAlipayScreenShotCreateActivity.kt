@@ -2,7 +2,6 @@ package app.jietuqi.cn.base.alipay
 
 import android.content.Intent
 import android.view.View
-import android.widget.ImageView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.IntentKey
@@ -27,48 +26,55 @@ abstract class BaseAlipayScreenShotCreateActivity : BaseWechatActivity(){
      * 1 -- 编辑
      */
     var mType = 0
-
+    /**
+     * 是不是自己
+     */
+    var mMe = true
     override fun initAllViews() {
         mHelper = AlipayScreenShotHelper(this)
     }
 
     override fun initViewsListener() {
-        mWechatCreateChoiceMySideLayout.setOnClickListener(this)
-        mWechatCreateChoiceOtherSideLayout.setOnClickListener(this)
+        mChangeRoleLayout.setOnClickListener(this)
     }
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatCreateChoiceOtherSideAvatarIv)
-        mWechatCreateChoiceOtherSideNickNameTv.text = mOtherSideEntity.wechatUserNickName
         mMySideEntity = UserOperateUtil.getAlipayMySelf()
-        GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mWechatCreateChoiceMySideAvatarIv)
-        mWechatCreateChoiceMySideNickNameTv.text = mMySideEntity.wechatUserNickName
-        setMsg(mMySideEntity)
+        changeRole()
         if (mType == 1){
             mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as AlipayScreenShotEntity
             if (mMsgEntity.wechatUserId == mMySideEntity.wechatUserId){
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
+                mMe = true
+                changeRole()
             }else{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
+                mMe = false
+                changeRole()
             }
+        }
+    }
+    private fun changeRole(){
+        if (mMe){
+            mSenderTitleTv.text = "发送人 -- 自己"
+            mSenderNickNameTv.text = mMySideEntity.wechatUserNickName
+            GlideUtil.displayHead(this, mMySideEntity.getAvatarFile(), mAvatarIv)
+            setMsg(mMySideEntity)
+            mMsgEntity.isComMsg = false
+        }else{
+            mSenderTitleTv.text = "发送人 -- 对方"
+            mSenderNickNameTv.text = mOtherSideEntity.wechatUserNickName
+            GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mAvatarIv)
+            setMsg(mOtherSideEntity)
+            mMsgEntity.isComMsg = true
         }
     }
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
-            R.id.mWechatCreateChoiceMySideLayout ->{
-                setChoice(mWechatCreateChoiceMySideChoiceIv, mWechatCreateChoiceOtherSideChoiceIv)
-                setMsg(mMySideEntity)
-                mMsgEntity.isComMsg = false
-            }
-            R.id.mWechatCreateChoiceOtherSideLayout ->{
-                setChoice(mWechatCreateChoiceOtherSideChoiceIv, mWechatCreateChoiceMySideChoiceIv)
-                setMsg(mOtherSideEntity)
-                mMsgEntity.isComMsg = true
+            R.id.mChangeRoleLayout ->{
+                mMe = !mMe
+                changeRole()
             }
             R.id.overallAllRightWithBgTv ->{
                 if(mType == 0){
@@ -85,9 +91,5 @@ abstract class BaseAlipayScreenShotCreateActivity : BaseWechatActivity(){
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.wechatUserId = entity.wechatUserId
-    }
-    private fun setChoice(choiceIv: ImageView, unChoiceIv: ImageView){
-        choiceIv.setImageResource(R.drawable.choice)
-        unChoiceIv.setImageResource(R.drawable.un_choice)
     }
 }

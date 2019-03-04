@@ -6,11 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.zhouyou.http.EventBusUtil;
+
 import java.util.ArrayList;
 
 import app.jietuqi.cn.database.IOpenHelper;
 import app.jietuqi.cn.database.MyOpenHelper;
-import app.jietuqi.cn.util.EventBusUtil;
 import app.jietuqi.cn.wechat.entity.WechatCreateBillsEntity;
 
 /**

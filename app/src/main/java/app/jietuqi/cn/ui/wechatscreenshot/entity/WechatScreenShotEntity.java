@@ -85,6 +85,7 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
      * 红包的信息
      */
     public WechatScreenShotEntity groupRedPacketInfo;
+
     /**
      * 每一条红包信息对应的领取人的信息集合
      */

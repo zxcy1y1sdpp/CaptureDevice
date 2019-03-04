@@ -1,5 +1,6 @@
 package app.jietuqi.cn.ui.activity
 
+import android.util.Log
 import android.view.View
 import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
@@ -13,13 +14,18 @@ import app.jietuqi.cn.ui.alipayscreenshot.ui.create.AlipayScreenShotActivity
 import app.jietuqi.cn.ui.qqscreenshot.ui.create.QQScreenShotActivity
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatScreenShotActivity
 import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.TimeUtil
 import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.wechat.WechatConstant
 import app.jietuqi.cn.wechat.create.*
+import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatChatListActivity
 import com.coorchice.library.SuperTextView
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.zhouyou.http.utils.HttpLog
 import kotlinx.android.synthetic.main.activity_wechatsimulator.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * 作者： liuyuanbo on 2018/10/3 21:37.
@@ -36,7 +42,6 @@ class SimulatorActivity : BaseOverallActivity() {
     }
 
     override fun initAllViews() {
-        //上线 -- channel 开关
         if (!BuildConfig.DEBUG){
             if (UserOperateUtil.needColseByChannel()){
                 HttpLog.d("channer---需要隐藏")
@@ -108,7 +113,13 @@ class SimulatorActivity : BaseOverallActivity() {
             mVipFun7.visibility = View.GONE
             mVipFun14.visibility = View.GONE
             mVipFun15.visibility = View.GONE
-//            mVipFun16.visibility = View.GONE
+        }
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            var list = WechatSimulatorListHelper(this@SimulatorActivity).queryAll()
+            if (null != list){
+                WechatConstant.WECHAT_CACHE_LIST.clear()
+                WechatConstant.WECHAT_CACHE_LIST.addAll(list)
+            }
         }
     }
     private fun showTip(tv: SuperTextView){
@@ -167,6 +178,7 @@ class SimulatorActivity : BaseOverallActivity() {
                 LaunchUtil.launch(this, WechatVideoActivity::class.java)
             }
             R.id.mWechatFun9, R.id.mWechatSimulatorLayout ->{
+                Log.e("loadFromDb-开始跳转", TimeUtil.getNowAllTime())
                 LaunchUtil.launch(this, WechatChatListActivity::class.java)
             }
             R.id.mWechatFun10 ->{

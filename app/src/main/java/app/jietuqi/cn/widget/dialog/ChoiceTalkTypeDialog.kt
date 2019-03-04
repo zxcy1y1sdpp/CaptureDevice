@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.dialog_choice_talk_type.*
  * 邮箱： 972383753@qq.com
  * 用途： 选择聊天截图的类型
  */
-
 class ChoiceTalkTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
     private lateinit var mListener: ChoiceTypeListener
     override fun onClick(v: View?) {
@@ -40,6 +39,21 @@ class ChoiceTalkTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
             R.id.dialogChoiceTalkSystemTv ->{
                 mListener.choiceType("系统提示", "7")
             }
+            R.id.dialogChoiceTalkVideoTv ->{
+                mListener.choiceType("视频和语音聊天", "9")
+            }
+            R.id.dialogChoiceTalkTransmitTv ->{
+                mListener.choiceType("转发", "11")
+            }
+            R.id.dialogChoiceTalkCardTv ->{
+                mListener.choiceType("个人名片", "12")
+            }
+            R.id.dialogChoiceTalkInviteTv ->{
+                mListener.choiceType("加群", "13")
+            }
+            R.id.dialogChoiceTalkFaceTv ->{
+                mListener.choiceType("表情", "14")
+            }
         }
         dismiss()
     }
@@ -57,6 +71,11 @@ class ChoiceTalkTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
         dialogChoiceVoiceTv.setOnClickListener(this)
         dialogChoiceTalkCancelTv.setOnClickListener(this)
         dialogChoiceTalkSystemTv.setOnClickListener(this)
+        dialogChoiceTalkVideoTv.setOnClickListener(this)
+        dialogChoiceTalkTransmitTv.setOnClickListener(this)
+        dialogChoiceTalkCardTv.setOnClickListener(this)
+        dialogChoiceTalkInviteTv.setOnClickListener(this)
+        dialogChoiceTalkFaceTv.setOnClickListener(this)
     }
 
     fun setListener(listener: ChoiceTypeListener){

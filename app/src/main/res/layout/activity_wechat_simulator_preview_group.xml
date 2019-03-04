@@ -82,7 +82,8 @@
         app:arrowCenter="true"
         android:layout_below="@+id/titleLayout"
         android:layout_marginLeft="@dimen/normalPadding2"
-        android:layout_marginRight="@dimen/normalPadding2">
+        android:layout_marginRight="@dimen/normalPadding2"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"

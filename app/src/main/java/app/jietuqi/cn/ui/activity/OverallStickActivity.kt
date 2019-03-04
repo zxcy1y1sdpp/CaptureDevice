@@ -6,10 +6,10 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.http.HttpConfig
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_stick.*
@@ -78,7 +78,7 @@ class OverallStickActivity : BaseOverallInternetActivity() {
         }
     }
     private fun setTop(time: String){
-        EasyHttp.post(HttpConfig.INFORMATION)
+        EasyHttp.post(HttpConfig.INFORMATION, false)
                 .params("way", "timetop")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("time", time)

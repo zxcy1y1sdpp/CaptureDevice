@@ -109,6 +109,16 @@
             android:text="单价"
             style="@style/overallLeftTitle"
             android:layout_toRightOf="@+id/tagView1"/>
+
+        <TextView
+            android:id="@+id/mVipTagTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vip  "
+            android:layout_toLeftOf="@+id/mSinglePriceTv"
+            android:layout_centerVertical="true"
+            android:textColor="@color/overallRed"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/mSinglePriceTv"
             android:layout_width="wrap_content"

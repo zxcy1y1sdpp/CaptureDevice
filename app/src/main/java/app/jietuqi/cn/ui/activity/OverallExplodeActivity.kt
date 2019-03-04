@@ -56,7 +56,7 @@ class OverallExplodeActivity : BaseOverallActivity() {
      * 获取我的名片
      */
     private fun getCard(){
-        val postRequest = EasyHttp.post(HttpConfig.INFORMATION)
+        val postRequest = EasyHttp.post(HttpConfig.INFORMATION, false)
         postRequest.params("way", "id").params("uid", UserOperateUtil.getUserId())
         postRequest.execute(object : CallBackProxy<OverallApiEntity<OverallCardEntity>, OverallCardEntity>(object : SimpleCallBack<OverallCardEntity>() {
             override fun onSuccess(t: OverallCardEntity?) {
@@ -98,7 +98,7 @@ class OverallExplodeActivity : BaseOverallActivity() {
 
     }
     fun explore(){
-        EasyHttp.post(HttpConfig.INFORMATION)
+        EasyHttp.post(HttpConfig.INFORMATION, false)
                 .params("way", "top")
                 .params("uid", UserOperateUtil.getUserId())
                 .execute(object : SimpleCallBack<String>() {

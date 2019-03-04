@@ -5,21 +5,21 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LoadMoreListener
 import app.jietuqi.cn.callback.RefreshListener
 import app.jietuqi.cn.constant.ColorFinal
 import com.jaeger.library.StatusBarUtil
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.widget.ProgressUtils
-import kotlinx.android.synthetic.main.include_base_overall_top.*
+import kotlinx.android.synthetic.main.include_loading.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.annotations.NotNull
 
 /**
@@ -36,7 +36,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     private var mRootView: View? = null
     var mPageSize = 1
     var mLimitSize = 30
-
+    var mQQDialog: QMUITipDialog? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         /**
          * 解决内存泄漏的重要方法，防止onCreateView方法多次执行
@@ -55,7 +55,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setContextS()
-        //            initLoadingView();
+        initLoadingView()
         initAllViews()
         initViewsListener()
         getArguments(arguments)
@@ -75,6 +75,24 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
      */
     protected abstract fun setLayoutResouceId(): Int
 
+    protected abstract fun needLoading(): Boolean
+
+
+    private fun initLoadingView(){
+        if (needLoading()){
+            EventBusUtil.register(this)
+            mMultipleStatusView.showLoading()
+            mMultipleStatusView.setOnRetryClickListener(mRetryClickListener)
+        }
+    }
+
+    private val mRetryClickListener: View.OnClickListener = View.OnClickListener {
+        loadFromServer()
+    }
+
+    protected fun registerEventBus(){
+        EventBusUtil.register(this)
+    }
     /**
      * 设置根布局资源id
      * @return
@@ -96,12 +114,9 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
      * @param arguments
      */
     protected open fun getArguments(arguments: Bundle?) {}
-    open fun loadFromDb() {
+    open fun loadFromDb() {}
 
-    }
-
-    open fun loadFromServer() {
-    }
+    open fun loadFromServer() {}
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
@@ -115,52 +130,19 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         loadFromDb()
-
     }
 
     /**
      * 对用户来说是可见的状态
      */
-    open fun visiableForUser() {
-
-    }
+    open fun visiableForUser() {}
 
     /**
      * 对用户来说是不可见的状态
      */
-    open fun invisiableForUser() {
+    open fun invisiableForUser() {}
 
-    }
-
-    override fun onClick(v: View) {
-    }
-
-    /**
-     * 设置页面的标题
-     * @param title
-     * @param type
-     *        0 -- 只有一个返回键和标题
-     *        1 -- 只有标题
-     *        2 -- 包含右侧标题
-     */
-    protected fun setTitle(title: String, type: Int = 0, rightTitle: String = "") {
-        val titleTv = findViewById<TextView>(R.id.overAllTitleTv)
-        val iv = findViewById<ImageView>(R.id.overAllBackIv)
-        if (!TextUtils.isEmpty(rightTitle)) {
-            val rightTitleTv = findViewById<TextView>(R.id.overAllRightTitleTv)
-            rightTitleTv?.setOnClickListener(this)
-            rightTitleTv?.visibility = View.VISIBLE
-        }
-        when (type) {
-            1 -> {
-                overAllBackTv.visibility = View.GONE
-                iv?.visibility = View.GONE
-            }
-        }
-        iv?.setOnClickListener(this)
-        titleTv?.setOnClickListener(this)
-        titleTv?.text = title
-    }
+    override fun onClick(v: View) {}
 
     /**
      * 设置状态栏的颜色
@@ -221,5 +203,43 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
                 loadMoreListener.loadMore()
             }
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLoadingStatus(type: String) {
+        when(type){
+            "LoadingSuccess" ->{//成功
+                mMultipleStatusView.showContent()
+            }
+            "LoadingError" ->{//失败
+                mMultipleStatusView.showError()
+            }
+            "LoadingEmpty" ->{//空数据
+                mMultipleStatusView.showEmpty()
+            }
+        }
+    }
+
+    fun showEmptyView(){
+        EventBusUtil.post("LoadingEmpty")
+    }
+    fun showErrorView(){
+        EventBusUtil.post("LoadingError")
+    }
+
+    override fun onDestroyView() {
+        EventBusUtil.unRegister(this)
+        super.onDestroyView()
+    }
+
+    fun showQQWaitDialog(msg: String = "请稍后"){
+        mQQDialog = QMUITipDialog.Builder(activity)
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(msg)
+                .create()
+        mQQDialog?.show()
+    }
+
+    fun dismissQQDialog() {
+        mQQDialog?.dismiss()
     }
 }

@@ -1,12 +1,10 @@
-package app.jietuqi.cn;
+package com.zhouyou.http;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import app.jietuqi.cn.ui.activity.OverallLoginActivity;
 
 /**
  * 作者： liuyuanbo on 2018/11/15 14:45.
@@ -18,8 +16,7 @@ public class AppManager {
 
     private static CopyOnWriteArrayList<Activity> mActivityStack;
     private static AppManager mAppManager;
-    private AppManager() {
-    }
+    private AppManager() { }
     /**
      * 单一实例
      */
@@ -37,6 +34,10 @@ public class AppManager {
             mActivityStack = new CopyOnWriteArrayList<Activity>();
         }
         mActivityStack.add(activity);
+    }
+
+    public Activity getTopActivity(){
+        return mActivityStack.get(mActivityStack.size() - 1);
     }
     /**
      * 结束指定的Activity
@@ -69,19 +70,6 @@ public class AppManager {
         for (int i = 0, size = mActivityStack.size(); i < size; i++) {
             if (null != mActivityStack.get(i)) {
                 mActivityStack.get(i).finish();
-            }
-        }
-        mActivityStack.clear();
-    }
-    /**
-     * 结束所有Activity除了Login
-     */
-    public void killAllActivityNoLogin() {
-        for (int i = 0, size = mActivityStack.size(); i < size; i++) {
-            if (null != mActivityStack.get(i)) {
-                if (mActivityStack.get(i).getClass()!= OverallLoginActivity.class) {
-                    mActivityStack.get(i).finish();
-                }
             }
         }
         mActivityStack.clear();

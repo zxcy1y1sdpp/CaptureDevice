@@ -20,7 +20,8 @@
         android:orientation="vertical"
         app:spanCount="5"
         app:layoutManager="app.jietuqi.cn.widget.NeverCrashGridLayoutManager"
-        android:paddingLeft="@dimen/normalPadding"/>
+        android:paddingLeft="@dimen/normalPadding"
+        android:background="@color/white"/>
 
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mEditGroupNameLayout"

@@ -123,7 +123,7 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
                 mAdapter.notifyItemChanged(entity.position)
             }
         }
-        EasyHttp.post(HttpConfig.UPLOAD)
+        EasyHttp.post(HttpConfig.UPLOAD, false)
                 .params("way", "picture")
                 .params("file", entity.pic, entity.pic.name, mUIProgressResponseCallBack)
                 .execute(object : CallBackProxy<OverallApiEntity<OverallPublishEntity>, OverallPublishEntity>(object : SimpleCallBack<OverallPublishEntity>() {
@@ -163,7 +163,7 @@ class OverallPublishFriendsCircleActivity : BaseOverallInternetActivity(), Delet
             }
             coverId = sb.deleteCharAt(sb.length - 1).toString()
         }
-        EasyHttp.post(HttpConfig.INFO)
+        EasyHttp.post(HttpConfig.INFO, false)
                 .params("way", "article_add")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("content", mOverallPublishFriendsCircleEt.text.toString())

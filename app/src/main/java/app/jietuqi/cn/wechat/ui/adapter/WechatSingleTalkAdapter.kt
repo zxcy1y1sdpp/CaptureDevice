@@ -9,18 +9,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import app.jietuqi.cn.R
 import app.jietuqi.cn.ui.entity.SingleTalkEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.WechatTimeUtil
 import app.jietuqi.cn.widget.bubble.BubbleLinearLayout
 import app.jietuqi.cn.widget.bubble.BubbleTextView
 import com.makeramen.roundedimageview.RoundedImageView
-import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhouyou.http.EventBusUtil
 
 /**
  * 作者： liuyuanbo on 2018/10/10 17:50.

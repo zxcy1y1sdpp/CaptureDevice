@@ -56,7 +56,7 @@ class AlipayCreateTransferActivity : BaseAlipayScreenShotCreateActivity() {
                         mMsgEntity.msg = StringUtils.insertFront(mOtherSideEntity.wechatUserNickName, "转账给")
                     }
                 }
-                if (mType == 1){//修改
+                /*if (mType == 1){//修改
                     val receiveEntity = mHelper.query(mMsgEntity.id)//与被修改的数据关联在一起的收钱的数据
                     if (null != receiveEntity){
                         receiveEntity.transferReceiveTime = mMsgEntity.transferReceiveTime
@@ -65,7 +65,7 @@ class AlipayCreateTransferActivity : BaseAlipayScreenShotCreateActivity() {
                         mHelper.update(receiveEntity)
 //123                        EventBusUtil.post(receiveEntity)
                     }
-                }
+                }*/
             }
         }
         super.onClick(v)

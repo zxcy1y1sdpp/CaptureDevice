@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.wechatscreenshot.ui.create
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.view.View
 import android.view.ViewGroup
 import app.jietuqi.cn.R
@@ -27,6 +28,8 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
+
+
 
 /**
  * 作者： liuyuanbo on 2018/11/29 12:17.
@@ -64,6 +67,21 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             }
             "系统提示" ->{
                 LaunchUtil.startWechatCreateSystemMessageActivity(this, mOtherSideEntity, null, 0, "微信")
+            }
+            "视频和语音聊天" ->{
+                LaunchUtil.startWechatCreateVideoActivity(this, mOtherSideEntity, null, 0)
+            }
+            "转发" ->{
+                LaunchUtil.startWechatCreateShareActivity(this, mOtherSideEntity, null, 0)
+            }
+            "个人名片" ->{
+                LaunchUtil.startWechatCreateCardActivity(this, mOtherSideEntity, null, 0)
+            }
+            "加群" ->{
+                LaunchUtil.startWechatCreateInviteJoinGroupActivity(this, mOtherSideEntity, null, 0)
+            }
+            "表情" ->{
+                LaunchUtil.startWechatCreateEmojiActivity(this, mOtherSideEntity, null, 0)
             }
         }
     }
@@ -149,9 +167,6 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 }
                 2 ->{
                     LaunchUtil.startWechatCreateTimeActivity(this, mOtherSideEntity, mEditEntity, 1)
-                    /*val calendar = Calendar.getInstance()
-                    calendar.timeInMillis = mEditEntity.time*/
-//                    initTimePickerView(tag = "修改", selectedDate = calendar)
                 }
                 3, 4 ->{
                     LaunchUtil.startWechatCreateRedPacketActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
@@ -165,18 +180,32 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 8 ->{
                     LaunchUtil.startWechatCreateSystemMessageActivity(this, mOtherSideEntity, mEditEntity, 1, "微信")
                 }
+                9, 10 ->{
+                    LaunchUtil.startWechatCreateVideoActivity(this, mOtherSideEntity, mEditEntity, 1)
+                }
+                11 ->{
+                    LaunchUtil.startWechatCreateShareActivity(this, mOtherSideEntity, mEditEntity, 1)
+                }
+                12 ->{
+                    LaunchUtil.startWechatCreateCardActivity(this, mOtherSideEntity, mEditEntity, 1)
+                }
+                13 ->{
+                    LaunchUtil.startWechatCreateInviteJoinGroupActivity(this, mOtherSideEntity, mEditEntity, 1)
+                }
+                14 ->{
+                    LaunchUtil.startWechatCreateEmojiActivity(this, mOtherSideEntity, mEditEntity, 1)
+                }
             }
         }
+
         mWechatScreenShotCreateMenuRecyclerView.setOnItemMoveListener(object : OnItemMoveListener {
             override fun onItemMove(srcHolder: RecyclerView.ViewHolder, targetHolder: RecyclerView.ViewHolder): Boolean {
                 if (srcHolder.itemViewType != targetHolder.itemViewType) return false
-
-                // 真实的Position：通过ViewHolder拿到的position都需要减掉HeadView的数量。
                 val fromPosition = srcHolder.adapterPosition - mWechatScreenShotCreateMenuRecyclerView.headerItemCount
                 val toPosition = targetHolder.adapterPosition - mWechatScreenShotCreateMenuRecyclerView.headerItemCount
-
                 Collections.swap(mList, fromPosition, toPosition)
                 mAdapter?.notifyItemMoved(fromPosition, toPosition)
+
                 return true
             }
 
@@ -184,6 +213,18 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
 
             }
         })
+        mWechatScreenShotCreateMenuRecyclerView.setOnItemStateChangedListener { _, actionState ->
+            if (actionState === ACTION_STATE_IDLE) {
+                showQQWaitDialog("请稍后")
+                mHelper.deleteAll()
+
+                if (mHelper.saveAll(mList)){
+                    dismissQQDialog()
+                }else{
+                    showToast("排序失败")
+                }
+            }
+        }
         mWechatScreenShotCreateMenuRecyclerView.adapter = mAdapter
     }
 
@@ -275,20 +316,6 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             }
         }
     }
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
-        if (timeEntity.tag == "修改"){
-            var position = mList.indexOf(mEditEntity)
-            mEditEntity.time = timeEntity.timeLong
-            mHelper.update(mEditEntity)
-            mAdapter?.notifyItemRangeChanged(position, 1)
-        }else if (timeEntity.tag == "创建"){
-            var entity = WechatScreenShotEntity("", -1, "", 2, true, timeEntity.timeLong, -1)
-            mHelper.save(entity)
-            mList.add(entity)
-            mAdapter?.notifyItemInserted(mList.size - 1)
-        }
-    }*/
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNeedChangeOrAddData(entity: WechatScreenShotEntity) {
@@ -308,7 +335,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         }
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         var i = 0
         val size = mList.size
@@ -317,5 +344,5 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             mHelper.save(mList[i])
             i++
         }
-    }
+    }*/
 }

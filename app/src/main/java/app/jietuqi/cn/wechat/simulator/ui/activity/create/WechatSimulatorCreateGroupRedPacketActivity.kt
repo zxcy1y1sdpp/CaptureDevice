@@ -8,9 +8,9 @@ import app.jietuqi.cn.base.BaseCreateActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.StringUtils
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_simloator_wechat_create_group_redpacket.*
 import kotlinx.android.synthetic.main.include_base_overall_top_black.*
 
@@ -62,6 +62,10 @@ class WechatSimulatorCreateGroupRedPacketActivity : BaseCreateActivity() {
         when(v.id){
             R.id.overallAllRightWithBgTv ->{
                 var money = mSimulatorWechatCreateGroupRedPacketMoneyEt.text.toString()
+                if (TextUtils.isEmpty(OtherUtil.getContent(mSimulatorWechatCreateGroupRedPacketCountEt))){
+                    showToast("请输入红包个数")
+                    return
+                }
                 mCount = OtherUtil.getContent(mSimulatorWechatCreateGroupRedPacketCountEt).toInt()
                 when {
                     TextUtils.isEmpty(money) -> {

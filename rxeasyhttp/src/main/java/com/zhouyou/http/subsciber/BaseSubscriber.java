@@ -40,8 +40,7 @@ import static com.zhouyou.http.utils.Utils.isNetworkAvailable;
 public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
     public WeakReference<Context> contextWeakReference;
     
-    public BaseSubscriber() {
-    }
+    public BaseSubscriber() {}
 
     @Override
     protected void onStart() {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_base_overall_top_black"/>
+
+    <include
+        layout="@layout/include_choice_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mWechatCreateCardLayout"
+        android:layout_below="@+id/titleLayout"
+        style="@style/wechatItem">
+        <TextView
+            android:text="个人名片"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mWechatCreateCardNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="微商营销宝"
+            android:layout_toLeftOf="@+id/mWechatCreateCardIv"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/mWechatCreateCardIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head_default"
+            app:layout_heightPercent="85%h"
+            app:layout_widthPercent="85%h"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/rightTgIv2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/normalPadding"/>
+
+        <ImageView
+            android:id="@+id/rightTgIv2"
+            style="@style/wechatRightArrow"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mWechatCreateCardWxNumberLayout"
+        android:gravity="center_vertical"
+        style="@style/wechatItem">
+        <TextView
+            android:text="微信号"
+            style="@style/wechatLeftTitle"/>
+
+        <TextView
+            android:id="@+id/mWechatCreateCardWxNumberTv"
+            style="@style/wechatRightWithArrow"
+            android:hint="微信号"/>
+    </RelativeLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

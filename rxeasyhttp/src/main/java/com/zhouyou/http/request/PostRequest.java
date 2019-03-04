@@ -46,8 +46,10 @@ import okhttp3.ResponseBody;
  */
 @SuppressWarnings(value={"unchecked", "deprecation"})
 public class PostRequest extends BaseBodyRequest<PostRequest> {
-    public PostRequest(String url) {
+    boolean mControlLoading;
+    public PostRequest(String url, boolean controlLoading) {
         super(url);
+        mControlLoading = controlLoading;
     }
 
     public <T> Observable<T> execute(Class<T> clazz) {
@@ -75,8 +77,7 @@ public class PostRequest extends BaseBodyRequest<PostRequest> {
     }
 
     public <T> Disposable execute(CallBack<T> callBack) {
-        return execute(new CallBackProxy<ApiResult<T>, T>(callBack) {
-        });
+        return execute(new CallBackProxy<ApiResult<T>, T>(callBack) {});
     }
 
     public <T> Disposable execute(CallBackProxy<? extends ApiResult<T>, T> proxy) {
@@ -87,9 +88,9 @@ public class PostRequest extends BaseBodyRequest<PostRequest> {
                 public ObservableSource<T> apply(@NonNull Observable<CacheResult<T>> upstream) {
                     return upstream.map(new CacheResultFunc<T>());
                 }
-            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack()));
+            }).subscribeWith(new CallBackSubsciber<T>(context, proxy.getCallBack(), mControlLoading));
         } else {
-            return observable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack()));
+            return observable.subscribeWith(new CallBackSubsciber<CacheResult<T>>(context, proxy.getCallBack(), mControlLoading));
         }
     }
 

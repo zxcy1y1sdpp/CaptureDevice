@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_overall_cdk_list.*
  * 用途： 激活码列表
  */
 class CdkListFragment : BaseFragment() {
+    override fun needLoading() = true
 
     private var mList = arrayListOf<OverallCdkEntity>()
     private var mAdapter: OverallCdkListAdapter? = null
@@ -55,10 +56,10 @@ class CdkListFragment : BaseFragment() {
         getOrders()
     }
     private fun getOrders(){
-        EasyHttp.post(HttpConfig.ORDER)
+        EasyHttp.post(HttpConfig.ORDER, true)
                 .params("way", "qingfen")
                 .params("order_id", mOrderId)
-                .params("limit", mLimitSize.toString())
+                .params("limit", mLimitSize.toString())//添加了
                 .params("page", mPageSize.toString())
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallCdkEntity>>, ArrayList<OverallCdkEntity>>(object : SimpleCallBack<ArrayList<OverallCdkEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallCdkEntity>) {

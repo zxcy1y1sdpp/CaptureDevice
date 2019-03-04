@@ -10,7 +10,7 @@
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_heightPercent="13.5%w"
+        app:layout_heightPercent="11.88%w"
         android:background="#EDEDED">
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_alignTop="@+id/mWechatSimulatorPreviewBackTv"
             android:layout_alignBottom="@+id/mWechatSimulatorPreviewBackTv"
             android:layout_centerVertical="true"
-            app:layout_marginLeftPercent="3.85%w"/>
+            app:layout_marginLeftPercent="3.7%w"/>
 
         <ImageView
             android:id="@+id/mWechatSimulatorPreviewAddIv"
@@ -34,14 +34,14 @@
             android:src="@drawable/wechat_add"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            app:layout_marginRightPercent="4.93%w"/>
+            app:layout_marginRightPercent="3.7%w"/>
         <ImageView
             android:id="@+id/mWechatSimulatorPreviewSearchIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_search"
             android:layout_centerVertical="true"
-            app:layout_marginRightPercent="10.49%w"
+            app:layout_marginRightPercent="8.17%w"
             android:layout_toLeftOf="@+id/mWechatSimulatorPreviewAddIv"/>
 
     </com.zhy.android.percent.support.PercentRelativeLayout>

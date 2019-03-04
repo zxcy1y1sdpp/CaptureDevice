@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -104,15 +103,62 @@
             android:drawableTop="@drawable/dialog_system"
             android:drawablePadding="@dimen/normalPadding"/>
         <TextView
+            android:id="@+id/dialogChoiceTalkVideoTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="转账"
+            android:text="视频聊天"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:gravity="center"
-            android:drawableTop="@drawable/dialog_transfer"
-            android:drawablePadding="@dimen/normalPadding"
-            android:visibility="invisible"/>
+            android:drawableTop="@drawable/dialog_video"
+            android:drawablePadding="@dimen/normalPadding"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/normalPadding">
+
+        <TextView
+            android:id="@+id/dialogChoiceTalkTransmitTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="转发"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:drawableTop="@drawable/dialog_forward"
+            android:drawablePadding="@dimen/normalPadding"/>
+        <TextView
+            android:id="@+id/dialogChoiceTalkCardTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="个人名片"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:drawableTop="@drawable/dialog_card"
+            android:drawablePadding="@dimen/normalPadding"/>
+        <TextView
+            android:id="@+id/dialogChoiceTalkInviteTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="邀请加群"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:drawableTop="@drawable/dialog_group"
+            android:drawablePadding="@dimen/normalPadding"/>
+        <TextView
+            android:id="@+id/dialogChoiceTalkFaceTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="表情"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:drawableTop="@drawable/dialog_picture"
+            android:drawablePadding="@dimen/normalPadding"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

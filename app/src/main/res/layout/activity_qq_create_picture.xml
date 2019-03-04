@@ -18,7 +18,6 @@
 
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mQQCreatePictureLayout"
-        android:layout_marginTop="@dimen/normalPadding"
         android:layout_below="@+id/titleLayout"
         style="@style/wechatItem">
         <TextView

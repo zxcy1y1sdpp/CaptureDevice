@@ -87,7 +87,7 @@ class OverallNumberAddFansActivity : BaseOverallInternetActivity() {
 
     @NeedsPermission(Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS)
     fun getPhoneNumbers() {
-        var request: PostRequest = EasyHttp.post(HttpConfig.INDEX)
+        var request: PostRequest = EasyHttp.post(HttpConfig.INDEX, false)
                 .params("way", "random")
                 .params("uid", UserOperateUtil.getUserId())
                 .params("number", mSize.toString())

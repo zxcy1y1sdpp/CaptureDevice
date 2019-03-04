@@ -6,7 +6,6 @@ import android.os.Build
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
 import android.util.Log
-import app.jietuqi.cn.AppManager
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
 import app.jietuqi.cn.constant.Constant
@@ -26,6 +25,7 @@ import app.jietuqi.cn.widget.ProgressButton
 import app.jietuqi.cn.widget.dialog.UpdateView
 import cn.jzvd.Jzvd
 import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhouyou.http.AppManager
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.DownloadProgressCallBack
@@ -177,7 +177,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
      * 获取群类别
      */
     private fun getGroupIndustryData(){
-        EasyHttp.post(HttpConfig.INFORMATION)
+        EasyHttp.post(HttpConfig.INFORMATION, false)
                 .params("way", "heapsort")
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
@@ -193,7 +193,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
      * 获取行业类别
      */
     private fun getIndustryData(){
-        EasyHttp.post(HttpConfig.INFORMATION)
+        EasyHttp.post(HttpConfig.INFORMATION, false)
                 .params("way", "industry")
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {
@@ -208,7 +208,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
      * 获取行业类别
      */
     private fun getProjectClassify(){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "industry")
                 .execute(object : CallBackProxy<OverallApiEntity<ArrayList<OverallIndustryEntity>>, ArrayList<OverallIndustryEntity>>(object : SimpleCallBack<ArrayList<OverallIndustryEntity>>() {
                     override fun onSuccess(t: ArrayList<OverallIndustryEntity>?) {

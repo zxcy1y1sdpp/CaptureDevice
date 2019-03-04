@@ -20,7 +20,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/back_black"
-                android:padding="@dimen/normalPadding"/>
+                android:padding="@dimen/normalPadding"
+                android:scaleType="center"
+                android:adjustViewBounds="true"/>
             <TextView
                 android:id="@+id/overAllBackBlackTv"
                 android:layout_width="wrap_content"

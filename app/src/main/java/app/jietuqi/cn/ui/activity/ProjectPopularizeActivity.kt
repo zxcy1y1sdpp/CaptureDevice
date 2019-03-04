@@ -10,6 +10,7 @@ import app.jietuqi.cn.ui.entity.ProjectMarketEntity
 import app.jietuqi.cn.util.*
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
+import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_project_popularize.*
@@ -80,7 +81,7 @@ class ProjectPopularizeActivity : BaseOverallInternetActivity() {
         }
     }
     private fun setTop(){
-        EasyHttp.post(HttpConfig.STORE)
+        EasyHttp.post(HttpConfig.STORE, false)
                 .params("way", "timetop")
                 .params("id", mEntity.id.toString())
                 .params("time", "24")

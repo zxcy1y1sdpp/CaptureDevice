@@ -1,6 +1,5 @@
 package app.jietuqi.cn.wechat.simulator.adapter
 
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -19,7 +18,6 @@ import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.util.WechatTimeUtil
 import app.jietuqi.cn.wechat.simulator.widget.RedPointTextView
 import com.zhy.android.percent.support.PercentRelativeLayout
-import java.io.ByteArrayOutputStream
 
 
 /**
@@ -114,12 +112,21 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
                         recentRoleEntity = entity.groupRoles[i]
                     }
                 }
+                avatar.setImageBitmap(entity.groupHeader)
 
-                val baos = ByteArrayOutputStream()
-                (entity.listAvatarFile as Bitmap).compress(Bitmap.CompressFormat.PNG, 100, baos)
-                val bytes = baos.toByteArray()
-                GlideUtil.displayHead(itemView.context, bytes, avatar)
-                nickName.text = entity.groupName
+                if (TextUtils.isEmpty(entity.groupName)){
+                    val groupName = StringBuilder()
+                    var entity2: WechatUserEntity
+                    for (i in entity.groupRoles.indices){
+                        entity2 = entity.groupRoles[i]
+                        groupName.append(entity2.wechatUserNickName).append("、")
+                    }
+                    groupName.deleteCharAt(groupName.length - 1)
+                    nickName.text = groupName.toString()
+                }else{
+                    nickName.text = entity.groupName
+                }
+
                 if (!TextUtils.isEmpty(entity.msgType)){
                     when(entity.msgType.toInt()){
                         0 ->{//文字
@@ -202,11 +209,12 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
                 unReadTv.visibility = View.GONE
             }else{
                 unReadTv.visibility = View.VISIBLE
-                if (entity.unReadNum.toInt() >= 99){
-                    unReadTv.setText("···")
+                unReadTv.setText(entity.unReadNum)
+                /*if (entity.unReadNum.toInt() >= 99){
+
                 }else{
                     unReadTv.setText(entity.unReadNum)
-                }
+                }*/
             }
         }
     }

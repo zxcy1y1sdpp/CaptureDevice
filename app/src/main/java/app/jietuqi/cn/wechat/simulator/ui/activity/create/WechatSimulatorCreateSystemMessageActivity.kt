@@ -8,10 +8,10 @@ import app.jietuqi.cn.base.BaseCreateActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
-import app.jietuqi.cn.util.EventBusUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.wechat.entity.WechatMsgEditEntity
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
+import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_simulator_wechat_create_system_message.*
 
 /**
@@ -99,4 +99,6 @@ class WechatSimulatorCreateSystemMessageActivity : BaseCreateActivity() {
         }
         super.onClick(v)
     }
+
+
 }
