@@ -18,7 +18,6 @@ import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.util.FileUtil
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.zhihu.matisse.Matisse
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.body.UIProgressResponseCallBack
@@ -205,14 +204,7 @@ class OverallProblemReportActivity : BaseOverallInternetActivity(), DeleteListen
             }
             override fun onError(e: ApiException) {}
             override fun onSuccess(t: String) {
-                SweetAlertDialog(this@OverallProblemReportActivity, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("感谢您的反馈")
-                        .setContentText("有结果会第一时间通知您")
-                        .setConfirmText("知道了")
-                        .setConfirmClickListener { sweetAlertDialog ->
-                            sweetAlertDialog.dismissWithAnimation()
-                            finish()
-                        }.show()
+                showQQTipDialog("感谢您的反馈")
             }
         })
     }

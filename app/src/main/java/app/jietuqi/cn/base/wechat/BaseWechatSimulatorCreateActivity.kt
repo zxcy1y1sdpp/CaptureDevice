@@ -1,8 +1,8 @@
 package app.jietuqi.cn.base.wechat
 
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.IntentKey
@@ -25,6 +25,11 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
     lateinit var mHelper: WechatSimulatorHelper
     var mMsgEntity: WechatScreenShotEntity = WechatScreenShotEntity()
     /**
+     * 0 -- 单聊
+     * 1 -- 群聊
+     */
+    var mChatType = 0
+    /**
      * 0 -- 发布新的文本
      * 1 -- 编辑修改文本
      */
@@ -43,9 +48,15 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
-        mHelper = WechatSimulatorHelper(this, mOtherSideEntity)
+        mChatType = intent.getIntExtra(IntentKey.CHAT_TYPE, 0)
+        mHelper = if (TextUtils.isEmpty(mOtherSideEntity.groupTableName)){
+            WechatSimulatorHelper(this, mOtherSideEntity)
+        }else{
+            WechatSimulatorHelper(this, mOtherSideEntity.groupTableName)
+        }
         mMySideEntity = UserOperateUtil.getWechatSimulatorMySelf()
-        setMsg(mMySideEntity)
+
+        changeRole()
         if (mType == 1){
             mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
             if (mMsgEntity.wechatUserId == mMySideEntity.wechatUserId){
@@ -97,9 +108,5 @@ abstract class BaseWechatSimulatorCreateActivity : BaseWechatActivity(){
         mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
-    }
-    private fun setChoice(choiceIv: ImageView, unChoiceIv: ImageView){
-        choiceIv.setImageResource(R.drawable.choice)
-        unChoiceIv.setImageResource(R.drawable.un_choice)
     }
 }

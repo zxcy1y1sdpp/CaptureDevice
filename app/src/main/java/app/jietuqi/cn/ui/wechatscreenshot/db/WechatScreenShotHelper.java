@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import app.jietuqi.cn.database.IOpenHelper;
 import app.jietuqi.cn.database.MyOpenHelper;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
+import app.jietuqi.cn.ui.wechatscreenshot.entity.FileEntity;
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity;
 
 /**
@@ -47,7 +48,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                     ", msg text, img integer, filePath text, time integer, transferOutTime integer, " +
                     "transferReceiveTime integer, receiveTransferId integer, receive text, money text, " +
                     "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
-                    "lastTime integer, resourceName text, timeType text, content text, card BLOB, groupInfo BLOB");
+                    "lastTime integer, resourceName text, timeType text, " +
+                    "content text, card BLOB, groupInfo BLOB, pic text, fileEntity BLOB");
             builder.append(")");
             db.execSQL(builder.toString());
         }
@@ -90,6 +92,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             values.put("money", wechatScreenShotEntity.money);
         }else if (wechatScreenShotEntity.msgType == 6){
             values.put("receive", wechatScreenShotEntity.receive);
+            values.put("transferOutTime", wechatScreenShotEntity.transferOutTime);
+            values.put("transferReceiveTime", wechatScreenShotEntity.transferReceiveTime);
             values.put("money", wechatScreenShotEntity.money);
             values.put("receiveTransferId", wechatScreenShotEntity.receiveTransferId);
         }else if (wechatScreenShotEntity.msgType == 7){
@@ -132,6 +136,26 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                 objectOutputStream.flush();
                 byte data[] = arrayOutputStream.toByteArray();
                 values.put("groupInfo", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else if (wechatScreenShotEntity.msgType == 14){
+            values.put("pic", wechatScreenShotEntity.pic);
+        }else if (wechatScreenShotEntity.msgType == 15){
+            values.put("money", wechatScreenShotEntity.money);
+            values.put("msg", wechatScreenShotEntity.msg);
+            values.put("receive", wechatScreenShotEntity.receive);
+        }else if (wechatScreenShotEntity.msgType == 16){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.fileEntity);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                values.put("fileEntity", data);
                 objectOutputStream.close();
                 arrayOutputStream.close();
             } catch (Exception e) {
@@ -200,6 +224,8 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                     values.put("receive", wechatScreenShotEntity.receive);
                     values.put("money", wechatScreenShotEntity.money);
                     values.put("receiveTransferId", wechatScreenShotEntity.receiveTransferId);
+                    values.put("transferOutTime", wechatScreenShotEntity.transferOutTime);
+                    values.put("transferReceiveTime", wechatScreenShotEntity.transferReceiveTime);
                 }else if (wechatScreenShotEntity.msgType == 7){
                     if (wechatScreenShotEntity.voiceLength <= 0){
                         values.put("voiceLength", 1);
@@ -241,6 +267,26 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                         objectOutputStream.flush();
                         byte data[] = arrayOutputStream.toByteArray();
                         values.put("groupInfo", data);
+                        objectOutputStream.close();
+                        arrayOutputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }else if (wechatScreenShotEntity.msgType == 14){
+                    values.put("pic", wechatScreenShotEntity.pic);
+                }else if (wechatScreenShotEntity.msgType == 15){
+                    values.put("money", wechatScreenShotEntity.money);
+                    values.put("msg", wechatScreenShotEntity.msg);
+                    values.put("receive", wechatScreenShotEntity.receive);
+                }else if (wechatScreenShotEntity.msgType == 16){
+                    ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+                    try {
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                        objectOutputStream.writeObject(wechatScreenShotEntity.fileEntity);
+                        objectOutputStream.flush();
+                        byte data[] = arrayOutputStream.toByteArray();
+                        values.put("fileEntity", data);
                         objectOutputStream.close();
                         arrayOutputStream.close();
                     } catch (Exception e) {
@@ -373,6 +419,26 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                         e.printStackTrace();
                     }
                 }
+            }else if (entity.msgType == 14){
+                entity.pic = cursor.getString(cursor.getColumnIndex("pic"));
+            }else if (entity.msgType == 15){
+                entity.money = cursor.getString(cursor.getColumnIndex("money"));
+                entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
+                entity.receive = "1".equals(cursor.getString(cursor.getColumnIndex("receive")));
+            }else if (entity.msgType == 16){
+                byte data[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+                if (null != data){
+                    ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
+                    try {
+                        ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                        entity.fileEntity = (FileEntity) inputStream.readObject();
+                        inputStream.close();
+                        arrayInputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
             }
             list.add(entity);
         }
@@ -463,6 +529,26 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }else if (msgType == 14){
+            cv.put("pic" , wechatScreenShotEntity.pic);
+        }else if (msgType == 15){
+            cv.put("money" , wechatScreenShotEntity.money);
+            cv.put("msg" , wechatScreenShotEntity.msg);
+            cv.put("receive" , wechatScreenShotEntity.receive);
+        }else if (msgType == 16){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.fileEntity);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                cv.put("fileEntity", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         int result = 0;
         if (db.isOpen()) {
@@ -518,6 +604,7 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
             }
             entity.alreadyRead = "1".equals(cursor.getString(cursor.getColumnIndex("alreadyRead")));
             entity.content = cursor.getString(cursor.getColumnIndex("content"));
+            entity.pic = cursor.getString(cursor.getColumnIndex("pic"));
             byte data[] = cursor.getBlob(cursor.getColumnIndex("card"));
             if (null != data){
                 ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
@@ -537,6 +624,19 @@ public class WechatScreenShotHelper extends MyOpenHelper implements IOpenHelper 
                 try {
                     ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
                     entity.groupInfo = (WechatUserEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            byte fileEntity[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+            if (null != fileEntity){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileEntity);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.fileEntity = (FileEntity) inputStream.readObject();
                     inputStream.close();
                     arrayInputStream.close();
                 } catch (Exception e) {

@@ -60,22 +60,6 @@ class SimulatorActivity : BaseOverallActivity() {
             }
         }
         setTopTitle("微商截图", 0, rightIv = R.mipmap.jietu_lianxiren)
-        /*if (!UserOperateUtil.screenShotAgreememt()){
-            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setCanTouchOutSideCancle(false)
-                    .canCancle(false)
-                    .setTitleText("特别声明")
-                    .setContentText("本功能仅供娱乐使用，请勿用于非法用途，否则一切后果由使用者承担！如不同意，请退出使用!")
-                    .setConfirmText("我同意")
-                    .setCancelText("退出")
-                    .setConfirmClickListener { sweetAlertDialog ->
-                        sweetAlertDialog.dismissWithAnimation()
-                        SharedPreferencesUtils.putData(SharedPreferenceKey.SCREENSHOT_AGREEMENT, true)
-                    }.setCancelClickListener {
-                        it.dismissWithAnimation()
-                        finish()
-                    }.show()
-        }*/
     }
 
     override fun initViewsListener() {
@@ -103,6 +87,7 @@ class SimulatorActivity : BaseOverallActivity() {
         mWechatSimulatorLayout.setOnClickListener(this)
         mAlipaySimulatorLayout.setOnClickListener(this)
         mQQSimulatorLayout.setOnClickListener(this)
+        mTeachIv.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -199,6 +184,9 @@ class SimulatorActivity : BaseOverallActivity() {
 
             R.id.mWechatFun15 ->{
                 LaunchUtil.launch(this, AlipayCreateMyActivity::class.java)
+            }
+            R.id.mTeachIv ->{
+                LaunchUtil.startOverallWebViewActivity(this, "http://www.jietuqi.cn/index/help?os=android", "使用教程")
             }
 //            R.id.mWechatFun16 ->{
 //                LaunchUtil.launch(this, WechatCreateBillsListActivity::class.java)

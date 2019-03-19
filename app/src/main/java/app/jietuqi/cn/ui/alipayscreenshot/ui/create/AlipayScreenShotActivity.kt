@@ -4,6 +4,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import app.jietuqi.cn.R
@@ -19,7 +20,7 @@ import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.util.UserOperateUtil.getAlipayMySelf
 import app.jietuqi.cn.widget.dialog.ChoiceTalkTypeDialog
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.yanzhenjie.recyclerview.swipe.*
 import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener
 import kotlinx.android.synthetic.main.activity_alipay_screenshot_create.*
@@ -215,20 +216,16 @@ class AlipayScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 LaunchUtil.startAlipayScreenShotPreviewActivity(this, mList)
             }
             R.id.overallAllRightWithOutBgTv ->{
-                SweetAlertDialog(this@AlipayScreenShotActivity, SweetAlertDialog.WARNING_TYPE)
-                        .setCanTouchOutSideCancle(false)
-                        .canCancle(false)
-                        .setTitleText("删除提示！")
-                        .setContentText("点击删除将清空所有的历史数据")
-                        .setConfirmText("删除")
-                        .setCancelText("取消")
-                        .setConfirmClickListener { sweetAlertDialog ->
-                            sweetAlertDialog.dismissWithAnimation()
+                EnsureDialog(this@AlipayScreenShotActivity).builder()
+                        .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                        .setTitle("确定要删除所有数据吗？")//可以不设置标题颜色，默认系统颜色
+                        .setSubTitle("点击删除将清空所有的历史数据!")
+                        .setCancelable(false)
+                        .setNegativeButton("取消") {}
+                        .setPositiveButton("删除") {
                             mHelper.deleteAll()
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
-                        }.setCancelClickListener {
-                            it.dismissWithAnimation()
                         }.show()
             }
         }

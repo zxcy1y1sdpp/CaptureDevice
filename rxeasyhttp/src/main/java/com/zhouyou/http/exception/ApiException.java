@@ -52,6 +52,7 @@ public class ApiException extends Exception {
     private static final int BAD_GATEWAY = 502;
     private static final int SERVICE_UNAVAILABLE = 503;
     private static final int GATEWAY_TIMEOUT = 504;
+    private static final long serialVersionUID = 1708695140410288662L;
 
     private final int code;
     private String displayMessage;

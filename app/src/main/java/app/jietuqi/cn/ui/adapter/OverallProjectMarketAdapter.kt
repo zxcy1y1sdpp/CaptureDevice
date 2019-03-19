@@ -16,6 +16,7 @@ import app.jietuqi.cn.widget.ProjectMarketBannerItemType
 import com.ms.banner.Banner
 import com.ms.banner.BannerConfig
 import com.ms.banner.Transformer
+import java.util.regex.Pattern
 
 /**
  * 作者： liuyuanbo on 2019/1/22 10:47.
@@ -64,7 +65,11 @@ class OverallProjectMarketAdapter(val mList: ArrayList<ProjectMarketEntity>, val
             banner.setOnBannerClickListener {
                 var url = mBannerList[it].hrefurl
                 if (!TextUtils.isEmpty(url)){
-                    LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
+                    if (isInteger(url)){//为id
+                        LaunchUtil.startOverallProjectShowActivity(itemView.context, null, url)
+                    }else{
+                        LaunchUtil.startOverallWebViewActivity(itemView.context, mBannerList[it].hrefurl, mBannerList[it].title)
+                    }
                 }
             }
             var entity: BannerEntity
@@ -82,6 +87,11 @@ class OverallProjectMarketAdapter(val mList: ArrayList<ProjectMarketEntity>, val
                     .setPages(mBannerList) { ProjectMarketBannerItemType() }
                     .start()
         }
+    }
+
+    private fun isInteger(str: String): Boolean {
+        val pattern = Pattern.compile("^[-\\+]?[\\d]*$")
+        return pattern.matcher(str).matches()
     }
 
     inner class Holder2(itemView: View) : RecyclerView.ViewHolder(itemView){

@@ -6,6 +6,7 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.OtherUtil
 import kotlinx.android.synthetic.main.activity_wechat_loosechange.*
 
 /**
@@ -21,12 +22,13 @@ class WechatLooseChangeActivity : BaseWechatActivity() {
      * 1 -- 微信零钱
      */
     private var mType = 0
+    private var mShowLqt = true
     override fun setLayoutResourceId() = R.layout.activity_wechat_loosechange
 
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-
+        mWechatShowLqt.setOnClickListener(this)
         onlyOneEditTextNeedTextWatcher(mWechatLooseChangeEt, this)
     }
 
@@ -37,6 +39,8 @@ class WechatLooseChangeActivity : BaseWechatActivity() {
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         if (mType == 0){
             setWechatViewTitle("我的钱包")
+            mLqtLayout.visibility = View.GONE
+            mWechatLoosePercentEt.visibility = View.GONE
         }else{
             setWechatViewTitle("微信零钱")
         }
@@ -48,8 +52,17 @@ class WechatLooseChangeActivity : BaseWechatActivity() {
                 if (mType == 0){
                     LaunchUtil.startWechatScreenShotMyWalletActivity(this, mWechatLooseChangeEt.text.toString())
                 }else{
-                    LaunchUtil.startWechatScreenShotChangeActivity(this, mWechatLooseChangeEt.text.toString())
+                    LaunchUtil.startWechatScreenShotChangeActivity(this, mWechatLooseChangeEt.text.toString(), mShowLqt, OtherUtil.getContent(mWechatLoosePercentEt))
                 }
+            }
+            R.id.mWechatShowLqt ->{
+                mShowLqt = !mShowLqt
+                if (mShowLqt){
+                    mWechatLoosePercentEt.visibility = View.VISIBLE
+                }else{
+                    mWechatLoosePercentEt.visibility = View.GONE
+                }
+                OtherUtil.onOrOff(mShowLqt, mWechatShowLqt)
             }
         }
     }

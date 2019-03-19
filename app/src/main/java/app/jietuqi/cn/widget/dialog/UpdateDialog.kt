@@ -15,7 +15,7 @@ import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.UpdateApkUtil
 import app.jietuqi.cn.widget.DownloadView
 import app.jietuqi.cn.widget.dialog.blurdialogfragment.SupportBlurDialogFragment
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.bm.zlzq.utils.ScreenUtil
 
 /**
@@ -54,26 +54,14 @@ class UpdateDialog : SupportBlurDialogFragment(){
         if (bean.forced == 0){
             cancelIv.visibility = View.VISIBLE
             cancelIv.setOnClickListener {
-                val dialog = SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-                dialog.setCancelable(true)
-                dialog.setTitleText("忽略更新能容可能会导致一些问题")
-                        .setContentText("忽略之后可以通过: 我的->系统设置->检查更新,进行更新")
-                        .setConfirmText("更新")
-                        .setCancelText("以后再说")
-                        .setCancelClickListener { sDialog ->
-                            sDialog.cancel()
-                            dismiss()
-                            if (mDownloadView.isLoading){
-                                mDownloadView.cancel()
-                            }
-                        }
-                        .setConfirmClickListener { sDialog ->
-                            if (mDownloadView.isLoading){
-
-                            }
+                EnsureDialog(activity).builder()
+                        .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                        .setTitle("忽略更新能容可能会导致一些问题!")//可以不设置标题颜色，默认系统颜色
+                        .setSubTitle("忽略之后可以通过: 我的->系统设置->检查更新,进行更新")
+                        .setNegativeButton("以后再说") {}
+                        .setPositiveButton("马上更新") {
                             UpdateApkUtil(activity as AppCompatActivity?).updataApk(bean.apkurl, this, activity)
                             mDownloadView.performClick()
-                            sDialog.dismissWithAnimation()
                         }.show()
 
             }
@@ -86,16 +74,6 @@ class UpdateDialog : SupportBlurDialogFragment(){
 
             override fun onStart() {
                 UpdateApkUtil(activity as AppCompatActivity?).updataApk(bean.apkurl, this@UpdateDialog, activity)
-                /* if ("app" == bean.channel){
-                     UpdateDialog(activity as AppCompatActivity?).updataApk(bean.path, this@UpgradAppDialog, activity)
-                 }else{
-                     val intent = Intent()
-                     intent.action = "android.intent.action.VIEW"
-                     val content_url = Uri.parse("http://www.pgyer.com/ZLZQ")
-                     intent.data = content_url
-                     startActivity(intent)
-                     dismiss()
-                 }*/
                 cancelIv.visibility = View.GONE
             }
 

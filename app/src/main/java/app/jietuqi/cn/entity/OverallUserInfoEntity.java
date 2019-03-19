@@ -30,7 +30,8 @@ public class OverallUserInfoEntity implements Serializable {
      * 2：季度会员
      * 3：年度会员
      * 4：永久会员
-     * 5 -- 半年会员
+     * 5：半年会员
+     * 6：3天体验会员
      */
     public int status;
     public long update_time;
@@ -40,7 +41,14 @@ public class OverallUserInfoEntity implements Serializable {
     public String qq_openid;
     public String ali_openid;
     public String wb_openid;
+    /**
+     * 可提现金额（代理中心里面的）
+     */
     public String cash;
+    /**
+     * 已提现（代理中心里面的）
+     */
+    public String withdrawal;
     public String fund;
     public int credit;
     public int district_id;

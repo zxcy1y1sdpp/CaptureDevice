@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/overallBg">
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +14,8 @@
         android:id="@+id/mWechatSettingInfoMyLayout"
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_below="@+id/titleLayout"
-        style="@style/wechatItem">
+        style="@style/wechatItem"
+        app:layout_heightPercent="18%w">
         <TextView
             android:text="自己"
             style="@style/wechatLeftTitle"/>
@@ -47,7 +49,8 @@
         android:id="@+id/mWechatSettingInfoOtherLayout"
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_below="@+id/titleLayout"
-        style="@style/wechatItem">
+        style="@style/wechatItem"
+        app:layout_heightPercent="18%w">
         <TextView
             android:text="对方"
             style="@style/wechatLeftTitle"/>
@@ -103,6 +106,82 @@
             android:id="@+id/rightTgIv2"
             style="@style/wechatRightArrow"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"/>
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/mMessageAndVoiceSettingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/wechatItem">
+            <TextView
+                style="@style/wechatLeftTitle"
+                android:text="消息免打扰"/>
+
+            <ImageView
+                android:id="@+id/mMessageFreeIv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/off"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/normalPadding"
+                android:tag="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"/>
+        <RelativeLayout
+            style="@style/wechatItem">
+            <TextView
+                style="@style/wechatLeftTitle"
+                android:text="听筒模式"/>
+
+            <ImageView
+                android:id="@+id/mEarIv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/off"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/normalPadding"
+                android:tag="true"/>
+        </RelativeLayout>
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:id="@+id/mLqtLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                style="@style/wechatItem"
+                android:layout_marginTop="@dimen/normalPadding">
+                <TextView
+                    style="@style/wechatLeftTitle"
+                    android:text="是否展示转账零钱通"/>
+
+                <ImageView
+                    android:id="@+id/mWechatShowLqt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/off"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/normalPadding"/>
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/mWechatPercentEt"
+                android:hint="年化收益的百分比"
+                style="@style/wechatEdit"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/normalPadding"
+                android:text="2.98"
+                android:visibility="gone"/>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </com.zhy.android.percent.support.PercentLinearLayout>
 
     <com.zhy.android.percent.support.PercentLinearLayout
         android:id="@+id/mWechatSettingInfoQQLayout"

@@ -23,8 +23,18 @@ import org.greenrobot.eventbus.ThreadMode
 
 class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.OnItemSelectListener {
     val mEntity: WechatScreenShotEntity = WechatScreenShotEntity()
+    private var mShowLqt = true
     override fun click(type: String) {
         mEntity.transferType = type
+        if ("已收钱" == mEntity.transferType){
+            if (mEntity.type == 0){
+                mLqtLayout.visibility = View.VISIBLE
+            }else{
+                mLqtLayout.visibility = View.GONE
+            }
+        }else{
+            mLqtLayout.visibility = View.GONE
+        }
         mStatusTv.text = type
     }
 
@@ -55,6 +65,7 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
         mTransferOutTimeLayout.setOnClickListener(this)
         mReceiveTimeLayout.setOnClickListener(this)
         mRefreshIv.setOnClickListener(this)
+        mWechatShowLqt.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -64,8 +75,12 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
                 mNickNameLayout.visibility = View.GONE
                 OtherUtil.changeWechatTwoBtnBg(this, mReciveMoneyTv, mSendMoneyTv)
                 mEntity.type = 0
+                if ("已收钱" == mEntity.transferType){
+                    mLqtLayout.visibility = View.VISIBLE
+                }
             }
             R.id.mSendMoneyTv ->{
+                mLqtLayout.visibility = View.GONE
                 mEntity.type = 1
                 mNickNameLayout.visibility = View.VISIBLE
                 OtherUtil.changeWechatTwoBtnBg(this, mSendMoneyTv, mReciveMoneyTv)
@@ -84,10 +99,19 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
             R.id.mRefreshIv ->{
                 mNickNameEt.setText(RandomUtil.getRandomNickName())
             }
+            R.id.mWechatShowLqt ->{
+                mShowLqt = !mShowLqt
+                if (mShowLqt){
+                    mWechatPercentEt.visibility = View.VISIBLE
+                }else{
+                    mWechatPercentEt.visibility = View.GONE
+                }
+                OtherUtil.onOrOff(mShowLqt, mWechatShowLqt)
+            }
             R.id.previewBtn ->{
                 mEntity.wechatUserNickName = mNickNameEt.text.toString()
                 mEntity.money = mMoneyEt.text.toString()
-                LaunchUtil.startWechatScreenShotTransferDetailActivity(this, mEntity)
+                LaunchUtil.startWechatScreenShotTransferDetailActivity(this, mEntity, OtherUtil.getContent(mWechatPercentEt), mShowLqt)
             }
         }
     }

@@ -101,6 +101,18 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
                         8 ->{//系统提示
                             lastMsg.text = entity.msg
                         }
+                        9 ->{//视频通话
+                            lastMsg.text = "[视频通话]"
+                        }
+                        10 ->{//语音通话
+                            lastMsg.text = "[语音通话]"
+                        }
+                        13 ->{//邀请加群
+                            lastMsg.text = "[链接]邀请你加入群聊"
+                        }
+                        16 ->{//系统提示
+                            lastMsg.text = "[文件]"
+                        }
                     }
                 }else{
                     lastMsg.text = ""

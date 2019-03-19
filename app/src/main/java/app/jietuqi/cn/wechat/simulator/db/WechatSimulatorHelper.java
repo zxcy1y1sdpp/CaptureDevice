@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import app.jietuqi.cn.database.IOpenHelper;
 import app.jietuqi.cn.database.MyOpenHelper;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
+import app.jietuqi.cn.ui.wechatscreenshot.entity.FileEntity;
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity;
 
 /**
@@ -61,8 +62,8 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                     "voiceLength integer, alreadyRead text, voiceToText text, position integer, isComMsg text, " +
                     "lastTime integer, resourceName text, timeType text, " +
 
-                    "redPacketCount integer, receiveCompleteTime text, joinReceiveRedPacket text, receiveRedPacketRoleList text, redPacketSenderNickName text, " +
-                    "wechatUserNickName text, groupRedPacketInfo BLOB");
+                    "redPacketCount integer, receiveCompleteTime text, joinReceiveRedPacket text, receiveRedPacketRoleList text, redPacketSenderNickName text, wechatUserNickName text, groupRedPacketInfo BLOB," +
+                    "fileEntity BLOB, groupInfo BLOB");
             builder.append(")");
             db.execSQL(builder.toString());
 //            db.close();
@@ -150,6 +151,37 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
 
         }else if (wechatScreenShotEntity.msgType == 8){
             values.put("msg", wechatScreenShotEntity.msg);
+        }else if (wechatScreenShotEntity.msgType == 9 || wechatScreenShotEntity.msgType == 10){
+            values.put("msg", wechatScreenShotEntity.msg);
+            values.put("alreadyRead", wechatScreenShotEntity.alreadyRead);
+        }else if (wechatScreenShotEntity.msgType == 13){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.groupInfo);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                values.put("groupInfo", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else if (wechatScreenShotEntity.msgType == 16){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.fileEntity);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                values.put("fileEntity", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         values.put("isComMsg", wechatScreenShotEntity.isComMsg);
         values.put("lastTime",wechatScreenShotEntity.lastTime);
@@ -251,6 +283,37 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
 
                 }else if (entity.msgType == 8){
                     values.put("msg", entity.msg);
+                }else if (entity.msgType == 9 || entity.msgType == 10){
+                    values.put("msg", entity.msg);
+                    values.put("alreadyRead", entity.alreadyRead);
+                }else if (entity.msgType == 13){
+                    ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+                    try {
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                        objectOutputStream.writeObject(entity.groupInfo);
+                        objectOutputStream.flush();
+                        byte data[] = arrayOutputStream.toByteArray();
+                        values.put("groupInfo", data);
+                        objectOutputStream.close();
+                        arrayOutputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }else if (entity.msgType == 16){
+                    ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+                    try {
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                        objectOutputStream.writeObject(entity.fileEntity);
+                        objectOutputStream.flush();
+                        byte data[] = arrayOutputStream.toByteArray();
+                        values.put("fileEntity", data);
+                        objectOutputStream.close();
+                        arrayOutputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
                 values.put("isComMsg", entity.isComMsg);
                 values.put("lastTime",entity.lastTime);
@@ -375,6 +438,37 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                 entity.alreadyRead = "1".equals(cursor.getString(cursor.getColumnIndex("alreadyRead")));
             }else if (entity.msgType == 8){
                 entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
+            }else if (entity.msgType == 9 || entity.msgType == 10){
+                entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
+                entity.alreadyRead = "1".equals(cursor.getString(cursor.getColumnIndex("alreadyRead")));
+            }else if (entity.msgType == 13){
+                byte data[] = cursor.getBlob(cursor.getColumnIndex("groupInfo"));
+                if (null != data){
+                    ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
+                    try {
+                        ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                        entity.groupInfo = (WechatUserEntity) inputStream.readObject();
+                        inputStream.close();
+                        arrayInputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }else if (entity.msgType == 16){
+                byte data[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+                if (null != data){
+                    ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
+                    try {
+                        ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                        entity.fileEntity = (FileEntity) inputStream.readObject();
+                        inputStream.close();
+                        arrayInputStream.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
             }
             list.add(entity);
         }
@@ -443,6 +537,32 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                 try {
                     ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
                     entity.groupRedPacketInfo = (WechatScreenShotEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            byte fileEntity[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+            if (null != fileEntity){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileEntity);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.fileEntity = (FileEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            byte groupInfo[] = cursor.getBlob(cursor.getColumnIndex("groupInfo"));
+            if (null != groupInfo){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(groupInfo);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.groupInfo = (WechatUserEntity) inputStream.readObject();
                     inputStream.close();
                     arrayInputStream.close();
                 } catch (Exception e) {
@@ -548,6 +668,37 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             cv.put("alreadyRead" , wechatScreenShotEntity.alreadyRead);
         }else if (msgType == 8){
             cv.put("msg" , wechatScreenShotEntity.msg);
+        }else if (msgType == 9 || wechatScreenShotEntity.msgType == 10){
+            cv.put("msg" , wechatScreenShotEntity.msg);
+            cv.put("alreadyRead" , wechatScreenShotEntity.alreadyRead);
+        }else if (msgType == 13){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.groupInfo);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                cv.put("groupInfo", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else if (msgType == 16){
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
+                objectOutputStream.writeObject(wechatScreenShotEntity.fileEntity);
+                objectOutputStream.flush();
+                byte data[] = arrayOutputStream.toByteArray();
+                cv.put("fileEntity", data);
+                objectOutputStream.close();
+                arrayOutputStream.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         int result = 0;
         if (db.isOpen()) {
@@ -635,11 +786,142 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                     e.printStackTrace();
                 }
             }
+            byte fileEntity[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+            if (null != fileEntity){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileEntity);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.fileEntity = (FileEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            byte groupInfo[] = cursor.getBlob(cursor.getColumnIndex("groupInfo"));
+            if (null != groupInfo){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(groupInfo);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.groupInfo = (WechatUserEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<WechatUserEntity>>() {}.getType();
             String role = cursor.getString(cursor.getColumnIndex("receiveRedPacketRoleList"));
             ArrayList<WechatUserEntity> roles = gson.fromJson(role, type);
             entity.receiveRedPacketRoleList = roles;
+        }
+        //关闭游标
+        cursor.close();
+        return entity;
+    }
+    /**
+     * 随机查询出一个用户信息
+     * @return
+     */
+    public WechatScreenShotEntity queryByIdAndUpdate(WechatUserEntity userEntity){
+        SQLiteDatabase db = getReadableDatabase();
+        //如果该表不存在数据库中，则不需要进行操作
+        if (!isTableExists(TABLE_NAME)) {
+            return null;
+        }
+        WechatScreenShotEntity entity = null;
+        Cursor cursor = db.query(TABLE_NAME, null, "wechatUserId = ?", new String[]{userEntity.wechatUserId}, null, null, null);
+        while (cursor.moveToNext()) {
+            entity = new WechatScreenShotEntity();
+            entity.id = cursor.getInt(cursor.getColumnIndex("id"));//相当于消息的唯一id;
+            entity.wechatUserId = cursor.getString(cursor.getColumnIndex("wechatUserId"));
+            entity.wechatUserNickName = userEntity.wechatUserNickName;
+            entity.avatarInt = 0;
+            entity.avatarStr = userEntity.wechatUserAvatar;
+            entity.resourceName = userEntity.resourceName;
+            entity.isComMsg = userEntity.isComMsg;
+            entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
+            entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
+            entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));
+            entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
+            entity.filePath = cursor.getString(cursor.getColumnIndex("filePath"));
+            entity.img = cursor.getInt(cursor.getColumnIndex("img"));
+            entity.time = cursor.getLong(cursor.getColumnIndex("time"));
+            entity.receive = "1".equals(cursor.getString(cursor.getColumnIndex("receive")));
+            entity.money = cursor.getString(cursor.getColumnIndex("money"));
+            entity.position = cursor.getInt(cursor.getColumnIndex("position"));
+            entity.redPacketCount = cursor.getInt(cursor.getColumnIndex("redPacketCount"));
+            entity.receiveCompleteTime = cursor.getString(cursor.getColumnIndex("receiveCompleteTime"));
+            entity.redPacketSenderNickName = cursor.getString(cursor.getColumnIndex("redPacketSenderNickName"));
+            entity.joinReceiveRedPacket = "1".equals(cursor.getString(cursor.getColumnIndex("joinReceiveRedPacket")));
+
+            entity.transferOutTime = cursor.getLong(cursor.getColumnIndex("transferOutTime"));
+            entity.transferReceiveTime = cursor.getLong(cursor.getColumnIndex("transferReceiveTime"));
+            entity.receiveTransferId = cursor.getInt(cursor.getColumnIndex("receiveTransferId"));
+            entity.voiceLength = cursor.getInt(cursor.getColumnIndex("voiceLength"));
+            if (entity.voiceLength <= 0){
+                entity.voiceLength = 1;
+            }
+            entity.alreadyRead = "1".equals(cursor.getString(cursor.getColumnIndex("alreadyRead")));
+            entity.voiceToText = cursor.getString(cursor.getColumnIndex("voiceToText"));
+            if (entity.msgType == 3){
+                if (TextUtils.isEmpty(entity.msg)){
+                    entity.msg = "恭喜发财，大吉大利";
+                }
+            }else if (entity.msgType == 4){
+                if (TextUtils.isEmpty(entity.msg)){
+                    entity.msg = "恭喜发财，大吉大利";
+                }
+            }
+            byte data[] = cursor.getBlob(cursor.getColumnIndex("groupRedPacketInfo"));
+            if (null != data){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.groupRedPacketInfo = (WechatScreenShotEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            byte fileEntity[] = cursor.getBlob(cursor.getColumnIndex("fileEntity"));
+            if (null != fileEntity){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileEntity);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.fileEntity = (FileEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            byte groupInfo[] = cursor.getBlob(cursor.getColumnIndex("groupInfo"));
+            if (null != groupInfo){
+                ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(groupInfo);
+                try {
+                    ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
+                    entity.groupInfo = (WechatUserEntity) inputStream.readObject();
+                    inputStream.close();
+                    arrayInputStream.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<WechatUserEntity>>() {}.getType();
+            String role = cursor.getString(cursor.getColumnIndex("receiveRedPacketRoleList"));
+            ArrayList<WechatUserEntity> roles = gson.fromJson(role, type);
+            entity.receiveRedPacketRoleList = roles;
+            update(entity, false);
         }
         //关闭游标
         cursor.close();

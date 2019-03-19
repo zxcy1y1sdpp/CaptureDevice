@@ -7,11 +7,12 @@ import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import app.jietuqi.cn.constant.AppPayConfig
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
 import com.alipay.sdk.app.PayTask
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EventBusUtil
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -28,6 +29,7 @@ class AlipayUtil {
      * 0 -- 购买会员卡
      * 1 -- 微币充值
      * 2 -- 购买清粉激活码
+     * 3 -- 开通代理
      */
     private var mType = 0
     @SuppressLint("HandlerLeak")
@@ -44,38 +46,51 @@ class AlipayUtil {
                     val resultStatus = payResult.resultStatus
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        if (mType == 0){
-                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setTitleText("支付成功")
-                                    .setContentText("恭喜您成为尊贵的Vip用户")
-                                    .setConfirmText("朕知道了")
-                                    .setConfirmClickListener {
-                                        it.dismissWithAnimation()
-                                    }.show()
-                            EventBusUtil.postSticky("购买会员卡成功")
-                        }else if (mType == 1){
-                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setTitleText("提示")
-                                    .setContentText("充值成功")
-                                    .setConfirmText("朕知道了")
-                                    .setConfirmClickListener {
-                                        it.dismissWithAnimation()
-                                    }.show()
-                            EventBusUtil.postSticky("微币充值成功")
-                        }else if (mType == 2){
-                            SweetAlertDialog(mActivity, SweetAlertDialog.SUCCESS_TYPE)
-                                    .setTitleText("提示")
-                                    .setContentText("激活码购买成功")
-                                    .setConfirmText("朕知道了")
-                                    .setConfirmClickListener {
-                                        it.dismissWithAnimation()
-                                    }.show()
-                            EventBusUtil.postSticky("激活码购买成功")
+                        when (mType) {
+                            0 -> {
+                                EventBusUtil.postSticky("购买会员卡成功")
+                                val dialog = QMUITipDialog.Builder(mActivity)
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+                                        .setTipWord("支付成功")
+                                        .create()
+                                dialog.show()
+                                GlobalScope.launch { //
+                                    delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                                    dialog.dismiss()
+                                }
+                            }
+                            1 -> {
+                                EventBusUtil.postSticky("微币充值成功")
+                                val dialog = QMUITipDialog.Builder(mActivity)
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+                                        .setTipWord("充值成功")
+                                        .create()
+                                dialog.show()
+                                GlobalScope.launch { //
+                                    delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                                    dialog.dismiss()
+                                }
+                            }
+                            2 -> {
+                                EventBusUtil.postSticky("激活码购买成功")
+                                val dialog = QMUITipDialog.Builder(mActivity)
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+                                        .setTipWord("激活码购买成功")
+                                        .create()
+                                dialog.show()
+                                GlobalScope.launch { //
+                                    delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                                    dialog.dismiss()
+                                }
+                            }
+                            3 -> {
+                                EventBusUtil.postSticky("代理开通成功")
+                            }
                         }
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        EventBusUtil.postSticky("购买会员卡失败")
+                        EventBusUtil.postSticky("付款失败")
                         ToastUtils.showShort(mActivity, "支付失败")
                     }
                 }
@@ -104,7 +119,6 @@ class AlipayUtil {
             val alipay = PayTask(mActivity)
             val result = alipay.payV2(info, true)
             Log.i("msp", result.toString())
-
             val msg = Message()
             msg.what = SDK_PAY_FLAG
             msg.obj = result

@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -29,7 +30,7 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.*
 import app.jietuqi.cn.widget.MyGlideEngine
 import app.jietuqi.cn.widget.dialog.ChoiceRoleDialog
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
@@ -51,6 +52,9 @@ import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.include_base_overall_top.*
 import kotlinx.android.synthetic.main.include_base_overall_top_black.*
 import kotlinx.android.synthetic.main.include_wechat_cover.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
 import org.json.JSONArray
 import java.io.File
@@ -292,7 +296,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      * type : 1 -- 确定按钮
      *        2 -- 删除按钮
      */
-    protected fun setBlackTitle(title: String, type: Int = 0) {
+    protected fun setBlackTitle(title: String, type: Int = 0, rightTitle: String = "删除") {
         overAllBackBlackLayout.setOnClickListener {
             finish()
         }
@@ -301,6 +305,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
             overallAllRightWithBgTv.visibility = View.VISIBLE
         }
         if (type == 2){
+            overallAllRightWithOutBgTv.text = rightTitle
             overallAllRightWithOutBgTv.setOnClickListener(this)
             overallAllRightWithOutBgTv.visibility = View.VISIBLE
         }
@@ -620,8 +625,40 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         mQQDialog.show()
         return mQQDialog
     }
-    fun dismissQQDialog(){
+    fun dismissQQDialog(msg: String = "", type: Int = 0, needFinish: Boolean = false){
         mQQDialog.dismiss()
+        if (!TextUtils.isEmpty(msg)){
+            var builder = QMUITipDialog.Builder(this).setTipWord(msg)
+            var dialog: QMUITipDialog
+            dialog = if (type == 0){
+                builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS).create()
+            }else{
+                builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL).create()
+            }
+            dialog.show()
+            GlobalScope.launch { //
+                delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                dialog.dismiss()
+                if (needFinish){
+                    finish()
+                }
+            }
+        }
+    }
+
+    fun showQQTipDialog(msg: String, type: Int = 0){
+        var builder = QMUITipDialog.Builder(this).setTipWord(msg)
+        var dialog: QMUITipDialog
+        dialog = if (type == 0){
+            builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS).create()
+        }else{
+            builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL).create()
+        }
+        dialog.show()
+        GlobalScope.launch { //
+            delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            dialog.dismiss()
+        }
     }
 
     fun dismissLoadingDialog() {
@@ -634,6 +671,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         super.onDestroy()
         dismissLoadingDialog()
         EventBusUtil.unRegister(this)
+        EventBusUtil.unRegisterSticky(this)
     }
 
     fun showToast(msg: String?) {
@@ -725,20 +763,16 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
      */
     fun needVip(){
         if (!UserOperateUtil.isVip()){
-            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setCanTouchOutSideCancle(false)
-                    .canCancle(false)
-                    .setTitleText("本功能为VIP功能")
-                    .setContentText("开通VIP才能继续使用哦！")
-                    .setConfirmText("马上开通")
-                    .setConfirmClickListener {
-                        LaunchUtil.launch(this, OverallPurchaseVipActivity::class.java)
-                        it.dismissWithAnimation()
-
-                    }.setCancelText("取消")
-                    .setCancelClickListener {
-                        it.dismissWithAnimation()
+            EnsureDialog(this).builder()
+                    .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                    .setTitle("本功能为VIP功能!")//可以不设置标题颜色，默认系统颜色
+                    .setSubTitle("开通VIP才能继续使用哦！")
+                    .setCancelable(false)
+                    .setNegativeButton("取消") {
                         finish()
+                    }
+                    .setPositiveButton("马上开通") {
+                        LaunchUtil.launch(this, OverallPurchaseVipActivity::class.java)
                     }.show()
         }
     }
@@ -853,5 +887,17 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         var format: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
         val dateString = format.format(date)
         return dateString
+    }
+
+    private var mStatusBarView: View?= null
+    fun initStatusBar(bg: Int) {
+        if (mStatusBarView == null) {
+            //android系统级的资源id得这么拿,不然拿不到
+            val identifier = resources.getIdentifier("statusBarBackground", "id", "android")
+            mStatusBarView = window.findViewById(identifier)
+        }
+        if (mStatusBarView != null) {
+            mStatusBarView?.setBackgroundResource(bg)
+        }
     }
 }

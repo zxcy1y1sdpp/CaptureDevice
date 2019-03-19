@@ -3,6 +3,8 @@ package app.jietuqi.cn.wechat.screenshot
 import android.content.Intent
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextUtils
+import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
@@ -10,7 +12,7 @@ import app.jietuqi.cn.constant.IntentKey
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.widget.TopSpan
 import com.jaeger.library.StatusBarUtil
-import kotlinx.android.synthetic.main.activity_wechat_change.*
+import kotlinx.android.synthetic.main.activity_wechat_screenshot_change.*
 
 /**
  * 作者： liuyuanbo on 2018/10/29 16:14.
@@ -30,8 +32,7 @@ class WechatScreenShotChangeActivity : BaseWechatActivity() {
         setWechatViewTitle("微信零钱", 3)
     }
 
-    override fun initViewsListener() {
-    }
+    override fun initViewsListener() {}
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
@@ -39,5 +40,16 @@ class WechatScreenShotChangeActivity : BaseWechatActivity() {
         val sp = SpannableString(StringUtils.insertFront(StringUtils.keep2Point(money), "¥" + ""))
         sp.setSpan(TopSpan(124f, mMoneyTv.currentTextColor), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         mMoneyTv.text = sp
+
+        val showLQT = intent.getBooleanExtra(IntentKey.SHOW_LQT, true)
+        if (showLQT){
+            var percent = intent.getStringExtra(IntentKey.PERCENT)
+            if (TextUtils.isEmpty(percent)){
+                percent = "2.98"
+            }
+            mLQTTv.text = StringUtils.insertFrontAndBack(percent, "转入零钱通享", "%七日年化收益")
+        }else{
+            mLQTTv.visibility = View.GONE
+        }
     }
 }

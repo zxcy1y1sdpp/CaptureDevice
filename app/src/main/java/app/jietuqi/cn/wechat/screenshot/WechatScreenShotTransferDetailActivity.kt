@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import app.jietuqi.cn.R
@@ -48,6 +49,19 @@ class WechatScreenShotTransferDetailActivity : BaseWechatActivity(), EditDialogC
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
+        if ("已收钱" == mEntity.transferType && mEntity.type == 0){
+            val showLQT = intent.getBooleanExtra(IntentKey.SHOW_LQT, true)
+            if (showLQT){
+                mTransferLqtLayout.visibility = View.VISIBLE
+                var percent = intent.getStringExtra(IntentKey.PERCENT)
+                if (TextUtils.isEmpty(percent)){
+                    percent = "2.98"
+                }
+                mTransferLQTTv.text = StringUtils.insertFrontAndBack(percent, "转入资金即享", "%年化收益")
+            }else{
+                mTransferLqtLayout.visibility = View.GONE
+            }
+        }
         mTransferMoneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(mEntity.money), "¥")
         setData()
     }

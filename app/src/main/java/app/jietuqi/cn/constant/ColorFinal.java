@@ -30,6 +30,7 @@ public final class ColorFinal {
     public static final int chargeDetail = 0xFFF1F1F1;
     public static final int NEW_WECHAT_TITLEBAR = 0xFFF1F1F1;
     public static final int NEW_WECHAT_TITLEBAR_DARK = 0xFFEDEDED;
+    public static final int OVERALL_BLUE = 0xff2F80EC;
 
     public static final int alipayRedPacketRed2 = R.drawable.overall_home_title_bg;
 

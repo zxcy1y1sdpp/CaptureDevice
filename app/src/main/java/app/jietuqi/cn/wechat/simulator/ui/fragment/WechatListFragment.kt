@@ -7,20 +7,18 @@ import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatFragment
 import app.jietuqi.cn.callback.OnRecyclerItemClickListener
 import app.jietuqi.cn.constant.GlobalVariable
+import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.util.LaunchUtil
-import app.jietuqi.cn.util.StringUtils
-import app.jietuqi.cn.util.TimeUtil
+import app.jietuqi.cn.util.*
 import app.jietuqi.cn.wechat.WechatConstant
 import app.jietuqi.cn.wechat.simulator.WechatSimulatorUnReadEntity
 import app.jietuqi.cn.wechat.simulator.adapter.WechatListFragmentAdapter
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorHelper
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
-import app.jietuqi.cn.wechat.simulator.ui.activity.create.WechatSimulatorCreateGroupChatActivity
+import app.jietuqi.cn.wechat.simulator.ui.activity.WechatAddChatActivity
 import app.jietuqi.cn.wechat.simulator.widget.WechatSimulatorDialog
 import app.jietuqi.cn.wechat.simulator.widget.topright.MenuItem
 import app.jietuqi.cn.wechat.simulator.widget.topright.TopRightMenu
-import app.jietuqi.cn.wechat.ui.activity.WechatAddTalkObjectActivity
 import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.fragment_wechat_list.*
 import kotlinx.coroutines.GlobalScope
@@ -40,7 +38,6 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
     private var mAdapter: WechatListFragmentAdapter? = null
     private var mList: MutableList<WechatUserEntity> = mutableListOf()
     private lateinit var mHelper: WechatSimulatorListHelper
-    private lateinit var mTopRightMenu: TopRightMenu
     override fun setLayoutResouceId(): Int {
         Log.e("loadFromDb-onCreate", TimeUtil.getNowAllTime())
         return R.layout.fragment_wechat_list
@@ -91,6 +88,7 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
                 if (entity.chatType == 1){
                     GlobalVariable.mGoupHeader = entity.groupHeader
                     entity.groupHeader = null
+                    entity.listId = position
                     LaunchUtil.startWechatSimulatorPreviewGroupActivity(activity, entity)
                 }else{
                     LaunchUtil.startWechatSimulatorPreviewActivity(activity, entity)
@@ -119,52 +117,41 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
     }
 
     override fun loadFromDb() {
-        Log.e("loadFromDb - ", TimeUtil.getNowAllTime())
         if (mList.size == 0){
             mList.addAll(WechatConstant.WECHAT_CACHE_LIST)
             mAdapter?.notifyDataSetChanged()
-            Log.e("loadFromDb-mList.size=0", TimeUtil.getNowAllTime())
         }else{
             GlobalScope.launch { // 在一个公共线程池中创建一个协程
-//                activity?.runOnUiThread {
-//                    showQQWaitDialog("数据准备中")
-//                }
-                Log.e("loadFromDb - 开始查询", TimeUtil.getNowAllTime())
                 var list = mHelper.queryAll()
-                Log.e("loadFromDb - 查询结束", TimeUtil.getNowAllTime())
                 if (null != list){
                     mList.clear()
                     mList.addAll(list)
                 }
                 activity?.runOnUiThread {
-                    Log.e("loadFromDb - 开始notify", TimeUtil.getNowAllTime())
                     mAdapter?.notifyDataSetChanged()
 //                    dismissQQDialog()
                 }
             }
         }
-
     }
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
             R.id.mWechatSimulatorPreviewAddIv ->{
-                mTopRightMenu = TopRightMenu(activity)
+                var showLqt = UserOperateUtil.showLqt()
                 val menuItems = arrayListOf<MenuItem>()
-                menuItems.add(MenuItem("添加对话"))
-                menuItems.add(MenuItem("清空列表"))
-                menuItems.add(MenuItem("添加群聊"))
-                mTopRightMenu
-                        .setHeight(360)     //默认高度480
-                        .dimBackground(true)           //背景变暗，默认为true
+                menuItems.add(MenuItem(R.drawable.add_msg, "添加对话"))
+                menuItems.add(MenuItem(R.drawable.clear_msg, "清空列表"))
+                menuItems.add(MenuItem(R.drawable.open_lqt, if (showLqt) "零钱通开" else "零钱通关"))
+                TopRightMenu(activity).dimBackground(true)           //背景变暗，默认为true
                         .needAnimationStyle(true)   //显示动画，默认为true
-                        .showIcon(false)
+                        .showIcon(true)
                         .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //默认为R.style.TRM_ANIM_STYLE
                         .addMenuList(menuItems)
                         .setOnMenuItemClickListener { position ->
                             when(position){
                                 0 ->{
-                                    LaunchUtil.launch(activity, WechatAddTalkObjectActivity::class.java)
+                                    LaunchUtil.launch(activity, WechatAddChatActivity::class.java)
                                 }
                                 1 ->{
                                     WechatConstant.WECHAT_CACHE_LIST?.clear()
@@ -173,30 +160,38 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
                                     mAdapter?.notifyDataSetChanged()
                                 }
                                 2 ->{
-                                    LaunchUtil.launch(activity, WechatSimulatorCreateGroupChatActivity::class.java)
+                                    SharedPreferencesUtils.putData(SharedPreferenceKey.SHOW_LQT, !showLqt)
                                 }
                             }
                         }
-                        .showAsDropDown(mWechatSimulatorPreviewAddIv, -180, 45)
+                        .showAsDropDown(mWechatSimulatorPreviewAddIv, -270, 45)
             }
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(entity: WechatUserEntity) {
-        if (0 == mList.size){//没有数据
-            mList.add( entity)
-            mAdapter?.notifyDataSetChanged()
+        if (entity.eventBusTag == "修改群头像"){
+            val changeEntity = mList[entity.listId]
+            changeEntity.groupHeaderByte = entity.groupHeaderByte
+            changeEntity.groupHeader = entity.groupHeader
+            mAdapter?.notifyItemChanged(entity.listId)
+            showToast("刷新数据")
         }else{
-            var position = -1
-            mList.forEach {
-                if(it.wechatUserId == entity.wechatUserId){
-                    position = mList.indexOf(it)
+            if (0 == mList.size){//没有数据
+                mList.add( entity)
+                mAdapter?.notifyDataSetChanged()
+            }else{
+                var position = -1
+                mList.forEach {
+                    if(it.wechatUserId == entity.wechatUserId){
+                        position = mList.indexOf(it)
+                    }
                 }
+                mHelper.update(entity)
+                mList.removeAt(position)
+                mList.add(position, entity)
+                mAdapter?.notifyItemChanged(position)
             }
-            mHelper.update(entity)
-            mList.removeAt(position)
-            mList.add(position, entity)
-            mAdapter?.notifyItemChanged(position)
         }
     }
     override fun operate(type: String, userEntity: WechatUserEntity) {

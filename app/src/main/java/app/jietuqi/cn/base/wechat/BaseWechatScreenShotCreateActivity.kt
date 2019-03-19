@@ -2,7 +2,6 @@ package app.jietuqi.cn.base.wechat
 
 import android.content.Intent
 import android.view.View
-import android.widget.ImageView
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.IntentKey
@@ -22,6 +21,7 @@ import kotlinx.android.synthetic.main.include_choice_role.*
 abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
     lateinit var mHelper: WechatScreenShotHelper
     var mMsgEntity: WechatScreenShotEntity = WechatScreenShotEntity()
+
     /**
      * 0 -- 发布新的文本
      * 1 -- 编辑修改文本
@@ -46,6 +46,7 @@ abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
         mOtherSideEntity = intent.getSerializableExtra(IntentKey.OTHER_SIDE) as WechatUserEntity
         mMySideEntity = UserOperateUtil.getMySelf()
         changeRole()
+
         if (mType == 1){
             mMsgEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
             if (mMsgEntity.wechatUserId == mMySideEntity.wechatUserId){
@@ -57,7 +58,7 @@ abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
             }
         }
     }
-    private fun changeRole(){
+   fun changeRole(){
         if (mMe){
             mSenderTitleTv.text = "发送人 -- 自己"
             mSenderNickNameTv.text = mMySideEntity.wechatUserNickName
@@ -79,10 +80,6 @@ abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
                 mMe = !mMe
                 changeRole()
             }
-            R.id.mAvatarIv ->{
-                mMe = !mMe
-                changeRole()
-            }
             R.id.overallAllRightWithBgTv ->{
                 if(mType == 0){
                     mHelper.save(mMsgEntity)
@@ -98,9 +95,5 @@ abstract class BaseWechatScreenShotCreateActivity : BaseWechatActivity(){
         mMsgEntity.resourceName = entity.resourceName
         mMsgEntity.avatarStr = entity.wechatUserAvatar
         mMsgEntity.wechatUserId = entity.wechatUserId
-    }
-    private fun setChoice(choiceIv: ImageView, unChoiceIv: ImageView){
-        choiceIv.setImageResource(R.drawable.choice)
-        unChoiceIv.setImageResource(R.drawable.un_choice)
     }
 }

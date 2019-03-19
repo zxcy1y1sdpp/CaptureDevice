@@ -240,4 +240,108 @@
         <item name="android:textColor">#a9b7b7</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+
+    <!--生成微信之前的条目属性-->
+    <style name="wechatPreview_2120_1080">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_marginTopPercent">1.73%w</item>
+        <item name="layout_marginBottomPercent">1.73%w</item>
+    </style>
+    <!--左边的头像-->
+    <style name="wechatPreviewHeaderOther_2120_1080">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_heightPercent">10.12%w</item>
+        <item name="layout_widthPercent">10.12%w</item>
+        <item name="layout_marginLeftPercent">1.99%w</item>
+        <item name="layout_marginRightPercent">1.24%w</item>
+        <item name="android:src">@drawable/head_default</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="riv_corner_radius">5dp</item>
+    </style>
+    <!--左边的头像-->
+    <style name="wechatPreviewHeaderMy_2120_1080">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_heightPercent">10.12%w</item>
+        <item name="layout_widthPercent">10.12%w</item>
+        <item name="layout_marginRightPercent">1.99%w</item>
+        <item name="layout_marginLeftPercent">1.24%w</item>
+        <item name="android:src">@drawable/head_default</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="riv_corner_radius">5dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+
+    <declare-styleable name="MyTextView">
+        <attr name="paddingLeft" format="dimension" />
+        <attr name="paddingTop" format="dimension" />
+        <attr name="paddingRight" format="dimension" />
+        <attr name="paddingBottom" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="string" />
+        <attr name="text" format="string"/>
+        <attr name="lineSpacing" format="integer" />
+        <attr name="maxLine" format="integer"/>
+        <attr name="ellipsis" format="boolean" />
+    </declare-styleable>
+
+    <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
+    <style name="ActionGeneralDialog" parent="@android:style/Theme.Dialog">
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+    <!-- ActionSheet进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
+    <style name="Custom_Dialog_Style" parent="@android:style/Theme.Dialog">
+        <!--窗口背景色透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--是否浮在界面上-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否允许背景变暗 --> <!--背景是否模糊显示-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--是否有标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!-- dialog底部弹出菜单动画 -->
+    <style name="bottom_animation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_exit</item>
+    </style>
+    <!--style of views  -->
+    <style name="ViewLineHorizontal">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#E5E5E5</item>
+    </style>
+
+    <style name="ViewLineVertical">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:background">#E5E5E5</item>
+    </style>
 </resources>

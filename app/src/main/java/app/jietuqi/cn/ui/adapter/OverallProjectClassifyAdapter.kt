@@ -56,7 +56,7 @@ class OverallProjectClassifyAdapter(val mList: ArrayList<ProjectMarketEntity>, v
                     mListener.collect(entity, adapterPosition)
                 }
                 else ->{
-                    LaunchUtil.startOverallProjectShowActivity(itemView.context, entity)
+                    LaunchUtil.startOverallProjectShowActivity(itemView.context, entity, "")
                 }
             }
         }

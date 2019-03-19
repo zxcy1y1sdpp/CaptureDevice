@@ -33,9 +33,17 @@
             android:text="收钱"
             android:background="@drawable/blue_solid"
             android:textColor="@color/wechatBlue"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/mWechatCreatesTransferBackTv"
             style="@style/wechatTwoBtn"
             android:layout_marginLeft="@dimen/normalPadding"
+            android:layout_marginRight="@dimen/normalPadding"/>
+        <TextView
+            android:id="@+id/mWechatCreatesTransferBackTv"
+            android:text="退还"
+            android:background="@drawable/blue_solid"
+            android:textColor="@color/wechatBlue"
+            android:layout_alignParentRight="true"
+            style="@style/wechatTwoBtn"
             android:layout_marginRight="@dimen/normalPadding"/>
     </RelativeLayout>
     <EditText

@@ -143,12 +143,12 @@ public class OverallCleanFansActivity extends BaseOverallInternetActivity {
         });
         findViewById(R.id.mBuyTv).setOnClickListener(v -> {
             if (UserOperateUtil.isCurrentLogin(this)){
-                LaunchUtil.startOverallCleanFansConfirmOrderActivity(OverallCleanFansActivity.this, mPriceList.get(0), mPriceList.get(1));
+                LaunchUtil.startOverallCleanFansConfirmOrderActivity(OverallCleanFansActivity.this, mPriceList.get(0), mPriceList.get(1), 0);
             }
         });
         findViewById(R.id.overAllRightTitleTv).setOnClickListener(v -> {
             if (UserOperateUtil.isCurrentLogin(this)){
-                LaunchUtil.launch(this, OverallCleanFansOrderActivity.class);
+                LaunchUtil.startOverallCleanFansOrderActivity(this, 0);
             }
         });
         mWebView.setWebViewClient(new WebViewClient() {

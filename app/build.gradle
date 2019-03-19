@@ -175,7 +175,6 @@ dependencies {
     /** ******************************* 转拼音  *************************************/
     implementation 'com.github.promeg:tinypinyin:1.0.0'
     implementation 'io.github.rockerhieu:emojicon:1.4.2'
-    implementation 'com.qmuiteam:qmui:1.1.10'
     implementation 'com.xw.repo:bubbleseekbar:3.19-lite'
 //    implementation 'com.github.jarryleo:MagicScreenAdapter:v1.5'
     implementation('com.github.hotchemi:permissionsdispatcher:3.3.1') { exclude module: 'support-v13' }

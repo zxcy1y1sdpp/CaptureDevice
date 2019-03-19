@@ -18,6 +18,29 @@
         android:layout_marginTop="@dimen/normalPadding"
         android:inputType="numberDecimal"
         android:padding="@dimen/normalPadding"/>
+    <RelativeLayout
+        android:id="@+id/mLqtLayout"
+        style="@style/wechatItem"
+        android:layout_marginTop="@dimen/normalPadding">
+        <TextView
+            style="@style/wechatLeftTitle"
+            android:text="是否展示零钱通年化收益"/>
+
+        <ImageView
+            android:id="@+id/mWechatShowLqt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/mWechatLoosePercentEt"
+        android:hint="年化收益的百分比"
+        style="@style/wechatEdit"
+        android:inputType="numberDecimal"
+        android:padding="@dimen/normalPadding"/>
     <include layout="@layout/include_wechat_preview_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

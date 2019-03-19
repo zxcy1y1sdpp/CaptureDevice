@@ -133,7 +133,7 @@ class OverallWbActivity : BaseOverallInternetActivity() {
                 mWb3000CountPriceTv.setTextColor(Color.parseColor("#212121"))
             }
             R.id.mWb3000Layout ->{
-                mSelectCardEntity = mWbList[2]
+                mSelectCardEntity = mWbList[3]
                 mWb3000Layout.setBackgroundResource(R.drawable.wb_select)
                 mWb100Layout.setBackgroundResource(R.drawable.wb_normal)
                 mWb400Layout.setBackgroundResource(R.drawable.wb_normal)

@@ -6,21 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.zhy.android.percent.support.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_marginTopPercent="1.73%w"
-        app:layout_marginBottomPercent="1.73%w">
+        style="@style/wechatPreview_2120_1080">
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/mWechatVoiceOtherAvatarIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_heightPercent="10.12%w"
-            app:layout_widthPercent="10.12%w"
-            app:layout_marginLeftPercent="1.99%w"
-            app:layout_marginRightPercent="1.24%w"
-            android:src="@drawable/head_default"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="5dp"/>
+            style="@style/wechatPreviewHeaderOther_2120_1080"/>
         <com.zhy.android.percent.support.PercentLinearLayout
             android:id="@+id/layout1"
             android:layout_width="wrap_content"
@@ -88,8 +77,7 @@
                 android:layout_below="@+id/layout1"
                 android:layout_toRightOf="@+id/mWechatVoiceOtherAvatarIv"
                 android:orientation="vertical"
-                android:background="@drawable/layout_cornor"
-                android:visibility="gone">
+                android:background="@drawable/layout_cornor">
                 <TextView
                     android:id="@+id/mWechatOtherVoiceTransferToTextTv"
                     android:layout_width="wrap_content"

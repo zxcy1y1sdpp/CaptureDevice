@@ -22,8 +22,6 @@ import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_cdk_list.*
-
-
 /**
  * 作者： liuyuanbo on 2019/2/20 10:17.
  * 时间： 2019/2/20 10:17
@@ -32,16 +30,16 @@ import kotlinx.android.synthetic.main.activity_overall_cdk_list.*
  */
 class OverallCdkListActivity : BaseOverallInternetActivity() {
     private lateinit var mCdkFragment: CdkListFragment
+    private lateinit var mHowToUseFragment: HowToUseFragment
     private var mFragmentList = arrayListOf<Fragment>()
-    val TYPE = "type"
-    /**
-     * 用于对Fragment进行管理
-     */
-    private val fragmentManager: FragmentManager? = null
-
     private var mList = arrayListOf<OverallCdkEntity>()
     private var mAdapter: OverallCdkListAdapter? = null
     private var mOrderId = ""
+    /**
+     * 0 -- 清粉
+     * 1 -- 微爆粉
+     */
+    private var mType = 0
     override fun setLayoutResourceId() = R.layout.activity_overall_cdk_list
 
     override fun needLoadingView(): Boolean {
@@ -51,6 +49,7 @@ class OverallCdkListActivity : BaseOverallInternetActivity() {
     override fun initAllViews() {
         setTopTitle("查看激活码")
         mCdkFragment = CdkListFragment()
+        mHowToUseFragment = HowToUseFragment()
         mFragmentList.add(mCdkFragment)
         mFragmentList.add(HowToUseFragment())
     }
@@ -72,13 +71,15 @@ class OverallCdkListActivity : BaseOverallInternetActivity() {
                         showHowToUseFragment()
                     }
                 }
-
             }
             //监听页面的状态，0--静止 1--滑动  2--滑动完成
             override fun onPageScrollStateChanged(state: Int) {}
         })
     }
 
+    fun getType(): Int {
+        return mType
+    }
     private fun showListFragment(){
         mCdkListTv.setBackgroundResource(R.drawable.cdk_list1)
         mHowToUseTv.setBackgroundResource(R.drawable.cdk_list2)
@@ -94,6 +95,7 @@ class OverallCdkListActivity : BaseOverallInternetActivity() {
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mOrderId = intent.getStringExtra(IntentKey.ID)
+        mType = intent.getIntExtra(IntentKey.TYPE, 0)
         val bundle = Bundle()
         bundle.putSerializable(IntentKey.ID, mOrderId)
         mCdkFragment.arguments = bundle

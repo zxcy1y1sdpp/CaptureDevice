@@ -58,4 +58,6 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#03
     <string name="empty_view_hint">暂无数据</string>
     <string name="error_view_hint">加载失败</string>
     <string name="no_network_view_hint">网络异常</string>
+    <string name="withdraw_deposit_msg">1、每天最多可以提现3次。每次提现最低1元起，最高500元。\n2、提现成功后，24小时内到账支付宝。
+    节假日可能会延期到工作日，请耐心等待。\n3、提现进度可以到提现记录查询，提现成功后可通过支付宝账单查看。</string>
 </resources>

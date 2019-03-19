@@ -43,4 +43,7 @@ public class IntentKey {
     public final static String ROLE_ENTITY = "roleEntity";
     public final static String GROUP_TABLE_NAME = "groupTableName";
     public final static String CHANGE_SHAREDPREFERENCE = "changeSharedPreference";
+    public final static String PERCENT = "percent";
+    public final static String SHOW_LQT = "showLQT";
+    public final static String CHAT_TYPE = "chatType";
 }

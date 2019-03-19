@@ -105,6 +105,15 @@ class WechatScreenShotAdapter(val mList: ArrayList<WechatScreenShotEntity>, val 
                 entity.msgType == 13 -> {
                     contentTv.text = "[加群]"
                 }
+                entity.msgType == 14 -> {
+                    contentTv.text = "[表情]"
+                }
+                entity.msgType == 15 -> {
+                    contentTv.text = StringUtils.insertFront(StringUtils.insertFront(StringUtils.keep2Point(entity.money), "¥"), "[退款]")
+                }
+                entity.msgType == 16 -> {
+                    contentTv.text = "[文件]"
+                }
             }
         }
     }

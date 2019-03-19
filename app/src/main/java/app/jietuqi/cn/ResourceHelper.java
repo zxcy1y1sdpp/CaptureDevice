@@ -90,6 +90,24 @@ public class ResourceHelper {
         appIconIdMap.put("R.drawable.wechat_big_gif38", R.drawable.wechat_big_gif38);
         appIconIdMap.put("R.drawable.wechat_big_gif39", R.drawable.wechat_big_gif39);
         appIconIdMap.put("R.drawable.wechat_big_gif40", R.drawable.wechat_big_gif40);
+        appIconIdMap.put("R.drawable.wechat_dice_1", R.drawable.wechat_dice_1);
+        appIconIdMap.put("R.drawable.wechat_dice_2", R.drawable.wechat_dice_2);
+        appIconIdMap.put("R.drawable.wechat_dice_3", R.drawable.wechat_dice_3);
+        appIconIdMap.put("R.drawable.wechat_dice_4", R.drawable.wechat_dice_4);
+        appIconIdMap.put("R.drawable.wechat_dice_5", R.drawable.wechat_dice_5);
+        appIconIdMap.put("R.drawable.wechat_dice_6", R.drawable.wechat_dice_6);
+        appIconIdMap.put("R.drawable.wechat_guess_1", R.drawable.wechat_guess_1);
+        appIconIdMap.put("R.drawable.wechat_guess_2", R.drawable.wechat_guess_2);
+        appIconIdMap.put("R.drawable.wechat_guess_3", R.drawable.wechat_guess_3);
+
+
+        appIconIdMap.put("R.drawable.fileicon_pdf", R.drawable.fileicon_pdf);
+        appIconIdMap.put("R.drawable.fileicon_ppt", R.drawable.fileicon_ppt);
+        appIconIdMap.put("R.drawable.fileicon_txt", R.drawable.fileicon_txt);
+        appIconIdMap.put("R.drawable.fileicon_word", R.drawable.fileicon_word);
+        appIconIdMap.put("R.drawable.fileicon_xls", R.drawable.fileicon_xls);
+        appIconIdMap.put("R.drawable.fileicon_zip", R.drawable.fileicon_zip);
+
 
     }
     /**

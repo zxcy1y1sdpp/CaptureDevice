@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/wechatPreview_2120_1080">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sGroupMyAvatarTv"
+            style="@style/wechatPreviewHeaderMy_2120_1080"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wechat_card_my"
+            app:layout_marginLeftPercent="18.85%w"
+            android:layout_toLeftOf="@+id/sGroupMyAvatarTv"
+            android:layout_alignTop="@+id/sGroupMyAvatarTv">
+
+            <TextView
+                android:id="@+id/tagView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请你加入群聊"
+                app:layout_marginTopPercent="4.27%w"
+                app:layout_marginLeftPercent="4.27%w"
+                app:layout_marginBottomPercent="1.84%w"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/sGroupMsgTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="老卡机水电费离开家阿杀到了房间看阿杀到了房间看阿杀到了房间看阿萨德浪费空间"
+                android:layout_alignLeft="@+id/tagView"
+                android:layout_below="@+id/tagView"
+                android:textColor="@color/wechatLightGray"
+                android:lineSpacingExtra="5dp"
+                android:textSize="12sp"
+                android:layout_toLeftOf="@+id/sGroupHeaderIv"
+                app:layout_marginBottomPercent="4.27%w"/>
+
+            <ImageView
+                android:id="@+id/sGroupHeaderIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/sGroupMsgTv"
+                app:layout_marginLeftPercent="3.96%w"
+                app:layout_marginRightPercent="3.96%w"
+                app:layout_marginBottomPercent="4.27%w"
+                app:layout_heightPercent="17.07%w"
+                app:layout_widthPercent="17.07%w"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

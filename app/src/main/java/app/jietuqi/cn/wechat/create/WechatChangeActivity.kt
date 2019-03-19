@@ -6,12 +6,15 @@ import android.text.SpannableString
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
+import app.jietuqi.cn.callback.EditDialogChoiceListener
 import app.jietuqi.cn.constant.ColorFinal
 import app.jietuqi.cn.constant.IntentKey
+import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorRechargeActivity
 import app.jietuqi.cn.widget.TopSpan
+import app.jietuqi.cn.widget.dialog.EditDialog
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_wechat_change.*
 
@@ -22,7 +25,8 @@ import kotlinx.android.synthetic.main.activity_wechat_change.*
  * 用途： 微信零钱页面
  */
 
-class WechatChangeActivity : BaseWechatActivity() {
+class WechatChangeActivity : BaseWechatActivity(), EditDialogChoiceListener {
+
     override fun setLayoutResourceId() = R.layout.activity_wechat_change
 
     override fun needLoadingView() = false
@@ -36,6 +40,7 @@ class WechatChangeActivity : BaseWechatActivity() {
     override fun initViewsListener() {
         mChargeTv.setOnClickListener(this)
         mWithdrawDepositTv.setOnClickListener(this)
+        mLQTTv.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
@@ -69,6 +74,14 @@ class WechatChangeActivity : BaseWechatActivity() {
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
+            R.id.mLQTTv ->{
+                val dialog = EditDialog()
+                dialog.setData(this, EditDialogEntity(0, "余额", "收款方式"))
+                dialog.show(supportFragmentManager, "payment")
+            }
         }
+    }
+    override fun onChoice(entity: EditDialogEntity?) {
+        mLQTTv.text = StringUtils.insertFrontAndBack(entity?.content, "转入零钱通享", "%七日年化收益")
     }
 }

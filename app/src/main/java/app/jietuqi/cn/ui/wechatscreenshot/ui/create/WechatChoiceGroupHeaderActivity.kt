@@ -85,7 +85,7 @@ class WechatChoiceGroupHeaderActivity : BaseCreateActivity(), ChoiceGroupHeaderD
         when(v.id){
             R.id.mGroupHeaderRandomTv ->{
                 mGroupHeaderList.clear()
-                mGroupHeaderList.addAll(mHelper.queryRandomItem(8))
+                mGroupHeaderList.addAll(mHelper.queryRandomItem(9))
                 mAdapter.notifyDataSetChanged()
             }
             R.id.overAllRightTitleTv ->{

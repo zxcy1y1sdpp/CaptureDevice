@@ -177,6 +177,30 @@
                         style="@style/overallMyItemRight"
                         android:textColor="@color/overallGray"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
+
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:id="@+id/mAgencyLayout"
+                    style="@style/overallMyItem"
+                    app:layout_marginTopPercent="5.33%w"
+                    app:layout_heightPercent="19.5%w"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/tagView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/wodeweibi"
+                        android:layout_centerVertical="true"
+                        app:layout_marginLeftPercent="4.26%w"/>
+                    <TextView
+                        android:text="代理中心"
+                        style="@style/overallLeftTitle"
+                        android:textColor="#FC615A"
+                        android:layout_toRightOf="@+id/tagView11"/>
+                    <TextView
+                        style="@style/overallMyItemRight"
+                        android:textColor="@color/overallGray"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:id="@+id/mOpenAgentLayout"
                     style="@style/overallMyItem"
@@ -319,23 +343,6 @@
 
                     <TextView style="@style/overallMyItemRight"/>
                 </com.zhy.android.percent.support.PercentRelativeLayout>
-                <!--<com.zhy.android.percent.support.PercentRelativeLayout
-                    android:id="@+id/mWbLayout"
-                    style="@style/overallMyItem">
-                    <ImageView
-                        android:id="@+id/tagView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/sz"
-                        android:layout_centerVertical="true"
-                        app:layout_marginLeftPercent="4.26%w"/>
-                    <TextView
-                        android:text="设置"
-                        style="@style/overallLeftTitle"
-                        android:layout_toRightOf="@+id/tagView9"/>
-
-                    <TextView style="@style/overallMyItemRight"/>
-                </com.zhy.android.percent.support.PercentRelativeLayout>-->
 
             </com.zhy.android.percent.support.PercentLinearLayout>
         </ScrollView>

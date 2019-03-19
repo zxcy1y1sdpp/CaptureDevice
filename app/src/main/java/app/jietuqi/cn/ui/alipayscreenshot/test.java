@@ -2,8 +2,7 @@ package app.jietuqi.cn.ui.alipayscreenshot;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.view.View;
 
 /**
  * 作者： liuyuanbo on 2018/12/10 17:56.
@@ -23,9 +22,8 @@ public class test extends Activity {
          * 返回正数表示：o1大于o2。
          */
 
-
-
-
+        int mHeaderViewHeight;
+//        EnsureDialog ensureDialog = null;
     }
 
 }

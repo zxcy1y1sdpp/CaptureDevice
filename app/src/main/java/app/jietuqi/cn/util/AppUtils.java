@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
+import android.view.Gravity;
 
 import java.util.Locale;
 
 import app.jietuqi.cn.ui.activity.OverallLoginActivity;
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog;
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog;
 
 /**
  * @author lyb
@@ -72,28 +73,18 @@ public class AppUtils {
 	 * @param context
 	 */
 	public static void showLogin(final Context context) {
-		new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-				.setTitleText("您尚未登录！")
-				.setContentText("请前去登录")
-				.setCancelText("取消")
-				.setConfirmText("确定")
-				.showCancelButton(true)
-				.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-					@Override
-					public void onClick(SweetAlertDialog sDialog) {
-						sDialog.cancel();
-					}
+		new EnsureDialog(context).builder()
+				.setGravity(Gravity.CENTER)//默认居中，可以不设置
+				.setTitle("您尚未登录！")//可以不设置标题颜色，默认系统颜色
+				.setSubTitle("请前去登录")
+				.setNegativeButton("取消", v -> {
+
 				})
-				.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-					@Override
-					public void onClick(SweetAlertDialog sDialog) {
-						sDialog.dismissWithAnimation();
-						Intent intent = new Intent(context, OverallLoginActivity.class);
-						intent.putExtra("fromDialog", true);
-						context.startActivity(intent);
-					}
-				})
-				.show();
+				.setPositiveButton("登录", v -> {
+					Intent intent = new Intent(context, OverallLoginActivity.class);
+					intent.putExtra("fromDialog", true);
+					context.startActivity(intent);
+				}).show();
 	}
 
 	/**

@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import app.jietuqi.cn.R;
+import app.jietuqi.cn.ui.activity.OverallCdkListActivity;
 import app.jietuqi.cn.web.SonicRuntimeImpl;
 import app.jietuqi.cn.web.SonicSessionClientImpl;
 
@@ -77,6 +78,9 @@ public class HowToUseFragment extends Fragment {
                 return new OfflinePkgSessionConnection(getActivity(), session, intent);
             }
         });
+        if (((OverallCdkListActivity)getActivity()).getType() == 1){
+            mUrl = "http://jietuqi.cn/index/index/news/id/5";
+        }
         mSonicSession = SonicEngine.getInstance().createSession(mUrl, sessionConfigBuilder.build());
         if (null != mSonicSession) {
             mSonicSession.bindClient(sonicSessionClient = new SonicSessionClientImpl());

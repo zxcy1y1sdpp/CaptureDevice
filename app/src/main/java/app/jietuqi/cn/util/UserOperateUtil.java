@@ -18,42 +18,13 @@ import app.jietuqi.cn.entity.OverallUserInfoEntity;
 import app.jietuqi.cn.http.HttpConfig;
 import app.jietuqi.cn.http.util.SystemInfoUtils;
 import app.jietuqi.cn.ui.activity.OverallLoginActivity;
+import app.jietuqi.cn.ui.entity.AgencyInfoEntity;
 import app.jietuqi.cn.ui.entity.ContactEntity;
 import app.jietuqi.cn.ui.entity.OverallIndustryEntity;
 import app.jietuqi.cn.ui.entity.WechatUserEntity;
-import app.jietuqi.cn.ui.wechatscreenshot.entity.ChangeSingleTaklBgEntity;
+import app.jietuqi.cn.ui.wechatscreenshot.entity.SingleTalkSettingEntity;
 import app.jietuqi.cn.wechat.entity.WechatBankEntity;
 
-import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_CHAT_BG;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_ME_SELF;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.ALIPAY_OTHER_SIDE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_NAME;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_STATUS;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.CHANNEL_VERSION;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.DATE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.EXPLORING;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.IS_LOGIN;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.MY_SELF;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.OTHER_SIDE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_CHAT_BG;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_ME_SELF;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_OTHER_SIDE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_OTHER_STATUS;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.QQ_UN_READ_NUMBER;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.SCREENSHOT_AGREEMENT;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.SINGLE_TALK_BG;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.TIMES;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.UNREAD_FRIEND_CIRCLE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_AVATAR;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_INFO;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_IS_VIP;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_NICKNAME;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.USER_SHARE_NUMBER;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.UUIDKEY;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.WB;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_COVER;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE;
-import static app.jietuqi.cn.constant.SharedPreferenceKey.WECHAT_SIMULATOR_OTHER_SIDE;
 
 /**
  * 作者： liuyuanbo on 2018/11/12 17:03.
@@ -69,7 +40,7 @@ public class UserOperateUtil {
      * @return
      */
     public static String getChannelVersion(){
-        String number = SharedPreferencesUtils.getData(CHANNEL_VERSION, "-1").toString();
+        String number = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_VERSION, "-1").toString();
         return number;
     }
     /**
@@ -80,7 +51,7 @@ public class UserOperateUtil {
      * @return
      */
     public static int getChannelStatus(){
-        int status = (int) SharedPreferencesUtils.getData(CHANNEL_STATUS, -1);
+        int status = (int) SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_STATUS, -1);
         return status;
     }
 
@@ -102,7 +73,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isCurrentLogin(Context context){
-        if (!Boolean.parseBoolean(SharedPreferencesUtils.getData(IS_LOGIN, false).toString())){
+        if (!Boolean.parseBoolean(SharedPreferencesUtils.getData(SharedPreferenceKey.IS_LOGIN, false).toString())){
             AppUtils.showLogin(context);
             return false;
         }else {
@@ -115,7 +86,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isCurrentLoginDirectlyLogin(Context context){
-        boolean login = (boolean) SharedPreferencesUtils.getData(IS_LOGIN, false);
+        boolean login = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.IS_LOGIN, false);
         if (!login){
             context.startActivity(new Intent(context, OverallLoginActivity.class));
             return false;
@@ -129,7 +100,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isCurrentLoginNoDialog(){
-        boolean login = Boolean.parseBoolean(SharedPreferencesUtils.getData(IS_LOGIN, false).toString());
+        boolean login = Boolean.parseBoolean(SharedPreferencesUtils.getData(SharedPreferenceKey.IS_LOGIN, false).toString());
         return login;
     }
     /**
@@ -149,7 +120,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getMySelf(){
-        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(MY_SELF);
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.MY_SELF);
         return mySelf;
     }
     /**
@@ -157,7 +128,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getOtherSide(){
-        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(OTHER_SIDE);
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.OTHER_SIDE);
         return otherSide;
     }
     /**
@@ -165,7 +136,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getQQMySelf(){
-        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(QQ_ME_SELF);
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.QQ_ME_SELF);
         return mySelf;
     }
     /**
@@ -173,7 +144,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getQQOtherSide(){
-        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(QQ_OTHER_SIDE);
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.QQ_OTHER_SIDE);
         return otherSide;
     }
     /**
@@ -181,7 +152,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getAlipayOtherSide(){
-        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(ALIPAY_OTHER_SIDE);
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.ALIPAY_OTHER_SIDE);
         return otherSide;
     }
     /**
@@ -189,7 +160,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getAlipayMySelf(){
-        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(ALIPAY_ME_SELF);
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.ALIPAY_ME_SELF);
         return mySelf;
     }
     /**
@@ -197,7 +168,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getWechatSimulatorOtherSide(){
-        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(WECHAT_SIMULATOR_OTHER_SIDE);
+        WechatUserEntity otherSide = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.WECHAT_SIMULATOR_OTHER_SIDE);
         return otherSide;
     }
     /**
@@ -205,7 +176,7 @@ public class UserOperateUtil {
      * @return
      */
     public static WechatUserEntity getWechatSimulatorMySelf(){
-        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(WECHAT_SIMULATOR_MY_SIDE);
+        WechatUserEntity mySelf = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.WECHAT_SIMULATOR_MY_SIDE);
         return mySelf;
     }
     /**
@@ -213,7 +184,7 @@ public class UserOperateUtil {
      * @return
      */
     public static String getUserAvatar(){
-        String avatar = SharedPreferencesUtils.getData(USER_AVATAR, "").toString();
+        String avatar = SharedPreferencesUtils.getData(SharedPreferenceKey.USER_AVATAR, "").toString();
         return avatar;
     }
     /**
@@ -221,7 +192,7 @@ public class UserOperateUtil {
      * @return
      */
     public static String getUserNickName(){
-        String nickName = SharedPreferencesUtils.getData(USER_NICKNAME, "微商截图器").toString();
+        String nickName = SharedPreferencesUtils.getData(SharedPreferenceKey.USER_NICKNAME, "微商截图器").toString();
         return nickName;
     }
     /**
@@ -229,7 +200,7 @@ public class UserOperateUtil {
      * @return
      */
     public static String getShareNumber(){
-        String number = SharedPreferencesUtils.getData(USER_SHARE_NUMBER, -1).toString();
+        String number = SharedPreferencesUtils.getData(SharedPreferenceKey.USER_SHARE_NUMBER, -1).toString();
         return number;
     }
     /**
@@ -237,7 +208,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isExploring(){
-        boolean number = (boolean) SharedPreferencesUtils.getData(EXPLORING, false);
+        boolean number = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.EXPLORING, false);
         return number;
     }
     /**
@@ -245,7 +216,15 @@ public class UserOperateUtil {
      * @return
      */
     public static OverallUserInfoEntity getUserInfo(){
-        OverallUserInfoEntity user = SharedPreferencesUtils.getBeanFromSp(USER_INFO);
+        OverallUserInfoEntity user = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.USER_INFO);
+        return user;
+    }
+    /**
+     * 获取用户完整的信息
+     * @return
+     */
+    public static AgencyInfoEntity getAgencyInfo(){
+        AgencyInfoEntity user = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.AGENCY_INFO);
         return user;
     }
     /**
@@ -253,7 +232,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isVip(){
-        boolean isVip = (boolean) SharedPreferencesUtils.getData(USER_IS_VIP, false);
+        boolean isVip = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.USER_IS_VIP, false);
         return isVip;
     }
 
@@ -262,7 +241,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean screenShotAgreememt(){
-        boolean agree = (boolean) SharedPreferencesUtils.getData(SCREENSHOT_AGREEMENT, false);
+        boolean agree = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.SCREENSHOT_AGREEMENT, false);
         return agree;
     }
     /**
@@ -270,7 +249,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean hideWechatCover(){
-        boolean hide = (boolean) SharedPreferencesUtils.getData(WECHAT_COVER, false);
+        boolean hide = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.WECHAT_COVER, false);
         return hide;
     }
 
@@ -323,7 +302,7 @@ public class UserOperateUtil {
      * @return
      */
     public static Date getTime(){
-        Date date = SharedPreferencesUtils.getBeanFromSp(DATE);
+        Date date = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.DATE);
         return date;
     }
 
@@ -334,7 +313,7 @@ public class UserOperateUtil {
      * @return
      */
     public static int getHaoduanTimes(){
-        int times = (int) SharedPreferencesUtils.getData(TIMES, 0);
+        int times = (int) SharedPreferencesUtils.getData(SharedPreferenceKey.TIMES, 0);
         return times;
     }
     /**
@@ -342,7 +321,7 @@ public class UserOperateUtil {
      * @return
      */
     public static int getMyWb(){
-        int wb = (int) SharedPreferencesUtils.getData(WB, 0);
+        int wb = (int) SharedPreferencesUtils.getData(SharedPreferenceKey.WB, 0);
         return wb;
     }
 
@@ -351,11 +330,11 @@ public class UserOperateUtil {
      * @return
      */
     public static String getUUID(){
-        String str = SharedPreferencesUtils.getData(UUIDKEY, "-1").toString();
+        String str = SharedPreferencesUtils.getData(SharedPreferenceKey.UUIDKEY, "-1").toString();
         if (str.equals("-1")){//没有获取到唯一标示,就去保存一个
             UUID uuid = UUID.randomUUID();
             String uniqueId = uuid.toString();
-            SharedPreferencesUtils.putData(UUIDKEY, uniqueId);
+            SharedPreferencesUtils.putData(SharedPreferenceKey.UUIDKEY, uniqueId);
             Log.e("UUID -- 生成的", uniqueId);
             return uniqueId;
         }
@@ -368,7 +347,7 @@ public class UserOperateUtil {
      * @return
      */
     public static String getQQUnReadNumber(){
-        String number = SharedPreferencesUtils.getData(QQ_UN_READ_NUMBER, "20").toString();
+        String number = SharedPreferencesUtils.getData(SharedPreferenceKey.QQ_UN_READ_NUMBER, "20").toString();
         return number;
     }
     /**
@@ -376,17 +355,17 @@ public class UserOperateUtil {
      * @return
      */
     public static String getQQOtherStatus(){
-        String number = SharedPreferencesUtils.getData(QQ_OTHER_STATUS, "手机在线 - WIFI").toString();
+        String number = SharedPreferencesUtils.getData(SharedPreferenceKey.QQ_OTHER_STATUS, "手机在线 - WIFI").toString();
         return number;
     }
     /**
      * 获取微信是否需要聊天背景
      * @return
      */
-    public static ChangeSingleTaklBgEntity getSingleTalkBg(){
-        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(SINGLE_TALK_BG);
+    public static SingleTalkSettingEntity getSingleTalkBg(){
+        SingleTalkSettingEntity entity = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.SINGLE_TALK_BG);
         if (null == entity){
-            return new ChangeSingleTaklBgEntity(false, "");
+            return new SingleTalkSettingEntity(false, "", false, false);
         }
         return entity;
     }
@@ -394,10 +373,10 @@ public class UserOperateUtil {
      * 获取支付宝是否需要聊天背景
      * @return
      */
-    public static ChangeSingleTaklBgEntity getAlipayChatBg(){
-        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(ALIPAY_CHAT_BG);
+    public static SingleTalkSettingEntity getAlipayChatBg(){
+        SingleTalkSettingEntity entity = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.ALIPAY_CHAT_BG);
         if (null == entity){
-            return new ChangeSingleTaklBgEntity(false, "");
+            return new SingleTalkSettingEntity(false, "", false, false);
         }
         return entity;
     }
@@ -406,10 +385,10 @@ public class UserOperateUtil {
      * 获取微信模拟器的聊天背景
      * @return
      */
-    public static ChangeSingleTaklBgEntity getWechatSimulatorBg(){
-        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(ALIPAY_CHAT_BG);
+    public static SingleTalkSettingEntity getWechatSimulatorBg(){
+        SingleTalkSettingEntity entity = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.ALIPAY_CHAT_BG);
         if (null == entity){
-            return new ChangeSingleTaklBgEntity(false, "");
+            return new SingleTalkSettingEntity(false, "", false, false);
         }
         return entity;
     }
@@ -417,10 +396,10 @@ public class UserOperateUtil {
      * 获取微信是否需要聊天背景
      * @return
      */
-    public static ChangeSingleTaklBgEntity getQQSingleTalkBg(){
-        ChangeSingleTaklBgEntity entity = SharedPreferencesUtils.getBeanFromSp(QQ_CHAT_BG);
+    public static SingleTalkSettingEntity getQQSingleTalkBg(){
+        SingleTalkSettingEntity entity = SharedPreferencesUtils.getBeanFromSp(SharedPreferenceKey.QQ_CHAT_BG);
         if (null == entity){
-            return new ChangeSingleTaklBgEntity(false, "");
+            return new SingleTalkSettingEntity(false, "", false, false);
         }
         return entity;
     }
@@ -430,7 +409,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean hasUnReadFriendCircle(){
-        boolean has = (boolean) SharedPreferencesUtils.getData(UNREAD_FRIEND_CIRCLE, false);
+        boolean has = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.UNREAD_FRIEND_CIRCLE, false);
         return has;
     }
 
@@ -458,7 +437,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean is360Channel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("_360".equals(channelName)){
             return true;
         }else {
@@ -470,7 +449,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isHuaweiChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("huawei".equals(channelName)){
             return true;
         }else {
@@ -482,7 +461,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isXiaomiChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("xiaomi".equals(channelName)){
             return true;
         }else {
@@ -494,7 +473,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isVivoChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("vivo".equals(channelName)){
             return true;
         }else {
@@ -506,7 +485,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isOppoChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("oppo".equals(channelName)){
             return true;
         }else {
@@ -518,7 +497,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isTencentChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("tencent".equals(channelName)){
             return true;
         }else {
@@ -530,7 +509,7 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isBaiduChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("baidu".equals(channelName)){
             return true;
         }else {
@@ -542,11 +521,35 @@ public class UserOperateUtil {
      * @return
      */
     public static boolean isWandoujiaChannel(){
-        String channelName = SharedPreferencesUtils.getData(CHANNEL_NAME, "").toString();
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.CHANNEL_NAME, "").toString();
         if ("wandoujia".equals(channelName)){
             return true;
         }else {
             return false;
         }
+    }
+
+    /**
+     * 获取用户是否展示微信模拟器中的零钱通
+     * @return
+     */
+    public static boolean showLqt(){
+        boolean showLqt = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.SHOW_LQT, false);
+        return showLqt;
+    }
+    /**
+     * 获取用户是否展示微信模拟器中的零钱通
+     * @return
+     */
+    public static boolean wechatScreenShotShowLqt(){
+        return (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.WECHAT_SHOW_LQT, false);
+    }
+    /**
+     * 获取截图里面零钱通的年化收益
+     * @return
+     */
+    public static String wechatScreenShotShowLqtPercent(){
+        String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.WECHAT_SHOW_LQT_PERCENT, "").toString();
+        return channelName;
     }
 }

@@ -41,5 +41,7 @@ public class OverallVipCardEntity implements Serializable {
      * 4：永久会员
      */
     public String status;
+    public int level;
+    public int gold;
 
 }

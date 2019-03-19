@@ -37,6 +37,7 @@ class WechatMyWalletActivity : BaseWechatActivity() {
 
     override fun initViewsListener() {
         mWechatWalletBackTv.setOnClickListener(this)
+//        mMoreOperateIv.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
@@ -52,6 +53,28 @@ class WechatMyWalletActivity : BaseWechatActivity() {
             R.id.mWechatWalletBackTv ->{
                 finish()
             }
+            /*R.id.mMoreOperateIv ->{
+                var showLqt = UserOperateUtil.showLqt()
+                val menuItems = arrayListOf<MenuItem>()
+                if (showLqt){
+                    menuItems.add(MenuItem("关闭零钱通"))
+                }else{
+                    menuItems.add(MenuItem("展示零钱通"))
+                }
+                TopRightMenu(this).dimBackground(true)           //背景变暗，默认为true
+                        .needAnimationStyle(true)   //显示动画，默认为true
+                        .showIcon(false)
+                        .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //默认为R.style.TRM_ANIM_STYLE
+                        .addMenuList(menuItems)
+                        .setOnMenuItemClickListener { position ->
+                            when(position){
+                                0 ->{
+                                    SharedPreferencesUtils.putData(SharedPreferenceKey.SHOW_LQT, !showLqt)
+                                }
+                            }
+                        }
+                        .showAsDropDown(mMoreOperateIv, -180, 0)
+            }*/
         }
     }
     inner class MyWalletAdapter: RecyclerView.Adapter<MyWalletAdapter.Holder>() {
@@ -72,7 +95,7 @@ class WechatMyWalletActivity : BaseWechatActivity() {
             private val balanceTv: TextView = itemView.findViewById(R.id.balanceTv)
             init {
                 itemView.findViewById<PercentRelativeLayout>(R.id.chargeLayout).setOnClickListener{
-                        LaunchUtil.launch(itemView.context, WechatSimulatorWalletActivity::class.java)
+                    LaunchUtil.launch(itemView.context, WechatSimulatorWalletActivity::class.java)
                 }
             }
             fun bind() {

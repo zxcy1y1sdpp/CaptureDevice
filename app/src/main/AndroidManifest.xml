@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--<uses-sdk android:minSdkVersion="17"/>-->
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -70,6 +71,55 @@
         <!-- 评论列表详情 -->
         <activity
             android:name=".ui.activity.OverallMyPublishActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 代理中心 -->
+        <activity
+            android:name=".ui.activity.OverallAgencyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 我的客户 -->
+        <activity
+            android:name=".ui.activity.OverallMyClientActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 我的客户详情 -->
+        <activity
+            android:name=".ui.activity.OverallMyClientDetailsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 提现 -->
+        <activity
+            android:name=".ui.activity.OverallWithdrawDepositActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 代理收支明细 -->
+        <activity
+            android:name=".ui.activity.OverallAgencyIncomeAndExpensesActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 编辑代理中心的信息 -->
+        <activity
+            android:name=".ui.activity.OverallEditAgencyInfoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 开通代理的页面 -->
+        <activity
+            android:name=".ui.activity.OverallOpenAgencyActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
@@ -229,6 +279,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:resizeableActivity="false" />
+        <!-- 微信 == 添加对话 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatAddChatActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 零钱充值 -->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatSimulatorRechargeActivity"
@@ -342,6 +399,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:resizeableActivity="false" />
+        <!-- 微信 == 文件 -->
+        <activity
+            android:name=".ui.wechatscreenshot.ui.create.WechatCreateFileActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 微信 == 转账 -->
         <activity
             android:name=".ui.wechatscreenshot.ui.create.WechatCreateTransferActivity"
@@ -427,6 +491,24 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建群文件 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateFileActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 创建视频或语音聊天 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 邀请加群 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateInviteJoinGroupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"/>
         <!-- 微信模拟器 == 创建语音 -->
         <activity
             android:name=".wechat.simulator.ui.activity.create.WechatSimulatorCreateTransferActivity"
@@ -492,6 +574,13 @@
         <!-- 无打扰清理死粉 -->
         <activity
             android:name=".ui.activity.OverallCleanFansActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!-- 微爆粉 -->
+        <activity
+            android:name=".ui.activity.OverallAddFansActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
@@ -652,7 +741,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
-            android:hardwareAccelerated="false"/>
+            android:hardwareAccelerated="true"/>
         <!--发布说说页面-->
         <activity android:name=".ui.activity.OverallPublishFriendsCircleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

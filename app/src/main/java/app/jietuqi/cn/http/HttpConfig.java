@@ -13,7 +13,7 @@ public class HttpConfig {
     /**
      * 网络请求的总路径
      */
-    public static String BASE_URL="http://www.jietuqi.cn";
+    public static String BASE_URL="http://www.jietuqi.cn/api/";
     /**
      * AppId
      **/
@@ -27,32 +27,34 @@ public class HttpConfig {
     /**
      * 1: 登录和注册通用的接口地址
      */
-    public final static String REGISTER_AND_LOGIN = "/api/users";
+    public final static String REGISTER_AND_LOGIN = "users";
     /**
      * 2: 零散的接口地址
      */
-    public final static String INDEX = "/api/index";
+    public final static String INDEX = "index";
     /**
      * 3: 创建订单的接口
      */
-    public final static String ORDER = "/api/order";
+    public final static String ORDER = "order";
     /**
      * 4: 上传图片的接口
      */
-    public final static String UPLOAD = "/api/upload";
+    public final static String UPLOAD = "upload";
     /**
      * 5: 上传图片的动态的接口（不包含图片，只包含图片id的拼接）
      */
-    public final static String INFO = "/api/info";
+    public final static String INFO = "info";
     /**
      * 6: 修改用户信息的接口
      */
-    public final static String USERS = "/api/users";
+    public final static String USERS = "users";
     /**
      * 7: 获取行业类别的接口
      */
-    public final static String INFORMATION = "/api/information";
-    public final static String STORE = "/api/store";
-    public final static String GOLD = "/api/gold";
-    public final static String GOODS = "/api/goods";
+    public final static String INFORMATION = "information";
+    public final static String STORE = "store";
+    public final static String GOLD = "gold";
+    public final static String GOODS = "goods";
+    public final static String PRICE = "price";
+    public final static String AGENT = "agent";
 }

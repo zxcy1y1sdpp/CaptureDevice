@@ -48,7 +48,7 @@ class OverallProjectMarketActivity : BaseOverallInternetActivity() {
                     return
                 }
                 val entity = mList[vh.adapterPosition - 1]
-                LaunchUtil.startOverallProjectShowActivity(this@OverallProjectMarketActivity, entity)
+                LaunchUtil.startOverallProjectShowActivity(this@OverallProjectMarketActivity, entity, "")
             }
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
         })

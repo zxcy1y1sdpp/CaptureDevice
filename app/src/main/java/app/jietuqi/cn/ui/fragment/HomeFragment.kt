@@ -74,6 +74,16 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
         super.visiableForUser()
         registerEventBus()
     }
+
+    override fun onPause() {
+        super.onPause()
+        EventBusUtil.unRegister(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerEventBus()
+    }
     override fun invisiableForUser() {
         super.invisiableForUser()
         EventBusUtil.unRegister(this)
@@ -123,7 +133,7 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
                         if (mPageSize == 1){
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
-                            showEmptyView()
+//                            showEmptyView()
                         }else{
                             mOverallHomeRefreshLayout.finishLoadMoreWithNoMoreData()
                         }

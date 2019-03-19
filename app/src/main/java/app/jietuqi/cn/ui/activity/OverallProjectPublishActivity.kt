@@ -263,17 +263,16 @@ class OverallProjectPublishActivity : BaseOverallInternetActivity(), EditDialogC
             override fun onError(e: ApiException) {}
             override fun onSuccess(t: String) {
                 if (mType == 0){
-                    showToast("已发布，请等待审核")
+                    dismissQQDialog("已发布，请等待审核")
                 }else{
-                    showToast("已修改，请等待审核" +
-                            "")
+                    dismissQQDialog("已修改，请等待审核")
                 }
                 EventBusUtil.post("")
                 finish()
             }
             override fun onStart() {
                 super.onStart()
-                showLoadingDialog("请稍后")
+                showQQWaitDialog("发布中")
             }
         })
     }

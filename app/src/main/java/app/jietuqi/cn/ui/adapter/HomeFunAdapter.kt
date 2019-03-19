@@ -32,12 +32,11 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
             mFunList.add(HomeFunEntity("二维码", R.drawable.ewm, false))
             mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
             mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
-
+            mFunList.add(HomeFunEntity("自媒体服务", R.drawable.zmtfw, false))
         }else{
             if (UserOperateUtil.needColseByChannel()){
                 mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
-                if (!UserOperateUtil.isVivoChannel() && !UserOperateUtil.isBaiduChannel()
-                        && !UserOperateUtil.is360Channel() && !UserOperateUtil.isHuaweiChannel()){
+                if (!UserOperateUtil.isVivoChannel() && !UserOperateUtil.isBaiduChannel() && !UserOperateUtil.is360Channel() && !UserOperateUtil.isHuaweiChannel()){
                     mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
                 }
                 if (!UserOperateUtil.isXiaomiChannel() && !UserOperateUtil.is360Channel()){
@@ -50,6 +49,7 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
                 if (!UserOperateUtil.isXiaomiChannel()){
                     mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
                 }
+
             }else{
                 mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
                 mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
@@ -58,6 +58,7 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
                 mFunList.add(HomeFunEntity("二维码", R.drawable.ewm, false))
                 mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
                 mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
+                mFunList.add(HomeFunEntity("自媒体服务", R.drawable.zmtfw, false))
             }
         }
     }
@@ -115,6 +116,7 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
                 "图片编辑" -> LaunchUtil.launch(itemView.context, com.xinlan.imageeditlibrary.temporary.EditImageActivity::class.java)
                 "二维码" -> LaunchUtil.launch(itemView.context, OverallCreateQRCodeActivity::class.java)
                 "项目市场" -> LaunchUtil.launch(itemView.context, OverallProjectMarketActivity::class.java)
+                "自媒体服务" -> LaunchUtil.launch(itemView.context, OverallWeMediaActivity::class.java)
             }
         }
     }

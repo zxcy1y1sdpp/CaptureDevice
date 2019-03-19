@@ -63,10 +63,20 @@
                     android:textColor="@color/wechat_deep_text_color"/>
 
                 <TextView
+                    android:id="@+id/mLQTTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="转入零钱通享2.68%七日年化收益"
+                    percent:layout_marginTopPercent="6.91%w"
+                    android:textColor="#DEA66B"
+                    android:drawableRight="@drawable/wechat_golden_right"
+                    android:drawablePadding="@dimen/normalPaddingHalf"/>
+
+                <TextView
                     android:id="@+id/mChargeTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    percent:layout_marginTopPercent="8.96%w"
+                    percent:layout_marginTopPercent="15.04%w"
                     percent:layout_heightPercent="10.54%w"
                     percent:layout_marginLeftPercent="24.4%w"
                     percent:layout_marginRightPercent="24.4%w"
@@ -118,5 +128,5 @@
     </app.jietuqi.cn.widget.OverScrollView>
     <include layout="@layout/include_wechat_cover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 </com.zhy.android.percent.support.PercentRelativeLayout>

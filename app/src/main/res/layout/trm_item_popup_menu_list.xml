@@ -3,21 +3,23 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="8dp">
+    android:paddingLeft="5dp"
+    android:paddingRight="@dimen/normalPaddingHalf"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/trm_menu_item_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="center"
-        android:visibility="gone"/>
+        android:layout_marginRight="5dp"
+        android:src="@drawable/add_msg"/>
     <TextView
         android:id="@+id/trm_menu_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="15sp"
-        android:text="123"
-        />
+        android:text="123" />
 </LinearLayout>

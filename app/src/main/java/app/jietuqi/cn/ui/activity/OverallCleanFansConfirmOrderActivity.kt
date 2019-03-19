@@ -35,6 +35,11 @@ import org.greenrobot.eventbus.ThreadMode
 class OverallCleanFansConfirmOrderActivity : BaseOverallInternetActivity() {
     private var mCount = 1
     private var mCurrentUseEntity = OverallVipCardEntity()
+    /**
+     * 0 -- 清理死粉
+     * 1 -- 微爆粉
+     */
+    private var mType = 0
     override fun setLayoutResourceId() = R.layout.activity_overall_clean_fans_confirm_order
 
     override fun needLoadingView(): Boolean {
@@ -77,7 +82,14 @@ class OverallCleanFansConfirmOrderActivity : BaseOverallInternetActivity() {
         super.getAttribute(intent)
         val vipEntity = intent.getSerializableExtra(IntentKey.VIP_Entity) as OverallVipCardEntity
         val notVipEntity = intent.getSerializableExtra(IntentKey.NOT_VIP_Entity) as OverallVipCardEntity
-        mCleanFansTitleTv.text = "无打扰清粉 - 周卡 非VIP${notVipEntity.price},VIP${vipEntity.price}"
+        mType = intent.getIntExtra(IntentKey.TYPE, 0)
+        if (mType == 0){
+            mCleanFansTitleTv.text = "无打扰清粉 - 周卡 非VIP${notVipEntity.price},VIP${vipEntity.price}"
+            mIconIv.setImageResource(R.drawable.clean_fans_wechat)
+        }else{
+            mCleanFansTitleTv.text = "微爆粉 - 周卡 非VIP${notVipEntity.price},VIP${vipEntity.price}"
+            mIconIv.setImageResource(R.drawable.add_fans)
+        }
         if (UserOperateUtil.isVip()){
             mCurrentUseEntity = vipEntity
             mVipTagTv.visibility = View.VISIBLE

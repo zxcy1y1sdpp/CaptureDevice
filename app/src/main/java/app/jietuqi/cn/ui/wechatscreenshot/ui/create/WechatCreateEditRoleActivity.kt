@@ -3,6 +3,7 @@ package app.jietuqi.cn.ui.wechatscreenshot.ui.create
 import android.Manifest
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
@@ -82,7 +83,11 @@ class WechatCreateEditRoleActivity : BaseWechatActivity(), EditDialogChoiceListe
             }
             R.id.mWechatEditRoleNickNameLayout ->{
                 val dialog = EditDialog()
-                mUserEntity?.wechatUserNickName?.let { dialog.setData(this, EditDialogEntity(0, it, "填写角色昵称")) }
+                if (TextUtils.isEmpty(mUserEntity?.wechatUserNickName)){
+                    dialog.setData(this, EditDialogEntity(0, "", "填写角色昵称"))
+                }else{
+                    mUserEntity?.wechatUserNickName?.let { dialog.setData(this, EditDialogEntity(0, it, "填写角色昵称")) }
+                }
                 dialog.show(supportFragmentManager, "payment")
             }
         }

@@ -12,8 +12,9 @@ import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
-import app.jietuqi.cn.ui.wechatscreenshot.entity.ChangeSingleTaklBgEntity
+import app.jietuqi.cn.ui.wechatscreenshot.entity.SingleTalkSettingEntity
 import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.dialog.ChoiceRoleDialog
@@ -39,6 +40,19 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
      * 2 -- QQ
      */
     private var mType = 0
+    /**
+     * 是否开启消息免打扰
+     */
+    private var mMessageFree = false
+    /**
+     * 是否开启听筒模式
+     */
+    private var mEarMode = false
+    /**
+     * 是否开启零钱通
+     */
+    private var mShowLqt = false
+    var mSettingEntity =  SingleTalkSettingEntity(false, "", false, false)
     override fun setLayoutResourceId() = R.layout.activity_wechat_setting_info
 
     override fun needLoadingView(): Boolean {
@@ -55,13 +69,16 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
         mWechatSettingInfoBgLayout.setOnClickListener(this)
         mQQOtherStatusLayout.setOnClickListener(this)
         mQQUnReadNumberLayout.setOnClickListener(this)
+        mMessageFreeIv.setOnClickListener(this)
+        mEarIv.setOnClickListener(this)
+        mWechatShowLqt.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mType = intent.getIntExtra(IntentKey.TYPE, 0)
         if (mType == 0){
-
+            mMessageAndVoiceSettingLayout.visibility = View.VISIBLE
         }else if (mType == 1){
 
         }else if (mType == 2){
@@ -83,20 +100,31 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatSettingInfoOtherAvatarIv)
         mWechatSettingInfoMyNickNameTv.text = mMySideEntity.wechatUserNickName
         mWechatSettingInfoOtherNickNameTv.text = mOtherSideEntity.wechatUserNickName
-        var chatBg: ChangeSingleTaklBgEntity? = null
+        var settingEntity: SingleTalkSettingEntity? = null
         when(mType) {
             0 -> {
-                chatBg = UserOperateUtil.getSingleTalkBg()
+                settingEntity = UserOperateUtil.getSingleTalkBg()
+                settingEntity?.messageFree?.let { OtherUtil.onOrOff(it, mMessageFreeIv) }
+                settingEntity?.earMode?.let { OtherUtil.onOrOff(it, mEarIv) }
+                settingEntity?.showLqt?.let { OtherUtil.onOrOff(it, mWechatShowLqt) }
+                settingEntity?.showLqt?.let { mShowLqt = it }
+                if (settingEntity?.showLqt == true){
+                    mWechatPercentEt.visibility = View.VISIBLE
+                    mWechatPercentEt.setText(UserOperateUtil.wechatScreenShotShowLqtPercent())
+                }else{
+                    mWechatPercentEt.visibility = View.GONE
+                }
+
             }
             1 -> {
-                chatBg = UserOperateUtil.getAlipayChatBg()
+                settingEntity = UserOperateUtil.getAlipayChatBg()
             }
             2 -> {
-                chatBg = UserOperateUtil.getQQSingleTalkBg()
+                settingEntity = UserOperateUtil.getQQSingleTalkBg()
             }
         }
-        if (chatBg?.needBg == true){
-            GlideUtil.displayAll(this, chatBg?.bg, mWechatSettingInfoBgIv)
+        if (settingEntity?.needBg == true){
+            GlideUtil.displayAll(this, settingEntity.bg, mWechatSettingInfoBgIv)
         }else{
             GlideUtil.displayAll(this, R.drawable.default_bg, mWechatSettingInfoBgIv)
         }
@@ -109,6 +137,35 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
                 val dialog = EditDialog()
                 dialog.setData(this, EditDialogEntity(0, mQQOtherStatusTv.text.toString(), "在线状态"))
                 dialog.show(supportFragmentManager, "edit")
+            }
+            R.id.mMessageFreeIv ->{
+                mMessageFree = !mMessageFree
+                OtherUtil.onOrOff(mMessageFree, mMessageFreeIv)
+                mSettingEntity.messageFree = mMessageFree
+                if (mType == 0){
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.SINGLE_TALK_BG)
+                }
+            }
+            R.id.mEarIv ->{
+                mEarMode = !mEarMode
+                OtherUtil.onOrOff(mEarMode, mEarIv)
+                mSettingEntity.earMode = mEarMode
+                if (mType == 0){
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.SINGLE_TALK_BG)
+                }
+            }
+            R.id.mWechatShowLqt ->{
+                mShowLqt = !mShowLqt
+                OtherUtil.onOrOff(mShowLqt, mWechatShowLqt)
+                mSettingEntity.showLqt = mShowLqt
+                if(mShowLqt){
+                    mWechatPercentEt.visibility = View.VISIBLE
+                }else{
+                    mWechatPercentEt.visibility = View.GONE
+                }
+                if (mType == 0){
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.SINGLE_TALK_BG)
+                }
             }
             R.id.mQQUnReadNumberLayout ->{
                 val dialog = EditDialog()
@@ -181,15 +238,17 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
             }
             RequestCode.IMAGE_SELECT ->{
                 GlideUtil.displayAll(this, mFiles[0], mWechatSettingInfoBgIv)
+                mSettingEntity.needBg = true
+                mSettingEntity.bg = mFiles[0].absolutePath
                 when(mType){
                     0 ->{
-                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.SINGLE_TALK_BG)
+                        SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.SINGLE_TALK_BG)
                     }
                     1 ->{
-                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.ALIPAY_CHAT_BG)
+                        SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.ALIPAY_CHAT_BG)
                     }
                     2 ->{
-                        SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(true, mFiles[0].absolutePath), SharedPreferenceKey.QQ_CHAT_BG)
+                        SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.QQ_CHAT_BG)
                     }
                 }
             }
@@ -200,18 +259,19 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
             openAlbumWithPermissionCheck()
         }else{
             GlideUtil.displayAll(this, R.drawable.default_bg, mWechatSettingInfoBgIv)
+            mSettingEntity.bg = ""
+            mSettingEntity.needBg = false
             when(mType){
                 0 ->{
-                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.SINGLE_TALK_BG)
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.SINGLE_TALK_BG)
                 }
                 1 ->{
-                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.ALIPAY_CHAT_BG)
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.ALIPAY_CHAT_BG)
                 }
                 2 ->{
-                    SharedPreferencesUtils.saveBean2Sp(ChangeSingleTaklBgEntity(false, ""), SharedPreferenceKey.QQ_CHAT_BG)
+                    SharedPreferencesUtils.saveBean2Sp(mSettingEntity, SharedPreferenceKey.QQ_CHAT_BG)
                 }
             }
-
         }
     }
     override fun finish() {
@@ -221,6 +281,8 @@ class WechatCreateSettingInfoActivity : BaseCreateActivity(), ChoiceWechatBackgr
             0 ->{
                 SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.MY_SELF)
                 SharedPreferencesUtils.saveBean2Sp(mOtherSideEntity, SharedPreferenceKey.OTHER_SIDE)
+                SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_SHOW_LQT, mShowLqt)
+                SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_SHOW_LQT_PERCENT, OtherUtil.getContent(mWechatPercentEt))
             }
             1 ->{
                 SharedPreferencesUtils.saveBean2Sp(mMySideEntity, SharedPreferenceKey.ALIPAY_ME_SELF)

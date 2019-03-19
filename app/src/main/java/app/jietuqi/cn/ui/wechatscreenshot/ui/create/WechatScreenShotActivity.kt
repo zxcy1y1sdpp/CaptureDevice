@@ -1,10 +1,9 @@
 package app.jietuqi.cn.ui.wechatscreenshot.ui.create
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
+import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseCreateActivity
 import app.jietuqi.cn.ui.entity.WechatUserEntity
@@ -17,8 +16,7 @@ import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.util.UserOperateUtil.getMySelf
 import app.jietuqi.cn.widget.dialog.ChoiceTalkTypeDialog
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
-import com.yanzhenjie.recyclerview.swipe.*
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener
 import kotlinx.android.synthetic.main.activity_wechat_screenshot_create.*
 import kotlinx.android.synthetic.main.include_base_bottom_add_item.*
@@ -48,7 +46,6 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         when(title){
             "时间" ->{
                 LaunchUtil.startWechatCreateTimeActivity(this, mOtherSideEntity, null, 0)
-//                initTimePickerView(tag = "创建")
             }
             "文本" ->{
                 LaunchUtil.startWechatCreateTextActivity(this, mOtherSideEntity, null, 0)
@@ -80,8 +77,8 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             "加群" ->{
                 LaunchUtil.startWechatCreateInviteJoinGroupActivity(this, mOtherSideEntity, null, 0)
             }
-            "表情" ->{
-                LaunchUtil.startWechatCreateEmojiActivity(this, mOtherSideEntity, null, 0)
+            "文件" ->{
+                LaunchUtil.startWechatCreateFileActivity(this, mOtherSideEntity, null, 0)
             }
         }
     }
@@ -91,52 +88,12 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
     private var mAdapter: WechatScreenShotAdapter? = null
     private val mList: ArrayList<WechatScreenShotEntity> = arrayListOf()
     private lateinit var mEditEntity: WechatScreenShotEntity
-    /**
-     * 菜单创建器，在Item要创建菜单的时候调用。
-     */
-    private val swipeMenuCreator = object : SwipeMenuCreator {
-        override fun onCreateMenu(swipeLeftMenu: SwipeMenu, swipeRightMenu: SwipeMenu, viewType: Int) {
-            val width = resources.getDimensionPixelSize(R.dimen.wechatMoneyTextSize)
-
-            // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
-            // 2. 指定具体的高，比如80;
-            // 3. WRAP_CONTENT，自身高度，不推荐;
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-
-            // 添加左侧的，如果不添加，则左侧不会出现菜单。
-            run {
-                val closeItem = SwipeMenuItem(this@WechatScreenShotActivity)
-                        .setBackground(R.color.red_btn_bg_color)
-                        .setText("删除")
-                        .setTextColor(ContextCompat.getColor(this@WechatScreenShotActivity, R.color.white))
-//                        .setTextSize(R.dimen.wechatNormalTextSize)
-                        .setWidth(width)
-                        .setHeight(height)
-                swipeRightMenu.addMenuItem(closeItem) // 添加菜单到左侧。
-            }
-        }
-    }
-    /**
-     * RecyclerView的Item的Menu点击监听。
-     */
-    private val mMenuItemClickListener = SwipeMenuItemClickListener { menuBridge ->
-        menuBridge.closeMenu()
-
-        val direction = menuBridge.direction // 左侧还是右侧菜单。
-        val adapterPosition = menuBridge.adapterPosition // RecyclerView的Item的position。
-
-        if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-            mHelper.delete(mList[adapterPosition])
-            mList.removeAt(adapterPosition)
-            mAdapter?.notifyItemRemoved(adapterPosition)
-        }
-    }
     override fun setLayoutResourceId() = R.layout.activity_wechat_screenshot_create
 
     override fun needLoadingView() = false
 
     override fun initAllViews() {
-        setBlackTitle("聊天对话", 2)
+        setBlackTitle("聊天对话", 2, "清空对话")
         mHelper = WechatScreenShotHelper(this)
         mRoleHelper = RoleLibraryHelper(this)
         mMySideEntity = getMySelf()
@@ -145,8 +102,6 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
         GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mWechatScreenShotOtherSideAvatarIv)
         mHelper.queryAll()?.let { mList.addAll(it) }
         mAdapter = WechatScreenShotAdapter(mList, this)
-        mWechatScreenShotCreateMenuRecyclerView.setSwipeMenuCreator(swipeMenuCreator)
-        mWechatScreenShotCreateMenuRecyclerView.setSwipeMenuItemClickListener(mMenuItemClickListener)
         mWechatScreenShotCreateMenuRecyclerView.isLongPressDragEnabled = true // 拖拽排序，默认关闭。
         registerEventBus()
     }
@@ -162,7 +117,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 0 ->{
                     LaunchUtil.startWechatCreateTextActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
                 }
-                1 ->{
+                1, 14 ->{
                     LaunchUtil.startWechatCreatePictureAndVideoActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
                 }
                 2 ->{
@@ -171,7 +126,7 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 3, 4 ->{
                     LaunchUtil.startWechatCreateRedPacketActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
                 }
-                5, 6 ->{
+                5, 6, 15 ->{
                     LaunchUtil.startWechatCreateTransferActivity(this@WechatScreenShotActivity, mOtherSideEntity, mEditEntity, 1)
                 }
                 7 ->{
@@ -192,8 +147,11 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 13 ->{
                     LaunchUtil.startWechatCreateInviteJoinGroupActivity(this, mOtherSideEntity, mEditEntity, 1)
                 }
-                14 ->{
-                    LaunchUtil.startWechatCreateEmojiActivity(this, mOtherSideEntity, mEditEntity, 1)
+//                14 ->{
+//                    LaunchUtil.startWechatCreateEmojiActivity(this, mOtherSideEntity, mEditEntity, 1)
+//                }
+                16 ->{
+                    LaunchUtil.startWechatCreateFileActivity(this, mOtherSideEntity, mEditEntity, 1)
                 }
             }
         }
@@ -243,20 +201,16 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
                 LaunchUtil.startWechatScreenShotPreviewActivity(this, mList)
             }
             R.id.overallAllRightWithOutBgTv ->{
-                SweetAlertDialog(this@WechatScreenShotActivity, SweetAlertDialog.WARNING_TYPE)
-                        .setCanTouchOutSideCancle(false)
-                        .canCancle(false)
-                        .setTitleText("删除提示！")
-                        .setContentText("点击删除将清空所有的历史数据")
-                        .setConfirmText("删除")
-                        .setCancelText("取消")
-                        .setConfirmClickListener { sweetAlertDialog ->
-                            sweetAlertDialog.dismissWithAnimation()
+                EnsureDialog(this@WechatScreenShotActivity).builder()
+                        .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                        .setTitle("确定要删除所有数据吗？")//可以不设置标题颜色，默认系统颜色
+                        .setSubTitle("点击删除将清空所有的历史数据!")
+                        .setCancelable(false)
+                        .setNegativeButton("取消") {}
+                        .setPositiveButton("删除") {
                             mHelper.deleteAll()
                             mList.clear()
                             mAdapter?.notifyDataSetChanged()
-                        }.setCancelClickListener {
-                            it.dismissWithAnimation()
                         }.show()
             }
         }
@@ -334,15 +288,4 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
             }
         }
     }
-
-    /*override fun onDestroy() {
-        super.onDestroy()
-        var i = 0
-        val size = mList.size
-        mHelper.deleteAll()
-        while (i < size) {
-            mHelper.save(mList[i])
-            i++
-        }
-    }*/
 }

@@ -37,6 +37,8 @@ public class SharedPreferenceKey {
     public final static String USER_QQ_OPENID = "qq_openid";
     /**用户实体*/
     public final static String USER_INFO = "userInfo";
+    /**代理信息实体*/
+    public final static String AGENCY_INFO = "agencyInfo";
     /**行业类别*/
     public final static String INDUSTRY = "industry";
     /**群类别*/
@@ -119,5 +121,9 @@ public class SharedPreferenceKey {
      * 微信模拟器中保存的银行卡
      */
     public final static String WECHAT_SIMULATOR_BANK_LIST = "wechatSimulatorBankList";
+
+    public final static String SHOW_LQT = "showLqt";
+    public final static String WECHAT_SHOW_LQT = "wechatShowLqt";
+    public final static String WECHAT_SHOW_LQT_PERCENT = "wechatShowLqtPercent";
 
 }

@@ -19,6 +19,7 @@
         android:layout_marginTop="@dimen/normalPadding"
         android:layout_marginBottom="@dimen/normalPadding">
         <ImageView
+            android:id="@+id/mIconIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/clean_fans_wechat"/>

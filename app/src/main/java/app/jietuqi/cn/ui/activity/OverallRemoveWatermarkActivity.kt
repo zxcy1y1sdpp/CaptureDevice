@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
@@ -16,7 +17,7 @@ import app.jietuqi.cn.http.RemoveWaterMarkEntity
 import app.jietuqi.cn.http.RemoveWaterMarkParentEntity
 import app.jietuqi.cn.http.util.MD5
 import app.jietuqi.cn.util.*
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import cn.jzvd.Jzvd
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
@@ -40,10 +41,9 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
     private val client = "87a735c046ac30a1"
     /** iiiLab分配的客户密钥  */
     private val clientSecretKey = "fb24e8bf6411850558f843209ebe0fb8"
-    private var mSaveToCameraDialog: SweetAlertDialog? = null
     private var mClipboardManager: ClipboardManager? = null
     private var mOnPrimaryClipChangedListener: ClipboardManager.OnPrimaryClipChangedListener? = null
-    private var mWaitDialog: SweetAlertDialog? = null
+    private var mWaitDialog: EnsureDialog? = null
     override fun setLayoutResourceId() = R.layout.activity_overall_remove_watermark
     override fun needLoadingView() = false
 
@@ -67,20 +67,16 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                 if (TextUtils.isEmpty(content)){
                     return@OnPrimaryClipChangedListener
                 }
-                mWaitDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("确定提取视频吗")
-                        .setContentText(content)
-                        .setConfirmText("确定")
-                        .setCancelText("取消")
-                        .setConfirmClickListener {
+                mWaitDialog = EnsureDialog(this).builder()
+                        .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                        .setTitle("确定提取视频吗")//可以不设置标题颜色，默认系统颜色
+                        .setSubTitle(content)
+                        .setNegativeButton("取消") {}
+                        .setPositiveButton("提取") {
                             mRemoveWaterMarkUrlEt.setText(content)
                             canAnalysis()
-                            it.dismissWithAnimation()
-                        }.setCancelClickListener {
-                            it.dismissWithAnimation()
                         }
                 mWaitDialog?.show()
-                Log.d("TAG", "复制、剪切的内容为：$content")
             }
         }
         mClipboardManager?.addPrimaryClipChangedListener(mOnPrimaryClipChangedListener)
@@ -102,18 +98,14 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
             }
             R.id.mRemoveWaterMarkDownLoadVideoPathBtn ->{
                 if (UserOperateUtil.isCurrentLogin(this)){
-                    mSaveToCameraDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("确定保存该视频到相册吗")
-                            .setContentText("保存到相册的视频需要您手动去清理")
-                            .setConfirmText("保存")
-                            .setCancelText("取消")
-                            .setConfirmClickListener {
+                    EnsureDialog(this).builder()
+                            .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                            .setTitle("确定保存该视频到相册吗？")//可以不设置标题颜色，默认系统颜色
+                            .setSubTitle("保存到相册的视频需要您手动去清理")
+                            .setNegativeButton("取消") {}
+                            .setPositiveButton("保存") {
                                 downLoadVideoWithPermissionCheck()
-                            }.setCancelClickListener {
-                                it.dismissWithAnimation()
-                            }
-                    mSaveToCameraDialog?.show()
-
+                            }.show()
                 }
             }
         }
@@ -167,29 +159,16 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                     }
 
                     override fun onStart() {
-                        mSaveToCameraDialog?.changeAlertType(SweetAlertDialog.PROGRESS_TYPE)
-                        mSaveToCameraDialog?.contentText = "请耐心等候"
-                        mSaveToCameraDialog?.titleText = "保存中..."
-                        mSaveToCameraDialog?.confirmText = "朕知道了"
-                        mSaveToCameraDialog?.showCancelButton(false)
+                        showQQWaitDialog("保存中")
                     }
-
                     override fun onComplete(path: String) {
-                        mSaveToCameraDialog?.confirmText = "退下吧"
-                        mSaveToCameraDialog?.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                        mSaveToCameraDialog?.titleText = "朕知道了"
-                        mSaveToCameraDialog?.showContentText(false)
-                        mSaveToCameraDialog?.setConfirmClickListener {
-                            it.dismissWithAnimation()
-                        }
+                        dismissQQDialog("保存成功")
                         // 最后通知图库更新
                         sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(File(path))))
                         dismissLoadingDialog()
                     }
-
                     override fun onError(e: ApiException) {
-                        showToast("保存失败！")
-                        dismissLoadingDialog()
+                        dismissQQDialog("保存失败", 1)
                     }
                 })
     }
@@ -200,16 +179,13 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                 .params("uid", UserOperateUtil.getUserId())
                 .execute(object : SimpleCallBack<String>() {
                     override fun onError(e: ApiException) {
-                        SweetAlertDialog(this@OverallRemoveWatermarkActivity, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("友情提示")
-                                .setContentText(StringUtils.insertBack(e.message, "是否去开通会员？"))
-                                .setConfirmText("马上开通")
-                                .setCancelText("取消")
-                                .setConfirmClickListener { sweetAlertDialog ->
+                        EnsureDialog(this@OverallRemoveWatermarkActivity).builder()
+                                .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                                .setTitle("友情提示")//可以不设置标题颜色，默认系统颜色
+                                .setSubTitle(StringUtils.insertBack(e.message, "是否去开通会员？"))
+                                .setNegativeButton("取消") {}
+                                .setPositiveButton("开通") {
                                     LaunchUtil.launch(this@OverallRemoveWatermarkActivity, OverallPurchaseVipActivity::class.java)
-                                    sweetAlertDialog.dismissWithAnimation()
-                                }.setCancelClickListener {
-                                    it.dismissWithAnimation()
                                 }.show()
                     }
                     override fun onSuccess(t: String) {
@@ -232,7 +208,7 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
 
     override fun onPause() {
         super.onPause()
-        mWaitDialog?.dismissWithAnimation()
+        mWaitDialog?.dismiss()
         registerClipEvents()
         Jzvd.releaseAllVideos()
     }

@@ -11,13 +11,15 @@ import app.jietuqi.cn.util.TimeUtil;
  */
 
 public class RandomUtil {
-    public static final String[] randomNick = {"A奢侈品代购", "手机维修", "剪刀", "JAB", "间隔",
-            "大宝", "简爱", "疯狂！", "慌乱", "花开ヽ似水￠",
-            "花儿和少年", "Lucky", "So Cute", "勿忘心安", "博哥哥",
+    public static final String[] randomNick = {
+            "A奢侈品代购", "手机维修", "剪刀", "JAB", "间隔",
+            "大宝", "简爱", "花儿和少年", "慌乱", "花开ヽ似水￠",
+            "新手练习", "Lucky", "So Cute", "勿忘心安", "博哥哥",
             "约定", "一定是", "特别的缘分", "才可以", "一路走来",
             "变成了一家人", "他多爱你积分", "就多伤我积分", "A护肤品代购", "小猪"};
 
-    public static final int[] randomAvatar = {ResourceHelper.getAppIconId("R.mipmap.icon0"), ResourceHelper.getAppIconId("R.mipmap.icon1"),
+    public static final int[] randomAvatar = {
+            ResourceHelper.getAppIconId("R.mipmap.icon0"), ResourceHelper.getAppIconId("R.mipmap.icon1"),
             ResourceHelper.getAppIconId("R.mipmap.icon2"),
             ResourceHelper.getAppIconId("R.mipmap.icon3"), ResourceHelper.getAppIconId("R.mipmap.icon4"),
             ResourceHelper.getAppIconId("R.mipmap.role_002"), ResourceHelper.getAppIconId("R.mipmap.role_003"),

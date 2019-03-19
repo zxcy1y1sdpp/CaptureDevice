@@ -34,11 +34,12 @@
             android:layout_alignBottom="@+id/mWechatWalletBackTv"/>
 
         <ImageView
+            android:id="@+id/mMoreOperateIv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="center"
             android:src="@drawable/wechat_more_black"
             android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="6%w"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>

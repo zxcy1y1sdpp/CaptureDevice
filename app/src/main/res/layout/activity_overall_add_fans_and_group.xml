@@ -67,8 +67,7 @@
         <TextView
             android:text="VIP高级爆粉"
             android:drawableLeft="@mipmap/baofen"
-            style="@style/overallLeftTitle"
-            android:textColor="#FC615A"/>
+            style="@style/overallLeftTitle"/>
         <TextView
             android:id="@+id/view1"
             style="@style/overallMyItemRight"/>
@@ -78,6 +77,29 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/view1"
             android:text="会员专享"
+            android:textColor="@color/white"
+            android:padding="@dimen/normalPaddingHalf"
+            percent:stv_corner="5dp"
+            percent:stv_solid="#F95645"/>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mOverallAddFansAndGroupAddFansLayout"
+        style="@style/overallMyItem"
+        percent:layout_heightPercent="16%w"
+        android:visibility="gone">
+        <TextView
+            android:text="官方(代加粉)"
+            android:drawableLeft="@mipmap/jiafen"
+            style="@style/overallLeftTitle"/>
+        <TextView
+            android:id="@+id/view2"
+            style="@style/overallMyItemRight"/>
+        <com.coorchice.library.SuperTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/view2"
+            android:text="官方推荐"
             android:textColor="@color/white"
             android:padding="@dimen/normalPaddingHalf"
             percent:stv_corner="5dp"

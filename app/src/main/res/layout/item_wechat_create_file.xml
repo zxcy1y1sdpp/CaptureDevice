@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/normalPadding"
+    android:gravity="center"
+    android:background="@color/white"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/sWechatFileIconIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/head_default"
+        android:adjustViewBounds="true"/>
+    <TextView
+        android:id="@+id/sWechatFileNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="小明"
+        android:layout_below="@+id/sWechatFileIconIv"
+        android:layout_alignLeft="@+id/sWechatFileIconIv"
+        android:layout_alignRight="@+id/sWechatFileIconIv"
+        android:lines="1"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:textColor="@color/wechatLightGray"
+        android:layout_marginTop="@dimen/normalPaddingHalf"
+        android:layout_marginBottom="@dimen/normalPaddingHalf"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

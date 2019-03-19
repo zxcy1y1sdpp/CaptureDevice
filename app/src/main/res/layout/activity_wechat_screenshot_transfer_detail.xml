@@ -116,6 +116,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/wechatLightGray"/>
             </com.zhy.android.percent.support.PercentLinearLayout>
+
             <include
                 android:id="@+id/layout2"
                 layout="@layout/base_wechat_preview_transfer_time"

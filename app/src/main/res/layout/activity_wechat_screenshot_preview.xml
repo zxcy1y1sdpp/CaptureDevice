@@ -35,6 +35,25 @@
             android:textStyle="bold"/>
 
         <ImageView
+            android:id="@+id/mWechatScreenShotPreviewMessageFreeIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_message_free_black"
+            android:layout_toRightOf="@+id/mWechatScreenShotPreviewNickNameTv"
+            android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="1.22%w"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/mWechatScreenShotPreviewEarModeIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wechat_ear_mode"
+            android:layout_toRightOf="@+id/mWechatScreenShotPreviewMessageFreeIv"
+            android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="1.22%w"
+            android:visibility="gone"/>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat_more_black"

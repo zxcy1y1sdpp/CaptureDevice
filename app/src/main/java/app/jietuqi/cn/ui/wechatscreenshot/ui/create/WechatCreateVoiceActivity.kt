@@ -61,7 +61,6 @@ class WechatCreateVoiceActivity : BaseWechatScreenShotCreateActivity() {
 
     override fun onClick(v: View) {
         when(v.id){
-
             R.id.mWechatCreateVoiceSecondsAlreadyReadIv ->{
                 if (!mMsgEntity.isComMsg){//自己发送的语音消息，不可以选择未读
                     showToast("自己发送的语音消息不可以选择未读")
@@ -79,6 +78,7 @@ class WechatCreateVoiceActivity : BaseWechatScreenShotCreateActivity() {
                     mWechatCreateVoiceSecondsTransferTextEv.visibility = View.VISIBLE
                 }else{
                     mWechatCreateVoiceSecondsTransferTextEv.visibility = View.GONE
+                    mMsgEntity.voiceToText = ""
                 }
                 OtherUtil.onOrOff(show, mWechatCreateVoiceSecondsTransferIv)
             }

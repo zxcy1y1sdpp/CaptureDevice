@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_linear"
+    android:layout_marginBottom="2dp">
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/sCountTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/normalPadding"
+        android:text="直推用户：199人"
+        android:textSize="14sp"
+        app:stv_corner="10dp"
+        app:stv_textShaderEnable="true"
+        app:stv_textShaderMode="bottomToTop"
+        app:stv_textShaderEndColor="#4ca1ff"
+        app:stv_textShaderStartColor="#6f74ff"
+        android:layout_weight="8"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/wechat_more_black"
+        android:layout_weight="1"
+        android:scaleType="center"/>
+</LinearLayout>

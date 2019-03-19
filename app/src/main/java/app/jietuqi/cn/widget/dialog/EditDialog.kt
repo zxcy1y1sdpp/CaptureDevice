@@ -1,6 +1,5 @@
 package app.jietuqi.cn.widget.dialog
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.TextUtils
@@ -16,8 +15,6 @@ import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.ToastUtils
 import kotlinx.android.synthetic.main.dialog_change_role.*
-
-
 
 /**
  * @author lyb
@@ -56,10 +53,6 @@ class EditDialog : DialogFragment(), View.OnClickListener {
         if (mEntity?.inputNumber == true){
             contentEt.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
         }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState)
     }
 
     override fun onStart() {

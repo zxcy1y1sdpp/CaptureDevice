@@ -5,10 +5,11 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewTreeObserver
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
-import app.jietuqi.cn.constant.IntentKey
+import app.jietuqi.cn.constant.GlobalVariable
 import app.jietuqi.cn.ui.wechatscreenshot.adapter.WechatScreenShotPreviewAdapter
 import app.jietuqi.cn.ui.wechatscreenshot.db.WechatScreenShotHelper
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
@@ -47,6 +48,12 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
         mMySideEntity = UserOperateUtil.getMySelf()
         mWechatScreenShotPreviewVoiceAndKeyBoardIv.tag = "0"
         val entity = UserOperateUtil.getSingleTalkBg()
+        if (entity.messageFree){
+            mWechatScreenShotPreviewMessageFreeIv.visibility = View.VISIBLE
+        }
+        if (entity.earMode){
+            mWechatScreenShotPreviewEarModeIv.visibility = View.VISIBLE
+        }
         if (entity.needBg){
             GlideUtil.displayAll(this, entity.bg, mWechatScreenShotPreviewRecyclerViewBgIv)
             mWechatScreenShotPreviewRecyclerViewBgIv.visibility = View.VISIBLE
@@ -84,12 +91,24 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
 
             override fun afterTextChanged(s: Editable) {}
         })
-    }
+        mWechatScreenShotPreviewRecyclerView.viewTreeObserver.addOnGlobalLayoutListener(
+                object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
 
+                        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                            runOnUiThread {
+                                val layoutManager = mWechatScreenShotPreviewRecyclerView.layoutManager
+//                                mWechatScreenShotPreviewRecyclerView.scrollToPosition(mList.size - 1)
+                                layoutManager.scrollToPosition(mAdapter.itemCount - 1)
+                            }
+                        }
+                        mWechatScreenShotPreviewRecyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                })
+    }
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
-        val list = intent.getSerializableExtra(IntentKey.LIST) as MutableList<WechatScreenShotEntity>
-        mList.addAll(list)
+        mList.addAll(GlobalVariable.WECHAT_SCREEN_SHOT_LIST)
         mAdapter.notifyDataSetChanged()
 
     }
@@ -180,5 +199,10 @@ class WechatScreenShotPreviewActivity : BaseWechatActivity() {
             delay(1000L) // 非阻塞的延迟一秒（默认单位是毫秒）
             registerEventBus()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GlobalVariable.WECHAT_SCREEN_SHOT_LIST.clear()
     }
 }

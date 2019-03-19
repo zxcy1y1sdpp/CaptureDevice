@@ -15,48 +15,7 @@ public class QQScreenShotEntity extends SingleTalkEntity {
     private static final long serialVersionUID = 7526899828386293994L;
 
     public QQScreenShotEntity(){}
-    /**
-     * 文字消息
-     * @param wechatUserId
-     * @param msgType
-     * @param msg
-     * @param isComMsg
-     * @param lastTime
-     */
-    public QQScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, String msg , long lastTime){
-        this.wechatUserId = wechatUserId;
-        this.msgType = msgType;
-        this.isComMsg = isComMsg;
-        this.avatarInt = avatarInt;
-        this.avatarStr = avatarStr;
-        this.msg = msg;
-        if (lastTime <= 0){
-            this.lastTime = System.currentTimeMillis();
-        }else {
-            this.lastTime = lastTime;
-        }
-    }
-    /**
-     * 图片消息
-     * @param wechatUserId
-     * @param msgType
-     * @param img
-     * @param isComMsg
-     * @param lastTime
-     */
-    public QQScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, int img , long lastTime){
-        this.wechatUserId = wechatUserId;
-        this.avatarInt = avatarInt;
-        this.avatarStr = avatarStr;
-        this.msgType = msgType;
-        this.isComMsg = isComMsg;
-        this.img = img;
-        if (lastTime <= 0){
-            this.lastTime = System.currentTimeMillis();
-        }else {
-            this.lastTime = lastTime;
-        }
-    }
+
     public QQScreenShotEntity(String wechatUserId, int avatarInt, String avatarStr, int msgType, boolean isComMsg, long time , long lastTime){
         this.wechatUserId = wechatUserId;
         this.avatarInt = avatarInt;

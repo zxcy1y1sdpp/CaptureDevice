@@ -204,6 +204,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
                     }
                 }) {})
     }
+
     /**
      * 获取行业类别
      */

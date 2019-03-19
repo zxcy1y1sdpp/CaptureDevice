@@ -30,8 +30,8 @@ public class TopRightMenu {
     private TRMenuAdapter mAdapter;
     private List<MenuItem> menuItemList;
 
-    private static final int DEFAULT_HEIGHT = 360;
-    private int popHeight = DEFAULT_HEIGHT;
+//    private static final int DEFAULT_HEIGHT = 360;
+//    private int popHeight = DEFAULT_HEIGHT;
     private int popWidth = RecyclerView.LayoutParams.WRAP_CONTENT;
     private boolean showIcon = true;
     private boolean dimBackground = true;
@@ -60,7 +60,7 @@ public class TopRightMenu {
     private PopupWindow getPopupWindow(){
         mPopupWindow = new PopupWindow(mContext);
         mPopupWindow.setContentView(content);
-        mPopupWindow.setHeight(popHeight);
+//        mPopupWindow.setHeight(popHeight);
         mPopupWindow.setWidth(popWidth);
         if (needAnimationStyle){
             mPopupWindow.setAnimationStyle(animationStyle <= 0 ? DEFAULT_ANIM_STYLE : animationStyle);
@@ -81,14 +81,14 @@ public class TopRightMenu {
         return mPopupWindow;
     }
 
-    public TopRightMenu setHeight(int height){
-        if (height <= 0 && height != RecyclerView.LayoutParams.MATCH_PARENT && height != RecyclerView.LayoutParams.WRAP_CONTENT){
-            this.popHeight = DEFAULT_HEIGHT;
-        }else {
-            this.popHeight = height;
-        }
-        return this;
-    }
+//    public TopRightMenu setHeight(int height){
+//        if (height <= 0 && height != RecyclerView.LayoutParams.MATCH_PARENT && height != RecyclerView.LayoutParams.WRAP_CONTENT){
+//            this.popHeight = DEFAULT_HEIGHT;
+//        }else {
+//            this.popHeight = height;
+//        }
+//        return this;
+//    }
 
     public TopRightMenu setWidth(int width){
         if (width <= 0 && width != RecyclerView.LayoutParams.MATCH_PARENT){

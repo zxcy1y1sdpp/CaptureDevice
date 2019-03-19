@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_overall_wb_details.*
  * 作者： liuyuanbo on 2019/1/29 16:21.
  * 时间： 2019/1/29 16:21
  * 邮箱： 972383753@qq.com
- * 用途：
+ * 用途： 微币明细
  */
 class OverallWbDetailsActivity : BaseOverallInternetActivity() {
     private var mList = arrayListOf<WbDetailsEntity>()
@@ -56,7 +56,6 @@ class OverallWbDetailsActivity : BaseOverallInternetActivity() {
                 mWbRecordSrl.finishRefresh(true)
                 mWbRecordSrl.finishLoadMore(true)
                 mList.addAll(t)
-//                setPullAction()
                 mAdapter.notifyDataSetChanged()
             }
             override fun onError(e: ApiException) {

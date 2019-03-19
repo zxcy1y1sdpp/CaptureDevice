@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import app.jietuqi.cn.R
@@ -15,6 +16,7 @@ import app.jietuqi.cn.entity.EditDialogEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.TimeUtil
+import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.dialog.EditDialog
 import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_transfer_detail.*
@@ -50,10 +52,41 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         mEntity = intent.getSerializableExtra(IntentKey.ENTITY) as WechatScreenShotEntity
+        setLqtInfo()
         mTransferMoneyTv.text = StringUtils.insertFront(StringUtils.keep2Point(mEntity.money), "¥")
         setData()
     }
 
+    private fun setLqtInfo(){
+        val isSimulator = intent.getBooleanExtra(IntentKey.IS_SIMULATOR, false)
+        var showLqt = if(isSimulator){
+            UserOperateUtil.showLqt()
+        }else{
+            UserOperateUtil.wechatScreenShotShowLqt()
+        }
+        if (mEntity.type == 0){
+            if (showLqt){
+                if ("已收钱" == mEntity.transferType && mEntity.type == 0){
+                    val showLQT = intent.getBooleanExtra(IntentKey.SHOW_LQT, true)
+                    if (showLQT){
+                        mTransferLqtLayout.visibility = View.VISIBLE
+                        var percent = intent.getStringExtra(IntentKey.PERCENT)
+                        if (!isSimulator){
+                            percent = UserOperateUtil.wechatScreenShotShowLqtPercent()
+                        }
+                        if (TextUtils.isEmpty(percent)){
+                            percent = "2.98"
+                        }
+                        mTransferLQTTv.text = StringUtils.insertFrontAndBack(percent, "转入资金即享", "%年化收益")
+                    }else{
+                        mTransferLqtLayout.visibility = View.GONE
+                    }
+                }
+            }else{
+                mTransferLqtLayout.visibility = View.GONE
+            }
+        }
+    }
     fun setData(){
         if (mEntity.type == 0){//收钱
             when(mEntity.transferType) {
@@ -63,11 +96,10 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     mCheckChargeTv.visibility = View.VISIBLE
                     mCheckChargeTv.setTextColor(Color.parseColor("#576b95"))
                     mWechatPreviewTransferLayout.visibility = View.INVISIBLE
-                    mTransferTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
-                    mReceiveTimeTv.text = StringUtils.insertFront(mEntity.receiveTime, "收钱时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
+                    mReceiveTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferReceiveTime), "收钱时间：")
                     mReceiveTimeTv.visibility = View.VISIBLE
                     showToast("成功存入零钱")
-//                    mTransferLqtLayout.visibility = View.VISIBLE
                 }
                 "待收款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_receiving)
@@ -78,14 +110,14 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     val spannableString = SpannableString("1天内未确认，将退还给对方。立即退还")
                     spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), 14, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     mGrayTv.text = spannableString
-                    mTransferTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
                 }
                 "已退款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_return)
                     mTransferNickNameTv.text = "已退还"
                     mWechatPreviewTransferLayout.visibility = View.INVISIBLE
-                    mTransferTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
-                    mReceiveTimeTv.text = StringUtils.insertFront(mEntity.receiveTime, "退还时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
+                    mReceiveTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferReceiveTime), "退还时间：")
                 }
             }
         }else{//转出
@@ -95,8 +127,8 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     mTransferNickNameTv.text = StringUtils.insertBack(mEntity.wechatUserNickName, "已收钱")
                     mCheckChargeTv.text = "已存入对方零钱中"
                     mCheckChargeTv.visibility = View.VISIBLE
-                    mTransferTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
-                    mReceiveTimeTv.text = StringUtils.insertFront(mEntity.receiveTime, "收钱时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
+                    mReceiveTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferReceiveTime), "收钱时间：")
                 }
                 "待收款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_receiving)
@@ -106,7 +138,7 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), 15, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     mCheckChargeTv.text = spannableString
                     mCheckChargeTv.visibility = View.VISIBLE
-                    mReceiveTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
                 }
                 "已退款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_return)
@@ -115,8 +147,8 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), 7, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     mCheckChargeTv.text = spannableString
                     mCheckChargeTv.visibility = View.VISIBLE
-                    mTransferTimeTv.text = StringUtils.insertFront(mEntity.outTime, "转账时间：")
-                    mReceiveTimeTv.text = StringUtils.insertFront(mEntity.receiveTime, "退还时间：")
+                    mTransferTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferOutTime), "转账时间：")
+                    mReceiveTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDateWithS(mEntity.transferReceiveTime), "退还时间：")
                 }
             }
         }
@@ -125,13 +157,14 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
         super.onClick(v)
         when(v.id){
             R.id.mReceiveMoneyTv ->{
-                    mEntity.receive = true
-                    mEntity.needEventBus = false
-                    mEntity.receiveTime = TimeUtil.stampToDateWithS(TimeUtil.getCurrentTimeEndMs())
-                    mEntity.transferType = "已收钱"
-                    setData()
-                    mEntity.receiveTime = TimeUtil.getCurrentTimeEndMs().toString()
-                    EventBusUtil.post(mEntity)
+                mEntity.receive = true
+                mEntity.needEventBus = false
+                mEntity.receiveTime = TimeUtil.stampToDateWithS(TimeUtil.getCurrentTimeEndMs())
+                mEntity.transferType = "已收钱"
+                setLqtInfo()
+                setData()
+                mEntity.receiveTime = TimeUtil.getCurrentTimeEndMs().toString()
+                EventBusUtil.post(mEntity)
             }
             R.id.mTransferLQTTv ->{
                 val dialog = EditDialog()

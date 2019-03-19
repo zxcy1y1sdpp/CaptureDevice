@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.activity
 
 import android.content.Intent
 import android.net.Uri
+import android.view.Gravity
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
@@ -10,7 +11,7 @@ import app.jietuqi.cn.entity.OverallUserInfoEntity
 import app.jietuqi.cn.util.GlideCacheUtil
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -54,16 +55,10 @@ class SettingActivity : BaseOverallActivity() {
                 LaunchUtil.launch(this, OverallAboutUsActivity::class.java)
             }
             R.id.mExitLayout ->{
-
-//                EventBusUtil.post(OverallUserInfoEntity())
-                showLoadingDialog("正在退出...")
+                showQQWaitDialog("正在退出")
                 SharedPreferencesUtils.putData(SharedPreferenceKey.IS_LOGIN, false)
                 SharedPreferencesUtils.saveBean2Sp(OverallUserInfoEntity(), SharedPreferenceKey.USER_INFO)
-                GlobalScope.launch { // 在一个公共线程池中创建一个协程
-                    delay(1000L) // 非阻塞的延迟一秒（默认单位是毫秒）
-                    dismissLoadingDialog()
-                    finish()
-                }
+                finish()
             }
             R.id.mGiveUsSupportLayout ->{
                 val uri = Uri.parse("market://details?id=$packageName")
@@ -73,34 +68,28 @@ class SettingActivity : BaseOverallActivity() {
             }
         }
     }
-
-    /**
-     * 清除模拟器和截图器中的数据
-     */
-    private fun cleanWechatSimulatorOrScreenShot(){
-
-    }
     private fun clean() {
         if (!this.isFinishing) {
-            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setCanTouchOutSideCancle(false)
-                    .setTitleText("提示")
-                    ?.setContentText("是否清理磁盘上的缓存文件")
-                    ?.setConfirmText("清理")
-                    ?.setCancelText("取消")
-                    ?.setConfirmClickListener {
-                        it.contentText = "清理完成"
-                        it.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                        it.confirmText = "完成"
-                        it.showCancelButton(false)
-                        it.setConfirmClickListener {
-                            it.dismissWithAnimation()
-                        }
+            EnsureDialog(this).builder()
+                    .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                    .setTitle("提示")//可以不设置标题颜色，默认系统颜色
+                    .setCancelable(false)
+                    .setSubTitle("是否清理磁盘上的缓存文件!")
+                    .setNegativeButton("取消") {}
+                    .setPositiveButton("清理") {
+                        showQQWaitDialog()
                         GlideCacheUtil.getInstance().clearImageAllCache(this)
-                        mOverallSettingCacheSizeTv.text = GlideCacheUtil.getInstance().getCacheSize(this@SettingActivity)
-                    }?.setCancelClickListener {
-                        it.dismissWithAnimation()
-                    }?.show()
+
+                        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                            delay(1000L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                            runOnUiThread {
+                                showToast("清理完成")
+                                mOverallSettingCacheSizeTv.text = GlideCacheUtil.getInstance().getCacheSize(this@SettingActivity)
+                            }
+                            dismissQQDialog()
+                        }
+                    }
+                    .show()
         }
     }
 }

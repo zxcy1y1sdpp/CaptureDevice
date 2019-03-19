@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/wechatPreview_2120_1080">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sFileOtherAvatarTv"
+            style="@style/wechatPreviewHeaderOther_2120_1080"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wechat_card_other"
+            app:layout_marginRightPercent="18.85%w"
+            android:layout_toRightOf="@+id/sFileOtherAvatarTv"
+            android:layout_alignTop="@+id/sFileOtherAvatarTv">
+
+            <TextView
+                android:id="@+id/sFileTitleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginTopPercent="4.27%w"
+                app:layout_marginLeftPercent="5.79%w"
+                android:textSize="16sp"
+                android:layout_toLeftOf="@+id/sFileIconIv"/>
+
+            <TextView
+                android:id="@+id/sFileContentTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/sFileTitleTv"
+                android:layout_below="@+id/sFileTitleTv"
+                android:textColor="@color/wechatLightGray"
+                android:lineSpacingExtra="5dp"
+                android:textSize="12sp"
+                app:layout_marginBottomPercent="3.88%w"
+                android:layout_toLeftOf="@+id/sFileIconIv"/>
+
+            <ImageView
+                android:id="@+id/sFileIconIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                android:layout_alignParentRight="true"
+                app:layout_marginTopPercent="4.27%w"
+                app:layout_marginLeftPercent="4.27%w"
+                app:layout_marginRightPercent="5.82%w"
+                app:layout_marginBottomPercent="4.27%w"
+                app:layout_heightPercent="17.07%w"
+                app:layout_widthPercent="17.07%w"
+                android:scaleType="fitCenter"/>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

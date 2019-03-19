@@ -15,7 +15,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import app.jietuqi.cn.R
+import app.jietuqi.cn.ResourceHelper
 import app.jietuqi.cn.ui.entity.WechatUserEntity
+import app.jietuqi.cn.ui.wechatscreenshot.entity.FileEntity
 import app.jietuqi.cn.ui.wechatscreenshot.entity.WechatScreenShotEntity
 import app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatManager
 import app.jietuqi.cn.util.*
@@ -48,6 +50,9 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
     private val VOICE_MY = 12//我发送的语音消息
     private val VOICE_OTHER = 13//对方发送的语音消息
     private val SYSTEM_TYPE = 14//系统提示
+
+    private val FILE_TYPE_MY = 29//“我”发送的文件消息
+    private val FILE_TYPE_OTHER = 30//“对方”发送的文件消息
     /**
      * 是否显示群昵称
      */
@@ -73,13 +78,6 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
     }
     fun showNickName(showNickName: Boolean){
         mShowNickName = showNickName
-    }
-
-    /**
-     * 被领取的红包的信息
-     */
-    fun setRedPacketEntity(redPacketEntity: WechatScreenShotEntity){
-        mRedPacketEntity = redPacketEntity
     }
     private val mMyEntity = UserOperateUtil.getWechatSimulatorMySelf()
     override fun getItemViewType(position: Int): Int {
@@ -107,6 +105,9 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
                 entity.msgType == 8 -> {
                     return SYSTEM_TYPE
                 }
+                entity.msgType == 16 -> {
+                    return FILE_TYPE_OTHER
+                }
             }
         }else{//发送的消息
             when {
@@ -131,6 +132,9 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
                 entity.msgType == 8 -> {
                     return SYSTEM_TYPE
                 }
+                entity.msgType == 16 -> {
+                    return FILE_TYPE_MY
+                }
             }
         }
         return 1
@@ -147,6 +151,9 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
             VOICE_MY -> return MyVoiceHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_my_voice, parent, false))
             VOICE_OTHER -> return OtherVoiceHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_other_voice, parent, false))
             SYSTEM_TYPE -> return SystemHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_system_time, parent, false))
+
+            FILE_TYPE_MY -> return MyFileHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_my_file, parent, false))
+            FILE_TYPE_OTHER -> return OtherFileHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_other_file, parent, false))
         }
         return MyTextHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wechat_screenshot_my_single_talk_text, parent, false))
     }
@@ -186,6 +193,12 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
             }
             SYSTEM_TYPE -> if (holder is SystemHolder) {//不添加该判断会导致数据重复
                 holder.bind(mList[position])
+            }
+            FILE_TYPE_MY -> if (holder is MyFileHolder) {//不添加该判断会导致数据重复
+                holder.bind(mList[position].fileEntity)
+            }
+            FILE_TYPE_OTHER -> if (holder is OtherFileHolder) {//不添加该判断会导致数据重复
+                holder.bind(mList[position].fileEntity)
             }
         }
     }
@@ -476,6 +489,32 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
             }else{
                 systemContent.text = entity.msg
             }
+        }
+    }
+
+    inner class OtherFileHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        private val avatarIv: ImageView = itemView.findViewById(R.id.sFileOtherAvatarTv)
+        private val fileIconIv: ImageView = itemView.findViewById(R.id.sFileIconIv)
+        private val title: TextView = itemView.findViewById(R.id.sFileTitleTv)
+        private val size: TextView = itemView.findViewById(R.id.sFileContentTv)
+
+        fun bind(entity: FileEntity){
+            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), avatarIv)
+            GlideUtil.displayHead(itemView.context, ResourceHelper.getAppIconId(entity.icon), fileIconIv)
+            title.text = StringUtils.insertBack(entity.title, entity.suffix)
+            size.text = StringUtils.insertBack(entity.size, entity.unit)
+        }
+    }
+    inner class MyFileHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        private val avatarIv: ImageView = itemView.findViewById(R.id.sFileMyAvatarTv)
+        private val fileIconIv: ImageView = itemView.findViewById(R.id.sFileIconIv)
+        private val title: TextView = itemView.findViewById(R.id.sFileTitleTv)
+        private val size: TextView = itemView.findViewById(R.id.sFileContentTv)
+        fun bind(entity: FileEntity){
+            GlideUtil.displayHead(itemView.context, mMyEntity.getAvatarFile(), avatarIv)
+            GlideUtil.displayHead(itemView.context, ResourceHelper.getAppIconId(entity.icon), fileIconIv)
+            title.text = StringUtils.insertBack(entity.title, entity.suffix)
+            size.text = StringUtils.insertBack(entity.size, entity.unit)
         }
     }
 

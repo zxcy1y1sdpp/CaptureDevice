@@ -5,6 +5,7 @@ import android.content.*
 import android.net.Uri
 import android.os.Environment
 import android.provider.ContactsContract
+import android.view.Gravity
 import android.view.View
 import app.jietuqi.cn.GlideApp
 import app.jietuqi.cn.R
@@ -16,7 +17,7 @@ import app.jietuqi.cn.util.ContactUtil
 import app.jietuqi.cn.util.FileUtil
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.EasyHttp
@@ -64,14 +65,12 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                     val mClipData = ClipData.newPlainText("Label", mOverallCardEntity.wxname)
                     // 将ClipData内容放到系统剪贴板里。
                     cm.primaryClip = mClipData
-                    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                            .setCanTouchOutSideCancle(false)
-                            .canCancle(false)
-                            .setTitleText("提示")
-                            .setContentText("已复制到粘贴板，是否立即前往添加？")
-                            .setConfirmText("立即添加")
-                            .setCancelText("取消")
-                            .setConfirmClickListener { sweetAlertDialog ->
+                    EnsureDialog(this).builder()
+                            .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                            .setTitle("提示")//可以不设置标题颜色，默认系统颜色
+                            .setSubTitle("已复制到粘贴板，是否立即前往添加？")
+                            .setNegativeButton("取消") {}
+                            .setPositiveButton("立即添加") {
                                 val intent = Intent()
                                 val cmp = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
                                 intent.action = Intent.ACTION_MAIN
@@ -79,9 +78,6 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 intent.component = cmp
                                 startActivity(intent)
-                                sweetAlertDialog.dismissWithAnimation()
-                            }.setCancelClickListener {
-                                it.dismissWithAnimation()
                             }.show()
                 }catch (e: ActivityNotFoundException){
                     ToastUtils.showShort(this, "您还没有安装微信，请安装后使用")
@@ -148,13 +144,12 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                     }
 
                     override fun onComplete(path: String) {
-                        SweetAlertDialog(this@OverallPersonalCardActivity, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("温馨提示")
-                                .setContentText("二维码已保存到相册，可前往微信扫一扫功能，然后从相册中选择二维码")
-                                .setConfirmText("前往")
-                                .setCancelText("取消")
-                                .setConfirmClickListener { sweetAlertDialog ->
-                                    sweetAlertDialog.dismissWithAnimation()
+                        EnsureDialog(this@OverallPersonalCardActivity).builder()
+                                .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                                .setTitle("温馨提示")//可以不设置标题颜色，默认系统颜色
+                                .setSubTitle("二维码已保存到相册，可前往微信扫一扫功能，然后从相册中选择二维码")
+                                .setNegativeButton("取消") {}
+                                .setPositiveButton("前往") {
                                     val intent = Intent()
                                     val cmp = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
                                     intent.action = Intent.ACTION_MAIN
@@ -162,10 +157,7 @@ class OverallPersonalCardActivity : BaseOverallInternetActivity() {
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     intent.component = cmp
                                     startActivity(intent)
-                                }.setCancelClickListener {
-                                    it.dismissWithAnimation()
                                 }.show()
-                        showToast(StringUtils.insertFront(path, "保存至"))
                         // 最后通知图库更新
                         sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(File(path))))
                         dismissLoadingDialog()

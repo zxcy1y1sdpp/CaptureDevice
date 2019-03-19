@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/wechatPreview_2120_1080">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sWechatVideoMyAvatarIv"
+            style="@style/wechatPreviewHeaderMy_2120_1080"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wechat_text_my"
+            android:layout_toLeftOf="@+id/sWechatVideoMyAvatarIv"
+            android:layout_alignTop="@+id/sWechatVideoMyAvatarIv"
+            android:gravity="center_vertical|right">
+            <TextView
+                android:id="@+id/sWechatVideoMyMsgTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="02:00"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:paddingRight="@dimen/normalPaddingHalf"
+                android:textSize="17sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wechat_video_my" />
+        </LinearLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

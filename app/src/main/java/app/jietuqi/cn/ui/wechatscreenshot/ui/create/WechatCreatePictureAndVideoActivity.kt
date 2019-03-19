@@ -2,13 +2,18 @@ package app.jietuqi.cn.ui.wechatscreenshot.ui.create
 
 import android.Manifest
 import android.content.Intent
+import android.text.TextUtils
 import android.view.View
 import app.jietuqi.cn.R
+import app.jietuqi.cn.ResourceHelper
 import app.jietuqi.cn.base.wechat.BaseWechatScreenShotCreateActivity
 import app.jietuqi.cn.constant.RequestCode
 import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.OtherUtil
-import kotlinx.android.synthetic.main.activity_wechat_create_picture_and_video.*
+import kotlinx.android.synthetic.main.activity_wechat_create_picture.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import permissions.dispatcher.*
 
 /**
@@ -19,53 +24,92 @@ import permissions.dispatcher.*
  */
 @RuntimePermissions
 class WechatCreatePictureAndVideoActivity : BaseWechatScreenShotCreateActivity() {
-    override fun setLayoutResourceId() = R.layout.activity_wechat_create_picture_and_video
+    override fun setLayoutResourceId() = R.layout.activity_wechat_create_picture
 
     override fun needLoadingView() = false
 
     override fun initAllViews() {
         super.initAllViews()
+        registerEventBus()
+        setBlackTitle("图片/表情", 1)
         mMsgEntity.msgType = 1
-        setBlackTitle("图片", 1)
     }
 
     override fun initViewsListener() {
         super.initViewsListener()
-        mWechatCreatePictureAndVideoPictureTypeTv.setOnClickListener(this)
-        mWechatCreatePictureAndVideoVideoTypeTv.setOnClickListener(this)
+        mPictureTypeTv.setOnClickListener(this)
+        mEmojiTypeTv.setOnClickListener(this)
         mWechatCreatePictureAndVideoPictureLayout.setOnClickListener(this)
     }
 
     override fun getAttribute(intent: Intent) {
         super.getAttribute(intent)
         if (mType == 1){
-            GlideUtil.display(this, mMsgEntity.filePath, mWechatCreatePictureAndVideoPictureIv)
+            if (mMsgEntity.msgType == 1){
+                mTitleTv.text = "选择图片"
+                GlideUtil.display(this, mMsgEntity.filePath, mPictureIv)
+                OtherUtil.changeWechatTwoBtnBg(this, mPictureTypeTv, mEmojiTypeTv)
+            }else{
+                mTitleTv.text = "选择表情"
+                GlideUtil.displayGif(this, ResourceHelper.getAppIconId(mMsgEntity.pic), mPictureIv)
+                mWechatCreatePictureAndVideoPictureLayout.tag = mMsgEntity.pic
+                OtherUtil.changeWechatTwoBtnBg(this, mEmojiTypeTv, mPictureTypeTv)
+            }
         }
     }
     override fun onClick(v: View) {
         when(v.id){
-            R.id.mWechatCreatePictureAndVideoPictureTypeTv ->{
-                OtherUtil.changeWechatTwoBtnBg(this, mWechatCreatePictureAndVideoPictureTypeTv, mWechatCreatePictureAndVideoVideoTypeTv)
-                mWechatSettingInfoVideoAndTimeLayout.visibility = View.GONE
-                mWechatCreatePictureAndVideoPictureLayout.visibility = View.VISIBLE
+            R.id.mPictureTypeTv ->{
+                mMsgEntity.msgType = 1
+                OtherUtil.changeWechatTwoBtnBg(this, mPictureTypeTv, mEmojiTypeTv)
+                mTitleTv.text = "选择图片"
+                GlideUtil.displayAll(this, mMsgEntity.filePath, mPictureIv)
             }
-            R.id.mWechatCreatePictureAndVideoVideoTypeTv ->{
-                OtherUtil.changeWechatTwoBtnBg(this, mWechatCreatePictureAndVideoVideoTypeTv, mWechatCreatePictureAndVideoPictureTypeTv)
-                mWechatSettingInfoVideoAndTimeLayout.visibility = View.VISIBLE
-                mWechatCreatePictureAndVideoPictureLayout.visibility = View.GONE
+            R.id.mEmojiTypeTv ->{
+                mMsgEntity.msgType = 14
+                OtherUtil.changeWechatTwoBtnBg(this, mEmojiTypeTv, mPictureTypeTv)
+                mTitleTv.text = "选择表情"
+                GlideUtil.displayGif(this, ResourceHelper.getAppIconId(mWechatCreatePictureAndVideoPictureLayout.tag.toString()), mPictureIv)
             }
             R.id.mWechatCreatePictureAndVideoPictureLayout ->{
-                openAlbumWithPermissionCheck()
+                if (mMsgEntity.msgType == 1){
+                    openAlbumWithPermissionCheck()
+                }else{
+                    LaunchUtil.launch(this, WechatChoiceEmojiActivity::class.java)
+                }
+            }
+            R.id.overallAllRightWithBgTv ->{
+                if (mMsgEntity.msgType == 14){
+                    val emoji = mWechatCreatePictureAndVideoPictureLayout.tag.toString()
+                    if (TextUtils.isEmpty(emoji)){
+                        showToast("请选择表情")
+                        return
+                    }
+                    mMsgEntity.pic = emoji
+                }else{
+                    if (TextUtils.isEmpty(mMsgEntity.filePath)){
+                        showToast("请选择图片")
+                        return
+                    }
+                }
             }
         }
         super.onClick(v)
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onChoiceEmoji(name: String) {
+        mWechatCreatePictureAndVideoPictureLayout.tag = name
+        GlideUtil.displayGif(this, ResourceHelper.getAppIconId(name), mPictureIv)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             RequestCode.IMAGE_SELECT ->{
-                GlideUtil.displayAll(this, mFiles[0], mWechatCreatePictureAndVideoPictureIv)
-                mMsgEntity.filePath = mFiles[0].absolutePath
+                if (null != data){
+                    GlideUtil.displayAll(this, mFiles[0], mPictureIv)
+                    mMsgEntity.filePath = mFiles[0].absolutePath
+                    mFiles.clear()
+                }
             }
         }
     }

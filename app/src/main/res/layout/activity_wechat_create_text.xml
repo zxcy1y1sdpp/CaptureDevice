@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:lines="5"
         android:background="@color/white"
-        android:padding="@dimen/normalPadding"/>
+        android:padding="@dimen/normalPadding"
+        android:gravity="left"/>
 
     <app.jietuqi.cn.ui.wechatscreenshot.widget.EmojiWechatBoard
         android:id="@+id/mEmojiBoard"

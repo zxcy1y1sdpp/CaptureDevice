@@ -63,6 +63,17 @@ class WechatChoiceEmojiActivity : BaseCreateActivity() {
         mList.add("R.drawable.wechat_big_gif38")
         mList.add("R.drawable.wechat_big_gif39")
         mList.add("R.drawable.wechat_big_gif40")
+
+        mList.add("R.drawable.wechat_dice_1")
+        mList.add("R.drawable.wechat_dice_2")
+        mList.add("R.drawable.wechat_dice_3")
+        mList.add("R.drawable.wechat_dice_4")
+        mList.add("R.drawable.wechat_dice_5")
+        mList.add("R.drawable.wechat_dice_6")
+        mList.add("R.drawable.wechat_guess_1")
+        mList.add("R.drawable.wechat_guess_2")
+        mList.add("R.drawable.wechat_guess_3")
+
         mAdapter = WechatChoiceEmojiAdapter(mList)
         mEmojiRv.adapter = mAdapter
     }

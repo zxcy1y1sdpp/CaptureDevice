@@ -47,7 +47,6 @@
             android:id="@+id/overAllRightBlackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
             android:layout_alignParentRight="true"
             android:paddingRight="@dimen/normalPadding"
             android:layout_centerVertical="true"
@@ -72,7 +71,7 @@
             android:layout_alignParentRight="true"
             android:padding="@dimen/normalPadding"
             android:gravity="center"
-            android:textSize="@dimen/overall26px"
+            android:textSize="18sp"
             percent:layout_marginRightPercent="4.26%w"
             android:layout_centerVertical="true"
             android:visibility="gone"/>
@@ -84,9 +83,9 @@
             android:layout_alignParentRight="true"
             android:padding="@dimen/normalPadding"
             android:gravity="center"
-            android:textSize="@dimen/overall26px"
             percent:layout_marginRightPercent="4.26%w"
             android:layout_centerVertical="true"
+            android:textSize="18sp"
             android:visibility="gone"/>
     </com.zhy.android.percent.support.PercentRelativeLayout>
 

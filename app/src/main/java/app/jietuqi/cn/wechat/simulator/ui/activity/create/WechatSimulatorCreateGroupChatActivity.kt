@@ -79,7 +79,7 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
                     showToast("最少选择两个人")
                     return
                 }
-                initWechatSimulatorData5()
+                createGroupChat()
             }
         }
     }
@@ -97,7 +97,7 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
         }
     }
 
-    private fun initWechatSimulatorData5(){
+    private fun createGroupChat(){
         val msgEntity = WechatUserEntity()
         msgEntity.groupTableName = "wechatGroup$mNowTime"//时间戳
         msgEntity.chatType = 1
@@ -138,8 +138,8 @@ class WechatSimulatorCreateGroupChatActivity : BaseWechatActivity() {
         CombineBitmap.init(this)
                 .setLayoutManager(WechatLayoutManager()) // 必选， 设置图片的组合形式，支持WechatLayoutManager、DingLayoutManager
                 .setSize(180) // 必选，组合后Bitmap的尺寸，单位dp
-                .setGap(3) // 单个图片之间的距离，单位dp，默认0dp
-                .setGapColor(Color.parseColor("#E8E8E8")) // 单个图片间距的颜色，默认白色
+                .setGap(9) // 单个图片之间的距离，单位dp，默认0dp
+                .setGapColor(Color.parseColor("#DDDEE0")) // 单个图片间距的颜色，默认白色
                 .setPlaceholder(R.drawable.head_default) // 单个图片加载失败的默认显示图片
                 .setBitmaps(*bitmap) // 要加载的图片bitmap数组
                 // 设置“子图片”的点击事件，需使用setImageView()，index和图片资源数组的索引对应

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/layout1"
+        layout="@layout/include_base_overall_top"/>
+    <WebView
+        android:id="@+id/mWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout1"/>
+    <LinearLayout
+        android:id="@+id/mBgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/normalPadding2"
+        android:background="@color/black">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/normalPadding2">
+            <!--
+            android:background="@drawable/shape_corner_down"-->
+            <ImageView
+                android:id="@+id/tagView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_fans"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/normalPadding"/>
+
+            <TextView
+                android:id="@+id/mTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="无打扰清粉-周卡 非VIP ¥12.9,VIP ¥6.900000"
+                android:layout_toRightOf="@+id/tagView1"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mTitleTv"
+                android:layout_alignLeft="@+id/mTitleTv">
+                <TextView
+                    android:id="@+id/notVipPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="非VIP¥12.90"/>
+                <TextView
+                    android:id="@+id/vipPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="非VIP¥6.90"
+                    android:layout_below="@+id/notVipPriceTv"
+                    android:textColor="@android:color/holo_red_light"/>
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/mBuyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="直接购买"
+                    android:textColor="@color/white"
+                    app:stv_corner="10dp"
+                    app:stv_solid="#45AFF9"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginLeft="@dimen/normalPadding"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/mOpenVipTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="不是VIP?立即开通>>"
+            android:gravity="center"
+            android:textColor="#FFA500"
+            android:padding="@dimen/normalPadding"/>
+    </LinearLayout>
+
+<!--
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="清粉激活码介绍"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-03-21"
+                    android:textColor="@color/wechatLightGray"/>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="孙老师"
+                    android:textColor="#576b95"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="阅读891290"
+                    android:textColor="@color/wechatLightGray"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/clean_fans"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+&lt;!&ndash;
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="          1、购买激活码后，右上角有订单记录，看说明有网址和操作方法。"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="          2、点击“清理僵尸粉”，输入激活码（最上面一串字母），点击“立即登录”"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="          3、选择“检测不清理模式”，或）“检测并清理模式（检测完成自动删除僵尸粉）”"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="          4、打开微信扫一扫网站上面的二维码，在微信上点击登录iPad微信"
+                android:padding="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="非VIP19.9元"
+                android:paddingLeft="@dimen/normalPadding"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VIP9.9元"
+                android:paddingLeft="@dimen/normalPadding"/>&ndash;&gt;
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/normalPadding">
+                <TextView
+                    android:id="@+id/tagView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="阅读 906551"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="举报"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#576b95"/>
+            </RelativeLayout>
+
+            《》
+
+        </LinearLayout>
+    </ScrollView>-->
+
+</RelativeLayout>

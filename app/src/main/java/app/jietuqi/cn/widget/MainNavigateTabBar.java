@@ -226,31 +226,6 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
             mTabSelectListener.onTabSelected(holder);
         }
     }
-    /*public void showLogin() {
-        newfun SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("您尚未登录！")
-                .setContentText("请前去登录")
-                .setCancelText("取消")
-                .setConfirmText("确定")
-                .showCancelButton(true)
-                .setCancelClickListener(newfun SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.cancel();
-                    }
-                })
-                .setConfirmClickListener(newfun SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        Intent intent = newfun Intent(mContext, LoginInActivity.class);
-                        intent.putExtra("fromDialog", true);
-                        mContext.startActivity(intent);
-                    }
-                })
-                .show();
-
-    }*/
     /**
      * 显示 holder 对应的 fragment
      *

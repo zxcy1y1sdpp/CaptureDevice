@@ -57,7 +57,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     }
 
     override fun initAllViews() {
-        registerEventBus()
+
         refreshUserInfo()
         setFlickerAnimation()
 //        mScrollView.setImageView(mOverallPurchaseVipStatusLayout)
@@ -127,6 +127,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
     fun onSelectTimeEvent(result: String) {
         if (result == "购买会员卡成功"){
             refreshUserInfo()
+            finish()
         }
     }
     /**
@@ -159,6 +160,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
         }) {})
     }
     override fun loadFromServer(){
+        registerEventBus()
         getMoney()
         getRecentlyVip()
     }
@@ -178,6 +180,7 @@ class OverallPurchaseVipActivity : BaseOverallInternetActivity(), ChoicePayTypeD
             user.status == 3 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
             user.status == 4 -> mOverallPurchaseVipValidityTimeTv.text = "永久会员"
             user.status == 5 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
+            user.status == 6 -> mOverallPurchaseVipValidityTimeTv.text = StringUtils.insertFront(TimeUtil.stampToDate(user.vip_time),"会员有效期：")
         }
     }
 

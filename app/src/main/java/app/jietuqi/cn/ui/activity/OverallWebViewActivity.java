@@ -16,6 +16,7 @@ package app.jietuqi.cn.ui.activity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
@@ -164,19 +165,10 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
             }
         });
 
-//        WebSettings webSettings = mWebView.getSettings();
-
         mWebSettings = mWebView.getSettings();
-        // add java script interface
-        // note:if api level lower than 17(android 4.2), addJavascriptInterface has security
-        // issue, please use x5 or see https://developer.android.com/reference/android/webkit/
-        // WebView.html#addJavascriptInterface(java.lang.Object, java.lang.String)
         mWebSettings.setJavaScriptEnabled(true);
-//        mWebView.removeJavascriptInterface("searchBoxJavaBridge_");//防止JS注入
         intent.putExtra(SonicJavaScriptInterface.PARAM_LOAD_URL_TIME, System.currentTimeMillis());
         mWebView.addJavascriptInterface(new SonicJavaScriptInterface(sonicSessionClient, intent), "sonic");
-
-        // init webview settings
         mWebSettings.setAllowContentAccess(true);
         mWebSettings.setDatabaseEnabled(true);
         mWebSettings.setDomStorageEnabled(true);
@@ -185,7 +177,15 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
         mWebSettings.setSaveFormData(false);
         mWebSettings.setUseWideViewPort(true);
         mWebSettings.setLoadWithOverviewMode(true);
-
+//        mWebSettings.setPluginState(WebSettings.PluginState.ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        if (Build.VERSION.SDK_INT < 8) {
+            mWebSettings.setMediaPlaybackRequiresUserGesture(true);
+        } else {
+            mWebSettings.setPluginState(WebSettings.PluginState.ON);
+        }
 
         // webview is ready now, just tell session client to bind
         if (sonicSessionClient != null) {
@@ -193,6 +193,7 @@ public class OverallWebViewActivity extends BaseOverallInternetActivity {
             sonicSessionClient.clientReady();
         } else { // default_bg mode
             mWebView.loadUrl(mUrl);
+//            mWebView.loadDataWithBaseURL(null, mUrl, "text/html", null, "http://www.baidu.com");
         }
     }
 

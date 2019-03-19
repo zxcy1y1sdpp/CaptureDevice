@@ -65,14 +65,14 @@ class WechatCreateInviteJoinGroupActivity : BaseWechatScreenShotCreateActivity()
                     showToast("请选择群头像")
                     return
                 }
-                changeRole()
+                changeRole2()
                 mGroupInfoEntity.groupName = groupName
                 mMsgEntity.groupInfo = mGroupInfoEntity
             }
         }
         super.onClick(v)
     }
-    private fun changeRole(){
+    private fun changeRole2(){
         if (mMe){
             mGroupInfoEntity.avatarInt = mMySideEntity.avatarInt
             mGroupInfoEntity.resourceName = mMySideEntity.resourceName
@@ -117,11 +117,8 @@ class WechatCreateInviteJoinGroupActivity : BaseWechatScreenShotCreateActivity()
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onChoiceGroupHeader(byte: ByteArray) {
-//        val bis = intent.getByteArrayExtra("bitmap")
-
         val bitmap = BitmapFactory.decodeByteArray(byte, 0, byte.size)
         mWechatCreateGroupIconIv.setImageBitmap(bitmap)
         mGroupInfoEntity.groupHeaderByte = byte
-//        mGroupInfoEntity.groupHeader = bitmap
     }
 }

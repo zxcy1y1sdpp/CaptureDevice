@@ -178,7 +178,7 @@
                 app:layout_marginBottomPercent="10.4%w"/>
         </com.zhy.android.percent.support.PercentLinearLayout>
     </app.jietuqi.cn.widget.OverScrollView>
-    <cn.bingoogolapple.qrcode.zxing.ZXingView
+    <!--<cn.bingoogolapple.qrcode.zxing.ZXingView
         android:id="@+id/mOverallPublishCardZXingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -211,5 +211,5 @@
         app:qrcv_tipTextSize="12sp"
         app:qrcv_toolbarHeight="56dp"
         app:qrcv_topOffset="65dp"
-        app:qrcv_verticalBias="-1" />
+        app:qrcv_verticalBias="-1" />-->
 </com.zhy.android.percent.support.PercentLinearLayout>

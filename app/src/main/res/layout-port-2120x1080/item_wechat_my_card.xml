@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/wechatPreview_2120_1080">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sWechatCardMyAvatarIv"
+            style="@style/wechatPreviewHeaderMy_2120_1080"/>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wechat_card_my"
+            app:layout_marginLeftPercent="30.12%w"
+            android:layout_toLeftOf="@+id/sWechatCardMyAvatarIv"
+            android:layout_alignTop="@+id/sWechatCardMyAvatarIv">
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/sWechatCardAvatarIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/head_default"
+                app:layout_heightPercent="21.86%w"
+                app:layout_widthPercent="21.86%w"
+                app:layout_marginLeftPercent="4.8%w"
+                app:layout_marginRightPercent="4.8%w"
+                app:layout_marginTopPercent="4.8%w"
+                app:layout_marginBottomPercent="4.8%w"
+                app:riv_oval="false"
+                app:riv_corner_radius="5dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/sWechatCardNickNameIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/sWechatCardAvatarIv"
+                android:layout_alignTop="@+id/sWechatCardAvatarIv"
+                app:layout_marginRightPercent="7.38%w"
+                android:textSize="@dimen/wechat17"
+                android:lines="1"
+                android:ellipsize="end"/>
+            <TextView
+                android:id="@+id/sWechatCardWxNumberIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/sWechatCardAvatarIv"
+                android:layout_alignBottom="@+id/sWechatCardAvatarIv"
+                android:textColor="@color/wechatLightGray"
+                app:layout_marginRightPercent="7.38%w"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="11sp"/>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="9.6%w"
+                android:layout_below="@+id/sWechatCardAvatarIv"
+                android:background="@drawable/corner_wechat_card"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Line"
+                    android:background="@color/wechatLine"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="个人名片"
+                    app:layout_marginLeftPercent="4.8%w"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:textSize="11sp"
+                    android:textColor="@color/wechatLightGray"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

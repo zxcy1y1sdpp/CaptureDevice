@@ -325,6 +325,9 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                         8 ->{
                             LaunchUtil.startWechatSimulatorCreateGroupSystemMessageActivity(this, 1, mListEntity, entity)
                         }
+                        16 ->{
+                            LaunchUtil.startWechatSimulatorCreateFileActivity(this, mOtherSideEntity, entity, 1)
+                        }
                     }
                 }
                 2 ->{
@@ -397,6 +400,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         var recentRoles: WechatUserEntity
         for (i in mGroupRolesList.indices){
             recentRoles = mGroupRolesList[i]
+            recentRoles.groupTableName = mListEntity.groupTableName
             if (recentRoles.isRecentRole){
                 mOtherSideEntity = recentRoles//找到最近的聊天对象
             }
@@ -575,7 +579,7 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                 showToast("开发中")
             }
             R.id.wechatSimulatorFunFilesLayout ->{//文件
-                showToast("开发中")
+                LaunchUtil.startWechatSimulatorCreateFileActivity(this, mOtherSideEntity, null, 0)
             }
             R.id.wechatSimulatorFunSystemLayout ->{//发送系统消息
                 LaunchUtil.startWechatSimulatorCreateGroupSystemMessageActivity(this, 0, mListEntity, null)
@@ -698,6 +702,10 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                 msgEntity.msg = entity?.msg
                 entity?.msgType?.let { msgEntity.msgType = it }
             }
+            16 -> {
+                msgEntity.fileEntity = entity?.fileEntity
+                setRole(msgEntity)
+            }
         }
         msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
 //        msgEntity.wechatUserNickName = entity?.wechatUserNickName
@@ -780,13 +788,12 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             userEntity.alreadyRead = lastEntity.alreadyRead
             userEntity.groupRedPacketInfo = lastEntity.groupRedPacketInfo
             userEntity.lastTime = mLastMsgTime
-            listHelper.update(mListEntity)
-            EventBusUtil.post(mListEntity)
+            listHelper.update(userEntity)
+            EventBusUtil.post(userEntity)
         }
     }
 
     override fun onResume() {
-        // TODO Auto-generated method stub
         super.onResume()
         needVipForCover()
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -830,7 +837,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
     //我领取对方的红包
     override fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int) {
-//        mAdapter.setRedPacketEntity(entity)
         //所有可能领红包的人
         val allRolesList = mGroupRolesList
         val redPacket = WechatGroupRedPacket()
@@ -915,7 +921,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             backSum = list2.size
         }
         for (i in 0 until backSum) {
-            //			随机数的范围为0-list.size()-1
             val target = random.nextInt(list2.size)
             backList.add(list2[target])
             list2.removeAt(target)
@@ -924,7 +929,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
     //对方领取我的红包
     override fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int) {
-//        mAdapter.setRedPacketEntity(entity)
         //所有可能领红包的人
         val allRolesList = mGroupRolesList
         val redPacket = WechatGroupRedPacket()
@@ -1023,8 +1027,9 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         editEntity.avatarInt = entity.avatarInt
         editEntity.wechatUserAvatar = entity.avatarStr
         editEntity.resourceName = entity.resourceName
+        editEntity.isComMsg = entity.isComMsg
         editEntity.pinyinNickName = OtherUtil.transformPinYin(entity.wechatUserNickName)
-        LaunchUtil.startWechatSimulatorEditRoleActivity(this, editEntity)
+        LaunchUtil.startWechatSimulatorEditRoleActivity(this, editEntity, mListEntity.groupTableName, mListEntity)
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(entity: WechatScreenShotEntity) {
@@ -1042,21 +1047,49 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         mAdapter.notifyItemChanged(mEditPosition)
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onChangeUserInfo(entity: WechatUserEntity) {
-        if ("编辑" == entity.eventBusTag){
-            mGroupRolesList.clear()
-            mGroupRolesList.addAll(entity.groupRoles)
-            mListEntity.groupRoles.clear()
-            mListEntity.groupRoles.addAll(entity.groupRoles)
+    fun onChangeUserInfo(userEntity: WechatUserEntity) {
+        if ("删除并刷新" == userEntity.eventBusTag){
+            val list = mHelper.queryAll()//获取和对方聊天的记录
+            mList.clear()
+            if (null != list){
+                mList.addAll(list)
+                mAdapter.notifyDataSetChanged()
+            }
+            var entity: WechatUserEntity
+            for (i in mGroupRolesList.indices){
+                entity = mGroupRolesList[i]
+                if (entity.wechatUserId == userEntity.wechatUserId){
+                    entity.wechatUserNickName = userEntity.wechatUserNickName
+                    entity.pinyinNickName = userEntity.pinyinNickName
+                    entity.firstChar = userEntity.firstChar
+                    entity.avatarFile = userEntity.avatarFile
+                    entity.wechatUserAvatar = userEntity.wechatUserAvatar
+                    if (entity.isRecentRole){
+                        mOtherSideEntity.wechatUserNickName = userEntity.wechatUserNickName
+                        mOtherSideEntity.pinyinNickName = userEntity.pinyinNickName
+                        mOtherSideEntity.firstChar = userEntity.firstChar
+                        mOtherSideEntity.avatarFile = userEntity.avatarFile
+                        mOtherSideEntity.wechatUserAvatar = userEntity.wechatUserAvatar
+                        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mOtherAvatarIv)
+                    }
+                }
+            }
             mRoleAdapter.notifyDataSetChanged()
-            if (TextUtils.isEmpty(entity.groupName)){
-                mWechatSimulatorPreviewNickNameTv.text = StringUtils.insertFrontAndBack(entity.groupRoleCount, "群聊(", ")")
+        }
+        if ("编辑" == userEntity.eventBusTag){
+            mGroupRolesList.clear()
+            mGroupRolesList.addAll(userEntity.groupRoles)
+            mListEntity.groupRoles.clear()
+            mListEntity.groupRoles.addAll(userEntity.groupRoles)
+            mRoleAdapter.notifyDataSetChanged()
+            if (TextUtils.isEmpty(userEntity.groupName)){
+                mWechatSimulatorPreviewNickNameTv.text = StringUtils.insertFrontAndBack(userEntity.groupRoleCount, "群聊(", ")")
             }else{
-                mWechatSimulatorPreviewNickNameTv.text = entity.groupName
+                mWechatSimulatorPreviewNickNameTv.text = userEntity.groupName
             }
             var roleEntity: WechatUserEntity
-            for (i in entity.groupRoles.indices){
-                roleEntity = entity.groupRoles[i]
+            for (i in userEntity.groupRoles.indices){
+                roleEntity = userEntity.groupRoles[i]
                 if (roleEntity.isRecentRole){
                     if (roleEntity.wechatUserId != mOtherSideEntity.wechatUserId){
                         mOtherSideEntity = roleEntity
@@ -1064,9 +1097,9 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                     }
                 }
             }
-            mOtherSideEntity.chatBg = entity.chatBg
+            mOtherSideEntity.chatBg = userEntity.chatBg
             mAdapter.setOtherSide(mOtherSideEntity)
-            mAdapter.showNickName(entity.groupShowNickName)
+            mAdapter.showNickName(userEntity.groupShowNickName)
             if (TextUtils.isEmpty(mOtherSideEntity.chatBg)){//没有聊天背景
                 mWechatSimulatorPreviewRecyclerViewBgIv.visibility = View.GONE
                 mAdapter.showChatBg(false)
@@ -1101,5 +1134,10 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                 }
             }
         }
+    }
+
+    override fun finish() {
+        saveLastMsg()
+        super.finish()
     }
 }

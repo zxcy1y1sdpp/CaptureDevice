@@ -2,6 +2,7 @@ package app.jietuqi.cn.ui.wechatscreenshot.entity;
 
 import android.text.TextUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import app.jietuqi.cn.ResourceHelper;
@@ -92,7 +93,7 @@ public class WechatScreenShotEntity extends SingleTalkEntity {
     public ArrayList<WechatUserEntity> receiveRedPacketRoleList;
     public Object getAvatar(){
         if (!TextUtils.isEmpty(avatarStr)){
-            return avatarStr;
+            return new File(avatarStr);
         }else if (!TextUtils.isEmpty(resourceName)){
             return ResourceHelper.getAppIconId(resourceName);
         }else {

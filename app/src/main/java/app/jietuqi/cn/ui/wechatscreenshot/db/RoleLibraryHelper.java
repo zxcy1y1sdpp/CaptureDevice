@@ -82,11 +82,6 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
                     db.execSQL(sql);
                     String sq1 = "Alter table " + tableName + " add column " + "timeType text";
                     db.execSQL(sq1);
-                    /**
-                     * 增加的东西
-                     * wechatSimulator -- redPacketCount integer
-                     * wechatSimulator -- receiveCompleteTime string
-                     */
                 }
             }
         }
@@ -136,44 +131,36 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
 
             }
         }
-        String sqlRole = "Alter table " + "role" + " add column " + "wxNumber text";
-        db.execSQL(sqlRole);
+        if (oldVersion < 6){
+            String sqlRole = "Alter table " + "role" + " add column " + "wxNumber text";
+            db.execSQL(sqlRole);
+            String tableName;
+            for (int i = 0; i < tableNameList.size(); i++) {
+                tableName = tableNameList.get(i);
+                if ("wechat_screen_shot_single".equals(tableName)) {
+                    String sqlWechatScreenShot = "Alter table " + "wechat_screen_shot_single" + " add column " + "content text";
+                    db.execSQL(sqlWechatScreenShot);
+                    String sqlWechatSimulatorList1 = "Alter table " + "wechatSimulatorList" + " add column " + "card BLOB";
+                    db.execSQL(sqlWechatSimulatorList1);
+                    String sqlWechatSimulatorList2 = "Alter table " + "wechatSimulatorList" + " add column " + "groupInfo BLOB";
+                    db.execSQL(sqlWechatSimulatorList2);
+                    String sqlWechatSimulatorList3 = "Alter table " + "wechatSimulatorList" + " add column " + "pic text";
+                    db.execSQL(sqlWechatSimulatorList3);
+                    String sqlWechatSimulatorList4 = "Alter table " + "wechatSimulatorList" + " add column " + "fileEntity BLOB";
+                    db.execSQL(sqlWechatSimulatorList4);
+                }
+            }
+        }
         String tableName;
         for (int i = 0; i < tableNameList.size(); i++) {
             tableName = tableNameList.get(i);
-            if ("wechat_screen_shot_single".equals(tableName)) {
-                String sqlWechatScreenShot = "Alter table " + "wechat_screen_shot_single" + " add column " + "content text";
-                db.execSQL(sqlWechatScreenShot);
-                String sqlWechatSimulatorList1 = "Alter table " + "wechatSimulatorList" + " add column " + "card BLOB";
-                db.execSQL(sqlWechatSimulatorList1);
-                String sqlWechatSimulatorList2 = "Alter table " + "wechatSimulatorList" + " add column " + "groupInfo BLOB";
-                db.execSQL(sqlWechatSimulatorList2);
-            } /*else if("qq_screen_shot_single".equals(tableName)) {
-                String sqlWechatScreenShot = "Alter table " + "qq_screen_shot_single" + " add column " + "resourceName text";
-                db.execSQL(sqlWechatScreenShot);
-                String sqlWechatScreenShot1 = "Alter table " + "qq_screen_shot_single" + " add column " + "timeType text";
-                db.execSQL(sqlWechatScreenShot1);
-            }else if ("alipay_screen_shot_single".equals(tableName)) {
-                String sqlWechatScreenShot = "Alter table " + "alipay_screen_shot_single" + " add column " + "resourceName text";
-                db.execSQL(sqlWechatScreenShot);
-                String sqlWechatScreenShot1 = "Alter table " + "alipay_screen_shot_single" + " add column " + "timeType text";
-                db.execSQL(sqlWechatScreenShot1);
-            }else if ("wechatSimulatorList".equals(tableName)){
-                //修改wechatSimulatorList表
-                String sqlWechatSimulatorList1 = "Alter table " + "wechatSimulatorList" + " add column " + "chatBg text";
-                db.execSQL(sqlWechatSimulatorList1);
-                String sqlWechatSimulatorList2 = "Alter table " + "wechatSimulatorList" + " add column " + "resourceName text";
-                db.execSQL(sqlWechatSimulatorList2);
-                String sqlWechatSimulatorList3 = "Alter table " + "wechatSimulatorList" + " add column " + "timeType text";
-                db.execSQL(sqlWechatSimulatorList3);
-
-            }else if (tableName.contains("wechatSimulator")){
+            if (tableName.contains("wechatSimulator")){
                 //修改用户聊天的表
-                String sql = "Alter table " + tableName + " add column " + "resourceName text";
+                String sql = "Alter table " + tableName + " add column " + "fileEntity BLOB";
                 db.execSQL(sql);
-                String sq1 = "Alter table " + tableName + " add column " + "timeType text";
-                db.execSQL(sq1);
-            }*/
+                String sql1 = "Alter table " + tableName + " add column " + "groupInfo BLOB";
+                db.execSQL(sql1);
+            }
         }
     }
     /**

@@ -15,10 +15,13 @@ import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LikeListener
 import app.jietuqi.cn.entity.BannerEntity
+import app.jietuqi.cn.ui.activity.OverallAddFansActivity
 import app.jietuqi.cn.ui.activity.OverallCleanFansActivity
-import app.jietuqi.cn.ui.activity.OverallWeMediaActivity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
-import app.jietuqi.cn.util.*
+import app.jietuqi.cn.util.GlideUtil
+import app.jietuqi.cn.util.LaunchUtil
+import app.jietuqi.cn.util.UserOperateUtil
+import app.jietuqi.cn.util.WechatTimeUtil
 import app.jietuqi.cn.widget.BannerItemType
 import app.jietuqi.cn.widget.ninegrid.NineGridView
 import app.jietuqi.cn.widget.ninegrid.preview.NineGridViewClickAdapter
@@ -155,8 +158,8 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
                 itemView.findViewById<ImageView>(R.id.sCleanFansIv).setOnClickListener {
                     LaunchUtil.launch(itemView.context, OverallCleanFansActivity::class.java)
                 }
-                itemView.findViewById<ImageView>(R.id.sWeMediaIv).setOnClickListener {
-                    LaunchUtil.launch(itemView.context, OverallWeMediaActivity::class.java)
+                itemView.findViewById<ImageView>(R.id.sBaofenIv).setOnClickListener {
+                    LaunchUtil.launch(itemView.context, OverallAddFansActivity::class.java)
                 }
             }else{
                 if (UserOperateUtil.needColseByChannel()) {
@@ -165,8 +168,8 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
                     itemView.findViewById<ImageView>(R.id.sCleanFansIv).setOnClickListener {
                         LaunchUtil.launch(itemView.context, OverallCleanFansActivity::class.java)
                     }
-                    itemView.findViewById<ImageView>(R.id.sWeMediaIv).setOnClickListener {
-                        ToastUtils.showShort(itemView.context, "研发中")
+                    itemView.findViewById<ImageView>(R.id.sBaofenIv).setOnClickListener {
+                        LaunchUtil.launch(itemView.context, OverallAddFansActivity::class.java)
                     }
                 }
             }

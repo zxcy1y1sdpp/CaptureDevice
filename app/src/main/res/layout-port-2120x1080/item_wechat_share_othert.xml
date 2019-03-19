@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        style="@style/wechatPreview_2120_1080">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sWechatShareOtherAvatarIv"
+            style="@style/wechatPreviewHeaderOther_2120_1080"/>
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sWechatShareOtherAvatarIv"
+            android:layout_alignTop="@+id/sWechatShareOtherAvatarIv"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sWechatNickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="啦啦啦"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:textColor="@color/wechatLightGray"
+                android:visibility="gone"/>
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/wechat_text_other"
+                app:layout_marginRightPercent="19.1%w">
+
+                <TextView
+                    android:id="@+id/sWechatShareTitleTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="咖啡机拉克丝大姐夫"
+                    android:textSize="17sp"
+                    android:includeFontPadding="false"
+                    app:layout_marginTopPercent="3.98%w"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/sWechatShareContentTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="拉杀"
+                    android:layout_below="@+id/sWechatShareTitleTv"
+                    android:textColor="@color/wechatLightGray"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="5dp"
+                    android:layout_toLeftOf="@+id/sWechatShareIconIv"
+                    android:lines="3"
+                    android:ellipsize="end"
+                    app:layout_marginTopPercent="1.87%w"
+                    android:includeFontPadding="false"/>
+
+                <ImageView
+                    android:id="@+id/sWechatShareIconIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wechat_share_default"
+                    android:layout_alignParentRight="true"
+                    app:layout_heightPercent="17.28%w"
+                    app:layout_widthPercent="17.28%w"
+                    app:layout_marginLeftPercent="3.74%w"
+                    android:layout_alignTop="@+id/sWechatShareContentTv"
+                    android:scaleType="centerCrop"/>
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

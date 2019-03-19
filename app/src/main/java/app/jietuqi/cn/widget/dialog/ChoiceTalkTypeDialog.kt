@@ -51,8 +51,8 @@ class ChoiceTalkTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
             R.id.dialogChoiceTalkInviteTv ->{
                 mListener.choiceType("加群", "13")
             }
-            R.id.dialogChoiceTalkFaceTv ->{
-                mListener.choiceType("表情", "14")
+            R.id.dialogChoiceTalkFileTv ->{
+                mListener.choiceType("文件", "14")
             }
         }
         dismiss()
@@ -75,7 +75,7 @@ class ChoiceTalkTypeDialog : BottomSheetDialogFragment(), View.OnClickListener{
         dialogChoiceTalkTransmitTv.setOnClickListener(this)
         dialogChoiceTalkCardTv.setOnClickListener(this)
         dialogChoiceTalkInviteTv.setOnClickListener(this)
-        dialogChoiceTalkFaceTv.setOnClickListener(this)
+        dialogChoiceTalkFileTv.setOnClickListener(this)
     }
 
     fun setListener(listener: ChoiceTypeListener){

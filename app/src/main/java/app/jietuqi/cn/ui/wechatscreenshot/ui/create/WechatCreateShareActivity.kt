@@ -54,6 +54,7 @@ class WechatCreateShareActivity : BaseWechatScreenShotCreateActivity(), ChoiceWe
             R.id.mWechatCreateShareBgLayout ->{
                 val dialog = ChoiceWechatBackgroundDialog()
                 dialog.setListener(this)
+                dialog.setTitle("自定义封面", "默认封面")
                 dialog.show(supportFragmentManager, "choiceBg")
             }
             R.id.overallAllRightWithBgTv ->{

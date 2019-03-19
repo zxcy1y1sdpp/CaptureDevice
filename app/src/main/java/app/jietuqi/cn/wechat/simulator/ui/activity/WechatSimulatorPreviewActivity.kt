@@ -258,6 +258,15 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
                         8 ->{
                             LaunchUtil.startWechatSimulatorCreateSystemMessageActivity(this, mOtherSideEntity, entity, 1, "微信")
                         }
+                        9, 10 ->{
+                            LaunchUtil.startWechatSimulatorCreateVideoActivity(this, mOtherSideEntity, entity, 1)
+                        }
+                        13 ->{
+                            LaunchUtil.startWechatSimulatorCreateInviteJoinGroupActivity(this, mOtherSideEntity, entity, 1)
+                        }
+                        16 ->{
+                            LaunchUtil.startWechatSimulatorCreateFileActivity(this, mOtherSideEntity, entity, 1)
+                        }
                     }
                 }
                 2 ->{
@@ -349,13 +358,13 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         }
         mWechatSimulatorPreviewRecyclerView.adapter = mAdapter
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            delay(150L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
             runOnUiThread{
                 mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
             }
         }
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            delay(150L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
             runOnUiThread{
                 mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
             }
@@ -434,14 +443,13 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
             }
             R.id.wechatSimulatorFunTimeLayout ->{//发送时间
                 LaunchUtil.startWechatSimulatorCreateTimeActivity(this, mOtherSideEntity, null, 0)
-//                initTimePickerView(tag = "创建")
             }
             R.id.wechatSimulatorFunPictureLayout ->{//发送图片
                 openAlbumWithPermissionCheck()
                 mWechatSimulatorPreviewFunLayout.visibility = View.GONE
             }
             R.id.wechatSimulatorFunVideoLayout ->{//发送视频
-                showToast("开发中")
+                LaunchUtil.startWechatSimulatorCreateVideoActivity(this, mOtherSideEntity, null, 0)
             }
             R.id.wechatSimulatorFunRedPacketLayout ->{//发送红包
                 LaunchUtil.startWechatSimulatorCreateRedPacketActivity(this, mOtherSideEntity, null, 0)
@@ -450,10 +458,10 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
                 LaunchUtil.startWechatSimulatorCreateTransferActivity(this, mOtherSideEntity, null, 0)
             }
             R.id.wechatSimulatorFunGroupLayout ->{//群聊
-                showToast("开发中")
+                LaunchUtil.startWechatSimulatorCreateInviteJoinGroupActivity(this, mOtherSideEntity, null, 0)
             }
             R.id.wechatSimulatorFunFilesLayout ->{//文件
-                showToast("开发中")
+                LaunchUtil.startWechatSimulatorCreateFileActivity(this, mOtherSideEntity, null, 0)
             }
             R.id.wechatSimulatorFunSystemLayout ->{//发送系统消息
                 LaunchUtil.startWechatSimulatorCreateSystemMessageActivity(this, mOtherSideEntity, null, 0, "微信")
@@ -640,6 +648,23 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
             8 -> {
                 msgEntity.msg = entity?.msg
                 entity?.msgType?.let { msgEntity.msgType = it }
+            }
+            9, 10 -> {
+                msgEntity.msg = entity?.msg
+                entity?.alreadyRead?.let { msgEntity.alreadyRead = it }
+                entity?.isComMsg?.let { mComMsg = it }
+                entity?.isComMsg?.let { msgEntity.isComMsg = it }
+                setRole(msgEntity)
+            }
+            13 -> {
+                msgEntity.groupInfo = entity?.groupInfo
+                entity?.isComMsg?.let { mComMsg = it }
+                entity?.isComMsg?.let { msgEntity.isComMsg = it }
+                setRole(msgEntity)
+            }
+            16 -> {
+                msgEntity.fileEntity = entity?.fileEntity
+                setRole(msgEntity)
             }
         }
         msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()

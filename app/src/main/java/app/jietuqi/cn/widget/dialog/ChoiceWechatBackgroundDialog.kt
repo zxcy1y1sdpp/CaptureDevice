@@ -1,14 +1,12 @@
 package app.jietuqi.cn.widget.dialog
 
-import android.app.Dialog
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.BottomSheetDialogFragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import app.jietuqi.cn.R
-import app.jietuqi.cn.widget.ShapeCornerBgView
-
-
+import kotlinx.android.synthetic.main.dialog_choice_wechat_background.*
 /**
  * 作者： liuyuanbo on 2018/10/23 14:29.
  * 时间： 2018/10/23 14:29
@@ -18,6 +16,8 @@ import app.jietuqi.cn.widget.ShapeCornerBgView
 
 class ChoiceWechatBackgroundDialog : BottomSheetDialogFragment(), View.OnClickListener{
     private lateinit var mListener: OnChoiceSingleTalkBgListener
+    private var mFirstTitle = "自定义背景"
+    private var mSecondTitle = "默认背景"
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.dialogCustomBg ->{
@@ -34,17 +34,25 @@ class ChoiceWechatBackgroundDialog : BottomSheetDialogFragment(), View.OnClickLi
         super.onCreate(savedInstanceState)
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        val view = View.inflate(context, R.layout.dialog_choice_wechat_background, null)
-        dialog.setContentView(view)
-        view.findViewById<ShapeCornerBgView>(R.id.dialogCustomBg).setOnClickListener(this)
-        view.findViewById<ShapeCornerBgView>(R.id.dialogDefaultBg).setOnClickListener(this)
-        view.findViewById<ShapeCornerBgView>(R.id.dialogCancelView).setOnClickListener(this)
-        return dialog
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.dialog_choice_wechat_background, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dialogCustomBg.text = mFirstTitle
+        dialogDefaultBg.text = mSecondTitle
+        dialogCustomBg.setOnClickListener(this)
+        dialogDefaultBg.setOnClickListener(this)
+        dialogCancelView.setOnClickListener(this)
     }
     fun setListener(listener: OnChoiceSingleTalkBgListener){
         mListener = listener
+    }
+    fun setTitle(firstTitle: String, secondTitle: String){
+        mFirstTitle = firstTitle
+        mSecondTitle = secondTitle
     }
     interface OnChoiceSingleTalkBgListener{
         fun onChoice(need: Boolean)

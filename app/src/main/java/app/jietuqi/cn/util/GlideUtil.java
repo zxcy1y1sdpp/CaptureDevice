@@ -88,15 +88,23 @@ public class GlideUtil{
 				.into(imageView);
 	}
 	public static void displayGif(Context context, Object object, ImageView imageView){
-		GlideApp.with(context).asGif()
+		int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 10 * 3;
+		GlideApp.with(context)
 				.load(object)
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 				.thumbnail(0.1f)
-				.error(R.drawable.head_default)
-				.fallback(R.drawable.head_default)
+//				.error(R.drawable.head_default)
+//				.fallback(R.drawable.head_default)
 				.placeholder(R.drawable.head_default)
+//				.override(width)
 				.into(imageView);
 	}
+	/*public static void displayGif2(Context context, Object object, ImageView imageView){
+		GlideApp.with(context)
+				.load(object)
+				.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+				.into(imageView);
+	}*/
 	public static void display2(Context context, int id, ImageView imageView){
 		int width = ScreenUtil.INSTANCE.getScreenWidth(context) / 7 * 3;
 		GlideApp.with(context)

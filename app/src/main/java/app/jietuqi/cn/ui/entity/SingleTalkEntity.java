@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import java.io.Serializable;
 
 import app.jietuqi.cn.ResourceHelper;
+import app.jietuqi.cn.ui.wechatscreenshot.entity.FileEntity;
 
 /**
  * 作者： liuyuanbo on 2018/10/11 09:59.
@@ -41,7 +42,8 @@ public class SingleTalkEntity implements Serializable {
      * 3 -- 发红包, 4 -- 领取红包, 5 -- 转账，收钱
      * 6 -- 转账被领取，7 -- 语音，8 -- 系统提示
      * 9 -- 视频聊天，10 -- 语音聊天，11 -- 转发
-     * 12 -- 名片，13 -- 邀请加群，14 -- 表情
+     * 12 -- 名片，13 -- 邀请加群，14 -- 表情，15 -- 退款
+     * 16 -- 文件
      */
     public int msgType;
     /**
@@ -131,6 +133,14 @@ public class SingleTalkEntity implements Serializable {
      * 名片
      */
     public WechatUserEntity groupInfo;
+    /**
+     * 图片资源，img将要废弃
+     */
+    public String pic;
+    /**
+     * 文件相关
+     */
+    public FileEntity fileEntity;
 
     /*************************** 非数据库中的字段 *************************/
     /**
@@ -149,6 +159,13 @@ public class SingleTalkEntity implements Serializable {
             return ResourceHelper.getAppIconId(resourceName);
         }else {
             return avatarInt;
+        }
+    }
+    public Object getPic(){
+        if (!TextUtils.isEmpty(pic)){
+            return ResourceHelper.getAppIconId(pic);
+        }else {
+            return img;
         }
     }
 }

@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallInternetActivity
@@ -21,8 +21,7 @@ import app.jietuqi.cn.util.OtherUtil
 import app.jietuqi.cn.util.StringUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.widget.dialog.EditDialog
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
-import cn.bingoogolapple.qrcode.core.QRCodeView
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.body.UIProgressResponseCallBack
@@ -40,7 +39,7 @@ import java.io.File
  * 用途： 发布我的名片/群名片
  */
 @RuntimePermissions
-class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoiceListener, QRCodeView.Delegate{
+class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoiceListener/*, QRCodeView.Delegate*/{
     /**
      * 0 -- 我的名片
      * 1 -- 修改我的名片
@@ -78,7 +77,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
         mOverallPublishCardAreaLayout.setOnClickListener(this)
         mOverallPublishCardSexualityOrNumberLayout.setOnClickListener(this)
         mOverallPublishCardBtn.setOnClickListener(this)
-        mOverallPublishCardZXingView.setDelegate(this)
+//        mOverallPublishCardZXingView.setDelegate(this)
         overallAllRightWithOutBgTv.setOnClickListener(this)
     }
 
@@ -209,16 +208,13 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                 }
             }
             R.id.overallAllRightWithOutBgTv ->{
-                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("提示")
-                        .setContentText("确定要删除您的名片吗？")
-                        .setConfirmText("确定")
-                        .setCancelText("取消")
-                        .setConfirmClickListener { sweetAlertDialog ->
-                            sweetAlertDialog.dismissWithAnimation()
+                EnsureDialog(this).builder()
+                        .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                        .setTitle("提示")//可以不设置标题颜色，默认系统颜色
+                        .setSubTitle("确定要删除您的名片吗？")
+                        .setNegativeButton("取消") {}
+                        .setPositiveButton("删除") {
                             deleteCard()
-                        }.setCancelClickListener {
-                            it.dismissWithAnimation()
                         }.show()
             }
         }
@@ -274,9 +270,9 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
             when(requestCode){
                 RequestCode.IMAGE_SELECT ->{
                     mWechatBgFile = mFiles[0]
-                    mOverallPublishCardZXingView.decodeQRCode(mFiles[0].absolutePath)
                     GlideUtil.display(this, mFiles[0], mOverallPublishCardQrCodeIv)
                     mChangeQRCode = false
+                    mFiles.clear()
                 }
             }
         }
@@ -450,7 +446,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
                     }
                 })
     }
-    override fun onScanQRCodeSuccess(result: String?) {
+    /*override fun onScanQRCodeSuccess(result: String?) {
         if (TextUtils.isEmpty(result)){
             mChangeQRCode = true
             showToast("图像中不包含二维码，请重新选择")
@@ -466,7 +462,7 @@ class OverallPublishCardActivity : BaseOverallInternetActivity(), EditDialogChoi
 
     override fun onScanQRCodeOpenCameraError() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    }*/
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun openAlbum() {
         callAlbum()

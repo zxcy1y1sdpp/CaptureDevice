@@ -1,6 +1,7 @@
 package app.jietuqi.cn.ui.activity
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseOverallActivity
@@ -12,12 +13,14 @@ import app.jietuqi.cn.ui.entity.OverallCardEntity
 import app.jietuqi.cn.util.LaunchUtil
 import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
-import app.jietuqi.cn.widget.sweetalert.SweetAlertDialog
+import app.jietuqi.cn.widget.dialog.customdialog.EnsureDialog
 import com.zhouyou.http.EasyHttp
 import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.activity_overall_explode.*
+
+
 
 /**
  * 作者： liuyuanbo on 2018/11/26 21:54.
@@ -80,17 +83,16 @@ class OverallExplodeActivity : BaseOverallActivity() {
                     if (mHasCard){
                         explore()
                     }else{
-                        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("提示")
-                                ?.setContentText("您还没有发布个人名片")
-                                ?.setConfirmText("去发布")
-                                ?.setCancelText("取消")
-                                ?.setConfirmClickListener { sDialog ->
-                                    sDialog.dismissWithAnimation()
+                        EnsureDialog(this).builder()
+                                .setGravity(Gravity.CENTER)//默认居中，可以不设置
+                                .setTitle("提示")//可以不设置标题颜色，默认系统颜色
+                                .setCancelable(false)
+                                .setSubTitle("您还没有发布个人名片!")
+                                .setNegativeButton("取消") {}
+                                .setPositiveButton("去发布") {
                                     LaunchUtil.startOverallPublishCardActivity(this, 0, OverallCardEntity())
-                                }?.setCancelClickListener {
-                                    it.dismissWithAnimation()
-                                }?.show()
+                                }
+                                .show()
                     }
                 }
             }

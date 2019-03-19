@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/titleLayout"
+        layout="@layout/include_base_overall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mRecordSrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecordRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <include layout="@layout/include_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

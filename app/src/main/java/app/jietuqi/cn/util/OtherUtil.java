@@ -42,14 +42,17 @@ import app.jietuqi.cn.ui.entity.WechatUserEntity;
 public class OtherUtil {
     /**
      * 微信两个蓝色按钮来回切换的状态
-     * @param selectedTv 选中的按钮
-     * @param unSelectedTv 未选中的按钮
      */
-    public static void changeWechatTwoBtnBg(Context context, TextView selectedTv, TextView unSelectedTv){
-        selectedTv.setBackgroundResource(R.drawable.blue_round_cornor);
-        unSelectedTv.setBackgroundResource(R.drawable.blue_solid);
-        selectedTv.setTextColor(ContextCompat.getColor(context, R.color.white));
-        unSelectedTv.setTextColor(ContextCompat.getColor(context, R.color.wechatBlue));
+    public static void changeWechatTwoBtnBg(Context context, TextView ... textViews){
+        for (int i = 0, size = textViews.length; i < size; i++) {
+            if (i == 0){
+                textViews[i].setBackgroundResource(R.drawable.blue_round_cornor);
+                textViews[i].setTextColor(ContextCompat.getColor(context, R.color.white));
+            }else {
+                textViews[i].setBackgroundResource(R.drawable.blue_solid);
+                textViews[i].setTextColor(ContextCompat.getColor(context, R.color.wechatBlue));
+            }
+        }
     }
     /**
      * 微信生成页面中的预览按钮

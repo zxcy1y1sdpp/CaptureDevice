@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_linear"
+    android:layout_marginBottom="@dimen/normalPadding">
+    <TextView
+        android:id="@+id/view2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="@drawable/wechat_gray_ball"
+        android:layout_marginLeft="@dimen/normalPadding"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/sNickNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID:杀到了房间看"
+        android:padding="@dimen/normalPadding"
+        android:layout_toRightOf="@+id/view2"/>
+
+    <TextView
+        android:id="@+id/sVipLevelTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="季度会员"
+        android:textColor="@color/wechatLightGray"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/normalPadding"/>
+</RelativeLayout>
