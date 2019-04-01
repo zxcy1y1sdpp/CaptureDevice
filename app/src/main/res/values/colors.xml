@@ -6,6 +6,7 @@
     <color name="wechat_deep2_text_color">#585858</color>
     <color name="wechat_deep3_text_color">#A3A7AE</color>
     <color name="wechatBg">#F2F2F2</color>
+    <color name="wechatSimulatorBg">#ededed</color>
     <color name="wechatGray">#656565</color>
     <color name="wechatVoiceGray">#B0B0B0</color>
     <color name="wechat_talk_time_bg">#CBCBCB</color>

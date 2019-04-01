@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED">
+    android:background="@color/wechatSimulatorBg">
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
@@ -315,6 +315,105 @@
     <include layout="@layout/include_wechat_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/mHonebaoAnimationBgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99FFFFFF"
+        android:clickable="true"
+        android:visibility="gone">
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/mHonebaoAnimationLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wechat_hongbao_frame_new"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            app:layout_heightPercent="133%w"
+            app:layout_widthPercent="80.53%w"
+            app:layout_marginTopPercent="3.54%w">
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_marginTopPercent="36.5%w">
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/mRedpacketAvatarIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/head_default"
+                    app:riv_oval="false"
+                    app:riv_corner_radius="2dp"
+                    app:layout_widthPercent="8.1%w"
+                    app:layout_heightPercent="8.1%w"
+                    app:layout_marginRightPercent="3.53%w"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"/>
+
+                <TextView
+                    android:id="@+id/mRedpacketNickNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:text="董腾 ~ 淘宝返利的红包"
+                    android:textColor="#ffcba0"/>
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <TextView
+                android:id="@+id/mRedpacketMsgTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/layout3"
+                android:textColor="#FEE0B5"
+                android:textSize="22sp"
+                app:layout_marginTopPercent="3.27%w" />
+            <TextView
+                android:id="@+id/mCheckLuckyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="17.13%w"
+                android:text="看看大家的手气"
+                android:textSize="17sp"
+                android:textColor="#ffcba0"
+                android:drawableRight="@drawable/wechat_golden_right"
+                android:layout_alignParentBottom="true"
+                android:background="#EE5445"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="5dp"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/mOpenIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wechat_hongbao_open"
+                android:layout_centerHorizontal="true"
+                app:layout_marginBottomPercent="17.13%w"
+                android:layout_alignParentBottom="true"/>
+            <ImageView
+                android:id="@+id/mAnimationIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:layout_marginBottomPercent="17.13%w"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+        <ImageView
+            android:id="@+id/mCloseHongbaoIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hongbao_colse"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/mHonebaoAnimationLayout"
+            app:layout_marginTopPercent="6.3%w"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/mWechatSimulatorPreviewCoverLayout"
         android:layout_width="match_parent"

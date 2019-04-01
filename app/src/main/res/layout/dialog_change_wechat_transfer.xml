@@ -7,18 +7,18 @@
     android:background="@color/wechatBg">
 
     <TextView
-        android:id="@+id/getMoney"
+        android:id="@+id/dialogType1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="已收钱"
         android:background="@color/white"
         android:gravity="center"
-        android:padding="20dp"
+        android:padding="10dp"
         android:textColor="@color/wechat_deep_text_color"
         android:textSize="@dimen/wechatNormalTextSize"
         android:tag="已收钱"/>
     <TextView
-        android:id="@+id/notGetMoney"
+        android:id="@+id/dialogType2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -30,7 +30,7 @@
         android:textSize="@dimen/wechatNormalTextSize"
         android:tag="待收款"/>
     <TextView
-        android:id="@+id/giveMoneyBack"
+        android:id="@+id/dialogType3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -42,7 +42,7 @@
         android:textSize="@dimen/wechatNormalTextSize"
         android:tag="已退款"/>
     <TextView
-        android:id="@+id/cancel"
+        android:id="@+id/dialogCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

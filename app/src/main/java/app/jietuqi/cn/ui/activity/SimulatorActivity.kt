@@ -75,7 +75,7 @@ class SimulatorActivity : BaseOverallActivity() {
         mWechatFun7.setOnClickListener(this)
         mWechatFun8.setOnClickListener(this)
         mWechatFun9.setOnClickListener(this)
-//        mWechatFun16.setOnClickListener(this)
+        mWechatFun16.setOnClickListener(this)
 
         mWechatFun10.setOnClickListener(this)
         mWechatFun11.setOnClickListener(this)
@@ -95,9 +95,13 @@ class SimulatorActivity : BaseOverallActivity() {
         if (UserOperateUtil.isVip()){
             mVipFun4.visibility = View.GONE
             mVipFun5.visibility = View.GONE
+            mVipFun6.visibility = View.GONE
             mVipFun7.visibility = View.GONE
+            mVipFun8.visibility = View.GONE
+            mVipFun9.visibility = View.GONE
             mVipFun14.visibility = View.GONE
             mVipFun15.visibility = View.GONE
+            mVipFun16.visibility = View.GONE
         }
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
             var list = WechatSimulatorListHelper(this@SimulatorActivity).queryAll()
@@ -188,9 +192,9 @@ class SimulatorActivity : BaseOverallActivity() {
             R.id.mTeachIv ->{
                 LaunchUtil.startOverallWebViewActivity(this, "http://www.jietuqi.cn/index/help?os=android", "使用教程")
             }
-//            R.id.mWechatFun16 ->{
-//                LaunchUtil.launch(this, WechatCreateBillsListActivity::class.java)
-//            }
+            R.id.mWechatFun16 ->{
+                LaunchUtil.launch(this, WechatPaySuccessActivity::class.java)
+            }
         }
     }
 }

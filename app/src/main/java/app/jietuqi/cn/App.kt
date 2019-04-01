@@ -88,6 +88,7 @@ class App : Application() {
         }
         ResourceHelper()
         initRoleLibrary()
+//        LanSoEditor.initSDK(applicationContext,null)
     }
 
     override fun attachBaseContext(base: Context) {

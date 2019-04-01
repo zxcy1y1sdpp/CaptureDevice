@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED">
+    android:background="@color/wechatSimulatorBg">
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:id="@+id/titleLayout"
         android:layout_width="match_parent"
@@ -93,15 +93,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tagView18"
                     app:layout_marginRightPercent="2.16%w">
-
-                    <!--<ImageView
-                        android:id="@+id/mWechatSimulatorDiscoverUnReadIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon0"
-                        app:layout_widthPercent="77%w"
-                        app:layout_heightPercent="77%w"
-                        android:layout_centerInParent="true"/>-->
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/mWechatSimulatorDiscoverUnReadIv"

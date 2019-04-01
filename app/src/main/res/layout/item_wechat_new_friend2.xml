@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/app_icon"
+            app:layout_heightPercent="13.1%w"
+            app:layout_widthPercent="13.1%w"
+            app:riv_corner_radius="5dp"
+            android:scaleType="centerCrop"
+            app:layout_marginLeftPercent="5.38%w"
+            app:layout_marginRightPercent="5.38%w"
+            app:layout_marginTopPercent="3.36%w"
+            app:layout_marginBottomPercent="3.36%w"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sAvatarIv"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/sNickNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大数据迷恋着"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/sMsgTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请求添加你为朋友"
+                android:textColor="@color/wechatLightGray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/sAlreadyAddTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已添加"
+            app:layout_marginRightPercent="4.37%w"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/wechatLightGray"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/sAcceptTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginRightPercent="4.37%w"
+            app:layout_widthPercent="16.64%w"
+            app:layout_heightPercent="8.74%w"
+            android:background="@drawable/green_round_cornor"
+            android:textColor="@color/white"
+            android:text="接受"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Line"
+            android:background="@color/wechatLine"
+            android:layout_below="@+id/sAvatarIv"
+            android:layout_toRightOf="@+id/sAvatarIv"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

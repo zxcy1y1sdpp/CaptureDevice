@@ -113,7 +113,16 @@
                             android:textSize="@dimen/overall26px"
                             android:gravity="center"/>
                     </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/mNotLoginTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="登录/注册"
+                        android:layout_alignTop="@+id/mAvatarIv"
+                        android:layout_alignBottom="@+id/mAvatarIv"
+                        android:gravity="center_vertical"
+                        android:layout_toRightOf="@+id/mAvatarIv"
+                        android:background="@color/white"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

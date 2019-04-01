@@ -33,10 +33,11 @@ import app.jietuqi.cn.widget.badge.QBadgeView;
  */
 public class MainNavigateTabBar extends LinearLayout implements View.OnClickListener {
 
-    private static final String KEY_CURRENT_TAG = "com.startsmake.template。currentTag";
+    private static final String KEY_CURRENT_TAG = "com.startsmake.template.currentTag";
 
     private List<ViewHolder> mViewHolderList;
     private OnTabSelectedListener mTabSelectListener;
+    private onTabChangeListener mOnTabChangeListener;
     private FragmentActivity mFragmentActivity;
     private String mCurrentTag;
     private String mRestoreTag;
@@ -215,6 +216,9 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
             showFragment(holder);
             if (mTabSelectListener != null) {
                 mTabSelectListener.onTabSelected(holder);
+            }
+            if (mOnTabChangeListener != null){
+                mOnTabChangeListener.onTabSelected(holder.tabIndex);
             }
         }
     }
@@ -406,9 +410,15 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
     public interface OnTabSelectedListener {
         void onTabSelected(ViewHolder holder);
     }
+    public interface onTabChangeListener {
+        void onTabSelected(int index);
+    }
 
     public void setTabSelectListener(OnTabSelectedListener tabSelectListener) {
         mTabSelectListener = tabSelectListener;
+    }
+    public void setOnTabChangeListener(onTabChangeListener tabChangeListener) {
+        mOnTabChangeListener = tabChangeListener;
     }
 
     public void setDefaultSelectedTab(int index) {

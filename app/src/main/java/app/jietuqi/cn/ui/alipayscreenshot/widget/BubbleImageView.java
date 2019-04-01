@@ -60,13 +60,11 @@ public class BubbleImageView extends AppCompatImageView {
 
     public BubbleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-// TODO Auto-generated constructor stub
         initView(attrs);
     }
 
 
     private void initView(AttributeSet attrs) {
-// TODO Auto-generated method stub
         if(attrs!=null){
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BubbleImageView);
             mAngle = (int) a.getDimension(R.styleable.BubbleImageView_bubble_angle, mAngle);
@@ -97,7 +95,6 @@ public class BubbleImageView extends AppCompatImageView {
 
 
     private void rightPath(RectF rect, Path path) {
-// TODO Auto-generated method stub
         path.moveTo(mAngle, rect.top);
         path.lineTo(rect.width(), rect.top);
         path.arcTo(new RectF(rect.right - mAngle * 2 - mArrowWidth, rect.top, rect.right - mArrowWidth, mAngle * 2 + rect.top), 270, 90);

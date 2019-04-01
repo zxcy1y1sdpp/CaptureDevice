@@ -5,7 +5,9 @@ import android.view.View
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.constant.ColorFinal
+import app.jietuqi.cn.constant.SharedPreferenceKey
 import app.jietuqi.cn.ui.entity.WechatUserEntity
+import app.jietuqi.cn.util.SharedPreferencesUtils
 import app.jietuqi.cn.util.UserOperateUtil
 import app.jietuqi.cn.wechat.simulator.WechatSimulatorUnReadEntity
 import app.jietuqi.cn.wechat.simulator.db.WechatSimulatorListHelper
@@ -28,7 +30,14 @@ import org.greenrobot.eventbus.ThreadMode
  * 用途：
  */
 
-class WechatChatListActivity : BaseWechatActivity() {
+class WechatChatListActivity : BaseWechatActivity(), MainNavigateTabBar.onTabChangeListener{
+    override fun onTabSelected(index: Int) {
+        if (1 == index){
+            SharedPreferencesUtils.putData(SharedPreferenceKey.SHOW_BOTTOM_RP, false)
+            noNewFriendsCount(0)
+        }
+    }
+
     override fun setLayoutResourceId() = R.layout.activity_wechat_chatlist
     override fun needLoadingView() = false
 
@@ -40,7 +49,7 @@ class WechatChatListActivity : BaseWechatActivity() {
         mMainTabBar.addTab(this, WechatFriendsFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_address_book, R.drawable.wechat_select_address_book, "通讯录"))
         mMainTabBar.addTab(this, WechatDiscoverFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_discover, R.drawable.wechat_select_discover, "发现"))
         mMainTabBar.addTab(this, WechatMyFragment::class.java, MainNavigateTabBar.TabParam(Color.parseColor("#F7F7F7"), R.drawable.wechat_unselect_my, R.drawable.wechat_select_my, "我"))
-
+        mMainTabBar.setOnTabChangeListener(this)
         var list = WechatSimulatorListHelper(this).queryAll()
         if (null != list){
             GlobalScope.launch { // 在一个公共线程池中创建一个协程
@@ -59,6 +68,20 @@ class WechatChatListActivity : BaseWechatActivity() {
             mWechatBadgeView1.visibility = View.VISIBLE
         }else{
             mWechatBadgeView1.visibility = View.GONE
+        }
+        if (UserOperateUtil.showNewFriendsBottomRp()){
+            val listAll = UserOperateUtil.getWechatNewFriendsList()
+            val listUnAdd = arrayListOf<WechatUserEntity>()
+            var entity: WechatUserEntity
+            for (i in listAll.indices){
+                entity = listAll[i]
+                if (!entity.isChecked){
+                    if (!entity.alreadyShow){
+                        listUnAdd.add(entity)
+                    }
+                }
+            }
+            noNewFriendsCount(listUnAdd.size)
         }
     }
 
@@ -95,21 +118,31 @@ class WechatChatListActivity : BaseWechatActivity() {
 
     override fun onResume() {
         super.onResume()
+        SharedPreferencesUtils.putData(SharedPreferenceKey.IS_IN_SIMULATOR, true)
         needVipForCover()
         when(mMainTabBar.currentSelectedTab){
             0 ->{
                 setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
             }
-            0 ->{
+            1 ->{
                 setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
             }
-            0 ->{
+            2 ->{
                 setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
             }
-            0 ->{
+            3 ->{
                 setStatusBarColor(ColorFinal.WHITE)
             }
         }
         setLightStatusBarForM(this, true)
+    }
+
+    fun noNewFriendsCount(count: Int){
+        if (count <= 0){
+            mWechatNewFriendsTv.visibility = View.GONE
+        }else{
+            mWechatNewFriendsTv.visibility = View.VISIBLE
+            mWechatNewFriendsTv.setText(count.toString())
+        }
     }
 }

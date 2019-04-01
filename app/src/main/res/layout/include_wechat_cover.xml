@@ -12,5 +12,6 @@
         android:src="@drawable/wechat_water_mark"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        app:layout_marginTopPercent="30%h"/>
+        app:layout_marginTopPercent="30%h"
+        android:visibility="gone"/>
 </com.zhy.android.percent.support.PercentLinearLayout>

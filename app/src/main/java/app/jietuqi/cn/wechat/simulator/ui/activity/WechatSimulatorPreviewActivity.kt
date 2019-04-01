@@ -1,6 +1,7 @@
 package app.jietuqi.cn.wechat.simulator.ui.activity
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -15,12 +16,14 @@ import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import app.jietuqi.cn.R
+import app.jietuqi.cn.animation.FrameAnimation
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.callback.OnRecyclerItemClickListener
 import app.jietuqi.cn.constant.ColorFinal
@@ -139,6 +142,8 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         mWechatSimulatorPreviewSendTv.setOnClickListener(this)
         mWechatSimulatorPreviewMoreIv.setOnClickListener(this)
         mWechatSimulatorPreviewEmojiIv.setOnClickListener(this)
+        mOpenIv.setOnClickListener(this)
+        mCloseHongbaoIv.setOnClickListener(this)
         mWechatSimulatorPreviewContentEt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
@@ -374,6 +379,12 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
+            R.id.mOpenIv ->{
+                startAnim()
+            }
+            R.id.mCloseHongbaoIv ->{
+                stopAnim()
+            }
             R.id.mWechatSimulatorPreviewCoverDontShowBtn ->{//不再提示
                 SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_COVER, true)
                 mWechatSimulatorPreviewCoverLayout.visibility = View.GONE
@@ -860,7 +871,6 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
     private var lastZ: Float = 0f
     private var mCanShake = true
     override fun onResume() {
-        // TODO Auto-generated method stub
         super.onResume()
         needVipForCover()
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -938,16 +948,127 @@ class WechatSimulatorPreviewActivity : BaseWechatActivity(), WechatSimulatorPrev
         }
         return false
     }
-    //我领取对方的红包
-    override fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int) {
-        mHelper.update(entity, true)
-        mAdapter.notifyItemChanged(position)
+
+    private fun showRedpacketLayout() {
+        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR2)
+        setNavigationBarBg(ColorFinal.WHITE)
+        showLoadingDialog("正在加载...")
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(300L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            runOnUiThread {
+                dismissLoadingDialog()
+                mHonebaoAnimationBgLayout.visibility = View.VISIBLE
+            }
+        }
+        val animatorX = ObjectAnimator.ofFloat(mHonebaoAnimationLayout, "scaleX", 0.5f, 1.1F, 0.97F, 1.0F)
+        animatorX.duration = 500
+        animatorX.startDelay = 300
+        animatorX.start()
+        val animatorY = ObjectAnimator.ofFloat(mHonebaoAnimationLayout, "scaleY", 0.5f, 1.1F, 0.97F, 1.0F)
+        animatorY.duration = 500
+        animatorY.startDelay = 300
+        animatorY.start()
     }
 
+    private var mFrameAnimation: FrameAnimation? = null
+    /**
+     * 带有动画的红包的位置
+     */
+    private var mRedpacketPosition = -1
+    private lateinit var mRedpacketEntity: WechatScreenShotEntity
+    private val mImgResIds = intArrayOf(R.drawable.wechat_hongbao_animation_1,
+            R.drawable.wechat_hongbao_animation_2,
+            R.drawable.wechat_hongbao_animation_3,
+            R.drawable.wechat_hongbao_animation_4,
+            R.drawable.wechat_hongbao_animation_5)
+    private fun startAnim() {
+        if (mFrameAnimation != null) {
+            //如果正在转动，则直接返回
+            return
+        }
+        mFrameAnimation = FrameAnimation(mAnimationIv, mImgResIds, 125, true)
+        mFrameAnimation?.setAnimationListener(object : FrameAnimation.AnimationListener {
+            override fun onAnimationStart() {
+                mOpenIv.visibility = View.GONE
+                mAnimationIv.visibility = View.VISIBLE
+
+            }
+
+            override fun onAnimationEnd() {
+                Log.e("Animation-", "end")
+            }
+
+            override fun onAnimationRepeat() {
+                Log.e("Animation-", "repeat")
+            }
+
+            override fun onAnimationPause() {
+                mAnimationIv.setBackgroundResource(R.drawable.wechat_hongbao_open)
+            }
+        })
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(1600L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            runOnUiThread {
+                mRedpacketEntity.receive = true
+                stopAnim()
+                mHelper.update(mRedpacketEntity, true)
+                mAdapter.notifyItemChanged(mRedpacketPosition)
+                val senderEntity = WechatUserEntity()//发送人
+                senderEntity.money = mRedpacketEntity.money
+                senderEntity.wechatUserId = mRedpacketEntity.wechatUserId
+                senderEntity.wechatUserNickName = mOtherSideEntity.wechatUserNickName
+                senderEntity.avatarFile = mOtherSideEntity.avatarFile
+                senderEntity.wechatUserAvatar = mOtherSideEntity.wechatUserAvatar
+                senderEntity.resourceName = mOtherSideEntity.resourceName
+                senderEntity.avatarInt = mOtherSideEntity.avatarInt
+                senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+
+                val intent = Intent(this@WechatSimulatorPreviewActivity, WechatSimulatorReceiveRedPacketActivity::class.java)
+                intent.putExtra(IntentKey.ENTITY_SENDER, senderEntity)
+                intent.putExtra(IntentKey.IS_SIMULATOR, true)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            }
+        }
+    }
+
+    private fun stopAnim() {
+        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
+        setNavigationBarBg(ColorFinal.NEW_WECHAT_TITLEBAR)
+        mFrameAnimation?.release()
+        mFrameAnimation = null
+        mHonebaoAnimationBgLayout.visibility = View.GONE
+    }
+    //我领取对方的红包
+    override fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int) {
+        showRedpacketLayout()
+        mRedpacketEntity = entity
+        mRedpacketPosition = position
+        GlideUtil.displayHead(this, mOtherSideEntity.getAvatarFile(), mRedpacketAvatarIv)
+        mRedpacketNickNameTv.text = StringUtils.insertBack(mOtherSideEntity.wechatUserNickName, "的红包")
+        mRedpacketMsgTv.text = entity.msg
+    }
     //对方领取我的红包
     override fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int) {
         mHelper.update(entity, true)
         mAdapter.notifyItemChanged(position)
+    }
+    override fun checkOtherRedpacketDetail(entity: WechatScreenShotEntity, position: Int) {
+        showLoadingDialog("正在加载...")
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            dismissLoadingDialog()
+            LaunchUtil.startWechatSimulatorReceiveRedPacketActivity(this@WechatSimulatorPreviewActivity, mOtherSideEntity, entity, true)
+        }
+    }
+    override fun checkMyRedpacketDetail(entity: WechatScreenShotEntity, position: Int) {
+        showLoadingDialog("正在加载...")
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            dismissLoadingDialog()
+            LaunchUtil.startWechatSimulatorSendRedPacketActivity(this@WechatSimulatorPreviewActivity, entity, mOtherSideEntity, mMySideEntity, true)
+        }
+
     }
     override fun myTransferWasReceive(entity: WechatScreenShotEntity, position: Int) {
         mHelper.update(entity, true)

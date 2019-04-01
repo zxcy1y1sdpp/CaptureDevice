@@ -60,7 +60,7 @@
                         android:id="@+id/mOverallPurchaseVipAvatarIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/icon0"
+                        android:src="@drawable/head_default"
                         app:layout_heightPercent="14.5%w"
                         app:layout_widthPercent="14.5%w"
                         app:riv_border_color="@color/wechatPreviewTitle"
@@ -109,83 +109,6 @@
                 app:layout_heightPercent="42%w"
                 app:layout_marginTopPercent="2.4%w">
 
-                <!--<com.zhy.android.percent.support.PercentRelativeLayout
-                    android:id="@+id/mVip1Layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    app:layout_marginLeftPercent="2.13%w"
-                    app:layout_marginRightPercent="2.13%w"
-                    app:layout_widthPercent="30.48%w"
-                    app:layout_heightPercent="41.23%w"
-                    android:background="@drawable/vip_select">
-
-                    &lt;!&ndash;<com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/mVip1Iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon0"
-                        app:layout_heightPercent="67.41%h"
-                        android:scaleType="centerCrop" />&ndash;&gt;
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/mVip1Iv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:riv_oval="false"
-                        app:riv_corner_radius_top_left="5dp"
-                        app:riv_corner_radius_top_right="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/icon0"
-                        app:layout_marginLeftPercent="2.13%w"
-                        app:layout_marginRightPercent="2.13%w"
-                        app:layout_heightPercent="67.41%h"
-                        android:layout_marginTop="1dp"/>
-
-                    <com.zhy.android.percent.support.PercentRelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/mVip1Iv">
-
-                        <TextView
-                            android:id="@+id/mVip1TimeTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="12个月"
-                            android:gravity="center"
-                            app:layout_widthPercent="48%w"
-                            android:textColor="#7F8990"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_alignParentRight="true"
-                            android:gravity="center"
-                            app:layout_widthPercent="50%w">
-                            <TextView
-                                android:id="@+id/mVip1NewPriceTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="¥98"
-                                android:textSize="17sp"
-                                android:textColor="#7F8990"/>
-                            <TextView
-                                android:id="@+id/mVip1OldPriceTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="原价：¥68"
-                                android:textSize="11sp"
-                                android:textColor="#C5CAD2"/>
-                        </LinearLayout>
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="#7F8990"
-                            android:layout_marginTop="10dp"
-                            android:layout_toRightOf="@+id/mVip1TimeTv"
-                            android:layout_marginBottom="10dp"/>
-                    </com.zhy.android.percent.support.PercentRelativeLayout>
-                </com.zhy.android.percent.support.PercentRelativeLayout>-->
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/mOverallPurchaseVipJDIv"
                     android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 
+import app.jietuqi.cn.R;
 import app.jietuqi.cn.RoleOfLibraryActivity;
 import app.jietuqi.cn.alipay.create.AlipayCreateTransferBillActivity;
 import app.jietuqi.cn.alipay.entity.AlipayCreateMyEntity;
@@ -99,6 +100,7 @@ import app.jietuqi.cn.wechat.entity.WechatChargeDetailEntity;
 import app.jietuqi.cn.wechat.entity.WechatCreateBillsEntity;
 import app.jietuqi.cn.wechat.entity.WechatWithdrawDepositEntity;
 import app.jietuqi.cn.wechat.preview.WechatPreviewChangeWithdrawDepositActivity;
+import app.jietuqi.cn.wechat.preview.WechatPreviewPaySuccessActivity;
 import app.jietuqi.cn.wechat.preview.WechatVoiceAndVideoPreviewActivity;
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotChangeActivity;
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotMyWalletActivity;
@@ -107,6 +109,7 @@ import app.jietuqi.cn.wechat.screenshot.WechatScreenShotReceiveRedPacketActivity
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotSendRedPacketActivity;
 import app.jietuqi.cn.wechat.screenshot.WechatScreenShotTransferDetailActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatEditOtherActivity;
+import app.jietuqi.cn.wechat.simulator.ui.activity.WechatNewFriendsEditActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorGroupRedPacketActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorPreviewActivity;
 import app.jietuqi.cn.wechat.simulator.ui.activity.WechatSimulatorPreviewGroupActivity;
@@ -167,12 +170,42 @@ public class LaunchUtil {
     }
     /**
      * 微信模拟器跳转到预览红包的页面(收红包)
-     * @param sender 发送人
      */
-    public static void startWechatSimulatorReceiveRedPacketActivity(Context context, WechatUserEntity sender){
+    public static void startWechatSimulatorReceiveRedPacketActivity(Context context, WechatUserEntity otherSideEntity, WechatScreenShotEntity entity, boolean isSimulator){
+        WechatUserEntity senderEntity = new WechatUserEntity();
+        senderEntity.money = entity.money;
+        senderEntity.wechatUserId = entity.wechatUserId;
+        senderEntity.wechatUserNickName = otherSideEntity.wechatUserNickName;
+        senderEntity.avatarFile = otherSideEntity.avatarFile;
+        senderEntity.wechatUserAvatar = otherSideEntity.wechatUserAvatar;
+        senderEntity.resourceName = otherSideEntity.resourceName;
+        senderEntity.avatarInt = otherSideEntity.avatarInt;
+        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs();
+
         Intent intent = new Intent(context, WechatSimulatorReceiveRedPacketActivity.class);
-        intent.putExtra(IntentKey.ENTITY_SENDER, sender);
+        intent.putExtra(IntentKey.ENTITY_SENDER, senderEntity);
+        intent.putExtra(IntentKey.IS_SIMULATOR, isSimulator);
         context.startActivity(intent);
+    }
+    /**
+     * 带有动画的微信模拟器跳转到预览红包的页面(收红包)
+     */
+    public static void startWechatSimulatorReceiveRedPacketActivityWithAnim(Activity context, WechatUserEntity otherSideEntity, WechatScreenShotEntity entity, boolean isSimulator){
+        WechatUserEntity senderEntity = new WechatUserEntity();
+        senderEntity.money = entity.money;
+        senderEntity.wechatUserId = entity.wechatUserId;
+        senderEntity.wechatUserNickName = otherSideEntity.wechatUserNickName;
+        senderEntity.avatarFile = otherSideEntity.avatarFile;
+        senderEntity.wechatUserAvatar = otherSideEntity.wechatUserAvatar;
+        senderEntity.resourceName = otherSideEntity.resourceName;
+        senderEntity.avatarInt = otherSideEntity.avatarInt;
+        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs();
+
+        Intent intent = new Intent(context, WechatSimulatorReceiveRedPacketActivity.class);
+        intent.putExtra(IntentKey.ENTITY_SENDER, senderEntity);
+        intent.putExtra(IntentKey.IS_SIMULATOR, isSimulator);
+        context.startActivity(intent);
+        context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
     /**
      * 跳转到预览红包的页面(发红包)
@@ -187,13 +220,31 @@ public class LaunchUtil {
     }
     /**
      * 微信模拟器跳转到预览红包的页面(发红包)
-     * @param sender 发送人
-     * @param receiver 领取人
      */
-    public static void startWechatSimulatorSendRedPacketActivity(Context context, WechatUserEntity sender, WechatUserEntity receiver){
+    public static void startWechatSimulatorSendRedPacketActivity(Context context, WechatScreenShotEntity entity, WechatUserEntity otherSideEntity, WechatUserEntity mySideEntity, boolean isSimulator){
+        WechatUserEntity senderEntity = new WechatUserEntity();//发送人
+        WechatUserEntity receiveEntity = new WechatUserEntity();//接收人
+        senderEntity.money = entity.money;
+        senderEntity.wechatUserId = entity.wechatUserId;
+        senderEntity.wechatUserNickName = mySideEntity.wechatUserNickName;
+        senderEntity.avatarFile = mySideEntity.avatarFile;
+        senderEntity.wechatUserAvatar = mySideEntity.wechatUserAvatar;
+        senderEntity.avatarInt = mySideEntity.avatarInt;
+        senderEntity.resourceName = mySideEntity.resourceName;
+        senderEntity.lastTime = TimeUtil.getCurrentTimeEndMs();
+        receiveEntity.money = entity.money;
+        receiveEntity.wechatUserId = entity.wechatUserId;
+        receiveEntity.wechatUserNickName = otherSideEntity.wechatUserNickName;
+        receiveEntity.avatarFile = otherSideEntity.avatarFile;
+        receiveEntity.wechatUserAvatar = otherSideEntity.wechatUserAvatar;
+        receiveEntity.avatarInt = otherSideEntity.avatarInt;
+        receiveEntity.resourceName = otherSideEntity.resourceName;
+        receiveEntity.lastTime = TimeUtil.getCurrentTimeEndMs();
+
         Intent intent = new Intent(context, WechatSimulatorSendRedPacketActivity.class);
-        intent.putExtra(IntentKey.ENTITY_SENDER, sender);
-        intent.putExtra(IntentKey.ENTITY_RECEIVER, receiver);
+        intent.putExtra(IntentKey.ENTITY_SENDER, senderEntity);
+        intent.putExtra(IntentKey.ENTITY_RECEIVER, receiveEntity);
+        intent.putExtra(IntentKey.IS_SIMULATOR, isSimulator);
         context.startActivity(intent);
     }
     /**
@@ -1219,5 +1270,24 @@ public class LaunchUtil {
         Intent intent = new Intent(context, OverallAgencyIncomeAndExpensesActivity.class);
         intent.putExtra(IntentKey.TYPE, type);
         context.startActivity(intent);
+    }
+    /**
+     * 向个人转账页面
+     * type 0 -- 添加
+     * type 1 -- 修改
+     */
+    public static void startWechatPreviewPaySuccessActivity(Context context, WechatUserEntity entity){
+        Intent intent = new Intent(context, WechatPreviewPaySuccessActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        context.startActivity(intent);
+    }
+    /**
+     * 修改添加好友信息的页面
+     */
+    public static void startWechatNewFriendsEditActivity(Activity context, WechatUserEntity entity, int position){
+        Intent intent = new Intent(context, WechatNewFriendsEditActivity.class);
+        intent.putExtra(IntentKey.ENTITY, entity);
+        intent.putExtra(IntentKey.POSITION, position);
+        context.startActivityForResult(intent, RequestCode.CHANGE_ROLE);
     }
 }

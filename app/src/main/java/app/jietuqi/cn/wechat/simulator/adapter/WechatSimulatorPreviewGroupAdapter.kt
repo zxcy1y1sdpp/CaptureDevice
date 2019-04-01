@@ -66,7 +66,6 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
      */
     private var mShowChatBg: Boolean = false
     var mOtherEntity: WechatUserEntity = WechatUserEntity()
-    var mRedPacketEntity: WechatScreenShotEntity? = null
     fun changeRole(isComMsg: Boolean){
         mIsComMsg =  isComMsg
     }
@@ -268,6 +267,12 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         private val otherAvatar: ImageView = itemView.findViewById(R.id.wechatOtherAvatar)
         private val imageFile: RoundedImageView = itemView.findViewById(R.id.wechatOtherIv)
         private val nickName: TextView = itemView.findViewById(R.id.sWechatNickNameTv)
+        init {
+            otherAvatar.setOnClickListener{
+                val entity = mList[adapterPosition]
+                mListener.changeUserInfo(entity)
+            }
+        }
         fun bind(entity: WechatScreenShotEntity){
             if (mShowNickName){
                 nickName.text = entity.wechatUserNickName
@@ -314,13 +319,17 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         private val statusTv: TextView = itemView.findViewById(R.id.wechatRedPackageStatusTv)//红包状态
         private val nickName: TextView = itemView.findViewById(R.id.sWechatNickNameTv)
         init {
+            otherAvatar.setOnClickListener{
+                val entity = mList[adapterPosition]
+                mListener.changeUserInfo(entity)
+            }
             bubbleLayout.setOnClickListener{
                 mListener.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 if (entity.receive){//如果被领取了，就是查看详情
-                    LaunchUtil.startWechatSimulatorGroupRedPacketActivity(itemView.context, entity)
+                    mListener.checkRedpacketDetails(entity, adapterPosition)
                 }else{//“对方操作“对方”未被领取的红包”
-                    entity.receive = true
+//                    entity.receive = true
                     mListener.meTakeOtherRedPacket(entity, adapterPosition)
                 }
             }
@@ -362,9 +371,9 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
                 mListener?.closeBottomMenu()
                 val entity = mList[adapterPosition]
                 if (entity.receive) {//如果被领取了，就是查看详情
-                    LaunchUtil.startWechatSimulatorGroupRedPacketActivity(itemView.context, entity)
+                    mListener.checkRedpacketDetails(entity, adapterPosition)
+//                    LaunchUtil.startWechatSimulatorGroupRedPacketActivity(itemView.context, entity)
                 }else{
-                    entity.receive = true
                     mListener.otherTakeMyRedPacket(entity, adapterPosition)
                 }
             }
@@ -396,8 +405,6 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
                 contentTv.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
                 lastTv.setTextColor(ContextCompat.getColor(itemView.context, R.color.wechatLightGray))
             }
-
-
             if (entity.groupRedPacketInfo.wechatUserId == mMyEntity.wechatUserId){//自己发送的红包
                 if (entity.wechatUserId == mMyEntity.wechatUserId){//自己领取自己发送的红包
                     contentTv.text = "你领取了自己发的"
@@ -426,6 +433,12 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         private val transferTv: TextView = itemView.findViewById(R.id.mWechatOtherVoiceTransferToTextTv)//转换文字
         private val transferToTextLayout: PercentRelativeLayout = itemView.findViewById(R.id.mWechatOtherVoiceTransferToTextLayout)//转文字
         private val nickName: TextView = itemView.findViewById(R.id.sWechatNickNameTv)
+        init {
+            otherAvatar.setOnClickListener{
+                val entity = mList[adapterPosition]
+                mListener.changeUserInfo(entity)
+            }
+        }
         fun bind(entity: WechatScreenShotEntity){
             if (mShowNickName){
                 nickName.text = entity.wechatUserNickName
@@ -493,13 +506,18 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
     }
 
     inner class OtherFileHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val avatarIv: ImageView = itemView.findViewById(R.id.sFileOtherAvatarTv)
+        private val otherAvatar: ImageView = itemView.findViewById(R.id.sFileOtherAvatarTv)
         private val fileIconIv: ImageView = itemView.findViewById(R.id.sFileIconIv)
         private val title: TextView = itemView.findViewById(R.id.sFileTitleTv)
         private val size: TextView = itemView.findViewById(R.id.sFileContentTv)
-
+        init {
+            otherAvatar.setOnClickListener{
+                val entity = mList[adapterPosition]
+                mListener.changeUserInfo(entity)
+            }
+        }
         fun bind(entity: FileEntity){
-            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), avatarIv)
+            GlideUtil.displayHead(itemView.context, mOtherEntity.getAvatarFile(), otherAvatar)
             GlideUtil.displayHead(itemView.context, ResourceHelper.getAppIconId(entity.icon), fileIconIv)
             title.text = StringUtils.insertBack(entity.title, entity.suffix)
             size.text = StringUtils.insertBack(entity.size, entity.unit)
@@ -522,6 +540,7 @@ class WechatSimulatorPreviewGroupAdapter(val mList: MutableList<WechatScreenShot
         fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int)//对方领取我的红包
         fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
         fun myTransferWasReceive(entity: WechatScreenShotEntity, position: Int)//我领取对方的红包
+        fun checkRedpacketDetails(entity: WechatScreenShotEntity, position: Int)//查看红包的领取详情
         fun closeBottomMenu()//关闭底部菜单
         fun changeUserInfo(entity: WechatScreenShotEntity)
     }

@@ -102,4 +102,9 @@ class WechatChangeWithdrawDepositActivity : BaseWechatActivity(), ChoiceBankDial
         EventBusUtil.unRegister(this)
         super.onDestroy()
     }
+
+    override fun onResume() {
+        super.onResume()
+        needVip()
+    }
 }

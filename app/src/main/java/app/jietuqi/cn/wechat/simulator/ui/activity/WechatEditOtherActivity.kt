@@ -120,6 +120,7 @@ class WechatEditOtherActivity : BaseOverallActivity(), ChoiceWechatBackgroundDia
                 mOtherSideEntity.pinyinNickName = OtherUtil.transformPinYin(mOtherSideEntity.wechatUserNickName)
                 RoleLibraryHelper(this).update(this, mOtherSideEntity)
                 EventBusUtil.post(mOtherSideEntity)
+                EventBusUtil.post("聊天页面改变用户信息")
                 finish()
             }
         }

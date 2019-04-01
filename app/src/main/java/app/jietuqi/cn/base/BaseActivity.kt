@@ -92,7 +92,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     /**
      * 最大选择的图片个数
      */
-    private var mMaxCount = 1
+    var mMaxCount = 1
     /**
      * 最后裁剪得到的图片的File
      */
@@ -114,7 +114,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
     /**
      * 是否需要裁剪图片的功能
      */
-    private var mNeedCrop = false
+    var mNeedCrop = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setNavigationBarBg()
@@ -133,8 +133,6 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
         setWithSavedInstanceState(savedInstanceState)
         initViewsListener()
         getAttribute(intent)
-        //        onLoad();
-        //        onLoadWithResume();
     }
 
     /**
@@ -809,9 +807,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener, OnOptio
                 .imageEngine(MyGlideEngine())
                 .forResult(RequestCode.IMAGE_SELECT)
     }
-    /**
-     * 准备裁剪
-     */
+
     private fun startCrop(uri: Uri) {
         //裁剪后保存到文件中
         val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")

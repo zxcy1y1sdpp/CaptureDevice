@@ -29,6 +29,7 @@ import com.ms.banner.Banner
 import com.ms.banner.BannerConfig
 import com.ms.banner.Transformer
 import com.sackcentury.shinebuttonlib.ShineButton
+import java.util.*
 
 /**
  * 作者： liuyuanbo on 2018/10/24 15:46.
@@ -37,7 +38,7 @@ import com.sackcentury.shinebuttonlib.ShineButton
  * 用途：
  */
 
-class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: ArrayList<BannerEntity>, val mLikeListener: LikeListener/*, val mStatusListener: StatusBarListener*/) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: ArrayList<BannerEntity>, val mLikeListener: LikeListener, val mListener: HomeFunAdapter.ChoiceVideoListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE1 = 0
     private val TYPE2 = 1
     private val MAX_LINE_COUNT = 3//最大显示行数
@@ -146,7 +147,7 @@ class HomeAdapter(val mList: ArrayList<OverallDynamicEntity>, val mBannerList: A
         init {
             indicatorImages.clear()
             initIndicator()
-            funRecyclerView.adapter = HomeFunAdapter()
+            funRecyclerView.adapter = HomeFunAdapter(mListener)
             banner.setOnBannerClickListener {
                 var url = mBannerList[it].hrefurl
                 if (!TextUtils.isEmpty(url)){

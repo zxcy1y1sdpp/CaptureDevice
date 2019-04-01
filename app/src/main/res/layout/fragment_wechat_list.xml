@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_heightPercent="13.5%w"
-        android:background="#EDEDED">
+        android:background="@color/wechatSimulatorBg">
         <TextView
             android:id="@+id/mWechatSimulatorPreviewNickNameTv"
             android:layout_width="wrap_content"

@@ -151,6 +151,7 @@ public class SingleTalkEntity implements Serializable {
      * 3 -- 更新模拟器聊天列表
      */
     public int tag;
+    public String tagStr;
 
     public Object getAvatar(){
         if (!TextUtils.isEmpty(avatarStr)){

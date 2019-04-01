@@ -1,6 +1,7 @@
 package app.jietuqi.cn.wechat.simulator.ui.activity
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -15,12 +16,14 @@ import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import app.jietuqi.cn.R
+import app.jietuqi.cn.animation.FrameAnimation
 import app.jietuqi.cn.base.BaseWechatActivity
 import app.jietuqi.cn.callback.OnRecyclerItemClickListener
 import app.jietuqi.cn.constant.ColorFinal
@@ -105,7 +108,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
      * 准备编辑的消息的位置
      */
     private var mEditPosition = 0
-
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensor: Sensor
@@ -203,6 +205,8 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         mWechatSimulatorPreviewSendTv.setOnClickListener(this)
         mWechatSimulatorPreviewMoreIv.setOnClickListener(this)
         mWechatSimulatorPreviewEmojiIv.setOnClickListener(this)
+        mOpenIv.setOnClickListener(this)
+        mCloseHongbaoIv.setOnClickListener(this)
         mWechatSimulatorPreviewContentEt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
@@ -469,6 +473,12 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     override fun onClick(v: View) {
         super.onClick(v)
         when(v.id){
+            R.id.mOpenIv ->{
+                startAnim()
+            }
+            R.id.mCloseHongbaoIv ->{
+                stopAnim()
+            }
             R.id.mWechatSimulatorPreviewCoverDontShowBtn ->{//不再提示
                 SharedPreferencesUtils.putData(SharedPreferenceKey.WECHAT_COVER, true)
                 mWechatSimulatorPreviewCoverLayout.visibility = View.GONE
@@ -690,6 +700,22 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
                     setRole(msgEntity)
                 }
             }
+            /*4 -> {
+                if (entity?.receive == false){
+                    entity?.receive?.let { msgEntity.receive = it }
+                    entity?.isComMsg?.let { msgEntity.isComMsg = it }
+                    entity?.isComMsg?.let { mComMsg = it }
+
+                    entity?.redPacketCount?.let { msgEntity.redPacketCount = it }
+                    msgEntity.msg = entity?.msg
+                    msgEntity.money = entity?.money
+                    msgEntity.needEventBus = false
+                    msgEntity.joinReceiveRedPacket = entity?.joinReceiveRedPacket
+                    msgEntity.redPacketSenderNickName = entity?.wechatUserNickName
+                    msgEntity.receiveCompleteTime = entity?.receiveCompleteTime
+                    setRole(msgEntity)
+                }
+            }*/
             7 -> {
                 entity?.voiceLength?.let { msgEntity.voiceLength = it }
                 entity?.voiceToText?.let { msgEntity.voiceToText = it }
@@ -772,7 +798,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         showToast("请授权 [ 微商营销宝 ] 的 [ 存储 ] 访问权限")
     }
     private fun saveLastMsg(){
-
         val lastEntity = mHelper.queryLastMsg()
         var listHelper = WechatSimulatorListHelper(this)
         if (null != lastEntity){
@@ -788,6 +813,8 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             userEntity.alreadyRead = lastEntity.alreadyRead
             userEntity.groupRedPacketInfo = lastEntity.groupRedPacketInfo
             userEntity.lastTime = mLastMsgTime
+            userEntity.wechatUserNickName = lastEntity.wechatUserNickName
+            userEntity.wechatUserId = lastEntity.wechatUserId
             listHelper.update(userEntity)
             EventBusUtil.post(userEntity)
         }
@@ -837,75 +864,262 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
     //我领取对方的红包
     override fun meTakeOtherRedPacket(entity: WechatScreenShotEntity, position: Int) {
-        //所有可能领红包的人
-        val allRolesList = mGroupRolesList
-        val redPacket = WechatGroupRedPacket()
-        var receiveRedPacketRoleList: ArrayList<WechatUserEntity>
-        //领红包的随机金额
-        var redPacketList: List<Int>
-        redPacketList = redPacket.splitRedPacket((entity.money.toFloat() * 100).toInt(), entity.redPacketCount)
-
-        if (entity.joinReceiveRedPacket){//“自己”参与领红包
-            receiveRedPacketRoleList = getSubStringByRandom(allRolesList, entity.redPacketCount - 1)
-            receiveRedPacketRoleList.add(mMySideEntity)
-            var receiveRoles: WechatUserEntity
-            for (i in receiveRedPacketRoleList.indices){
-                receiveRoles = receiveRedPacketRoleList[i]
-                receiveRoles.money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
-                receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
-                if (receiveRoles.wechatUserId == mMySideEntity.wechatUserId){//如果是自己
-                    var msgEntity = WechatScreenShotEntity()
-                    msgEntity.receive = true
-                    msgEntity.msgType = 4
-                    msgEntity.isComMsg = entity.isComMsg
-                    msgEntity.receiveTransferId = entity.id
-                    msgEntity.redPacketCount = entity.redPacketCount
-                    msgEntity.msg = entity.msg
-                    msgEntity.money = receiveRedPacketRoleList[i].money
-                    msgEntity.needEventBus = false
-                    msgEntity.redPacketSenderNickName = entity.redPacketSenderNickName
-
-
-                    msgEntity.avatarInt = receiveRoles.avatarInt
-                    msgEntity.resourceName = receiveRoles.resourceName
-                    msgEntity.avatarStr = receiveRoles.wechatUserAvatar
-                    msgEntity.wechatUserId = receiveRoles.wechatUserId
-                    msgEntity.wechatUserNickName = receiveRoles.wechatUserNickName
-                    msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-                    msgEntity.groupRedPacketInfo = entity
-                    mLastMsgTime = msgEntity.lastTime
-                    mHelper.save(msgEntity)
-                    mList.add(msgEntity)
-                    mAdapter.notifyDataSetChanged()
-                }
-            }
-        }else{//“自己”不参与领红包
-            receiveRedPacketRoleList = getSubStringByRandom(allRolesList, entity.redPacketCount)
-            var receiveRoles: WechatUserEntity
-            for (i in receiveRedPacketRoleList.indices){
-                receiveRoles = receiveRedPacketRoleList[i]
-                receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
-                receiveRoles.money = StringUtils.keep2Point(redPacketList[i] / 100)//分配红包金额 单位：分
-            }
-        }
-        for (i in receiveRedPacketRoleList.indices){
-            receiveRedPacketRoleList[i].isBestLuck = false
-        }
-        receiveRedPacketRoleList.sortByDescending { it.money.toFloat() }
-        receiveRedPacketRoleList[0].isBestLuck = true//排序过之后获取第一个就是手气最佳
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            mHelper.update(entity,false)
-            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
-            runOnUiThread{
-                mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
-            }
-        }
-        receiveRedPacketRoleList.shuffle()
-        entity.receiveRedPacketRoleList = receiveRedPacketRoleList
-        mHelper.update(entity, false)
-        mAdapter.notifyItemChanged(position)
+        mCheckLuckyTv.visibility = View.GONE
+        mMeTakeOtherRedPacket = true
+        showRedpacketLayout()
+        mRedpacketEntity = entity
+        mRedpacketPosition = position
+        GlideUtil.displayHead(this, entity.avatar, mRedpacketAvatarIv)
+        mRedpacketNickNameTv.text = StringUtils.insertBack(entity.wechatUserNickName, "的红包")
+        mRedpacketMsgTv.text = entity.msg
     }
 
+    //对方领取我的红包
+    override fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int) {
+        mCheckLuckyTv.visibility = View.VISIBLE
+        mMeTakeOtherRedPacket = false
+        showRedpacketLayout()
+        mRedpacketEntity = entity
+        mRedpacketPosition = position
+        GlideUtil.displayHead(this, entity.avatar, mRedpacketAvatarIv)
+        mRedpacketNickNameTv.text = StringUtils.insertBack(entity.wechatUserNickName, "的红包")
+        mRedpacketMsgTv.text = entity.msg
+    }
+    override fun checkRedpacketDetails(entity: WechatScreenShotEntity, position: Int) {
+        showLoadingDialog("正在加载...")
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(150L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            dismissLoadingDialog()
+            LaunchUtil.startWechatSimulatorGroupRedPacketActivity(this@WechatSimulatorPreviewGroupActivity, entity)
+        }
+
+    }
+    private var mFrameAnimation: FrameAnimation? = null
+    /**
+     * 带有动画的红包的位置
+     */
+    private var mRedpacketPosition = -1
+    private lateinit var mRedpacketEntity: WechatScreenShotEntity
+    /**
+     * 是别人领取我的红包还是我领取别人的红包
+     */
+    private var mMeTakeOtherRedPacket = false
+    private val mImgResIds = intArrayOf(R.drawable.wechat_hongbao_animation_1,
+            R.drawable.wechat_hongbao_animation_2,
+            R.drawable.wechat_hongbao_animation_3,
+            R.drawable.wechat_hongbao_animation_4,
+            R.drawable.wechat_hongbao_animation_5)
+    private fun startAnim() {
+        if (mFrameAnimation != null) {
+            //如果正在转动，则直接返回
+            return
+        }
+        mFrameAnimation = FrameAnimation(mAnimationIv, mImgResIds, 125, true)
+        mFrameAnimation?.setAnimationListener(object : FrameAnimation.AnimationListener {
+            override fun onAnimationStart() {
+                mOpenIv.visibility = View.GONE
+                mAnimationIv.visibility = View.VISIBLE
+
+            }
+
+            override fun onAnimationEnd() {
+                Log.e("Animation-", "end")
+            }
+
+            override fun onAnimationRepeat() {
+                Log.e("Animation-", "repeat")
+            }
+
+            override fun onAnimationPause() {
+                mAnimationIv.setBackgroundResource(R.drawable.wechat_hongbao_open)
+            }
+        })
+        mRedpacketEntity.receive = true
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(1600L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            runOnUiThread {
+                stopAnim()
+                //所有可能领红包的人
+                val allRolesList = mGroupRolesList
+                val redPacket = WechatGroupRedPacket()
+                var receiveRedPacketRoleList: ArrayList<WechatUserEntity>
+                //领红包的随机金额
+                var redPacketList: List<Int>
+                redPacketList = redPacket.splitRedPacket((mRedpacketEntity.money.toFloat() * 100).toInt(), mRedpacketEntity.redPacketCount)
+                if (mMeTakeOtherRedPacket){
+                    if (mRedpacketEntity.joinReceiveRedPacket){//“自己”参与领红包
+                        receiveRedPacketRoleList = getSubStringByRandom(allRolesList, mRedpacketEntity.redPacketCount - 1)
+                        receiveRedPacketRoleList.add(mMySideEntity)
+                        var receiveRoles: WechatUserEntity
+                        for (i in receiveRedPacketRoleList.indices){
+                            receiveRoles = receiveRedPacketRoleList[i]
+                            receiveRoles.money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
+                            receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
+                            if (receiveRoles.wechatUserId == mMySideEntity.wechatUserId){//如果是自己
+                                var msgEntity = WechatScreenShotEntity()
+                                msgEntity.receive = true
+                                msgEntity.msgType = 4
+                                msgEntity.isComMsg = mRedpacketEntity.isComMsg
+                                msgEntity.receiveTransferId = mRedpacketEntity.id
+                                msgEntity.redPacketCount = mRedpacketEntity.redPacketCount
+                                msgEntity.msg = mRedpacketEntity.msg
+                                msgEntity.money = receiveRedPacketRoleList[i].money
+                                msgEntity.needEventBus = false
+                                msgEntity.redPacketSenderNickName = mRedpacketEntity.redPacketSenderNickName
+
+
+                                msgEntity.avatarInt = receiveRoles.avatarInt
+                                msgEntity.resourceName = receiveRoles.resourceName
+                                msgEntity.avatarStr = receiveRoles.wechatUserAvatar
+                                msgEntity.wechatUserId = receiveRoles.wechatUserId
+                                msgEntity.wechatUserNickName = receiveRoles.wechatUserNickName
+                                msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                                msgEntity.groupRedPacketInfo = mRedpacketEntity
+                                mLastMsgTime = msgEntity.lastTime
+                                mHelper.save(msgEntity)
+                                mList.add(msgEntity)
+                                mAdapter.notifyDataSetChanged()
+                            }
+                        }
+                    }else{//“自己”不参与领红包
+                        receiveRedPacketRoleList = getSubStringByRandom(allRolesList, mRedpacketEntity.redPacketCount)
+                        var receiveRoles: WechatUserEntity
+                        for (i in receiveRedPacketRoleList.indices){
+                            receiveRoles = receiveRedPacketRoleList[i]
+                            receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
+                            receiveRoles.money = StringUtils.keep2Point(redPacketList[i] / 100)//分配红包金额 单位：分
+                        }
+                    }
+                    for (i in receiveRedPacketRoleList.indices){
+                        receiveRedPacketRoleList[i].isBestLuck = false
+                    }
+                    receiveRedPacketRoleList.sortByDescending { it.money.toFloat() }
+                    receiveRedPacketRoleList[0].isBestLuck = true//排序过之后获取第一个就是手气最佳
+                    GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                        mHelper.update(mRedpacketEntity,false)
+                        delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                        runOnUiThread{
+                            mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
+                        }
+                    }
+                    receiveRedPacketRoleList.shuffle()
+                    mRedpacketEntity.receiveRedPacketRoleList = receiveRedPacketRoleList
+                    mHelper.update(mRedpacketEntity, false)
+                    mAdapter.notifyItemChanged(mRedpacketPosition)
+
+
+                }else{
+                    if (mRedpacketEntity.joinReceiveRedPacket){//“自己”参与领红包
+                        receiveRedPacketRoleList = getSubStringByRandom(allRolesList, mRedpacketEntity.redPacketCount - 1)
+                        receiveRedPacketRoleList.add(mMySideEntity)
+                        for (i in receiveRedPacketRoleList.indices){
+                            receiveRedPacketRoleList[i].money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
+                            receiveRedPacketRoleList[i].lastTime = TimeUtil.getCurrentTimeEndMs()
+                        }
+                    }else{//“自己”不参与领红包
+                        receiveRedPacketRoleList = getSubStringByRandom(allRolesList, mRedpacketEntity.redPacketCount)
+                        var receiveRoles: WechatUserEntity
+                        for (i in receiveRedPacketRoleList.indices){
+                            receiveRoles = receiveRedPacketRoleList[i]
+                            receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
+                            receiveRoles.money = StringUtils.keep2Point(redPacketList[i] / 100)//分配红包金额 单位：分
+                        }
+                    }
+                    for (i in receiveRedPacketRoleList.indices){
+                        receiveRedPacketRoleList[i].isBestLuck = false
+                    }
+                    receiveRedPacketRoleList.sortByDescending { it.money.toFloat() }
+                    receiveRedPacketRoleList[0].isBestLuck = true//排序过之后获取第一个就是手气最佳
+
+                    GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                        mHelper.update(mRedpacketEntity,false)
+                        delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                        runOnUiThread{
+                            mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
+                        }
+                    }
+                    receiveRedPacketRoleList.shuffle()
+
+                    mRedpacketEntity.receiveRedPacketRoleList = receiveRedPacketRoleList
+
+                    mHelper.update(mRedpacketEntity, false)
+                    mAdapter.notifyItemChanged(mRedpacketPosition)
+
+                    var receiveRoles: WechatUserEntity
+                    for (i in receiveRedPacketRoleList.indices){
+                        receiveRoles = receiveRedPacketRoleList[i]
+                        receiveRoles.money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
+                        receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        var msgEntity = WechatScreenShotEntity()
+                        msgEntity.receive = true
+                        msgEntity.msgType = 4
+                        msgEntity.isComMsg = mRedpacketEntity.isComMsg
+                        msgEntity.receiveTransferId = mRedpacketEntity.id
+                        msgEntity.redPacketCount = mRedpacketEntity.redPacketCount
+                        msgEntity.msg = mRedpacketEntity.msg
+                        msgEntity.money = receiveRedPacketRoleList[i].money
+                        msgEntity.needEventBus = false
+                        msgEntity.redPacketSenderNickName = mRedpacketEntity.redPacketSenderNickName
+
+                        msgEntity.avatarInt = receiveRoles.avatarInt
+                        msgEntity.resourceName = receiveRoles.resourceName
+                        msgEntity.avatarStr = receiveRoles.wechatUserAvatar
+                        msgEntity.wechatUserId = receiveRoles.wechatUserId
+                        msgEntity.wechatUserNickName = receiveRoles.wechatUserNickName
+                        msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
+                        msgEntity.groupRedPacketInfo = mRedpacketEntity
+                        mLastMsgTime = msgEntity.lastTime
+                        if (i == receiveRedPacketRoleList.size - 1){//最后一条领红包的记录
+                            if (receiveRoles.wechatUserId != mMySideEntity.wechatUserId) {//如果最后一个领红包的人不是我
+                                msgEntity.lastReceive = true
+//                                msgEntity.msg = StringUtils.insertBack(msgEntity.msg, "，你的红包已被领完")
+                            }
+                        }
+                        mHelper.save(msgEntity)
+                        mList.add(msgEntity)
+                        mAdapter.notifyDataSetChanged()
+                        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                            saveLastMsg()
+                        }
+                    }
+                }
+                val intent = Intent(this@WechatSimulatorPreviewGroupActivity, WechatSimulatorGroupRedPacketActivity::class.java)
+                intent.putExtra(IntentKey.ENTITY, mRedpacketEntity)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            }
+        }
+    }
+
+    private fun stopAnim() {
+        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR_DARK)
+        setNavigationBarBg(ColorFinal.NEW_WECHAT_TITLEBAR)
+        mFrameAnimation?.release()
+        mFrameAnimation = null
+        mHonebaoAnimationBgLayout.visibility = View.GONE
+    }
+    private fun showRedpacketLayout() {
+        mOpenIv.visibility = View.VISIBLE
+        mAnimationIv.visibility = View.GONE
+        setStatusBarColor(ColorFinal.NEW_WECHAT_TITLEBAR2)
+        setNavigationBarBg(ColorFinal.WHITE)
+        showLoadingDialog("正在加载...")
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(300L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            runOnUiThread {
+                dismissLoadingDialog()
+                mHonebaoAnimationBgLayout.visibility = View.VISIBLE
+            }
+        }
+        val animatorX = ObjectAnimator.ofFloat(mHonebaoAnimationLayout, "scaleX", 0.5f, 1.1F, 0.97F, 1.0F)
+        animatorX.duration = 500
+        animatorX.startDelay = 300
+        animatorX.start()
+        val animatorY = ObjectAnimator.ofFloat(mHonebaoAnimationLayout, "scaleY", 0.5f, 1.1F, 0.97F, 1.0F)
+        animatorY.duration = 500
+        animatorY.startDelay = 300
+        animatorY.start()
+    }
     /**
      * 随机抽取领红包的人
      */
@@ -915,10 +1129,10 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
         val backList = ArrayList<WechatUserEntity>()
         val random = Random()
         var backSum = 0
-        if (list2.size >= count) {
-            backSum = count
+        backSum = if (list2.size >= count) {
+            count
         } else {
-            backSum = list2.size
+            list2.size
         }
         for (i in 0 until backSum) {
             val target = random.nextInt(list2.size)
@@ -926,91 +1140,6 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
             list2.removeAt(target)
         }
         return backList
-    }
-    //对方领取我的红包
-    override fun otherTakeMyRedPacket(entity: WechatScreenShotEntity, position: Int) {
-        //所有可能领红包的人
-        val allRolesList = mGroupRolesList
-        val redPacket = WechatGroupRedPacket()
-        var receiveRedPacketRoleList: ArrayList<WechatUserEntity>
-        //领红包的随机金额
-        var redPacketList: List<Int>
-        redPacketList = redPacket.splitRedPacket((entity.money.toFloat() * 100).toInt(), entity.redPacketCount)
-
-        if (entity.joinReceiveRedPacket){//“自己”参与领红包
-            receiveRedPacketRoleList = getSubStringByRandom(allRolesList, entity.redPacketCount - 1)
-            receiveRedPacketRoleList.add(mMySideEntity)
-            for (i in receiveRedPacketRoleList.indices){
-                receiveRedPacketRoleList[i].money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
-                receiveRedPacketRoleList[i].lastTime = TimeUtil.getCurrentTimeEndMs()
-            }
-        }else{//“自己”不参与领红包
-            receiveRedPacketRoleList = getSubStringByRandom(allRolesList, entity.redPacketCount)
-            var receiveRoles: WechatUserEntity
-            for (i in receiveRedPacketRoleList.indices){
-                receiveRoles = receiveRedPacketRoleList[i]
-                receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
-//                receiveRoles.money = redPacketList[i].toString()//分配红包金额 单位：分
-                receiveRoles.money = StringUtils.keep2Point(redPacketList[i] / 100)//分配红包金额 单位：分
-            }
-        }
-        for (i in receiveRedPacketRoleList.indices){
-            receiveRedPacketRoleList[i].isBestLuck = false
-        }
-        receiveRedPacketRoleList.sortByDescending { it.money.toFloat() }
-        receiveRedPacketRoleList[0].isBestLuck = true//排序过之后获取第一个就是手气最佳
-
-        GlobalScope.launch { // 在一个公共线程池中创建一个协程
-            mHelper.update(entity,false)
-            delay(100L) // 非阻塞的延迟一秒（默认单位是毫秒）
-            runOnUiThread{
-                mWechatSimulatorPreviewRecyclerView.scrollToPosition(mAdapter.itemCount - 1)
-            }
-        }
-        receiveRedPacketRoleList.shuffle()
-
-        entity.receiveRedPacketRoleList = receiveRedPacketRoleList
-
-        mHelper.update(entity, false)
-        mAdapter.notifyItemChanged(position)
-
-        var receiveRoles: WechatUserEntity
-        for (i in receiveRedPacketRoleList.indices){
-            receiveRoles = receiveRedPacketRoleList[i]
-            receiveRoles.money = StringUtils.keep2Point(redPacketList[i].toFloat() / 100)//分配红包金额 单位：分
-            receiveRoles.lastTime = TimeUtil.getCurrentTimeEndMs()
-//                if (receiveRoles.wechatUserId == mMySideEntity.wechatUserId){//如果是自己
-            var msgEntity = WechatScreenShotEntity()
-            msgEntity.receive = true
-            msgEntity.msgType = 4
-            msgEntity.isComMsg = entity.isComMsg
-            msgEntity.receiveTransferId = entity.id
-            msgEntity.redPacketCount = entity.redPacketCount
-            msgEntity.msg = entity.msg
-            msgEntity.money = receiveRedPacketRoleList[i].money
-            msgEntity.needEventBus = false
-            msgEntity.redPacketSenderNickName = entity.redPacketSenderNickName
-
-            msgEntity.avatarInt = receiveRoles.avatarInt
-            msgEntity.resourceName = receiveRoles.resourceName
-            msgEntity.avatarStr = receiveRoles.wechatUserAvatar
-            msgEntity.wechatUserId = receiveRoles.wechatUserId
-            msgEntity.wechatUserNickName = receiveRoles.wechatUserNickName
-            msgEntity.lastTime = TimeUtil.getCurrentTimeEndMs()
-            msgEntity.groupRedPacketInfo = entity
-            mLastMsgTime = msgEntity.lastTime
-            if (i == receiveRedPacketRoleList.size - 1){
-                if (receiveRoles.wechatUserId != mMySideEntity.wechatUserId) {//如果是自己
-                    msgEntity.lastReceive = true
-                }
-            }
-            mHelper.save(msgEntity)
-            mList.add(msgEntity)
-            mAdapter.notifyDataSetChanged()
-            GlobalScope.launch { // 在一个公共线程池中创建一个协程
-                saveLastMsg()
-            }
-        }
     }
     override fun myTransferWasReceive(entity: WechatScreenShotEntity, position: Int) {
         mHelper.update(entity, true)
@@ -1137,7 +1266,13 @@ class WechatSimulatorPreviewGroupActivity : BaseWechatActivity(),  WechatSimulat
     }
 
     override fun finish() {
-        saveLastMsg()
+        if (mHonebaoAnimationBgLayout.visibility == View.VISIBLE){
+            mHonebaoAnimationBgLayout.visibility = View.GONE
+            return
+        }else{
+            saveLastMsg()
+        }
+//        saveLastMsg()
         super.finish()
     }
 }

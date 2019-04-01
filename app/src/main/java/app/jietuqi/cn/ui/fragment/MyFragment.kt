@@ -49,6 +49,7 @@ class MyFragment : BaseFragment(), RefreshListener {
         }else{
             mUserEntity = OverallUserInfoEntity()
             mMyRefreshLayout.finishRefresh(true)
+            mNotLoginTv.visibility = View.VISIBLE
         }
     }
     override fun initViewsListener() {
@@ -162,6 +163,7 @@ class MyFragment : BaseFragment(), RefreshListener {
                 }
 
                 override fun onSuccess(t: OverallUserInfoEntity) {
+                    mNotLoginTv.visibility = View.GONE
                     mMyRefreshLayout.finishRefresh(true)
                     mUserEntity = t
                     SharedPreferencesUtils.saveBean2Sp(t, SharedPreferenceKey.USER_INFO)

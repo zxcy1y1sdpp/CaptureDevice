@@ -54,6 +54,9 @@ class WechatSimulatorSendRedPacketActivity : BaseCreateActivity() {
 
     override fun onResume() {
         super.onResume()
-        needVipForCover()
+        val isSimulator = intent.getBooleanExtra(IntentKey.IS_SIMULATOR, false)
+        if (isSimulator){
+            needVipForCover()
+        }
     }
 }

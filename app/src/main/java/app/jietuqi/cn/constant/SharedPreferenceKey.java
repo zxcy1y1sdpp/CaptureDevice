@@ -125,5 +125,14 @@ public class SharedPreferenceKey {
     public final static String SHOW_LQT = "showLqt";
     public final static String WECHAT_SHOW_LQT = "wechatShowLqt";
     public final static String WECHAT_SHOW_LQT_PERCENT = "wechatShowLqtPercent";
+    /**
+     * 是否在模拟器里面
+     */
+    public final static String IS_IN_SIMULATOR = "isInSimulator";
+    public final static String WECHAT_NEW_FRIENDS_LIST = "wechatNewFriendsList";
+
+    public final static String SHOW_TOP_RP = "showTopRp";
+    public final static String SHOW_BOTTOM_RP = "showBottomRp";
+
 
 }

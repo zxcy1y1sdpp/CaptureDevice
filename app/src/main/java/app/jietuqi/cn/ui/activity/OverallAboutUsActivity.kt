@@ -1,6 +1,7 @@
 package app.jietuqi.cn.ui.activity
 
 import app.jietuqi.cn.R
+import app.jietuqi.cn.R.id.mVersionTv
 import app.jietuqi.cn.base.BaseOverallActivity
 import app.jietuqi.cn.util.AppUtils
 import app.jietuqi.cn.util.StringUtils

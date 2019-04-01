@@ -75,7 +75,8 @@ class WechatSimulatorCreateVideoActivity : BaseWechatSimulatorCreateActivity(), 
             R.id.mWechatCreateStatusLayout ->{
                 var dialog = ChangeWechatTransferDialog()
                 dialog.setOnItemSelectListener(this)
-                dialog.setType(1)
+                dialog.setTitle("已接通", "已取消", "已拒绝")
+//                dialog.setType(1)
                 dialog.show(supportFragmentManager, "Dialog")
             }
             R.id.overallAllRightWithBgTv ->{

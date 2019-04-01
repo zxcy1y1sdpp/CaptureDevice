@@ -60,8 +60,8 @@
 
     <style name="ChangeRoleDialog" parent="@android:style/Theme.Dialog">
         <item name="android:backgroundDimEnabled">true</item><!--activity不变暗-->
+        <!--<item name="android:windowEnterAnimation">@anim/pickerview_dialog_scale_in</item>-->
         <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
-        <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
         <item name="android:windowFullscreen">true</item>
     </style>
     <!--左侧的标题-->
@@ -344,4 +344,14 @@
         <item name="android:layout_width">1dp</item>
         <item name="android:background">#E5E5E5</item>
     </style>
+
+   <!-- <style name="test_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>-->
 </resources>

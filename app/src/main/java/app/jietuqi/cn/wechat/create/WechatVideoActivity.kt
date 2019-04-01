@@ -146,6 +146,11 @@ class WechatVideoActivity : BaseWechatActivity() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        needVip()
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectTimeEvent(timeEntity: EventBusTimeEntity) {
         mVideoTimeTv.text = timeEntity.timeOnlyMS

@@ -273,6 +273,9 @@ class WechatScreenShotActivity : BaseCreateActivity(), ChoiceTalkTypeDialog.Choi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNeedChangeOrAddData(entity: WechatScreenShotEntity) {
+        if ("收钱" == entity.tagStr){
+            return
+        }
         when {
             entity.tag == 0 -> {
                 mList.add(entity)

@@ -37,17 +37,6 @@
                     percent:riv_corner_radius="5dp"
                     android:scaleType="centerCrop"
                     android:layout_centerVertical="true"/>
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/mOverallPersonalCardPicIv"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--percent:layout_heightPercent="13.73%w"-->
-                    <!--percent:layout_widthPercent="13.73%w"-->
-                    <!--percent:layout_marginRightPercent="3.88%w"-->
-                    <!--percent:layout_marginLeftPercent="3.2%w"-->
-                    <!--android:src="@mipmap/icon0"-->
-                    <!--android:layout_centerVertical="true"/>-->
                 <TextView
                     android:id="@+id/mOverallPersonalCardTitleTv"
                     android:layout_width="wrap_content"

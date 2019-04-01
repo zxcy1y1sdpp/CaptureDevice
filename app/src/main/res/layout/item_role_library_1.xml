@@ -4,53 +4,121 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/wechatSimulatorBg">
     <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.zhy.android.percent.support.PercentRelativeLayout
-            android:id="@+id/sWechatNewFriendsLayout"
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_heightPercent="15.48%w"
-            android:layout_below="@+id/lineView1"
-            android:background="@drawable/layout_water_selector"
-            android:clickable="true"
-            android:focusable="true">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/sRoleLibraryAvatarIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_heightPercent="10.97%w"
-                app:layout_widthPercent="10.97%w"
-                app:layout_marginLeftPercent="4.09%w"
-                android:src="@drawable/wechat_new_friend"
-                android:scaleType="centerCrop"
-                app:riv_corner_radius="5dp"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/sRoleLibraryNickNameTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="新的朋友"
-                android:textColor="@color/black"
-                android:textSize="@dimen/overall28px"
-                app:layout_marginLeftPercent="4.95%w"
-                android:includeFontPadding="false"
-                android:layout_toRightOf="@+id/sRoleLibraryAvatarIv"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/lineView2"
+            android:orientation="vertical">
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:id="@+id/sWechatNewFriendsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/wechatLine"
-                android:layout_alignLeft="@+id/sRoleLibraryNickNameTv"
-                android:layout_alignParentBottom="true"/>
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="15.48%w"
+                android:layout_below="@+id/lineView1"
+                android:background="@drawable/layout_water_selector"
+                android:clickable="true"
+                android:focusable="true">
 
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/sRoleLibraryAvatarIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_heightPercent="10.97%w"
+                    app:layout_widthPercent="10.97%w"
+                    app:layout_marginLeftPercent="4.09%w"
+                    android:src="@drawable/wechat_new_friend"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="5dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/sRoleLibraryNickNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新的朋友"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/overall28px"
+                    app:layout_marginLeftPercent="4.95%w"
+                    android:includeFontPadding="false"
+                    android:layout_toRightOf="@+id/sRoleLibraryAvatarIv"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/lineView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/wechatLine"
+                    android:layout_alignLeft="@+id/sRoleLibraryNickNameTv"
+                    android:layout_alignParentBottom="true"/>
+
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:id="@+id/sAddNewFriendsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_heightPercent="6.5%w"
+                    android:background="@color/wechatSimulatorBg"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="朋友推荐"
+                        android:textColor="@color/gray2"
+                        app:layout_marginLeftPercent="4.09%w"/>
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+                <com.zhy.android.percent.support.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_heightPercent="15.48%w"
+                    android:background="@color/white">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/sNewFriendsRv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        android:layout_alignParentLeft="true"
+                        app:layout_marginLeftPercent="4.09%w"/>
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/sUnAddCountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:minHeight="22dp"
+                        android:minWidth="22dp"
+                        android:layout_toRightOf="@+id/mQQScreenShotPreviewBackIv"
+                        app:layout_marginRightPercent="9.55%w"
+                        android:textColor="@color/white"
+                        app:stv_corner="100dp"
+                        app:stv_solid="#fa3b41"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:textSize="12sp"
+                        android:text="10"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/wechatLine"
+                        android:layout_alignLeft="@+id/tagView9"
+                        android:layout_alignParentBottom="true"/>
+                </com.zhy.android.percent.support.PercentRelativeLayout>
+            </com.zhy.android.percent.support.PercentLinearLayout>
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentRelativeLayout
@@ -58,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_heightPercent="15.48%w"
-            android:layout_below="@+id/sWechatNewFriendsLayout"
+            android:layout_below="@+id/layout1"
             android:background="@drawable/layout_water_selector"
             android:clickable="true"
             android:focusable="true">
@@ -182,5 +250,7 @@
                 android:layout_alignParentBottom="true"/>
 
         </com.zhy.android.percent.support.PercentRelativeLayout>
+
     </com.zhy.android.percent.support.PercentRelativeLayout>
+
 </com.zhy.android.percent.support.PercentLinearLayout>

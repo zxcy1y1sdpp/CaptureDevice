@@ -552,4 +552,33 @@ public class UserOperateUtil {
         String channelName = SharedPreferencesUtils.getData(SharedPreferenceKey.WECHAT_SHOW_LQT_PERCENT, "").toString();
         return channelName;
     }
+    /**
+     * 是不是在模拟器里面
+     * @return
+     */
+    public static boolean isInSimulator(){
+        return (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.IS_IN_SIMULATOR, false);
+    }
+
+    public static ArrayList<WechatUserEntity> getWechatNewFriendsList(){
+        ArrayList<WechatUserEntity> list = (ArrayList<WechatUserEntity>) SharedPreferencesUtils.getListData(SharedPreferenceKey.WECHAT_NEW_FRIENDS_LIST, WechatUserEntity.class);
+        return list;
+    }
+
+    /**
+     * 获取用户是否展示微信模拟器中的零钱通
+     * @return
+     */
+    public static boolean showNewFriendsBottomRp(){
+        boolean show = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.SHOW_BOTTOM_RP, false);
+        return show;
+    }
+    /**
+     * 获取用户是否展示微信模拟器中的零钱通
+     * @return
+     */
+    public static boolean showNewFriendsTopRp(){
+        boolean showLqt = (boolean) SharedPreferencesUtils.getData(SharedPreferenceKey.SHOW_TOP_RP, false);
+        return showLqt;
+    }
 }

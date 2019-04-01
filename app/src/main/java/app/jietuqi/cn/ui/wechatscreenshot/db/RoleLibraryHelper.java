@@ -128,7 +128,6 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
                         db.execSQL(sq6);
                     }
                 }
-
             }
         }
         if (oldVersion < 6){
@@ -151,15 +150,20 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        String tableName;
-        for (int i = 0; i < tableNameList.size(); i++) {
-            tableName = tableNameList.get(i);
-            if (tableName.contains("wechatSimulator")){
-                //修改用户聊天的表
-                String sql = "Alter table " + tableName + " add column " + "fileEntity BLOB";
-                db.execSQL(sql);
-                String sql1 = "Alter table " + tableName + " add column " + "groupInfo BLOB";
-                db.execSQL(sql1);
+        if (oldVersion < 7){
+            String tableName;
+            for (int i = 0; i < tableNameList.size(); i++) {
+                tableName = tableNameList.get(i);
+                if (tableName.startsWith("wechat")){
+                    if (!"wechatSimulatorList".equals(tableName) || !"wechat_screen_shot_single".equals(tableName)){
+                        String sql = "Alter table " + tableName + " add column " + "lastReceive text";
+                        db.execSQL(sql);
+                        String sql1 = "Alter table " + tableName + " add column " + "fileEntity BLOB";
+                        db.execSQL(sql1);
+                        String sql2 = "Alter table " + tableName + " add column " + "groupInfo BLOB";
+                        db.execSQL(sql2);
+                    }
+                }
             }
         }
     }
@@ -188,13 +192,13 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         //开始添加第一条数据
-//        values.put("id", entity.userId);
         values.put("nickName", entity.wechatUserNickName);
         values.put("avatarStr", entity.wechatUserAvatar);
         values.put("avatarInt", entity.avatarInt);
         values.put("pinyinNickName", entity.pinyinNickName);
         values.put("resourceName", entity.resourceName);
         values.put("wxNumber", entity.wxNumber);
+//        values.put("id", allCaseNum(TABLE_NAME));
         long l = db.insert(TABLE_NAME,null,values);//插入第一条数据
         Log.e("insert 截图", l+"");
         return (int) l;
@@ -334,9 +338,9 @@ public class RoleLibraryHelper extends SQLiteOpenHelper {
      * @return
      */
     public int delete(WechatUserEntity entity){
-        int result = 0;
+        int result;
         SQLiteDatabase db = getWritableDatabase();
-        String[] where = new String[] {entity.wechatUserId};
+        String[] where = new String[] {String.valueOf(entity.id)};
         result = db.delete(TABLE_NAME,"id=?", where);
         return result;
     }

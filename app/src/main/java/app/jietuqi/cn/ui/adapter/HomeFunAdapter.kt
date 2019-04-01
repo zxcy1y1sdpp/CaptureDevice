@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
+import app.jietuqi.cn.lansong.ui.LansongActivity
 import app.jietuqi.cn.ui.activity.*
 import app.jietuqi.cn.ui.entity.HomeFunEntity
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatScreenShotActivity
@@ -21,7 +22,7 @@ import app.jietuqi.cn.util.UserOperateUtil
  * 邮箱： 972383753@qq.com
  * 用途：
  */
-class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
+class HomeFunAdapter(val mListener: ChoiceVideoListener) : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
     private var mFunList = arrayListOf<HomeFunEntity>()
     init {
         if (BuildConfig.DEBUG){
@@ -33,9 +34,12 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
             mFunList.add(HomeFunEntity("图片编辑", R.drawable.tpbj, false))
             mFunList.add(HomeFunEntity("快递查询", R.drawable.kdcx, false))
             mFunList.add(HomeFunEntity("自媒体服务", R.drawable.zmtfw, false))
+            mFunList.add(HomeFunEntity("视频编辑", R.drawable.spqsy, false))
         }else{
             if (UserOperateUtil.needColseByChannel()){
-                mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
+                if (!UserOperateUtil.isVivoChannel()){
+                    mFunList.add(HomeFunEntity("微商截图", R.drawable.wsjt, true))
+                }
                 if (!UserOperateUtil.isVivoChannel() && !UserOperateUtil.isBaiduChannel() && !UserOperateUtil.is360Channel() && !UserOperateUtil.isHuaweiChannel()){
                     mFunList.add(HomeFunEntity("加粉加群", R.drawable.jfjq, false))
                 }
@@ -117,7 +121,16 @@ class HomeFunAdapter : RecyclerView.Adapter<HomeFunAdapter.Holder>() {
                 "二维码" -> LaunchUtil.launch(itemView.context, OverallCreateQRCodeActivity::class.java)
                 "项目市场" -> LaunchUtil.launch(itemView.context, OverallProjectMarketActivity::class.java)
                 "自媒体服务" -> LaunchUtil.launch(itemView.context, OverallWeMediaActivity::class.java)
+                "视频编辑" -> {
+                    LaunchUtil.launch(itemView.context, LansongActivity::class.java)
+//                    mListener.choiceVideo()
+                }
             }
         }
     }
+
+    interface ChoiceVideoListener{
+       fun choiceVideo()
+    }
+
 }

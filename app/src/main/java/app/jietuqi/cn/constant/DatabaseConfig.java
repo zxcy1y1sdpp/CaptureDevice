@@ -11,7 +11,7 @@ public class DatabaseConfig {
     /**
      * 数据库版本 -- 应始终升级不应降级，避免创建数据库时版本冲突
      */
-    public static final int DATABASE_VERSION = 7;//上线，添加字段要改这个值
+    public static final int DATABASE_VERSION = 7;//上线，添加字段要改这个值，改了
     /**
      * 数据库的名称
      */

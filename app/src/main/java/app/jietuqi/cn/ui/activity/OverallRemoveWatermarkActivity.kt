@@ -141,7 +141,14 @@ class OverallRemoveWatermarkActivity : BaseOverallInternetActivity() {
                         mRemoveWaterMarkVideoPlayerLayout.visibility = View.VISIBLE
                         mRemoveWaterMarkVideoPlayer.setUp(removeWaterMarkEntity.video, "", Jzvd.SCREEN_WINDOW_NORMAL)
                         mRemoveWaterMarkCopyVideoPathBtn.tag = removeWaterMarkEntity.video
-                        GlideUtil.display(this@OverallRemoveWatermarkActivity, removeWaterMarkEntity.cover, mRemoveWaterMarkVideoPlayer.thumbImageView)
+                        try {
+                            if (!isDestroyed){
+                                GlideUtil.display(this@OverallRemoveWatermarkActivity, removeWaterMarkEntity.cover, mRemoveWaterMarkVideoPlayer.thumbImageView)
+                            }
+                        }catch (e: Exception){
+                            e.printStackTrace()
+                        }
+
                     }
                 }) {})
     }

@@ -1,2 +1,2 @@
-include ':app', ':rxeasyhttp', ':imageeditlibrary', ':rollbanner'
+include ':app', ':rxeasyhttp', ':imageeditlibrary', ':rollbanner', ':LanSongSDK'
 

@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import app.jietuqi.cn.R
+import app.jietuqi.cn.callback.OnRecyclerItemClickListener
 import app.jietuqi.cn.ui.entity.WechatUserEntity
 import app.jietuqi.cn.util.GlideUtil
 import app.jietuqi.cn.util.StringUtils
+import app.jietuqi.cn.util.UserOperateUtil
+import com.coorchice.library.SuperTextView
 import com.makeramen.roundedimageview.RoundedImageView
+import com.zhy.android.percent.support.PercentLinearLayout
 import com.zhy.android.percent.support.PercentRelativeLayout
 
 /**
@@ -18,9 +22,25 @@ import com.zhy.android.percent.support.PercentRelativeLayout
  * 邮箱： 972383753@qq.com
  * 用途：
  */
-class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>, val mListener: AlreadyShowListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE1 = 0
     private val TYPE2 = 1
+    private var mUnAddList = arrayListOf<WechatUserEntity>()
+    private var mUnAddCount = 0
+
+    fun setUnAddFriends(list: ArrayList<WechatUserEntity>){
+        mUnAddCount = 0
+        mUnAddList.clear()
+        mUnAddList.addAll(list)
+        var entity: WechatUserEntity
+        for (i in list.indices){
+            entity = list[i]
+            if (!entity.alreadyShow){
+                mUnAddCount++
+            }
+        }
+        notifyItemRangeChanged(0, 1)
+    }
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> TYPE1
@@ -49,16 +69,19 @@ class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>) : Re
 
     override fun getItemCount() = mList.size + 1
     inner class Holder1(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        private var newLayout: PercentLinearLayout = itemView.findViewById(R.id.sAddNewFriendsLayout)
+        private var newFriendsRv: RecyclerView = itemView.findViewById(R.id.sNewFriendsRv)
+        private var unAddCountTv: SuperTextView = itemView.findViewById(R.id.sUnAddCountTv)
+        private var adapter: WechaAddNewFriendsAdapter? = null
+
         override fun onClick(v: View?) {
             when(v?.id){
-                R.id.sWechatNewFriendsLayout ->{
+                R.id.sWechatNewFriendsLayout, R.id.sAddNewFriendsLayout ->{
+                    mListener.alreadyShow()
                 }
-                R.id.sWechatGroupLayout ->{
-                }
-                R.id.sWechatTagLayout ->{
-                }
-                R.id.sWechatThePublicLayout ->{
-                }
+                R.id.sWechatGroupLayout ->{ }
+                R.id.sWechatTagLayout ->{ }
+                R.id.sWechatThePublicLayout ->{ }
             }
         }
         init {
@@ -66,10 +89,34 @@ class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>) : Re
             itemView.findViewById<PercentRelativeLayout>(R.id.sWechatGroupLayout).setOnClickListener(this)
             itemView.findViewById<PercentRelativeLayout>(R.id.sWechatTagLayout).setOnClickListener(this)
             itemView.findViewById<PercentRelativeLayout>(R.id.sWechatThePublicLayout).setOnClickListener(this)
+            newLayout.setOnClickListener(this)
+            adapter = WechaAddNewFriendsAdapter(mUnAddList)
+            newFriendsRv.adapter = adapter
 
+            newFriendsRv.addOnItemTouchListener(object : OnRecyclerItemClickListener(newFriendsRv) {
+                override fun onItemClick(vh: RecyclerView.ViewHolder) {
+                    mListener.alreadyShow()
+                }
+                override fun onItemLongClick(vh: RecyclerView.ViewHolder) {}
+            })
         }
         fun bind() {
-
+            if (mUnAddList.size != 0){
+                newLayout.visibility = View.VISIBLE
+            }else{
+                newLayout.visibility = View.GONE
+            }
+            adapter?.notifyDataSetChanged()
+            if (UserOperateUtil.showNewFriendsTopRp()){
+                if (mUnAddCount <= 0){
+                    unAddCountTv.visibility = View.GONE
+                }else{
+                    unAddCountTv.visibility = View.VISIBLE
+                    unAddCountTv.text = mUnAddCount.toString()
+                }
+            }else{
+                unAddCountTv.visibility = View.GONE
+            }
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -115,5 +162,8 @@ class WechatSimulatorContactAdapter(val mList: ArrayList<WechatUserEntity>) : Re
                 noticeTv.visibility = View.GONE
             }
         }
+    }
+    interface AlreadyShowListener{
+        fun alreadyShow()
     }
 }

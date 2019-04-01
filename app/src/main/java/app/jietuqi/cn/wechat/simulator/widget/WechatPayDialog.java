@@ -29,7 +29,6 @@ public class WechatPayDialog extends Dialog {
     final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
             super.handleMessage(msg);
             if (msg.what == SIGN) {
                 loadingIv.setImageResource(images[num++]);
@@ -46,7 +45,6 @@ public class WechatPayDialog extends Dialog {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 Message msg = new Message();
                 msg.what = SIGN;
                 handler.sendMessage(msg);

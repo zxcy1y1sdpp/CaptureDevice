@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/tagView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wechat_pay_success"
+        app:layout_marginTopPercent="19.3%w"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="12.2%w"
+        app:layout_heightPercent="7.8%w"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:id="@+id/tagView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付成功"
+        app:layout_marginTopPercent="3.3%w"
+        android:textColor="#20BE64"
+        android:layout_below="@+id/tagView1"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"/>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tagView2"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_marginTopPercent="19.5%w">
+
+        <TextView
+            android:id="@+id/mNickNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待李凌轩确认收钱"
+            android:textSize="18sp"/>
+        <app.jietuqi.cn.wechat.wechatfont.WechatChar5TextView
+            android:id="@+id/mMoneyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥1.00"
+            android:textSize="45sp"
+            android:includeFontPadding="false"/>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <TextView
+        android:id="@+id/mFinishTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="完成"
+        android:textColor="#20BE64"
+        android:background="@drawable/green_solid"
+        app:layout_widthPercent="44.92%w"
+        app:layout_heightPercent="8.54%w"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        app:layout_marginBottomPercent="26.6%w"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

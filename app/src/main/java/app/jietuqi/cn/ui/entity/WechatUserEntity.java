@@ -44,12 +44,14 @@ public class WechatUserEntity implements Serializable {
 
     /**
      * 相册选择头像
-     * @param wechatUserAvatar
+     * @param resourceName
      * @param wechatUserNickName
      */
-    public WechatUserEntity(String wechatUserAvatar, String wechatUserNickName){
-        this.wechatUserAvatar = wechatUserAvatar;
+    public WechatUserEntity(String resourceName, String wechatUserNickName){
+        this.resourceName = resourceName;
         this.wechatUserNickName = wechatUserNickName;
+        this.pinyinNickName = OtherUtil.transformPinYin(wechatUserNickName);
+        this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
         this.msgType = "0";
         this.msg = "";
         this.lastTime = TimeUtil.getCurrentTimeEndMs();
@@ -293,8 +295,11 @@ public class WechatUserEntity implements Serializable {
      * 在选择群聊对象的时候会用到
      */
     public boolean isChecked;
-
-
+    /**
+     * 是否展示过了
+     * 在新朋友中用到
+     */
+    public boolean alreadyShow;
     /**
      * 资源对应的名称
      */
@@ -318,7 +323,6 @@ public class WechatUserEntity implements Serializable {
         this.wxNumber = wxNumber;
         this.firstChar = OtherUtil.getFirstLetter(pinyinNickName);
     }
-
     /**
      * eventbus中使用的tag
      */
@@ -337,5 +341,10 @@ public class WechatUserEntity implements Serializable {
             }
         }
         return false;
+    }
+    public void setNickName(String nickName){
+        this.pinyinNickName = OtherUtil.transformPinYin(nickName);
+        this.wechatUserNickName = nickName;
+        this.firstChar = OtherUtil.getFirstLetter(this.pinyinNickName);
     }
 }

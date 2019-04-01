@@ -19,5 +19,4 @@ public class GlobalVariable {
     public static Bitmap mGoupHeader;
 
     public static ArrayList<WechatScreenShotEntity> WECHAT_SCREEN_SHOT_LIST = new ArrayList<>();
-
 }

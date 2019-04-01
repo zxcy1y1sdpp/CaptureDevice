@@ -24,15 +24,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_marginTopPercent="3%w"
-                    app:layout_marginLeftPercent="4.31%w"
-                    app:layout_heightPercent="15.14%w">
+                    app:layout_marginLeftPercent="4.31%w">
                     <ImageView
                         android:id="@+id/tagIv"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/wechat_transfer_receive"
-                        android:adjustViewBounds="true"/>
+                        android:adjustViewBounds="true"
+                        android:layout_centerVertical="true"/>
                     <TextView
+                        android:id="@+id/tagView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/tagIv"
@@ -49,7 +50,7 @@
                         android:id="@+id/wechatMyTransferReceivedMoneyTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/tagIv"
+                        android:layout_below="@+id/tagView1"
                         android:layout_toRightOf="@+id/tagIv"
                         android:text="¥123.00"
                         android:textColor="@color/white"

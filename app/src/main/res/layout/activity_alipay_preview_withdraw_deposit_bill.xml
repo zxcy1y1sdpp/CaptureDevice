@@ -33,7 +33,7 @@
                     android:id="@+id/mAlipayPreviewWithdrawDepositBillBankPicIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon0"
+                    android:src="@drawable/head_default"
                     percent:layout_widthPercent="6.91%w"
                     percent:layout_heightPercent="6.91%w"
                     percent:riv_border_color="@color/wechatPreviewTitle"

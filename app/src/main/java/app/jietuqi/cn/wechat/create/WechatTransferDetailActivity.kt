@@ -22,6 +22,9 @@ import com.zhouyou.http.EventBusUtil
 import kotlinx.android.synthetic.main.activity_wechat_transfer_detail.*
 import kotlinx.android.synthetic.main.base_wechat_preview_transfer.*
 import kotlinx.android.synthetic.main.base_wechat_preview_transfer_time.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 作者： liuyuanbo on 2018/10/20 15:09.
@@ -39,6 +42,7 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
     }
 
     override fun initAllViews() {
+        showLoadingDialog("正在加载")
         setWechatViewTitle("交易详情", 0)
     }
 
@@ -106,7 +110,6 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                     mTransferNickNameTv.text = "待确认收款"
                     mWechatPreviewTransferLayout.visibility = View.VISIBLE
                     mReceiveTimeTv.visibility = View.INVISIBLE
-                    mReceiveMoneyTv.visibility = View.VISIBLE
                     val spannableString = SpannableString("1天内未确认，将退还给对方。立即退还")
                     spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), 14, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     mGrayTv.text = spannableString
@@ -133,7 +136,7 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
                 "待收款" -> {
                     mTransferIv.setImageResource(R.drawable.wechat_transfer_receiving)
                     mTransferNickNameTv.text = StringUtils.insertFrontAndBack(mEntity.wechatUserNickName, "待", "确认收款")
-                    mTransferTimeTv.visibility = View.INVISIBLE
+                    mReceiveTimeTv.visibility = View.INVISIBLE
                     val spannableString = SpannableString("1天内朋友未确认，将退还给你。重发转账消息")
                     spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#576b95")), 15, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     mCheckChargeTv.text = spannableString
@@ -157,14 +160,22 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
         super.onClick(v)
         when(v.id){
             R.id.mReceiveMoneyTv ->{
-                mEntity.receive = true
-                mEntity.needEventBus = false
-                mEntity.receiveTime = TimeUtil.stampToDateWithS(TimeUtil.getCurrentTimeEndMs())
-                mEntity.transferType = "已收钱"
-                setLqtInfo()
-                setData()
-                mEntity.receiveTime = TimeUtil.getCurrentTimeEndMs().toString()
-                EventBusUtil.post(mEntity)
+                showLoadingDialog("正在加载")
+                GlobalScope.launch { // 在一个公共线程池中创建一个协程
+                    delay(300L) // 非阻塞的延迟一秒（默认单位是毫秒）
+                    runOnUiThread {
+                        dismissLoadingDialog()
+                        mEntity.receive = true
+                        mEntity.needEventBus = false
+                        mEntity.receiveTime = TimeUtil.stampToDateWithS(TimeUtil.getCurrentTimeEndMs())
+                        mEntity.transferType = "已收钱"
+                        setLqtInfo()
+                        setData()
+                        mEntity.receiveTime = TimeUtil.getCurrentTimeEndMs().toString()
+                        mEntity.tagStr = "收钱"
+                        EventBusUtil.post(mEntity)
+                    }
+                }
             }
             R.id.mTransferLQTTv ->{
                 val dialog = EditDialog()
@@ -175,11 +186,19 @@ class WechatTransferDetailActivity : BaseWechatActivity(), EditDialogChoiceListe
     }
     override fun onChoice(entity: EditDialogEntity?) {
         mTransferLQTTv.text = StringUtils.insertFrontAndBack(entity?.content, "转入资金即享", "%年化收益")
-
     }
     override fun onResume() {
-        // TODO Auto-generated method stub
         super.onResume()
-        needVipForCover()
+        val isSimulator = intent.getBooleanExtra(IntentKey.IS_SIMULATOR, false)
+        if (isSimulator){
+            needVipForCover()
+        }
+        GlobalScope.launch { // 在一个公共线程池中创建一个协程
+            delay(500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            runOnUiThread {
+                dismissLoadingDialog()
+                mWaitingView.visibility = View.GONE
+            }
+        }
     }
 }

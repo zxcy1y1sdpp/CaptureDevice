@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wechatSimulatorBg"
+    android:orientation="vertical">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13.14%w">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/mWechatSimulatorPreviewBackITv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            app:layout_widthPercent="13.14%w"
+            app:stv_isShowState="true"
+            app:stv_state_drawable="@drawable/wechat_back_black"
+            app:stv_pressBgColor="@color/wechatLightGray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新的朋友"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/mWechatSimulatorPreviewBackITv"
+            android:layout_alignTop="@+id/mWechatSimulatorPreviewBackITv"
+            android:layout_alignBottom="@+id/mWechatSimulatorPreviewBackITv"/>
+        <TextView
+            android:id="@+id/mAddNewFriendsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加朋友"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_alignTop="@+id/mWechatSimulatorPreviewBackITv"
+            android:layout_alignBottom="@+id/mWechatSimulatorPreviewBackITv"
+            android:layout_alignParentRight="true"
+            app:layout_marginRightPercent="4.54%w"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Line"
+        android:background="@color/wechatLine"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mNewFriendsRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:clipToPadding="false"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

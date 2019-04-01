@@ -44,7 +44,7 @@
         android:id="@+id/mAlibabaRedPacketAvatarIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon0"
+        android:src="@drawable/head_default"
         app:layout_heightPercent="21.9%w"
         app:layout_widthPercent="21.9%w"
         app:layout_marginTopPercent="20.4%w"

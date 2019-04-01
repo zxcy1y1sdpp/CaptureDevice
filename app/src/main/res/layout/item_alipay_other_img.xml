@@ -24,7 +24,6 @@
             android:id="@+id/sAlipayOtherImgIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon0"
             android:scaleType="fitStart"
             app:bubble_angle="1dp"
             app:bubble_arrowLocation="left"

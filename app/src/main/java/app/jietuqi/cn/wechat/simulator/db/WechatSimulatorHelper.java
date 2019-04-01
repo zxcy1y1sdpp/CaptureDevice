@@ -63,7 +63,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                     "lastTime integer, resourceName text, timeType text, " +
 
                     "redPacketCount integer, receiveCompleteTime text, joinReceiveRedPacket text, receiveRedPacketRoleList text, redPacketSenderNickName text, wechatUserNickName text, groupRedPacketInfo BLOB," +
-                    "fileEntity BLOB, groupInfo BLOB");
+                    "fileEntity BLOB, groupInfo BLOB, lastReceive text");
             builder.append(")");
             db.execSQL(builder.toString());
 //            db.close();
@@ -110,6 +110,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             values.put("receive", wechatScreenShotEntity.receive);
             values.put("money", wechatScreenShotEntity.money);
             values.put("receiveTransferId", wechatScreenShotEntity.receiveTransferId);
+            values.put("lastReceive", wechatScreenShotEntity.lastReceive);
             values.put("redPacketSenderNickName", wechatScreenShotEntity.redPacketSenderNickName);
 
             ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
@@ -242,6 +243,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
                     values.put("receive", entity.receive);
                     values.put("money", entity.money);
                     values.put("receiveTransferId", entity.receiveTransferId);
+                    values.put("lastReceive", entity.lastReceive);
                     values.put("redPacketSenderNickName", entity.redPacketSenderNickName);
 
                     ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
@@ -391,6 +393,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             }else if (entity.msgType == 4){
                 entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
                 entity.money = cursor.getString(cursor.getColumnIndex("money"));
+                entity.lastReceive = "1".equals(cursor.getString(cursor.getColumnIndex("lastReceive")));
                 entity.redPacketSenderNickName = cursor.getString(cursor.getColumnIndex("redPacketSenderNickName"));
                 if (TextUtils.isEmpty(entity.msg)){
                     entity.msg = "恭喜发财，大吉大利";
@@ -501,6 +504,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             entity.timeType = cursor.getString(cursor.getColumnIndex("timeType"));
             entity.msgType = cursor.getInt(cursor.getColumnIndex("msgType"));
             entity.isComMsg = "1".equals(cursor.getString(cursor.getColumnIndex("isComMsg")));
+            entity.lastReceive = "1".equals(cursor.getString(cursor.getColumnIndex("lastReceive")));
             entity.lastTime = cursor.getLong(cursor.getColumnIndex("lastTime"));
             entity.msg = cursor.getString(cursor.getColumnIndex("msg"));
             entity.filePath = cursor.getString(cursor.getColumnIndex("filePath"));
@@ -622,6 +626,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
         }else if (msgType == 4){
             cv.put("receive" , wechatScreenShotEntity.receive);
             cv.put("redPacketSenderNickName" , wechatScreenShotEntity.redPacketSenderNickName);
+            cv.put("lastReceive" , wechatScreenShotEntity.lastReceive);
             ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
             try {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
@@ -748,6 +753,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             entity.img = cursor.getInt(cursor.getColumnIndex("img"));
             entity.time = cursor.getLong(cursor.getColumnIndex("time"));
             entity.receive = "1".equals(cursor.getString(cursor.getColumnIndex("receive")));
+            entity.lastReceive = "1".equals(cursor.getString(cursor.getColumnIndex("lastReceive")));
             entity.money = cursor.getString(cursor.getColumnIndex("money"));
             entity.position = cursor.getInt(cursor.getColumnIndex("position"));
             entity.redPacketCount = cursor.getInt(cursor.getColumnIndex("redPacketCount"));
@@ -851,6 +857,7 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             entity.img = cursor.getInt(cursor.getColumnIndex("img"));
             entity.time = cursor.getLong(cursor.getColumnIndex("time"));
             entity.receive = "1".equals(cursor.getString(cursor.getColumnIndex("receive")));
+            entity.lastReceive = "1".equals(cursor.getString(cursor.getColumnIndex("lastReceive")));
             entity.money = cursor.getString(cursor.getColumnIndex("money"));
             entity.position = cursor.getInt(cursor.getColumnIndex("position"));
             entity.redPacketCount = cursor.getInt(cursor.getColumnIndex("redPacketCount"));
@@ -919,8 +926,18 @@ public class WechatSimulatorHelper extends MyOpenHelper implements IOpenHelper {
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<WechatUserEntity>>() {}.getType();
             String role = cursor.getString(cursor.getColumnIndex("receiveRedPacketRoleList"));
-            ArrayList<WechatUserEntity> roles = gson.fromJson(role, type);
-            entity.receiveRedPacketRoleList = roles;
+            if (!TextUtils.isEmpty(role)){
+                ArrayList<WechatUserEntity> roles = gson.fromJson(role, type);
+                WechatUserEntity receiveRpEntity;
+                for (int i = 0, size = roles.size(); i < size; i++) {
+                    receiveRpEntity = roles.get(i);
+                    if (receiveRpEntity.wechatUserId.equals(userEntity.wechatUserId)){
+                        roles.remove(receiveRpEntity);
+                        roles.add(userEntity);
+                    }
+                }
+                entity.receiveRedPacketRoleList = roles;
+            }
             update(entity, false);
         }
         //关闭游标

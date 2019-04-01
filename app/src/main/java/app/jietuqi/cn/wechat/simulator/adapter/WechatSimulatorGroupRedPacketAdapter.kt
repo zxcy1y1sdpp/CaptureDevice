@@ -64,21 +64,6 @@ class WechatSimulatorGroupRedPacketAdapter(val mEntity: WechatScreenShotEntity, 
         private val packetCount: TextView = itemView.findViewById(R.id.mWechatScreenShotSendRedPacketMoneyTv)
         private val joinReceive: PercentLinearLayout = itemView.findViewById(R.id.sJoinLayout)
         private val emojiLayout: PercentLinearLayout = itemView.findViewById(R.id.sEmojiLayout)
-
-        /*init {
-            itemView.setOnClickListener{
-                var entity: WechatBankEntity
-                val choiceEntity = mList[adapterPosition]
-                for (i in mList.indices) {
-                    entity = mList[i]
-                    entity.isCheck = false
-                }
-                choiceEntity.isCheck = true
-                mCloseListener.choice(choiceEntity, adapterPosition)
-                notifyDataSetChanged()
-
-            }
-        }*/
         fun bind(){
             GlideUtil.displayHead(itemView.context, mEntity.avatar, avatar)
             nickName.text = StringUtils.insertBack(mEntity.redPacketSenderNickName, "的红包")

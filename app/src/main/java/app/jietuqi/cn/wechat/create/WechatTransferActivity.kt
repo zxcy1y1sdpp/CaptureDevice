@@ -88,6 +88,7 @@ class WechatTransferActivity : BaseWechatActivity(), ChangeWechatTransferDialog.
             R.id.mStatusLayout ->{
                 var dialog = ChangeWechatTransferDialog()
                 dialog.setOnItemSelectListener(this)
+                dialog.setTitle("已收钱", "待收款", "已退款")
                 dialog.show(supportFragmentManager, "Dialog")
             }
             R.id.mTransferOutTimeLayout ->{

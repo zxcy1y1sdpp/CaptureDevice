@@ -174,15 +174,18 @@ class WechatListFragmentAdapter(val mList: MutableList<WechatUserEntity>) : Recy
 
                         }
                         4 ->{//领红包
-                            if (entity.isComMsg){//自己的红包被领取、
-                                if (entity.groupRedPacketInfo.wechatUserId == UserOperateUtil.getWechatSimulatorMySelf().wechatUserId){
-                                    lastMsg.text = "你领取了自己发的红包"
+                            if (!entity.isComMsg){//自己的红包被领取、
+                                if (entity.groupRedPacketInfo.wechatUserId == UserOperateUtil.getWechatSimulatorMySelf().wechatUserId){//红包是自己发的
+                                    if (entity.wechatUserId == entity.groupRedPacketInfo.wechatUserId){//领红包的人是自己
+                                        lastMsg.text = "你领取了自己发的红包"
+                                    }else{
+                                        lastMsg.text = StringUtils.insertBack(entity.wechatUserNickName, "领取了你的红包，你的红包已被领完")
+                                    }
                                 }else{
                                     lastMsg.text = StringUtils.insertBack(entity.groupRedPacketInfo.wechatUserNickName, "领取了你的红包，你的红包已被领完")
                                 }
-
                             }else{//领取对方的红包
-                                lastMsg.text = StringUtils.insertFrontAndBack(entity.wechatUserNickName, "你领取了", "的红包")
+                                lastMsg.text = StringUtils.insertFrontAndBack(entity.groupRedPacketInfo.wechatUserNickName, "你领取了", "的红包")
                             }
                         }
                         7 ->{//语音

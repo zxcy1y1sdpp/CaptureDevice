@@ -24,6 +24,7 @@ import app.jietuqi.cn.widget.MainNavigateTabBar
 import app.jietuqi.cn.widget.ProgressButton
 import app.jietuqi.cn.widget.dialog.UpdateView
 import cn.jzvd.Jzvd
+import com.lansosdk.videoeditor.LanSoEditor
 import com.xinlan.imageeditlibrary.ToastUtils
 import com.zhouyou.http.AppManager
 import com.zhouyou.http.EasyHttp
@@ -31,7 +32,6 @@ import com.zhouyou.http.callback.CallBackProxy
 import com.zhouyou.http.callback.DownloadProgressCallBack
 import com.zhouyou.http.callback.SimpleCallBack
 import com.zhouyou.http.exception.ApiException
-import com.zhouyou.http.utils.HttpLog
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +39,7 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
+import java.util.*
 
 /**
  * 作者： liuyuanbo on 2018/10/23 17:14.
@@ -47,7 +48,7 @@ import java.io.File
  * 用途： App首页
  */
 
-open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
+open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener{
     /**
      * 是否正在更新
      */
@@ -73,6 +74,7 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
         return false
     }
     override fun initAllViews() {
+        LanSoEditor.initSDK(applicationContext, "xz_LanSongSDK_android.key")
         Log.e("分辨率", resources.displayMetrics.toString())
         GlobalScope.launch { // 在一个公共线程池中创建一个协程
             var bankList = UserOperateUtil.getWechatSimulatorBank()
@@ -139,14 +141,12 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
                     override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
                         val progress = (bytesRead * 100 / contentLength).toInt()
                         progressButton.setProgress(progress)
-                        HttpLog.e(progress.toString() + "% ")
                         if (done) {
                         }
                     }
 
                     override fun onStart() {
                         mDownloading = true
-                        HttpLog.i("======" + Thread.currentThread().name)
                     }
 
                     override fun onComplete(path: String) {
@@ -156,7 +156,6 @@ open class HomeActivity : BaseOverallActivity(), UpdateView.UpdateListener {
                     }
 
                     override fun onError(e: ApiException) {
-                        HttpLog.i("======" + Thread.currentThread().name)
                     }
                 })
     }

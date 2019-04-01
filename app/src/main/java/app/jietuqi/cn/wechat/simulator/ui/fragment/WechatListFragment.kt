@@ -161,6 +161,11 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
                                 }
                                 2 ->{
                                     SharedPreferencesUtils.putData(SharedPreferenceKey.SHOW_LQT, !showLqt)
+                                    if (showLqt){
+                                        showQQTipDialog("零钱通已关闭")
+                                    }else{
+                                        showQQTipDialog("零钱通已开启，转账收款时会显示零钱通收益")
+                                    }
                                 }
                             }
                         }
@@ -175,7 +180,6 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
             changeEntity.groupHeaderByte = entity.groupHeaderByte
             changeEntity.groupHeader = entity.groupHeader
             mAdapter?.notifyItemChanged(entity.listId)
-            showToast("刷新数据")
         }else{
             if (0 == mList.size){//没有数据
                 mList.add( entity)
@@ -187,10 +191,13 @@ class WechatListFragment : BaseWechatFragment(), WechatSimulatorDialog.OperateLi
                         position = mList.indexOf(it)
                     }
                 }
-                mHelper.update(entity)
-                mList.removeAt(position)
-                mList.add(position, entity)
-                mAdapter?.notifyItemChanged(position)
+                if (position != -1){
+                    mHelper.update(entity)
+                    mList.removeAt(position)
+                    mList.add(position, entity)
+                    mAdapter?.notifyItemChanged(position)
+                }
+
             }
         }
     }

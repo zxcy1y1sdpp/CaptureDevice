@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sAvatarIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginRightPercent="30.99%h"
+            app:layout_widthPercent="76%h"
+            app:layout_heightPercent="76%h"
+            android:src="@drawable/head_default"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="5dp"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:id="@+id/sNickNameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            app:layout_marginLeftPercent="93%h">
+            <!--
+            app:layout_marginLeftPercent="93%h"-->
+            <TextView
+                android:id="@+id/sNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蓝梦道尊"
+                android:textColor="@color/black"
+                android:textSize="@dimen/overall28px"/>
+            <TextView
+                android:id="@+id/sMsgTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请求添加你为朋友"
+                android:textColor="@color/wechatLightGray"/>
+        </LinearLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</RelativeLayout>

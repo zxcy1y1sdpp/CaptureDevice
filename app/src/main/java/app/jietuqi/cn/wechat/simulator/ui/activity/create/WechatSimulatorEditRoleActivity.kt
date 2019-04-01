@@ -87,6 +87,7 @@ class WechatSimulatorEditRoleActivity : BaseWechatActivity(), EditDialogChoiceLi
                 mHelper.queryByIdAndUpdate(mUserEntity)
                 mUserEntity?.eventBusTag = "删除并刷新"
                 EventBusUtil.post(mUserEntity)
+                EventBusUtil.post("聊天页面改变用户信息")
                 createMsg()
                 finish()
             }

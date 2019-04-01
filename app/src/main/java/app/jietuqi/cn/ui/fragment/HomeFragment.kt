@@ -3,6 +3,7 @@ package app.jietuqi.cn.ui.fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.view.View
 import android.widget.RelativeLayout
+import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
 import app.jietuqi.cn.base.BaseFragment
 import app.jietuqi.cn.callback.FabScrollListener
@@ -12,6 +13,7 @@ import app.jietuqi.cn.entity.BannerEntity
 import app.jietuqi.cn.http.HttpConfig
 import app.jietuqi.cn.ui.activity.OverallPublishFriendsCircleActivity
 import app.jietuqi.cn.ui.adapter.HomeAdapter
+import app.jietuqi.cn.ui.adapter.HomeFunAdapter
 import app.jietuqi.cn.ui.entity.OverallApiEntity
 import app.jietuqi.cn.ui.entity.OverallDynamicEntity
 import app.jietuqi.cn.ui.entity.ProductFlavorsEntity
@@ -26,6 +28,7 @@ import com.zhouyou.http.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 /**
  * 作者： liuyuanbo on 2018/10/23 17:27.
@@ -34,14 +37,12 @@ import org.greenrobot.eventbus.ThreadMode
  * 用途：
  */
 
-class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
+class HomeFragment : BaseFragment(), LikeListener, HideScrollListener, HomeFunAdapter.ChoiceVideoListener{
     override fun needLoading() = true
-
     private var mAdapter: HomeAdapter? = null
     override fun setLayoutResouceId() = R.layout.fragment_home
     private var mList: ArrayList<OverallDynamicEntity> = arrayListOf()
     private var mBannerList: ArrayList<BannerEntity> = arrayListOf()
-
     override fun initAllViews() {
         EventBusUtil.register(this)
         setRefreshLayout(mOverallHomeRefreshLayout)
@@ -53,7 +54,6 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
         }
         getBannerData()
     }
-
     override fun initViewsListener() {
         mOverallPublishBtn.setOnClickListener(this)
         mRecyclerView.addOnScrollListener(FabScrollListener(this))
@@ -177,9 +177,16 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
                             mBannerList.clear()
                         }
                         t?.let { mBannerList.addAll(it) }
-                        mAdapter = HomeAdapter(mList, mBannerList, this@HomeFragment /*,this*/)
+                        if (!BuildConfig.DEBUG){
+                            if (UserOperateUtil.needColseByChannel()){//如果需要隐藏
+                                if (UserOperateUtil.isVivoChannel()){//如果是vivo，隐藏加粉加群的轮播
+                                    mBannerList.removeAt(0)
+                                    mBannerList.removeAt(0)
+                                }
+                            }
+                        }
+                        mAdapter = HomeAdapter(mList, mBannerList, this@HomeFragment,this@HomeFragment)
                         mRecyclerView.adapter = mAdapter
-//                        mAdapter?.notifyItemChanged(0)
                     }
 
                     override fun onError(e: ApiException) {
@@ -227,4 +234,8 @@ class HomeFragment : BaseFragment(), LikeListener, HideScrollListener{
     override fun like(overallDynamicEntity: OverallDynamicEntity?, comment: OverallDynamicEntity.Comment?, type: Int) {
         overallDynamicEntity?.let { likeAndUnLike(it) }
     }
+    override fun choiceVideo() {
+        callVideo()
+    }
+
 }

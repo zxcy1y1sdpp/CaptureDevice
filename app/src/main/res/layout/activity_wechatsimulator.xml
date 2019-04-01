@@ -198,34 +198,61 @@
                 android:layout_height="wrap_content"
                 app:layout_heightPercent="26.91%w"
                 android:layout_marginTop="@dimen/wechatLineNarrow">
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/mWechatFun6"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="语音通话"
-                    android:drawableTop="@drawable/wechat_icon6"
-                    app:stv_pressBgColor="@color/pressColor"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:padding="@dimen/normalPadding"
-                    android:background="@color/white"/>
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="语音通话"
+                        android:drawableTop="@drawable/wechat_icon6"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/wechatLine"/>
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/mWechatFun8"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="视频通话"
-                    android:drawableTop="@drawable/wechat_icon7"
-                    app:stv_pressBgColor="@color/pressColor"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:padding="@dimen/normalPadding"
-                    android:background="@color/white"/>
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="视频通话"
+                        android:drawableTop="@drawable/wechat_icon7"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
+
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
@@ -333,13 +360,47 @@
                     android:orientation="vertical"
                     android:background="@color/white"
                     android:layout_weight="1">
-                    <!--<com.coorchice.library.SuperTextView
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="微信首页"
+                        android:drawableTop="@drawable/wechat_icon10"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/mCloseLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_heightPercent="26.91%w"
+                android:layout_marginTop="@dimen/wechatLineNarrow"
+                android:background="@color/white">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1">
+                    <com.coorchice.library.SuperTextView
                         android:id="@+id/mWechatFun16"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="账单"
-                        android:drawableTop="@drawable/wechat_icon9"
+                        android:text="转账成功"
+                        android:drawableTop="@drawable/wechat_icon5"
                         app:stv_pressBgColor="@color/pressColor"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -349,42 +410,70 @@
                         android:id="@+id/mVipFun16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/vip_fun"/>-->
-
+                        android:src="@drawable/vip_fun"/>
                 </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_heightPercent="26.91%w"
-                android:layout_marginTop="@dimen/wechatLineNarrow"
-                android:visibility="gone">
                 <View
                     android:layout_width="@dimen/wechatLineNarrow"
                     android:layout_height="match_parent"
                     android:background="@color/wechatLine"/>
-                <LinearLayout
-                    android:id="@+id/mWechatFun9"
+
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:gravity="center"
                     android:background="@color/white"
                     android:layout_weight="1"
                     android:visibility="invisible">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun17"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="零钱明细"
+                        android:drawableTop="@drawable/wechat_icon8"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
                     <ImageView
+                        android:id="@+id/mVipFun17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/wechat_icon7"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/normalPadding"
-                        android:text="微信聊天" />
-                </LinearLayout>
+                        android:src="@drawable/vip_fun"/>
+                </RelativeLayout>
 
+                <View
+                    android:layout_width="@dimen/wechatLineNarrow"
+                    android:layout_height="match_parent"
+                    android:background="@color/wechatLine"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:visibility="invisible">
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/mWechatFun18"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="微信首页"
+                        android:drawableTop="@drawable/wechat_icon10"
+                        app:stv_pressBgColor="@color/pressColor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/normalPadding"
+                        android:background="@color/white"/>
+                    <ImageView
+                        android:id="@+id/mVipFun18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/vip_fun"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
             <TextView

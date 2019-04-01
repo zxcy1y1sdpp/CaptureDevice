@@ -2,7 +2,8 @@ package app.jietuqi.cn.ui.alipayscreenshot;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 
 /**
  * 作者： liuyuanbo on 2018/12/10 17:56.
@@ -22,8 +23,20 @@ public class test extends Activity {
          * 返回正数表示：o1大于o2。
          */
 
-        int mHeaderViewHeight;
-//        EnsureDialog ensureDialog = null;
+        String[] mTitle = new String[3];
+
+
+
+
+
     }
+
+    public void setTitle(String... title){
+
+        for (int i = 0; i < 20; i++) {
+            
+        }
+    }
+
 
 }

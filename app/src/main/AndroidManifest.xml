@@ -208,6 +208,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:resizeableActivity="false" />
+        <!-- 向个人转账页面 -->
+        <activity
+            android:name=".wechat.preview.WechatPreviewPaySuccessActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
         <!-- 预览 - 微信  零钱明细页面 -->
         <activity
             android:name=".wechat.preview.WechatPreviewChargeDetailActivity"
@@ -240,6 +247,13 @@
         <!-- 微信模拟器 -->
         <activity
             android:name=".wechat.create.WechatLooseChangeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:resizeableActivity="false" />
+        <!--微信支付成功的页面-->
+        <activity
+            android:name=".wechat.create.WechatPaySuccessActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
@@ -444,6 +458,20 @@
         <!-- 微信模拟器 == 群聊页面 -->
         <activity
             android:name=".wechat.simulator.ui.activity.WechatSimulatorPreviewGroupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 新的朋友页面 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatNewFriendsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"/>
+        <!-- 微信模拟器 == 新的朋友修改信息页面 -->
+        <activity
+            android:name=".wechat.simulator.ui.activity.WechatNewFriendsEditActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -1054,6 +1082,18 @@
         <!--微信截图 - 充值页面-->
         <activity
             android:name=".wechat.screenshot.WechatScreenShotChangeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!--蓝松视频、图片编辑相关-->
+        <activity
+            android:name=".lansong.ui.LansongActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".lansong.ui.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

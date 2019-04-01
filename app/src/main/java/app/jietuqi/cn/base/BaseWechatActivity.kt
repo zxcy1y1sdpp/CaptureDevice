@@ -18,6 +18,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.zhouyou.http.EventBusUtil
 import com.zhy.android.percent.support.PercentRelativeLayout
 import kotlinx.android.synthetic.main.base_wechat_preview_title.*
+import kotlinx.android.synthetic.main.include_wechat_preview_btn.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,6 +102,9 @@ abstract class BaseWechatActivity : BaseActivity(), ChoicePaySheetDialog.OnItemC
                 onBackPressed()
                 finish()
             }
+            R.id.previewBtn -> {
+
+            }
             else -> {
             }
         }
@@ -128,15 +132,15 @@ abstract class BaseWechatActivity : BaseActivity(), ChoicePaySheetDialog.OnItemC
                 if (s.isNotEmpty()) {
                     if (inputEt1.text.toString().isNotEmpty()){
                         if (inputEt2.text.toString().isNotEmpty()){
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, true)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, true)
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                         }
                     } else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                 }
             }
         })
@@ -153,19 +157,20 @@ abstract class BaseWechatActivity : BaseActivity(), ChoicePaySheetDialog.OnItemC
                 if (s.isNotEmpty()) {
                     if (inputEt2.text.toString().isNotEmpty()){
                         if (inputEt1.text.toString().isNotEmpty()){
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, true)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, true)
                         }else{
-                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                            OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                         }
                     } else{
-                        OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                        OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                     }
                 } else {
-                    OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, mPreviewBtn, false)
+                    OtherUtil.changeWechatPreviewBtnBg(this@BaseWechatActivity, previewBtn, false)
                 }
             }
         })
-        needPreviewBtn(listener)
+//        needPreviewBtn(listener)
+        previewBtn.setOnClickListener(listener)
     }
     protected fun needPreviewBtn(listener: View.OnClickListener) {
         mPreviewBtn = findViewById(R.id.previewBtn)

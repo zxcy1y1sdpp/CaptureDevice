@@ -2,22 +2,31 @@ package app.jietuqi.cn.base
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import app.jietuqi.cn.R
 import app.jietuqi.cn.callback.LoadMoreListener
 import app.jietuqi.cn.callback.RefreshListener
 import app.jietuqi.cn.constant.ColorFinal
+import app.jietuqi.cn.constant.RequestCode
+import app.jietuqi.cn.widget.MyGlideEngine
 import com.jaeger.library.StatusBarUtil
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.xinlan.imageeditlibrary.ToastUtils
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
 import com.zhouyou.http.EventBusUtil
 import com.zhouyou.http.widget.ProgressUtils
 import kotlinx.android.synthetic.main.include_loading.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.annotations.NotNull
@@ -37,6 +46,10 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     var mPageSize = 1
     var mLimitSize = 30
     var mQQDialog: QMUITipDialog? = null
+    /**
+     * 最大选择的图片个数
+     */
+    private var mMaxCount = 1
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         /**
          * 解决内存泄漏的重要方法，防止onCreateView方法多次执行
@@ -238,8 +251,39 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
                 .create()
         mQQDialog?.show()
     }
-
+    fun showQQTipDialog(msg: String, type: Int = 0){
+        var builder = QMUITipDialog.Builder(activity).setTipWord(msg)
+        var dialog: QMUITipDialog
+        dialog = if (type == 0){
+            builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS).create()
+        }else{
+            builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL).create()
+        }
+        dialog.show()
+        GlobalScope.launch { //
+            delay(1500L) // 非阻塞的延迟一秒（默认单位是毫秒）
+            dialog.dismiss()
+        }
+    }
     fun dismissQQDialog() {
         mQQDialog?.dismiss()
+    }
+
+    fun callVideo(maxCount: Int = 1, needCrop: Boolean = false){
+        mMaxCount = maxCount
+        Matisse.from(activity)
+                .choose(MimeType.ofVideo())
+                .showSingleMediaType(true)
+//                .choose(MimeType.ofAll())
+                .theme(R.style.Matisse_Dracula)// 黑色背景
+//                        .capture(true)  // 开启相机，和 captureStrategy 一并使用否则报错
+//                        .captureStrategy(CaptureStrategy(true,"app.jietuqi.cn.nougat")) // 拍照的图片路径
+                .countable(true)
+                .maxSelectable(maxCount)
+                .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .thumbnailScale(0.85f)
+                .imageEngine(MyGlideEngine())
+                .forResult(RequestCode.IMAGE_SELECT)
     }
 }
