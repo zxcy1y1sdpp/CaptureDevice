@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <Button
         android:id="@+id/mChangeBgBtn"
@@ -15,4 +16,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="合成"/>
+
+    <Button
+        android:id="@+id/mTestBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="鸭子"/>
+    <Button
+        android:id="@+id/mTest2Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="仙子"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mChoiceImageRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:paddingLeft="@dimen/normalPadding"/>
 </LinearLayout>

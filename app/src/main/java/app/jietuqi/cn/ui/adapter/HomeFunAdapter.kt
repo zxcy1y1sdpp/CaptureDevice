@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.jietuqi.cn.BuildConfig
 import app.jietuqi.cn.R
-import app.jietuqi.cn.lansong.ui.LansongActivity
+import app.jietuqi.cn.lansong.ui.activity.LansongActivity
 import app.jietuqi.cn.ui.activity.*
 import app.jietuqi.cn.ui.entity.HomeFunEntity
 import app.jietuqi.cn.ui.wechatscreenshot.ui.create.WechatScreenShotActivity

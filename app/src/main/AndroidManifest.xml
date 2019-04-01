@@ -1088,12 +1088,12 @@
 
         <!--蓝松视频、图片编辑相关-->
         <activity
-            android:name=".lansong.ui.LansongActivity"
+            android:name=".lansong.ui.activity.LansongActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".lansong.ui.VideoPlayerActivity"
+            android:name=".lansong.ui.activity.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

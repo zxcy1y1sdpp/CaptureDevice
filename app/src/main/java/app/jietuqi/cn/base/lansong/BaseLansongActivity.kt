@@ -27,6 +27,7 @@ import java.util.*
 abstract class BaseLansongActivity : BaseActivity(){
     private var mWidth = 0f
     private var mHeight = 0f
+    private var mLansong = false
     /**
      * 准备裁剪
      */
@@ -69,9 +70,10 @@ abstract class BaseLansongActivity : BaseActivity(){
         uCrop.start(this, RequestCode.CROP_IMAGE)
     }
 
-    fun callAlbumForLansong(maxCount: Int = 1, needCrop: Boolean = false, width: Float = 893f, height: Float = 515f){
+    fun callAlbumForLansong(maxCount: Int = 1, needCrop: Boolean = false, width: Float = 893f, height: Float = 515f, fromLansong: Boolean = false){
         mMaxCount = maxCount
         mNeedCrop = needCrop
+        mLansong = fromLansong
         mWidth = width
         mHeight = height
         Matisse.from(this)
@@ -92,7 +94,7 @@ abstract class BaseLansongActivity : BaseActivity(){
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+//        super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             RequestCode.IMAGE_SELECT ->{
                 if (null != data){
